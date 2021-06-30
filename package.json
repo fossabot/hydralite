@@ -9,7 +9,7 @@
   "scripts": {
     "commit": "git add . && cz",
     "commit:signed": "cz -S",
-    "setup": "yarn && yarn workspace @hydralite/api run setup",
+    "setup": "yarn install && yarn workspace @hydralite/api run setup",
     "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\""
   },
   "devDependencies": {
