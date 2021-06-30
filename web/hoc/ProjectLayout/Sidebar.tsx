@@ -2,24 +2,21 @@ import React from "react";
 import styles from "./ProjectLayout.module.scss";
 import { lower_pages, Page, upper_pages } from "./pages";
 import { ProjectButton } from "./Button";
+import { project } from "./projects";
 
 export interface SidebarProps {
     project: string;
     selected: Page;
 }
 
-export const Sidebar: React.FunctionComponent<SidebarProps> = ({ project, selected }) => {
-    const name = "Project Hydralite";
-    const logo = "/logo.png";
-    const members = 120;
-
+export const Sidebar: React.FunctionComponent<SidebarProps> = ({ selected }) => {
     return (
         <div className={styles.sidebar}>
             <div className={styles.projectInfo}>
-                <img src={logo} alt="Logo" className={styles.logo} />
+                <img src={project.logo} alt="Logo" className={styles.logo} />
                 <div className={styles.projectInfoText}>
-                    <div className={styles.projectInfoTextName}>{name}</div>
-                    <div className={styles.projectInfoTextCount}>{members} members</div>
+                    <div className={styles.projectInfoTextName}>{project.name}</div>
+                    <div className={styles.projectInfoTextCount}>{project.members} members</div>
                 </div>
             </div>
             <div className={styles.buttons}>

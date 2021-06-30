@@ -7,7 +7,8 @@ import { useRouter } from 'next/router'
 import { Pages } from 'hoc/ProjectLayout/pages'
 import { Case } from '~/components/Switch/Case'
 import { Switch } from '~/components/Switch/Switch'
-import { FlagIcon, GotoIcon, HornIcon, PersonIcon, UseableIcon } from '~/components/Icons'
+import { FlagIcon, GotoIcon, HornIcon, PersonIcon, UseableIcon } from '~/components/Icons';
+import { project } from 'hoc/ProjectLayout/projects'
 
 const WelcomeWidget: React.FC<{ color: string, icon: typeof UseableIcon }> = ({ color, icon, children }) => {
     const iconHolder = { icon };
@@ -25,7 +26,7 @@ const WelcomeWidget: React.FC<{ color: string, icon: typeof UseableIcon }> = ({ 
 const HomePage: React.FC<{ name: string }> = ({ name }) => {
     return (
         <>
-            <h2 className={style.homeTitle}>Welcome to <span style={{ color: '#695CFF' }}>{name}</span></h2>
+            <h2 className={style.homeTitle}>Welcome to <span style={{ color: project.color }}>{project.name}</span></h2>
             <h3 className={style.homeHeader}>Welcome to your shiny new project. Here’s some tips to get you setup.</h3>
 
             <WelcomeWidget color="#FFA2D4" icon={PersonIcon}>
