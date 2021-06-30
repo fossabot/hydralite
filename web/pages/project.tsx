@@ -6,7 +6,12 @@ import { ProjectDashboard } from '~/components/Project/Project'
 const Project = () => {
     return (
         <div className={styles.project}>
-            <ProjectDashboard />
+            <ProjectDashboard
+                name="Project Hydralite"
+                members={120}
+
+                logo="/logo.png"
+            />
             <Meta
                 title="Hydralite"
                 description="Hydralite is the new open source platform for project management and open source project discovery."
