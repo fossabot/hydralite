@@ -31,7 +31,7 @@
     align-items: center;
 
     height: 50px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     margin-left: 5px;
 }
 .logoText {
@@ -110,15 +110,15 @@
 
     border-radius: 10px;
     height: 60px;
-    width: 260px;
+    width: 250px;
 
     background-color: transparent;
     fill: #2D3748;
     color: #2D3748;
     cursor: pointer;
 
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     user-select: none;
 }
 .selected {
@@ -133,10 +133,10 @@
     height: 30px;
 }
 .buttonTitle {
-    margin-left: 20px;
+    margin-left: 30px;
     
     font-style: normal;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 30px;
 }
