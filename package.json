@@ -9,7 +9,8 @@
   "scripts": {
     "commit": "git add . && cz",
     "commit:signed": "cz -S",
-    "dev:global": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\""
+    "setup": "yarn && yarn workspace @hydralite/api run setup",
+    "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\""
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",

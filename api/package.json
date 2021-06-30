@@ -10,6 +10,7 @@
     "prisma:format": "prisma format",
     "build": "tsc && tsc-alias",
     "start": "npm run build && node dist/index.js",
+    "setup": "npm run prisma:push",
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts"
   },
   "dependencies": {
