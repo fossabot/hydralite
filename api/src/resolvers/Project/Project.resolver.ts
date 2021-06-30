@@ -1,4 +1,0 @@
-// @Resolver
-// class ProjectResolver {
-
-// }

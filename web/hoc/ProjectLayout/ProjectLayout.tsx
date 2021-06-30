@@ -110,11 +110,11 @@ export const Sidebar: React.FC<ProjectDashboardProps> = ({ name, members, logo, 
 
     return (
         <div className={styles.sidebar}>
-            <div className={styles.logo}>
-                <img src={logo} alt="Logo" className={styles.icon} />
-                <div className={styles.logoText}>
-                    <div className={styles.logoTextName}>{name}</div>
-                    <div className={styles.logoTextCount}>{members} members</div>
+            <div className={styles.projectInfo}>
+                <img src={logo} alt="Logo" className={styles.logo} />
+                <div className={styles.projectInfoText}>
+                    <div className={styles.projectInfoTextName}>{name}</div>
+                    <div className={styles.projectInfoTextCount}>{members} members</div>
                 </div>
             </div>
             <div className={styles.buttons}>
