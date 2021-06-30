@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BackIcon, BellIcon, DevelopIcon, DropdownIcon, GroupIcon, HomeIcon, HydraIcon, InsightsIcon, MeetingIcon, MoreIcon, OutSourceIcon, RoadIcon, SearchIcon, SettingsIcon, TaskIcon } from "../../components/Icons";
+import { UseableIcon, BackIcon, BellIcon, DevelopIcon, DropdownIcon, GroupIcon, HomeIcon, HydraIcon, InsightsIcon, MeetingIcon, MoreIcon, OutSourceIcon, RoadIcon, SearchIcon, SettingsIcon, TaskIcon } from "../../components/Icons";
 import styles from "./ProjectLayout.module.scss";
 
 interface Button {
@@ -24,13 +24,89 @@ interface ProjectDashboardProps {
     members: number;
 
     logo: string;
+    onChange?: (page: string) => unknown;
 }
 interface NavbarProps {
     avatar: string;
 }
 
-export const Sidebar: React.FC<ProjectDashboardProps> = ({ name, members, logo }) => {
-    const [selected, setSelected] = useState(0);
+export const Pages = ['home', 'group', 'road', 'task', 'meeting', 'outsource', 'develop', 'insights', 'more', 'hydra', 'settings'] as const;
+export type Page = typeof Pages[number];
+
+interface PageProps {
+    name: Page;
+    title: string;
+    logo: typeof UseableIcon;
+}
+
+const upper_pages: PageProps[] = [
+    {
+        name: 'home',
+        title: 'Home',
+        logo: HomeIcon
+    },
+    {
+        name: 'group',
+        title: 'Groups',
+        logo: GroupIcon
+    },
+    {
+        name: 'road',
+        title: 'Roadmap',
+        logo: RoadIcon
+    },
+    {
+        name: 'task',
+        title: 'Task Boards',
+        logo: TaskIcon
+    },
+    {
+        name: 'meeting',
+        title: 'Meeting Rooms',
+        logo: MeetingIcon
+    },
+    {
+        name: 'outsource',
+        title: 'Outsource',
+        logo: OutSourceIcon
+    },
+    {
+        name: 'develop',
+        title: 'Develop',
+        logo: DevelopIcon
+    },
+    {
+        name: 'insights',
+        title: 'Insights',
+        logo: InsightsIcon
+    },
+    {
+        name: 'more',
+        title: 'More',
+        logo: MoreIcon
+    }
+];
+
+const lower_pages: PageProps[] = [
+    {
+        name: 'hydra',
+        title: 'Hydra',
+        logo: HydraIcon
+    },
+    {
+        name: 'settings',
+        title: 'Settings',
+        logo: SettingsIcon
+    }
+];
+
+export const Sidebar: React.FC<ProjectDashboardProps> = ({ name, members, logo, onChange }) => {
+    const [selected, setSelected] = useState('home' as Page);
+
+    const set = (page: Page) => {
+        setSelected(page);
+        onChange?.(page);
+    }
 
     return (
         <div className={styles.sidebar}>
@@ -43,19 +119,14 @@ export const Sidebar: React.FC<ProjectDashboardProps> = ({ name, members, logo }
             </div>
             <div className={styles.buttons}>
                 <div className={styles.buttonSection}>
-                    <ProjectButton onClick={() => setSelected(0)} selected={selected == 0} image={<HomeIcon />} title="Home" />
-                    <ProjectButton onClick={() => setSelected(1)} selected={selected == 1} image={<GroupIcon />} title="Groups" />
-                    <ProjectButton onClick={() => setSelected(2)} selected={selected == 2} image={<RoadIcon />} title="Roadmap" />
-                    <ProjectButton onClick={() => setSelected(3)} selected={selected == 3} image={<TaskIcon />} title="Task Boards" />
-                    <ProjectButton onClick={() => setSelected(4)} selected={selected == 4} image={<MeetingIcon />} title="Meeting Rooms" />
-                    <ProjectButton onClick={() => setSelected(5)} selected={selected == 5} image={<OutSourceIcon />} title="Outsource" />
-                    <ProjectButton onClick={() => setSelected(6)} selected={selected == 6} image={<DevelopIcon />} title="Develop" />
-                    <ProjectButton onClick={() => setSelected(7)} selected={selected == 7} image={<InsightsIcon />} title="Insights" />
-                    <ProjectButton onClick={() => setSelected(8)} selected={selected == 8} image={<MoreIcon />} title="More" />
+                    {
+                        upper_pages.map((v, i) => <ProjectButton key={v.name + i} onClick={() => set(v.name)} selected={selected == v.name} image={<v.logo />} title={v.title} />)
+                    }
                 </div>
                 <div className={styles.buttonSection}>
-                    <ProjectButton onClick={() => setSelected(9)} selected={selected == 9} image={<HydraIcon />} title="Hydra" />
-                    <ProjectButton onClick={() => setSelected(10)} selected={selected == 10} image={<SettingsIcon />} title="Settings" />
+                    {
+                        lower_pages.map((v, i) => <ProjectButton key={v.name + i} onClick={() => set(v.name)} selected={selected == v.name} image={<v.logo />} title={v.title} />)
+                    }
                 </div>
             </div>
         </div>
@@ -80,10 +151,10 @@ export const Navbar: React.FC<NavbarProps> = ({ avatar }) => {
         </div>
     );
 };
-export const ProjectLayout: React.FC<ProjectDashboardProps> = ({ name, members, logo, children }) => {
+export const ProjectLayout: React.FC<ProjectDashboardProps> = ({ onChange, name, members, logo, children }) => {
     return (
         <div className={styles.main}>
-            <Sidebar name={name} members={members} logo={logo} />
+            <Sidebar onChange={onChange} name={name} members={members} logo={logo} />
             <div className={styles.right}>
                 <Navbar avatar={'/avatar.png'} />
                 <div className={styles.body}>
