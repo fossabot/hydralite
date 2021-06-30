@@ -129,8 +129,11 @@
     margin: 2px 0;
     user-select: none;
 }
+.button:hover {
+    background-color: #F5F5F5;
+}
 .selected {
-    background-color: #F1F1F1;
+    background-color: #F1F1F1 !important;
     fill: #695CFF;
     color: #695CFF;
 }
