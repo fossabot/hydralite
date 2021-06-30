@@ -8,12 +8,12 @@
 
 # Welcome to Hydralite
 
-### About
+## About
 
 One of a kind, open-source project management and discovery platform that enforces credit-based project discovery and a obtains a minimalist project management system.
 Hydralite is a system that steers away from typical scrum methodology and adopts a state-of-the-art, intuitive system, but throws in project discovery, tight integration, developer outsourcing, soft releases, one click code deployments, seamless crowdsourced feedback collection, and loads more, into the mix.
 
-### Getting Started
+## Getting Started
 
 ### Web and Api
 
