@@ -7,6 +7,16 @@
 </p>
 
 # Welcome to Hydralite
+
 ### About
-One of a kind, open-source project management and discovery platform that enforces credit-based project discovery and a obtains a minimalist project management system. 
+
+One of a kind, open-source project management and discovery platform that enforces credit-based project discovery and a obtains a minimalist project management system.
 Hydralite is a system that steers away from typical scrum methodology and adopts a state-of-the-art, intuitive system, but throws in project discovery, tight integration, developer outsourcing, soft releases, one click code deployments, seamless crowdsourced feedback collection, and loads more, into the mix.
+
+### Getting Started
+
+### Web and Api
+
+For Command Prompt - run `setup` (in the root directory) in a new cmd session
+
+Once the setup command has been run based on your shell provider, run `yarn dev` in the root directory to start the api and web servers.
