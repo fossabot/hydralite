@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { BackIcon, BellIcon, DevelopIcon, DropdownIcon, GroupIcon, HomeIcon, HydraIcon, InsightsIcon, MeetingIcon, MoreIcon, OutSourceIcon, RoadIcon, SearchIcon, SettingsIcon, TaskIcon } from "../Icons";
-import styles from "./Project.module.scss";
+import { BackIcon, BellIcon, DevelopIcon, DropdownIcon, GroupIcon, HomeIcon, HydraIcon, InsightsIcon, MeetingIcon, MoreIcon, OutSourceIcon, RoadIcon, SearchIcon, SettingsIcon, TaskIcon } from "../../components/Icons";
+import styles from "./ProjectLayout.module.scss";
 
 interface Button {
     image: React.ReactFragment;
@@ -80,13 +80,15 @@ export const Navbar: React.FC<NavbarProps> = ({ avatar }) => {
         </div>
     );
 };
-export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({ name, members, logo }) => {
+export const ProjectLayout: React.FC<ProjectDashboardProps> = ({ name, members, logo, children }) => {
     return (
         <div className={styles.main}>
             <Sidebar name={name} members={members} logo={logo} />
             <div className={styles.right}>
                 <Navbar avatar={'/avatar.png'} />
-                <div className={styles.body}></div>
+                <div className={styles.body}>
+                    {children}
+                </div>
             </div>
         </div>
     );
