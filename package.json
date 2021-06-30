@@ -7,9 +7,9 @@
     "landing"
   ],
   "scripts": {
-    "commit": "cz",
+    "commit": "git add . && cz",
     "commit:signed": "cz -S",
-    "dev:suite1": "yarn workspace @hydralite/api run dev && yarn workspace @hydralite/web run dev"
+    "dev:global": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\""
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -17,6 +17,9 @@
     "commitizen": "^4.2.4",
     "commitlint": "^12.1.4",
     "cz-conventional-changelog": "3.3.0"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0"
   },
   "config": {
     "commitizen": {
