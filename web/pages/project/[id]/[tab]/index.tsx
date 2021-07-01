@@ -10,6 +10,8 @@ import { Switch } from '~/components/Switch/Switch'
 import { FlagIcon, GotoIcon, HornIcon, PersonIcon, UseableIcon } from '~/components/Icons';
 import { project } from 'hoc/ProjectLayout/projects'
 
+// open live share chat
+
 const WelcomeWidget: React.FC<{ color: string, icon: typeof UseableIcon }> = ({ color, icon, children }) => {
     const iconHolder = { icon };
 
