@@ -1,22 +1,23 @@
 import React from "react";
-import styles from "./ProjectLayout.module.scss";
+import styles from "~/hoc/ProjectLayout/ProjectLayout.module.scss";
 import { BackIcon, SearchIcon, BellIcon, DropdownIcon } from "~/components/Icons";
 
 export interface NavbarProps {
     avatar: string;
 }
+
 export const Navbar: React.FC<NavbarProps> = ({ avatar }) => {
     return (
-        <div className={styles.top}>
-            <div className={styles.navbarSection}>
-                <div className={styles.backIcon}><BackIcon /></div>
-                <div className={styles.backText}>Go Home</div>
+        <div className="flex justify-between items-center" style={{borderBottom: '1px solid #e9e9e9'}}>
+            <div className="flex justify-center items-center text-black cursor-pointer select-none">
+                <div className="w-20 h-20"><BackIcon /></div>
+                <div className="pl-5 font-bold text-3xl">Go Home</div>
             </div>
             <div className={styles.searchBar}>
                 <div className={styles.searchIcon}><SearchIcon /></div>
                 <input className={styles.search} placeholder="Search" />
             </div>
-            <div className={styles.navbarSection}>
+            <div className="flex justify-center items-center text-black cursor-pointer select-none">
                 <div className={styles.bellIcon}><BellIcon /></div>
                 <img src={avatar} className={styles.userIcon} />
                 <div className={styles.dropdownIcon}><DropdownIcon /></div>

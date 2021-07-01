@@ -1,17 +1,17 @@
-import styles from "./ProjectLayout.module.scss";
+import styles from "~/hoc/ProjectLayout/ProjectLayout.module.scss";
 import { useRouter } from "next/router";
 
-export interface ProjectButtonProps {
+export interface SidebarLinkProps {
     image: React.ReactFragment;
     title: string;
 
     href: string;
 
     selected?: boolean;
-    onClick?: () => unknown;
+    onClick?: () => void;
 }
 
-export const ProjectButton: React.FC<ProjectButtonProps> = ({ selected, onClick, image, title, href }) => {
+export const SidebarLink: React.FC<SidebarLinkProps> = ({ selected, onClick, image, title, href }) => {
     const router = useRouter();
 
     return (

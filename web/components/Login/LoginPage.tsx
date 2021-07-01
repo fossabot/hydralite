@@ -12,8 +12,8 @@ const Login = () => {
                 keywords="open source,hydralite,project management"
             />
 
-            <img src="/logo.png" alt="Logo" className={styles.logo} />
-            <div className={styles.box_center}>
+            <img src="/logo.png" alt="Logo" className="mt-4 ml-4 w-20" />
+            <div className="flex justify-center items-center">
                 <div className={styles.login_box}>
                     
                     <h1 className={styles.login_header}>Sign in to Hydralite</h1>
