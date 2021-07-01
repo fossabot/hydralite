@@ -4,7 +4,6 @@ import { ProjectPage } from "~/types/ProjectPageProps";
 import { projectSidebarLowerLinks, projectSidebarUpperLinks } from "~/constants/projectSidebarLinks";
 
 export interface SidebarProps {
-  project: string;
   selected: ProjectPage;
 }
 
