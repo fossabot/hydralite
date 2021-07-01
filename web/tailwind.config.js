@@ -5,6 +5,7 @@ module.exports = {
         colors: {
             white: {
                 hover: '#f5f5f5',
+                'hover-select': '#d5d5d5',
                 selected: '#f1f1f1',
                 seperator: "#E9E9E9"
             },
@@ -18,11 +19,17 @@ module.exports = {
                 10: "10px",
                 20: "20px",
                 40: "40px",
+
+                half: '50%',
+            },
+            spacing: {
+                112: "28rem",
+                120: "48rem"
             }
         },
     },
     variants: {
-        extend: {},
+
     },
     plugins: [],
 }

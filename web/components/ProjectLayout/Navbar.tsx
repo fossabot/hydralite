@@ -7,10 +7,10 @@ export interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ avatar }) => {
     return (
-        <div className="flex justify-between items-center">
+        <div className="flex w-full p-4 justify-between items-center border-b border-white-seperator">
             <div className="flex justify-center items-center text-black cursor-pointer select-none">
-                <div className="w-20 h-20"><BackIcon /></div>
-                <div className="pl-5 font-bold text-3xl">Go Home</div>
+                <div className="w-5 h-5"><BackIcon /></div>
+                <div className="pl-1 font-semibold text-sm">Go Home</div>
             </div>
             <div className={styles.searchBar}>
                 <div className={styles.searchIcon}><SearchIcon /></div>

@@ -14,26 +14,33 @@ import {
 } from "~/components/Icons";
 import { projectPages } from "~/constants/projectPages";
 
-const WelcomeWidget: React.FC<{ color: string; icon: typeof UseableIcon }> = ({
-  color,
-  icon,
-  children,
-}) => {
+const WelcomeWidget: React.FC<{
+  color: string;
+  icon: typeof UseableIcon;
+  title: string;
+  description: string;
+  contentClassName?: string;
+}> = ({ color, icon, title, description, contentClassName }) => {
   const iconHolder = { icon };
 
   return (
-    <div className={styles.homeWidgetWrapper}>
-      <div className={styles.homeWidget}>
+    <div className="flex items-center justify-between h-28 w-120 bg-white-selected rounded-20 m-2 cursor-pointer select-none">
+      <div className="flex items-center">
         <div
-          className={styles.homeWidgetIcon}
+          className="grid place-items-center rounded-full h-16 w-16 mx-5"
           style={{ backgroundColor: color }}
         >
           {<iconHolder.icon />}
         </div>
-        <div className={styles.homeWidgetContent}>{children}</div>
+        <div className={`flex flex-col justify-between items-start h-16 ${contentClassName}`}>
+          <h4 className="font-bold text-lg">{title}</h4>
+          <p className={"text-semibold text-md"}>{description}</p>
+        </div>
       </div>
-      <div className={styles.homeGoto}>
-        <GotoIcon />
+      <div className="flex justify-center items-center w-12 h-12 mr-10 rounded-10 hover:bg-white-hover-select">
+        <div className="w-10 h-10">
+          <GotoIcon />
+        </div>
       </div>
     </div>
   );
@@ -41,37 +48,38 @@ const WelcomeWidget: React.FC<{ color: string; icon: typeof UseableIcon }> = ({
 
 const HomePage: React.FC<{ name: string }> = ({ name }) => {
   return (
-    <>
-      <h2 className={styles.homeTitle}>
-        Welcome to <span className="text-green-700">Volt</span>
-      </h2>
-      <h3 className={styles.homeHeader}>
-        Welcome to your shiny new project. Here’s some tips to get you setup.
-      </h3>
+    <div className="w-full h-full grid place-items-center">
+      <div className="">
+        <h2 className="text-4xl font-black mb-3 text-center">
+          Welcome to <span className="text-green-700">Volt</span>
+        </h2>
+        <h3 className="text-xl font-semibold text mb-7 text-center">
+          Welcome to your shiny new project. Here’s some tips to get you setup.
+        </h3>
 
-      <WelcomeWidget color="#FFA2D4" icon={PersonIcon}>
-        <h4 className={styles.homeWidgetTitle}>Invite your team</h4>
-        <div className={styles.homeWidgetText}>
-          Get your teammates on board, and let the collaboration begin.
-        </div>
-      </WelcomeWidget>
-      <WelcomeWidget color="#A2B1FF" icon={HornIcon}>
-        <h4 className={styles.homeWidgetTitle}>Publicize your project</h4>
-        <h5 className={styles.homeWidgetText} style={{ width: 460 }}>
-          Let others discover your project through hydra. Onboard potential
-          contributors, all through one seamless platform.
-        </h5>
-      </WelcomeWidget>
-      <WelcomeWidget color="#FFA1A1" icon={FlagIcon}>
-        <h4 className={styles.homeWidgetTitle}>Start developing</h4>
-        <h5 className={styles.homeWidgetText}>
-          Go ahead and start building your project roadmap, View project
-          traffic, and more
-        </h5>
-      </WelcomeWidget>
-
-      <div style={{ marginBottom: 100 }}></div>
-    </>
+        <WelcomeWidget
+          color="#FFA2D4"
+          icon={PersonIcon}
+          title="Invite your team"
+          description="Get your teammates on board, and let the collaboration begin."
+          contentClassName="w-96"
+        />
+        <WelcomeWidget
+          color="#A2B1FF"
+          icon={HornIcon}
+          title="Publicize your project"
+          description="Let others discover your project through hydra. Onboard potential contributors, all through one seamless platform."
+          contentClassName="w-112"
+        />
+        <WelcomeWidget
+          color="#FFA1A1"
+          icon={FlagIcon}
+          title="Start developing"
+          description="Go ahead and start building your project roadmap, View project traffic, and more"
+          contentClassName="w-96"
+        />
+      </div>
+    </div>
   );
 };
 
@@ -81,7 +89,8 @@ const Project = () => {
 
   const project = typeof id === "string" ? id : "";
   const selected = projectPages.find((page) => page == tab) ?? "home";
-  if (tab && selected != tab && typeof window !== "undefined") router.replace(selected);
+  if (tab && selected != tab && typeof window !== "undefined")
+    router.replace(selected);
 
   return (
     <>
