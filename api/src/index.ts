@@ -1,3 +1,7 @@
+// initialize dontenv (should be at the top of the file)
+import dotenv from "dotenv";
+dotenv.config();
+
 import "reflect-metadata";
 import express from "express";
 import cors from "cors";
@@ -7,7 +11,6 @@ import {
   simpleEstimator,
 } from "graphql-query-complexity";
 import { PrismaClient } from "@prisma/client";
-import dotenv from "dotenv";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import redis from "redis";
@@ -24,7 +27,6 @@ import UserRepo from "./db/UserRepo";
 
 async function main() {
   // initialize dontenv
-  dotenv.config();
 
   // Initialize Redis
   var redisClient = redis.createClient();
