@@ -1,6 +1,6 @@
 import Navbar from '../components/Dashboard/Navbar'
 import styles from '../styles/Dashboard.module.scss'
-import Meta from '~/components/Meta'
+import Meta from 'partials/Meta'
 
 const Dashboard = () => {
     return (

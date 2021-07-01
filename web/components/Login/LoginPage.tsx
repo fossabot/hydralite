@@ -1,6 +1,6 @@
 import styles from './LoginPage.module.scss'
 import Button from '../Button/Button'
-import Meta from '~/components/Meta'
+import Meta from 'partials/Meta'
 
 const Login = () => {
     return (

@@ -1,27 +1,23 @@
-import styles from "~/hoc/ProjectLayout/ProjectLayout.module.scss";
 import { useRouter } from "next/router";
 
 export interface SidebarLinkProps {
     image: React.ReactFragment;
     title: string;
-
     href: string;
-
     selected?: boolean;
-    onClick?: () => void;
 }
 
-export const SidebarLink: React.FC<SidebarLinkProps> = ({ selected, onClick, image, title, href }) => {
+export const SidebarLink: React.FC<SidebarLinkProps> = ({ selected, image, title, href }) => {
     const router = useRouter();
 
     return (
-        <a href={href} style={{ textDecoration: 'none' }} onClick={e => {
+        <a href={href} onClick={e => {
             e.preventDefault();
             router.push(href);
         }}>
-            <div onClick={() => onClick?.()} className={[styles.button, ...(selected ? [styles.selected] : [])].join(' ')}>
-                <div className={styles.buttonIcon}>{image}</div>
-                <div className={styles.buttonTitle}>{title}</div>
+            <div className={`m-1 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 w-52 h-12 ${selected ? 'bg-white-selected fill-select text-accent' : 'hover:bg-white-hover bg-transparent fill-text text-text'}`}>
+                <div className="w-5 h-5 ml-5">{image}</div>
+                <div className="text-base ml-5 font-semibold">{title}</div>
             </div>
         </a>
     );

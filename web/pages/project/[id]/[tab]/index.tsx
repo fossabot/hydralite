@@ -1,5 +1,5 @@
 import styles from "~/hoc/ProjectLayout/ProjectLayout.module.scss";
-import Meta from "~/components/Meta";
+import Meta from "partials/Meta";
 import React from "react";
 import { ProjectLayout } from "hoc/ProjectLayout/ProjectLayout";
 import { useRouter } from "next/router";
@@ -82,7 +82,7 @@ const Project = () => {
   const project = typeof id === "string" ? id : "";
   const selected = projectPages.find((page) => page == tab) ?? "home";
   if (tab && selected != tab && typeof window !== "undefined") router.replace(selected);
-    
+
   return (
     <>
       <Meta
@@ -92,7 +92,7 @@ const Project = () => {
         keywords="open source,hydralite,project management"
       />
       <div className={styles.project}>
-        <ProjectLayout {...{ selected, project }}>
+        <ProjectLayout selected={selected} project={project}>
           <Switch value={selected}>
             <Case key="home">
               <HomePage name={project} />
