@@ -14,7 +14,7 @@ export const ProjectLayout: React.FC<ProjectLayoutProps> = ({ centerContent, sel
             <Sidebar selected={selected} />
             <div className="flex flex-col w-full h-screen justify-between items-center">
                 <Navbar avatar="/avatar.png" />
-                <div className={`w-full h-screen ${centerContent && "flex items-center justify-center pr-64 pb-16"}`}>{children}</div>
+                <div className={`w-full h-screen ${centerContent ? "flex items-center justify-center pr-64 pb-16" : ""}`}>{children}</div>
             </div>
         </div>
     );
