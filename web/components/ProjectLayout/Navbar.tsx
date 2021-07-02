@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "~/hoc/ProjectLayout/ProjectLayout.module.scss";
 import { BackIcon, SearchIcon, BellIcon, DropdownIcon } from "~/components/Icons";
 export interface NavbarProps {
     avatar: string;

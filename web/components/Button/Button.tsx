@@ -1,6 +1,5 @@
 import React from "react";
 import { FC } from "react";
-import styles from "./Button.module.scss";
 import Icon from "~/components/Icon";
 import Link from "next/link";
 
