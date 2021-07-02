@@ -93,46 +93,6 @@
   width: 100%;
 }
 
-.button {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-
-  border-radius: 10px;
-  height: 2.8rem;
-  width: 13rem;
-
-  background-color: transparent;
-  fill: #2d3748;
-  color: #2d3748;
-  cursor: pointer;
-
-  margin: 2px 0;
-  user-select: none;
-}
-
-.selected {
-  background-color: #f1f1f1;
-  fill: #695cff;
-  color: #695cff;
-}
-
-.buttonIcon {
-  margin-left: 20px;
-
-  width: 20px;
-  height: 20px;
-}
-
-.buttonTitle {
-  margin-left: 20px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 30px;
-}
-
 .top {
   display: flex;
   flex-direction: row;

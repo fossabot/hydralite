@@ -1,15 +1,7 @@
 import { HomeIcon, GroupIcon, RoadIcon, TaskIcon, MeetingIcon, OutSourceIcon, DevelopIcon, InsightsIcon, MoreIcon, HydraIcon, SettingsIcon, UseableIcon } from "~/components/Icons";
+import { ProjectPageProps } from "~/types/ProjectPageProps";
 
-export const Pages = ['home', 'groups', 'roadmap', 'tasks', 'meetings', 'outsource', 'develop', 'insights', 'more', 'hydra', 'settings'] as const;
-export type Page = typeof Pages[number];
-
-export interface PageProps {
-    name: Page;
-    title: string;
-    logo: typeof UseableIcon;
-}
-
-export const upper_pages: PageProps[] = [
+export const projectSidebarUpperLinks: ProjectPageProps[] = [
     {
         name: 'home',
         title: 'Home',
@@ -57,7 +49,7 @@ export const upper_pages: PageProps[] = [
     }
 ];
 
-export const lower_pages: PageProps[] = [
+export const projectSidebarLowerLinks: ProjectPageProps[] = [
     {
         name: 'hydra',
         title: 'Hydra',

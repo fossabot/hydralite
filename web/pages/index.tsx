@@ -1,5 +1,5 @@
 import React from 'react'
-import Meta from '~/components/Meta'
+import Meta from 'partials/Meta'
 
 const index = () => {
     return (
