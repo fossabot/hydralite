@@ -2,9 +2,9 @@ import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
-import { Project } from "~/typegql-types/Project";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreateProjectArgs } from "./args/CreateProjectArgs";
+import { Project } from "~/resolver-types/models";
 
 @Resolver()
 export default class CreateProjectResolver {

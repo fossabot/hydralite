@@ -1,11 +1,11 @@
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { ProjectMember } from "~/typegql-types/ProjectMember";
 import { User } from "@prisma/client";
 import { memberHasManageRolesPermisson } from "./validators/memberHasManageRolesPermisson.validator";
 import { doesRoleExist } from "./validators/doesRoleExist";
 import { AssignProjectRoleArgs } from "./args/AssignProjectRoleArgs";
+import { ProjectMember } from "~/resolver-types/models";
 
 @Resolver()
 export default class AssignProjectRoleResolver {

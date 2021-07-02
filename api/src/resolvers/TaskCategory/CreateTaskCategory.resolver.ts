@@ -1,4 +1,3 @@
-import { TaskCategory } from "~/typegql-types/TaskCategory";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
@@ -7,6 +6,7 @@ import { CreateTaskCategoryArgs } from "./args/CreateTaskCategoryArgs";
 import { memberHasManageTasksPermisson } from "./validators/memberHasManageTasksPermisson.validator";
 import { connectIdArray } from "~/util/connectIdArray";
 import { doesTaskCategoryExist } from "./validators/doesTaskCategoryExist";
+import { TaskCategory } from "~/resolver-types/models";
 
 @Resolver()
 export class CreateTaskCategoryResolver {

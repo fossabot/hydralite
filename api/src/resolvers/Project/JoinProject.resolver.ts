@@ -1,9 +1,9 @@
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Project } from "~/typegql-types/Project";
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { JoinProjectArgs } from "./args/JoinProjectArgs";
+import { Project } from "~/resolver-types/models";
 
 @Resolver()
 export class JoinProject {

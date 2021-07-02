@@ -1,10 +1,10 @@
-import { TaskBoard } from "~/typegql-types/TaskBoard";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { memberHasManageTasksPermisson } from "./validators/memberHasManageTasksPermisson.validator";
 import { CreateTaskBoardArgs } from "./args/CreateTaskBoardArgs";
 import executeOrFail from "~/util/executeOrFail";
+import { TaskBoard } from "~/resolver-types/models";
 
 @Resolver()
 export class CreateTaskBoardResolver {

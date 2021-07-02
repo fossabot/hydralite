@@ -3,9 +3,9 @@ import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import executeOrFail from "~/util/executeOrFail";
 import { memberHasManageTasksPermisson } from "./validators/memberHasManageTasksPermisson.validator";
-import { TaskLocation } from "~/typegql-types/TaskLocation";
 import { CreateTaskLocationArgs } from "./args/CreateTaskLocationArgs";
 import { doesTaskLocationExist } from "./validators/doesTaskLocationExist";
+import { TaskLocation } from "~/resolver-types/models";
 
 @Resolver()
 export class CreateTaskLocationResolver {

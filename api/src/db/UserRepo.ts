@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { PassportGenericUser } from "~/auth/types/PassportGenericUser.type";
-import { User } from "~/typegql-types/User";
 import executeOrFail from "~/util/executeOrFail";
+import { User } from "~/resolver-types/models";
 
 export default class UserRepo extends PrismaClient {
     findOrCreateUser = async (

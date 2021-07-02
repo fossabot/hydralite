@@ -1,4 +1,4 @@
-import { Task } from "~/typegql-types/Task";
+import { Task } from "~/resolver-types/models";
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
