@@ -1,8 +1,7 @@
-import styles from "~/hoc/ProjectLayout/ProjectLayout.module.scss";
 import Meta from "partials/Meta";
 import React from "react";
 import { ProjectLayout } from "hoc/ProjectLayout/ProjectLayout";
-import { useRouter } from "next/router";
+
 import {
   FlagIcon,
   HornIcon,
@@ -46,10 +45,6 @@ const WelcomeWidget: React.FC<{
 };
 
 const HomePage = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const project = typeof id === "string" ? id : "";
-
   return (
     <>
       <Meta
@@ -58,43 +53,39 @@ const HomePage = () => {
         url="https://hydralite.io"
         keywords="open source,hydralite,project management"
       />
-      <div className={styles.project}>
-        <ProjectLayout selected={"home"} project={project}>
-          <div className="w-full h-full grid place-items-center">
-            <div className="">
-              <h2 className="text-4xl font-black mb-3 text-center">
-                Welcome to <span className="text-green-700">Volt</span>
-              </h2>
-              <h3 className="text-xl font-semibold text mb-7 text-center">
-                Welcome to your shiny new project. Here’s some tips to get you
-                setup.
-              </h3>
+      <ProjectLayout selected={"home"} centerContent={true}>
+          <div>
+            <h2 className="text-4xl font-black mb-3 text-center">
+              Welcome to <span className="text-green-700">Volt</span>
+            </h2>
+            <h3 className="text-xl font-semibold text mb-7 text-center">
+              Welcome to your shiny new project. Here’s some tips to get you
+              setup.
+            </h3>
 
-              <WelcomeWidget
-                color="#FFA2D4"
-                icon={PersonIcon}
-                title="Invite your team"
-                description="Get your teammates on board, and let the collaboration begin."
-                contentClassName="w-96"
-              />
-              <WelcomeWidget
-                color="#A2B1FF"
-                icon={HornIcon}
-                title="Publicize your project"
-                description="Let others discover your project through hydra. Onboard potential contributors, all through one seamless platform."
-                contentClassName="w-112"
-              />
-              <WelcomeWidget
-                color="#FFA1A1"
-                icon={FlagIcon}
-                title="Start developing"
-                description="Go ahead and start building your project roadmap, View project traffic, and more"
-                contentClassName="w-96"
-              />
-            </div>
+            <WelcomeWidget
+              color="#FFA2D4"
+              icon={PersonIcon}
+              title="Invite your team"
+              description="Get your teammates on board, and let the collaboration begin."
+              contentClassName="w-96"
+            />
+            <WelcomeWidget
+              color="#A2B1FF"
+              icon={HornIcon}
+              title="Publicize your project"
+              description="Let others discover your project through hydra. Onboard potential contributors, all through one seamless platform."
+              contentClassName="w-112"
+            />
+            <WelcomeWidget
+              color="#FFA1A1"
+              icon={FlagIcon}
+              title="Start developing"
+              description="Go ahead and start building your project roadmap, View project traffic, and more"
+              contentClassName="w-96"
+            />
           </div>
-        </ProjectLayout>
-      </div>
+      </ProjectLayout>
     </>
   );
 };
