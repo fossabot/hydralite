@@ -1,10 +1,9 @@
 import Navbar from '../components/Dashboard/Navbar'
-import styles from '../styles/Dashboard.module.scss'
 import Meta from 'partials/Meta'
 
 const Dashboard = () => {
     return (
-        <div className={styles.dashboard}>
+        <div className="">
             <Navbar />
             <Meta
                 title="Hydralite"
