@@ -2,12 +2,7 @@ import Meta from "partials/Meta";
 import React from "react";
 import { ProjectLayout } from "hoc/ProjectLayout/ProjectLayout";
 
-import {
-  FlagIcon,
-  HornIcon,
-  PersonIcon,
-  GotoIcon
-} from "~/components/Icons";
+import { FlagIcon, HornIcon, PersonIcon, GotoIcon } from "~/components/Icons";
 
 const WelcomeWidget: React.FC<{
   color: string;
@@ -52,33 +47,43 @@ const HomePage = () => {
       />
       <ProjectLayout selected={"home"} centerContent={true}>
         <div>
-          <h2 className="text-4xl font-black mb-3 text-center">
-            Welcome to <span className="text-green-700">Volt</span>
-          </h2>
-          <h3 className="text-xl font-semibold text mb-7 text-center">
-            Welcome to your shiny new project. Here’s some tips to get you
-            setup.
-          </h3>
+            <h2 className="text-4xl font-black mb-3 text-center">
+              Welcome to{" "}
+              <span
+                style={{
+                  background:
+                    "linear-gradient(180deg, #15DB74 0%, #06A688 49.85%, #0EBD75 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Volt
+              </span>
+            </h2>
+            <h3 className="text-xl font-semibold text mb-7 text-center">
+              Welcome to your shiny new project. Here’s <br /> some tips to get you
+              setup.
+            </h3>
 
-          <WelcomeWidget
-            color="#FFA2D4"
-            Icon={<PersonIcon />}
-            title="Invite your team"
-            description="Get your teammates on board, and let the collaboration begin."
-          />
-          <WelcomeWidget
-            color="#FFA1A1"
-            Icon={<FlagIcon />}
-            title="Start developing"
-            description="Go ahead and start building your project roadmap, View project traffic, and more"
-          />
+            <WelcomeWidget
+              color="#FFA2D4"
+              Icon={<PersonIcon />}
+              title="Invite your team"
+              description="Get your teammates on board, and let the collaboration begin."
+            />
+            <WelcomeWidget
+              color="#FFA1A1"
+              Icon={<FlagIcon />}
+              title="Start developing"
+              description="Go ahead and start building your project roadmap, View project traffic, and more"
+            />
 
-          <WelcomeWidget
-            color="#A2B1FF"
-            Icon={<HornIcon />}
-            title="Publicize your project"
-            description="Onboard potential contributors and sponsors through hydra."
-          />
+            <WelcomeWidget
+              color="#A2B1FF"
+              Icon={<HornIcon />}
+              title="Publicize your project"
+              description="Onboard potential contributors and sponsors through hydra."
+            />
         </div>
       </ProjectLayout>
     </>
