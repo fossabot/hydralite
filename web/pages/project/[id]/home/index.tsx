@@ -12,7 +12,7 @@ const WelcomeWidget: React.FC<{
   contentClassName?: string;
 }> = ({ color, Icon, title, description, contentClassName }) => {
   return (
-    <div className="flex items-center justify-between h-28 w-120 bg-white-selected rounded-10 m-3 cursor-pointer select-none">
+    <div className="flex items-center justify-between h-28 w-160 bg-white-selected rounded-10 m-3 cursor-pointer select-none">
       <div className="flex items-center">
         <div
           className="grid place-items-center rounded-full h-14 w-14 mx-7"

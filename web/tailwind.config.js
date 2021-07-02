@@ -11,6 +11,7 @@ module.exports = {
             },
             accent: '#695cff',
             text: '#2d3748',
+            gray: '#9099a8',
         },
         extend: {
             borderRadius: {
@@ -24,7 +25,8 @@ module.exports = {
             },
             spacing: {
                 112: "28rem",
-                120: "40rem"
+                120: "30rem",
+                160: "40rem",
             }
         },
     },
