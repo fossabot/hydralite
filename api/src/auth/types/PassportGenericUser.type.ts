@@ -1,18 +1,18 @@
 export interface PassportGenericUser {
-    email?: string;
-    profile: Profile;
-    username: string;
-    primaryOauthConnection: PrimaryOauthConnection;
+  email?: string;
+  profile: Profile;
+  username: string;
+  primaryOauthConnection: PrimaryOauthConnection;
 }
 
 interface Profile {
-    avatarUrl: string;
-    bio?: string;
+  avatarUrl: string;
+  bio?: string;
 }
 
 interface PrimaryOauthConnection {
-    oauthService: "discord" | "github" | "twitter" | "google";
-    email: string;
-    username: string;
-    oauthServiceUserId: string;
+  oauthService: "discord" | "github" | "twitter" | "google";
+  email: string;
+  username: string;
+  oauthServiceUserId: string;
 }

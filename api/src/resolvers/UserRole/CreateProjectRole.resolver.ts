@@ -18,10 +18,13 @@ export default class CreateProjectRoleResolver {
     const user: User = req.user as User;
 
     // retrieve and confirm loggedInMember exists
-    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(user.id, args.projectId)
+    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+      user.id,
+      args.projectId
+    );
 
     // ensure loggedInMember has required permissions
-    await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles")
+    await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles");
 
     const createdRole = await prisma.projectRole.create({
       data: {

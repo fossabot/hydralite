@@ -8,7 +8,8 @@ const Project = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  if (id !== undefined && typeof window !== "undefined") router.replace(`./${id}/home`);
+  if (id !== undefined && typeof window !== "undefined")
+    router.replace(`./${id}/home`);
   return <Home />;
 };
 
