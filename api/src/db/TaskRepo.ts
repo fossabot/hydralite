@@ -17,4 +17,19 @@ export class TaskRepo extends PrismaClient {
 
     return taskLocation;
   };
+
+  findTaskCategoryByNameAndProjectId = async (
+    categoryName: string,
+    projectId: string,
+    validate: boolean = true
+  ): Promise<TaskLocation | null> => {
+    const taskCategory = await this.taskCategory.findFirst({
+      where: { projectId, name: categoryName },
+    });
+
+    if (validate && taskCategory)
+      throw new ApolloError("Task category already exists.", "resource_exists");
+
+    return taskCategory;
+  };
 }
