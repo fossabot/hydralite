@@ -1,0 +1,8 @@
+node_modules
+.next
+resolver-types
+mobile
+cli
+automation
+.yarn
+.github

@@ -4,8 +4,8 @@ import { Sidebar } from "~/components/ProjectLayout/Sidebar/Sidebar";
 import { ProjectPage } from "~/types/ProjectPageProps";
 
 export interface ProjectLayoutProps {
-    selected: ProjectPage;
-    centerContent?: boolean;
+  selected: ProjectPage;
+  centerContent?: boolean;
 }
 
 export const ProjectLayout: React.FC<ProjectLayoutProps> = ({ centerContent, selected, children }) => {

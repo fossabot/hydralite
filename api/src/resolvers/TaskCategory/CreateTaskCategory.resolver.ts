@@ -1,4 +1,3 @@
-import { TaskCategory } from "~/typegql-types/TaskCategory";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
@@ -7,7 +6,12 @@ import { CreateTaskCategoryArgs } from "./args/CreateTaskCategoryArgs";
 import { memberHasManageTasksPermisson } from "./validators/memberHasManageTasksPermisson.validator";
 import { connectIdArray } from "~/util/connectIdArray";
 import { doesTaskCategoryExist } from "./validators/doesTaskCategoryExist";
+import { TaskCategory } from "~/resolver-types/models";
+import { TaskRepo } from "~/db/TaskRepo";
+import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 
+const memberRepo = new ProjectMemberRepo();
+const taskRepo = new TaskRepo();
 @Resolver()
 export class CreateTaskCategoryResolver {
   @Mutation(() => TaskCategory)
@@ -18,9 +22,18 @@ export class CreateTaskCategoryResolver {
     // extract the logged in user
     const user: User = (req as any).user;
 
-    // validators
-    await memberHasManageTasksPermisson(user.id, args.projectId);
-    await doesTaskCategoryExist(args.projectId, args.name);
+    // validate that user that is assigning the role has perms
+    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+      user.id,
+      args.projectId
+    );
+    await memberRepo.memberHasPermission(loggedInMember!, "canManageTasks");
+
+    // validate that the task category doesnt exist already
+    await taskRepo.findTaskCategoryByNameAndProjectId(
+      args.name,
+      args.projectId
+    );
 
     return executeOrFail<TaskCategory>(() => {
       type TaskCategoryData = Parameters<

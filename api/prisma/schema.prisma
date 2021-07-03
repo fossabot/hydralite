@@ -9,7 +9,7 @@ generator client {
 
 generator typegraphql {
   provider = "typegraphql-prisma"
-  output   = "../src/typegql-generated"
+  output   = "../src/resolver-types"
 }
 
 enum OauthConnectionService {

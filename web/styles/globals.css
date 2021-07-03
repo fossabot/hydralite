@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+/* normal css goes here */
+@tailwind utilities;
 
 /* 
 BREAKPOINTS:
@@ -24,9 +28,6 @@ BREAKPOINTS:
 
   --muted-3: #8098b4;
 
-  --muted-4: #e2e8f0;
-  --muted-4-inverted: var(--primary);
-
   --accent: #4649de;
   --accent-inverted: #ffffff;
 }
@@ -42,9 +43,4 @@ body {
   background-color: var(--bg);
   color: var(--primary);
   scroll-behavior: smooth;
-}
-
-img,
-a {
-  user-select: none !important;
 }

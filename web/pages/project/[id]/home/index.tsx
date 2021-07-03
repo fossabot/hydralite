@@ -47,46 +47,44 @@ const HomePage = () => {
       />
       <ProjectLayout selected={"home"} centerContent={true}>
         <div>
-            <h2 className="text-4xl font-black mb-3 text-center">
-              Welcome to{" "}
-              <span
-                style={{
-                  background:
-                    "linear-gradient(180deg, #15DB74 0%, #06A688 49.85%, #0EBD75 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Volt
-              </span>
-            </h2>
-            <h3 className="text-xl font-semibold text mb-7 text-center">
-              Welcome to your shiny new project. Here’s <br /> some tips to get you
-              setup.
-            </h3>
-
-            <WelcomeWidget
-              color="#FFA2D4"
-              Icon={<PersonIcon />}
-              title="Invite your team"
-              description="Get your teammates on board, and let the collaboration begin."
-              contentClassName="w-96"
-            />
-            <WelcomeWidget
-              color="#FFA1A1"
-              Icon={<FlagIcon />}
-              title="Start developing"
-              description="Go ahead and start building your project roadmap, View project traffic, and more"
-              contentClassName="w-96"
-            />
-
-            <WelcomeWidget
-              color="#A2B1FF"
-              Icon={<HornIcon />}
-              title="Publicize your project"
-              description="Let others discover your project through hydra. Onboard potential contributors, all through one seamless platform."
-              contentClassName="w-112"
-            />
+          <h2 className="text-4xl font-black mb-3 text-center">
+            Welcome to{" "}
+            <span
+              style={{
+                background:
+                  "linear-gradient(180deg, #15DB74 0%, #06A688 49.85%, #0EBD75 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Volt
+            </span>
+          </h2>
+          <h3 className="text-xl font-semibold text mb-7 text-center">
+            Welcome to your shiny new project. Here’s <br /> some tips to get
+            you setup.
+          </h3>
+          <WelcomeWidget
+            color="#FFA2D4"
+            Icon={<PersonIcon />}
+            title="Invite your team"
+            description="Get your teammates on board, and let the collaboration begin."
+            contentClassName="w-96"
+          />
+          <WelcomeWidget
+            color="#FFA1A1"
+            Icon={<FlagIcon />}
+            title="Start developing"
+            description="Go ahead and start building your project roadmap, View project traffic, and more"
+            contentClassName="w-96"
+          />
+          <WelcomeWidget
+            color="#A2B1FF"
+            Icon={<HornIcon />}
+            title="Publicize your project"
+            description="Let others discover your project through hydra. Onboard potential contributors, all through one seamless platform."
+            contentClassName="w-112"
+          />
         </div>
       </ProjectLayout>
     </>
