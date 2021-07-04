@@ -1,7 +1,10 @@
 import React from "react";
 import { SidebarLink } from "./SidebarLink";
 import { ProjectPage } from "~/types/ProjectPageProps";
-import { projectSidebarLowerLinks, projectSidebarUpperLinks } from "~/constants/projectSidebarLinks";
+import {
+  projectSidebarLowerLinks,
+  projectSidebarUpperLinks,
+} from "~/constants/projectSidebarLinks";
 
 export interface SidebarProps {
   selected: ProjectPage;
@@ -30,7 +33,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
               key={link.name + i}
               href={link.name}
               selected={selected == link.name}
-              image={<link.logo />} 
+              image={<link.logo />}
               title={link.title}
             />
           ))}

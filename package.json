@@ -10,14 +10,16 @@
     "commit": "git add . && cz",
     "commit:signed": "cz -S",
     "setup": "yarn workspace @hydralite/api run setup",
-    "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\""
+    "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\"",
+    "prettier:format": "prettier --write ."
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "commitizen": "^4.2.4",
     "commitlint": "^12.1.4",
-    "cz-conventional-changelog": "3.3.0"
+    "cz-conventional-changelog": "3.3.0",
+    "prettier": "^2.3.2"
   },
   "dependencies": {
     "concurrently": "^6.2.0"

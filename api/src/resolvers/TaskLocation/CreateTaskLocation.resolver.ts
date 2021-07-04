@@ -2,11 +2,13 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import executeOrFail from "~/util/executeOrFail";
-import { memberHasManageTasksPermisson } from "./validators/memberHasManageTasksPermisson.validator";
 import { CreateTaskLocationArgs } from "./args/CreateTaskLocationArgs";
-import { doesTaskLocationExist } from "./validators/doesTaskLocationExist";
 import { TaskLocation } from "~/resolver-types/models";
+import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
+import { TaskRepo } from "~/db/TaskRepo";
 
+const memberRepo = new ProjectMemberRepo();
+const taskRepo = new TaskRepo();
 @Resolver()
 export class CreateTaskLocationResolver {
   @Mutation(() => TaskLocation)
@@ -17,9 +19,18 @@ export class CreateTaskLocationResolver {
     // extract the logged in user
     const user: User = (req as any).user;
 
-    // validators
-    await memberHasManageTasksPermisson(user.id, args.projectId);
-    await doesTaskLocationExist(args.projectId, args.name);
+    // validate that user that is assigning the role has perms
+    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+      user.id,
+      args.projectId
+    );
+    await memberRepo.memberHasPermission(loggedInMember!, "canManageTasks");
+
+    // validate that the task location doesnt exist already
+    await taskRepo.findTaskLocationByNameAndProjectId(
+      args.name,
+      args.projectId
+    );
 
     return executeOrFail<TaskLocation>(
       async () =>

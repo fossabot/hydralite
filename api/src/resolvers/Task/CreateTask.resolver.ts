@@ -4,10 +4,11 @@ import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
-import { memberHasManageTasksPermisson } from "./validators/memberHasManageTasksPermisson.validator";
 import { connectIdArray } from "~/util/connectIdArray";
 import { CreateTaskArgs } from "./args/CreateTaskArgs";
+import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 
+const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export default class CreateTaskResolver {
   @Mutation(() => Task)
@@ -19,8 +20,12 @@ export default class CreateTaskResolver {
     // extract the logged in user
     const user: User = (req as any).user;
 
-    // validators
-    await memberHasManageTasksPermisson(user.id, args.projectId);
+    // validate that user has perms
+    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+      user.id,
+      args.projectId
+    );
+    await memberRepo.memberHasPermission(loggedInMember!, "canManageTasks");
 
     return executeOrFail<Task>(() => {
       type TaskData = Parameters<typeof prisma.task.create>[0]["data"];

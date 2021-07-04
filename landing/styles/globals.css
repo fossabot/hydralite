@@ -10,41 +10,41 @@ BREAKPOINTS:
 */
 
 :root {
-    --bg: #f9f8fe;
-    --bg-inverted: #23272a;
+  --bg: #f9f8fe;
+  --bg-inverted: #23272a;
 
-    --primary: #23272a;
-    --primary-inverted: #f9f8fe;
+  --primary: #23272a;
+  --primary-inverted: #f9f8fe;
 
-    --muted: #8d8d8d;
-    --muted-inverted: var(--primary);
+  --muted: #8d8d8d;
+  --muted-inverted: var(--primary);
 
-    --muted-2: #e5e5e5;
-    --muted-2-inverted: var(--primary);
+  --muted-2: #e5e5e5;
+  --muted-2-inverted: var(--primary);
 
-    --muted-3: #8098b4;
+  --muted-3: #8098b4;
 
-    --muted-4: #e2e8f0;
-    --muted-4-inverted: var(--primary);
+  --muted-4: #e2e8f0;
+  --muted-4-inverted: var(--primary);
 
-    --accent: #4649de;
-    --accent-inverted: #ffffff;
+  --accent: #4649de;
+  --accent-inverted: #ffffff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: "Nunito Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 html,
 body {
-    background-color: var(--bg);
-    color: var(--primary);
-    scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--primary);
+  scroll-behavior: smooth;
 }
 
 img,
 a {
-    user-select: none !important;
+  user-select: none !important;
 }

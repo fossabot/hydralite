@@ -5378,6 +5378,7 @@ __metadata:
     commitlint: ^12.1.4
     concurrently: ^6.2.0
     cz-conventional-changelog: 3.3.0
+    prettier: ^2.3.2
   languageName: unknown
   linkType: soft
 
@@ -7616,6 +7617,15 @@ __metadata:
   dependencies:
     xtend: ^4.0.0
   checksum: a882aae6c34a85ac6054d9c950d36bf2455cada769598c2eaf28326a45a722f23b8ba8b96efde939f38a663d5fc51ff93241afedf186ac9e9f9cf0af177370a1
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "prettier@npm:2.3.2"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 4fd89a7f6a12b13456d359fba2b1dd0fc0a17cf33f8f15953ab9f43b21ea9b09b5a2861d63b558ca0577274ce606d390e70628cf93e26d19d6cb7f19c9eebc31
   languageName: node
   linkType: hard
 

@@ -3,21 +3,21 @@ import Navbar from "~/components/Navbar/Navbar";
 import Footer from "./Footer/Footer";
 
 const Layout = ({
-    children,
-    navType,
-    connectCardRef,
+  children,
+  navType,
+  connectCardRef,
 }: {
-    children?: any;
-    navType: "home" | "dash";
-    connectCardRef: React.MutableRefObject<any>;
+  children?: any;
+  navType: "home" | "dash";
+  connectCardRef: React.MutableRefObject<any>;
 }) => {
-    return (
-        <div>
-            {navType === "home" && <Navbar connectCardRef={connectCardRef} />}
-            {children}
-            <Footer />
-        </div>
-    );
+  return (
+    <div>
+      {navType === "home" && <Navbar connectCardRef={connectCardRef} />}
+      {children}
+      <Footer />
+    </div>
+  );
 };
 
 export default Layout;
