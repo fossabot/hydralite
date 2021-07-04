@@ -4,7 +4,10 @@ import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { JoinProjectArgs } from "./args/JoinProjectArgs";
 import { Project } from "~/resolver-types/models";
+import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
+import { ApolloError } from "apollo-server-express";
 
+const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class JoinProject {
   @UseMiddleware(isAuthenticated)
@@ -14,21 +17,18 @@ export class JoinProject {
     @Arg("args") { projectId }: JoinProjectArgs
   ): Promise<Project> {
     const user: User = _ as any;
-    const projectToJoin = await prisma.project.findUnique({
-      where: {
-        id: projectId,
-      },
-    });
-    const isUserAlreadyMember = !!(await prisma.projectMember.findFirst({
-      where: {
-        projectId: projectToJoin?.id,
-        userId: user.id,
-      },
-    }));
 
-    // Validation
+    //
+    const projectToJoin = await prisma.project.findUnique({
+      where: { id: projectId },
+    });
     if (!projectToJoin) throw new Error("Invalid project.");
-    if (isUserAlreadyMember) throw new Error("Already a member.");
+
+    // validate that member doesnt already exist in the project
+    if (
+      await memberRepo.findMemberByUserAndProjectId(user.id, projectId, false)
+    )
+      throw new ApolloError("Already in project", "duplicate_resource");
 
     const updatedProject = await prisma.project.update({
       where: {
