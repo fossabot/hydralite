@@ -12,6 +12,8 @@ import session from "express-session";
 import passport from "passport";
 import { ApolloServer } from "apollo-server-express";
 import { v4 as uuid } from "uuid";
+import connectRedis from "connect-redis";
+import { createClient } from "redis";
 
 import createSchema from "./util/CreateSchema";
 import ContextType from "./types/Context.type";
@@ -20,7 +22,6 @@ import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
 import UserRepo from "./db/UserRepo";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
-import { redis, redisStore } from "~/config/redis";
 
 async function main() {
   // initialize dontenv
@@ -28,6 +29,21 @@ async function main() {
 
   // Create Express Server
   const app = express();
+
+  // Initialize Redis
+  const redisStore = connectRedis(session);
+  const redisClient = createClient({
+    port: Number(process.env.REDIS_PORT) || 6379,
+    host: process.env.REDIS_HOST || "localhost",
+    password: process.env.REDIS_PASSWORD || "",
+  });
+
+  redisClient.on("error", function (err) {
+    console.error(`Error connecting to redis: ${err}`);
+  });
+  redisClient.on("connect", function () {
+    console.log("Connected to redis.");
+  });
 
   // Initialize Apollo Server
   const schema = await createSchema();
@@ -75,7 +91,7 @@ async function main() {
     session({
       name: "_hl_sess",
       genid: (_) => uuid(),
-      store: new redisStore({ client: redis }),
+      store: new redisStore({ client: redisClient }),
       secret: process.env.sessionSecret || "hydraliteispog",
       resave: false,
       saveUninitialized: true,
