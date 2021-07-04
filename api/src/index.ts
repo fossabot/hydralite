@@ -24,6 +24,7 @@ import { isProd, projectName } from "./constants";
 import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
 import UserRepo from "./db/UserRepo";
+import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
 
 async function main() {
   // initialize dontenv
@@ -155,7 +156,8 @@ async function main() {
   });
 
   // auth routes
-  expressServer.use("/api/auth", GithubOAuth(passport));
+  expressServer.use("/api/auth/github", GithubOAuth(passport));
+  expressServer.use("/api/auth/discord", DiscordOAuth(passport));
   expressServer.get("/api/auth/logout", function (req, res) {
     req.logout();
     res.redirect("/");

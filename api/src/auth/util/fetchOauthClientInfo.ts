@@ -2,8 +2,8 @@ export default function fetchOauthClientInfo(
   provider: "github" | "discord" | "google" | "twitter"
 ) {
   let info: {
-    clientId: string | number;
-    clientSecret: string | number;
+    clientId: string;
+    clientSecret: string;
     cbUrl?: string;
   };
   switch (provider) {
@@ -35,7 +35,7 @@ export default function fetchOauthClientInfo(
 
   info.cbUrl = `http://localhost:${
     process.env.PORT || 8000
-  }/api/auth/github/cb`;
+  }/api/auth/${provider}/cb`;
 
   return info;
 }

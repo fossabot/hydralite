@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { Strategy } from "passport-github2";
+import { Strategy } from "passport-discord";
 import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
-import { PassportGithubProfile } from "../types/PassportGithubProfile.type";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
+import { PassportDiscordProfile } from "../types/PassportDiscordProfile.type";
 
-export const GithubOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo("github");
+export const DiscordOAuth = (passport: PassportStatic) => {
+  const oauthInfo = fetchOauthClientInfo("discord");
 
   passport.use(
     new Strategy(
@@ -14,24 +14,24 @@ export const GithubOAuth = (passport: PassportStatic) => {
         clientID: oauthInfo.clientId,
         clientSecret: oauthInfo.clientSecret,
         callbackURL: oauthInfo.cbUrl!,
+        scope: ["email", "identify"],
       },
       async (
         _: string,
         __: string,
-        profile: PassportGithubProfile,
+        profile: PassportDiscordProfile,
         done: any
       ) => {
         const genericUser: PassportGenericUser = {
-          email: profile._json.email || "",
-          username: profile.username,
+          email: profile.email || "",
+          username: `${profile.username}#${profile.discriminator}`, // TASK: Randomize usernames for each provider
           profile: {
-            avatarUrl: profile.photos[0].value,
-            bio: profile._json.bio || "",
+            avatarUrl: profile.avatar, // TASK: replace with real avatar url and not just hash
           },
           primaryOauthConnection: {
-            email: profile._json.email || "",
-            oauthService: "github",
-            username: profile.username,
+            email: profile.email || "",
+            oauthService: "discord",
+            username: `${profile.username}#${profile.discriminator}`,
             oauthServiceUserId: profile.id,
           },
         };
@@ -45,8 +45,7 @@ export const GithubOAuth = (passport: PassportStatic) => {
 
   router.get(
     "/",
-    passport.authenticate("github", {
-      scope: ["user:email"],
+    passport.authenticate("discord", {
       failureRedirect: `/`,
       session: true,
     })
@@ -54,12 +53,12 @@ export const GithubOAuth = (passport: PassportStatic) => {
 
   router.get(
     "/cb",
-    passport.authenticate("github", {
+    passport.authenticate("discord", {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
-      // redirect to main site
+      // TASK: redirect to main site
       res.redirect("/");
     }
   );
