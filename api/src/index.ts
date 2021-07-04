@@ -161,8 +161,11 @@ async function main() {
   app.use("/api/auth/github", GithubOAuth(passport));
   app.use("/api/auth/discord", DiscordOAuth(passport));
   app.get("/api/auth/logout", function (req, res) {
-    req.logout();
-    res.redirect("/");
+    req.session.destroy((err) => {
+      if (err) throw err;
+      req.logout();
+      res.redirect("/");
+    });
   });
 
   // Enable express to be used with gql
