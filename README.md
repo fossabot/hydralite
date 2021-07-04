@@ -18,8 +18,8 @@ Hydralite is a system that steers away from typical scrum methodology and adopts
 <a href="https://github.com/hydralite/hydralite/tree/dev/api">`api`</a> - GraphQL Api <br>
 <a href="https://github.com/hydralite/hydralite/tree/dev/cli">`cli`</a> - CLI <br>
 <a href="https://github.com/hydralite/hydralite/tree/dev/landing">`landing`</a> - Landing Page <br>
-<a href="https://github.com/hydralite/hydralite/tree/dev/mobile">`cli`</a> - Mobile <br>
-<a href="https://github.com/hydralite/prototypes">`repo:prototypes`</a> - Prototypes
+<a href="https://github.com/hydralite/hydralite/tree/dev/mobile">`mobile`</a> - Mobile <br>
+<a href="https://github.com/hydralite/prototypes">`repo:prototypes`</a> - Prototypes 
 
 ## Getting Started
 
