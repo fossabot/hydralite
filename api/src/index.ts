@@ -1,7 +1,4 @@
-// initialize dontenv (should be at the top of the file)
 import dotenv from "dotenv";
-dotenv.config();
-
 import "reflect-metadata";
 import express from "express";
 import cors from "cors";
@@ -12,8 +9,6 @@ import {
 } from "graphql-query-complexity";
 import { PrismaClient } from "@prisma/client";
 import session from "express-session";
-import connectRedis from "connect-redis";
-import redis from "redis";
 import passport from "passport";
 import { ApolloServer } from "apollo-server-express";
 import { v4 as uuid } from "uuid";
@@ -25,17 +20,14 @@ import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
 import UserRepo from "./db/UserRepo";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
+import { redis, redisStore } from "~/config/redis";
 
 async function main() {
   // initialize dontenv
+  dotenv.config();
 
-  // Initialize Redis
-  var redisClient = redis.createClient();
-  const redisStore = connectRedis(session);
-
-  redisClient.on("error", (err) => {
-    console.log("Redis error: ", err);
-  });
+  // Create Express Server
+  const app = express();
 
   // Initialize Apollo Server
   const schema = await createSchema();
@@ -76,20 +68,14 @@ async function main() {
     ],
   });
 
-  // Create Express Server
-  const expressServer = express();
-
   // Express Middleware
-  expressServer.use(cors({ origin: "*" }));
-  expressServer.use(
+  app.use(cors({ origin: "*" }));
+
+  app.use(
     session({
       name: "_hl_sess",
       genid: (_) => uuid(),
-      store: new redisStore({
-        host: process.env.REDIS_HOST || "localhost",
-        port: Number(process.env.REDIS_PORT) || 6379,
-        client: redisClient,
-      }),
+      store: new redisStore({ client: redis }),
       secret: process.env.sessionSecret || "hydraliteispog",
       resave: false,
       saveUninitialized: true,
@@ -100,8 +86,8 @@ async function main() {
       },
     })
   );
-  expressServer.use(passport.initialize());
-  expressServer.use(passport.session());
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // Passport
   const userRepo = new UserRepo();
@@ -146,7 +132,7 @@ async function main() {
   });
 
   // general routes
-  expressServer.get("/", function (req, res) {
+  app.get("/", function (req, res) {
     console.log("session", req.session);
     console.log("user", req.user);
     return res.json({
@@ -156,21 +142,19 @@ async function main() {
   });
 
   // auth routes
-  expressServer.use("/api/auth/github", GithubOAuth(passport));
-  expressServer.use("/api/auth/discord", DiscordOAuth(passport));
-  expressServer.get("/api/auth/logout", function (req, res) {
+  app.use("/api/auth/github", GithubOAuth(passport));
+  app.use("/api/auth/discord", DiscordOAuth(passport));
+  app.get("/api/auth/logout", function (req, res) {
     req.logout();
     res.redirect("/");
   });
 
   // Enable express to be used with gql
-  gqlServer.applyMiddleware({ app: expressServer });
+  gqlServer.applyMiddleware({ app });
 
   // Start Server
   const port = process.env.PORT || 8000;
-  expressServer.listen({ port }, () => {
-    console.log(`Navigate to http://localhost:${port}${gqlServer.graphqlPath}`);
-  });
+  app.listen(port, () => console.log(`Navigate to http://localhost:${port}`));
 }
 
 main().catch((err) => console.error(err));

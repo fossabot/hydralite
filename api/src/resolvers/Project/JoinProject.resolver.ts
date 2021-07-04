@@ -18,7 +18,7 @@ export class JoinProject {
   ): Promise<Project> {
     const user: User = _ as any;
 
-    //
+    // validate project existence
     const projectToJoin = await prisma.project.findUnique({
       where: { id: projectId },
     });
