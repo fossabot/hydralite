@@ -5,7 +5,6 @@ import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-express";
 import createSchema from "./util/CreateSchema";
 import ContextType from "./types/Context.type";
-import { apolloPlugins } from "./util/apolloPlugins";
 import { GraphQLSchema } from "graphql";
 import express, { Application } from "express";
 import cors from "cors";
@@ -17,6 +16,12 @@ import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
 import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
 import dotenv from "dotenv";
+import {
+  fieldExtensionsEstimator,
+  getComplexity,
+  simpleEstimator,
+} from "graphql-query-complexity";
+import { apolloPlugins } from "./util/apolloPlugins";
 
 export class Server {
   public app: Application;
@@ -69,6 +74,7 @@ export class Server {
 
   private async apolloInit() {
     this.schema = await createSchema();
+    const plugins = apolloPlugins(this.schema);
     this.gqlServer = new ApolloServer({
       schema: this.schema,
       context: ({ req, res }: ContextType) => ({
@@ -76,8 +82,9 @@ export class Server {
         res,
         prisma: new PrismaClient(),
       }),
-      //   plugins: apolloPlugins as any,
+      plugins,
     });
+
     this.gqlServer.applyMiddleware({ app: this.app });
   }
 
@@ -152,7 +159,7 @@ export class Server {
     this.app.use(passport.session());
   }
 
-  routes() {
+  private routes() {
     // welcome route
     this.app.get("/", function (req, res) {
       console.log("session", req.session);
