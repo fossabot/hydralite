@@ -1,4 +1,5 @@
 import { User } from "@prisma/client";
+import { ApolloError } from "apollo-server-express";
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
@@ -12,11 +13,12 @@ export default class FollowUnfollowUserResolver {
     @Arg("args") args: FollowUnfollowUserArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<String> {
+    const user: User = (req as any).user;
+
+    if (args.userId === user.id)
+      throw new ApolloError("You cant follow yourself.");
+
     return executeOrFail(async () => {
-      const user: User = (req as any).user;
-
-      if (args.userId === user.id) throw new Error("You cant follow yourself.");
-
       // add user a to user b's followers
       await prisma.user.update({
         where: {

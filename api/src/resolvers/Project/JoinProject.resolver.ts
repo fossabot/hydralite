@@ -22,7 +22,7 @@ export class JoinProject {
     const projectToJoin = await prisma.project.findUnique({
       where: { id: projectId },
     });
-    if (!projectToJoin) throw new Error("Invalid project.");
+    if (!projectToJoin) throw new ApolloError("Invalid project.", "invalid_id");
 
     // validate that member doesnt already exist in the project
     if (

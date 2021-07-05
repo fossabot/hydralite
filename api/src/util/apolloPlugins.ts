@@ -1,3 +1,4 @@
+import { ApolloError } from "apollo-server-express";
 import {
   fieldExtensionsEstimator,
   getComplexity,
@@ -25,7 +26,7 @@ export function apolloPlugins(schema: any) {
           if (complexity > maximumQueryComplexity) {
             console.log(complexity);
 
-            throw new Error(
+            throw new ApolloError(
               `Maximum query complexity of ${maximumQueryComplexity} has been reached.`
             );
           }
