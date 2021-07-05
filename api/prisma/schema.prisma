@@ -75,9 +75,8 @@ model User {
   followers User[] @relation("UserFollowRelation", references: [id])
 
   // Posts
-  posts         Post[] @relation("UserOwnedPostsRelation")
-  likedPosts    Post[] @relation("UserLikedPostsRelation")
-  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are available to this user
+  posts      Post[] @relation("UserOwnedPostsRelation")
+  likedPosts Post[] @relation("UserLikedPostsRelation")
 
   // Post Comments
   createdPostComments PostComment[]
@@ -135,6 +134,8 @@ model ProjectRole {
   description          String
   linkedOpenEndedTasks Task[]
   assignedMembers      ProjectMember[]
+
+  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this role
 
   permissions   ProjectMemberPermissions @relation(fields: [permissionsId], references: [id])
   permissionsId String
@@ -420,7 +421,7 @@ model Post {
   repostedFromId String
 
   isPublic  Boolean
-  visibleTo User[]  @relation("PostVisibleToRelation") // only applicable to posts with isPublic set to true
+  visibleTo ProjectRole[] @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
