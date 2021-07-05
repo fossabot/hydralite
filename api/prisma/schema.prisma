@@ -50,9 +50,9 @@ model OauthConnection {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  username String   @unique
-  email    String   @unique
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
   hydra    Int
 
   // Profile
@@ -78,8 +78,6 @@ model User {
   posts               Post[]
   createdPostComments PostComment[]
   createdHashtags     Hashtag[]
-  ownedPostGroups     PostGroup[]   @relation("UserOwnedPostGroupsRelation")
-  memberOfPostGroups  PostGroup[]   @relation("PostGroupMembersRelation")
 
   // Bug reports and feature requests
   bugReports      BugReport[]
@@ -184,9 +182,6 @@ model Project {
 
   // roles
   roles ProjectRole[]
-
-  // post groups
-  postGroups PostGroup[]
 
   // task-related fields
   taskBoards     TaskBoard[]
@@ -406,34 +401,12 @@ model Hashtag {
   updatedAt DateTime @updatedAt
 }
 
-model PostGroup {
-  id          String  @id @default(uuid())
-  title       String
-  description String
-  isCommunity Boolean
-
-  creator   User   @relation("UserOwnedPostGroupsRelation", fields: [creatorId], references: [id])
-  creatorId String
-
-  members User[] @relation("PostGroupMembersRelation")
-
-  posts Post[]
-
-  project   Project? @relation(fields: [projectId], references: [id])
-  projectId String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Post {
   id             String   @id @default(uuid())
   postedtime     DateTime
   title          String
   description    String
   isAnnouncement Boolean
-
-  postGroups PostGroup[]
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
