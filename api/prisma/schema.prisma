@@ -74,10 +74,16 @@ model User {
   following User[] @relation("UserFollowRelation", references: [id])
   followers User[] @relation("UserFollowRelation", references: [id])
 
-  // Posts and Post Groups
-  posts               Post[]
+  // Posts
+  posts         Post[] @relation("UserOwnedPostsRelation")
+  likedPosts    Post[] @relation("UserLikedPostsRelation")
+  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are available to this user
+
+  // Post Comments
   createdPostComments PostComment[]
-  createdHashtags     Hashtag[]
+
+  // Post hashtags
+  createdHashtags Hashtag[]
 
   // Bug reports and feature requests
   bugReports      BugReport[]
@@ -85,6 +91,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
 }
 
 model UserProfile {
@@ -190,6 +197,7 @@ model Project {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Post      Post[]
 }
 
 model TaskBoard {
@@ -402,19 +410,29 @@ model Hashtag {
 }
 
 model Post {
-  id             String   @id @default(uuid())
-  postedtime     DateTime
+  id             String  @id @default(uuid())
   title          String
   description    String
   isAnnouncement Boolean
 
-  creator   User   @relation(fields: [creatorId], references: [id])
-  creatorId String
+  reposts        Post[] @relation("RepostingPostsRelation") // the reposts made from this post
+  repostedFrom   Post   @relation("RepostingPostsRelation", fields: [repostedFromId], references: [id]) // the post that this post has been reposted from
+  repostedFromId String
 
-  comments    PostComment[]
+  isPublic  Boolean
+  visibleTo User[]  @relation("PostVisibleToRelation") // only applicable to posts with isPublic set to true
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  likers   User[]        @relation("UserLikedPostsRelation")
+  comments PostComment[]
+
   attachments Attachment[]
+  hashtags    Hashtag[]
 
-  hashtags Hashtag[]
+  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
