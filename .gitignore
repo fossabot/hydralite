@@ -18,3 +18,7 @@ dist
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+.vscode/
+
+cli/target
