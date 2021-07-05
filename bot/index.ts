@@ -16,10 +16,6 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('interaction', async interaction => {
-	console.log(interaction);
-});
-
 (client as any).ws.on('INTERACTION_CREATE', async interaction => {
     let name = interaction.data.name;
     if (!commands.has(name)) return respondInteraction(interaction, {type: 4, data: {content: 'Couldn\'t find command!'}});
@@ -43,11 +39,9 @@ function Initialize(guild: Discord.Guild) {
 }
 
 client.on('message', async msg => {
-    if (msg.content.startsWith('!init')) {
+    if (msg.content == '!init') {
         if (!msg.guild) return;
-        console.log('Initializing');
         Initialize(msg.guild);
-        console.log('Initialized');
     }
 });
 

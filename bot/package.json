@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "firecraftgaming",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^4.3.5"
