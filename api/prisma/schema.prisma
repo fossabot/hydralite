@@ -50,9 +50,9 @@ model OauthConnection {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  username String   @unique
-  email    String   @unique
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
   hydra    Int
 
   // Profile
@@ -74,12 +74,15 @@ model User {
   following User[] @relation("UserFollowRelation", references: [id])
   followers User[] @relation("UserFollowRelation", references: [id])
 
-  // Posts and Post Groups
-  posts               Post[]
+  // Posts
+  posts      Post[] @relation("UserOwnedPostsRelation")
+  likedPosts Post[] @relation("UserLikedPostsRelation")
+
+  // Post Comments
   createdPostComments PostComment[]
-  createdHashtags     Hashtag[]
-  ownedPostGroups     PostGroup[]   @relation("UserOwnedPostGroupsRelation")
-  memberOfPostGroups  PostGroup[]   @relation("PostGroupMembersRelation")
+
+  // Post hashtags
+  createdHashtags Hashtag[]
 
   // Bug reports and feature requests
   bugReports      BugReport[]
@@ -87,6 +90,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
 }
 
 model UserProfile {
@@ -130,6 +134,8 @@ model ProjectRole {
   description          String
   linkedOpenEndedTasks Task[]
   assignedMembers      ProjectMember[]
+
+  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this role
 
   permissions   ProjectMemberPermissions @relation(fields: [permissionsId], references: [id])
   permissionsId String
@@ -185,9 +191,6 @@ model Project {
   // roles
   roles ProjectRole[]
 
-  // post groups
-  postGroups PostGroup[]
-
   // task-related fields
   taskBoards     TaskBoard[]
   taskCategories TaskCategory[]
@@ -195,6 +198,7 @@ model Project {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Post      Post[]
 }
 
 model TaskBoard {
@@ -406,42 +410,30 @@ model Hashtag {
   updatedAt DateTime @updatedAt
 }
 
-model PostGroup {
-  id          String  @id @default(uuid())
-  title       String
-  description String
-  isCommunity Boolean
-
-  creator   User   @relation("UserOwnedPostGroupsRelation", fields: [creatorId], references: [id])
-  creatorId String
-
-  members User[] @relation("PostGroupMembersRelation")
-
-  posts Post[]
-
-  project   Project? @relation(fields: [projectId], references: [id])
-  projectId String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Post {
-  id             String   @id @default(uuid())
-  postedtime     DateTime
+  id             String  @id @default(uuid())
   title          String
   description    String
   isAnnouncement Boolean
 
-  postGroups PostGroup[]
+  reposts        Post[] @relation("RepostingPostsRelation") // the reposts made from this post
+  repostedFrom   Post   @relation("RepostingPostsRelation", fields: [repostedFromId], references: [id]) // the post that this post has been reposted from
+  repostedFromId String
 
-  creator   User   @relation(fields: [creatorId], references: [id])
-  creatorId String
+  isPublic  Boolean
+  visibleTo ProjectRole[] @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
 
-  comments    PostComment[]
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  likers   User[]        @relation("UserLikedPostsRelation")
+  comments PostComment[]
+
   attachments Attachment[]
+  hashtags    Hashtag[]
 
-  hashtags Hashtag[]
+  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
