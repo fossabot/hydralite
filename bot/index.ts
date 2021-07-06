@@ -17,9 +17,11 @@ client.on('ready', () => {
 });
 
 (client as any).ws.on('INTERACTION_CREATE', async interaction => {
-    let name = interaction.data.name;
-    if (!commands.has(name)) return respondInteraction(interaction, {type: 4, data: {content: 'Couldn\'t find command!'}});
-    commands.get(name).execute(client, interaction, (data) => respondInteraction(interaction, data));
+    if (interaction.type == 2) {
+        let name = interaction.data.name;
+        if (!commands.has(name)) return respondInteraction(interaction, {type: 4, data: {content: 'Couldn\'t find command!'}});
+        commands.get(name).execute(client, interaction, (data) => respondInteraction(interaction, data));
+    }
 });
 
 function respondInteraction(interaction, data) {

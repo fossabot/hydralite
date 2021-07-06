@@ -1,4 +1,5 @@
 import * as Discord from 'discord.js';
+import { getData } from '../data';
 import { Command } from '../types';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     ],
     execute: async (bot: Discord.Client, command: any, callback: Function) => {
         const name = command.data.options.find(v => v.name == 'user').value;
+        const user = getData(name);
 
         const error = false;
         if (error) {
@@ -35,7 +37,7 @@ export default {
             embeds: [
               {
                 title: `${name}'s balance`,
-                description: `**${name}** has \`\${hydra}\` hydra`,
+                description: `**${name}** has \`${user.hydra}\` hydra`,
                 color: 2293538
               }
             ]

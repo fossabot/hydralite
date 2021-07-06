@@ -1,5 +1,27 @@
 import * as Discord from 'discord.js';
+import { getData } from '../data';
 import { Command } from '../types';
+
+function formatDate(date: Date) {
+  if (!date) return '';
+
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`;
+}
 
 export default {
     name: 'profile',
@@ -14,6 +36,7 @@ export default {
     ],
     execute: async (bot: Discord.Client, command: any, callback: Function) => {
         const name = command.data.options.find(v => v.name == 'user').value;
+        const user = getData(name);
 
         const error = false;
         if (error) {
@@ -35,27 +58,27 @@ export default {
             embeds: [
               {
                 title: `${name}\'s profile on hydralite`,
-                description: `**${name}** account was created at \`\${createdAt}\``,
+                description: `**${name}** account was created at \`${formatDate(user.createdAt)}\``,
                 color: 2293538,
                 fields: [
                   {
                     name: 'Projects',
                     value: `
-                    **${name}** ownes \`\${ownedProjects}\` projects
-                    **${name}** is a member of \`\${allProjects}\` projects
+                    **${name}** ownes \`${user.ownedProjects}\` projects
+                    **${name}** is a member of \`${user.allProjects}\` projects
 
-                    **${name}** likes \`\${likedProjects}\` projects
-                    **${name}** follows \`\${followedProjects}\` projects
+                    **${name}** likes \`${user.likedProjects}\` projects
+                    **${name}** follows \`${user.followedProjects}\` projects
                     `
                   },
                   {
                     name: 'Social',
                     value: `
-                    **${name}** is followed by \`\${followers}\` users
-                    **${name}** follows \`\${following}\` users
+                    **${name}** is followed by \`${user.followers}\` users
+                    **${name}** follows \`${user.following}\` users
 
-                    **${name}** has \`\${posts}\` posts
-                    **${name}** likes \`\${likedPosts}\` posts
+                    **${name}** has \`${user.posts}\` posts
+                    **${name}** likes \`${user.likedPosts}\` posts
                     `
                   }
                 ]
