@@ -92,13 +92,15 @@ model User {
   // Post hashtags
   createdHashtags Hashtag[]
 
+  // Post Labels
+  postLabels PostLabel[]
+
   // Bug reports and feature requests
   bugReports      BugReport[]
   featureRequests FeatureRequest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model UserProfile {
@@ -418,12 +420,28 @@ model Hashtag {
   updatedAt DateTime @updatedAt
 }
 
+model PostLabel {
+  id    String @id @default(uuid())
+  title String
+  color String
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Post {
   id             String   @id @default(uuid())
   title          String
   description    String
   isAnnouncement Boolean
   type           PostType
+
+  labels PostLabel[]
 
   reposts        Post[] @relation("RepostingPostsRelation") // the reposts made from this post
   repostedFrom   Post   @relation("RepostingPostsRelation", fields: [repostedFromId], references: [id]) // the post that this post has been reposted from
