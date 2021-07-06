@@ -8,24 +8,14 @@ export interface ProjectLayoutProps {
   centerContent?: boolean;
 }
 
-export const ProjectLayout: React.FC<ProjectLayoutProps> = ({
-  centerContent,
-  selected,
-  children,
-}) => {
-  return (
-    <div className="flex w-screen h-screen justify-between items-center">
-      <Sidebar selected={selected} />
-      <div className="flex flex-col w-full h-screen justify-between items-center">
-        <Navbar avatar="/avatar.png" />
-        <div
-          className={`w-full h-screen ${
-            centerContent && "flex items-center justify-center pr-4"
-          }`}
-        >
-          {children}
+export const ProjectLayout: React.FC<ProjectLayoutProps> = ({ centerContent, selected, children }) => {
+    return (
+        <div className="flex w-screen h-screen justify-between items-center">
+            <Sidebar selected={selected} />
+            <div className="flex flex-col w-full h-screen justify-between items-center">
+                <Navbar avatar="/avatar.png" />
+                <div className={`w-full h-screen ${centerContent ? "flex items-center justify-center pr-64 pb-16" : ""}`}>{children}</div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };

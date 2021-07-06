@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export interface SidebarLinkProps {
   image: React.ReactFragment;
@@ -13,8 +14,11 @@ export const SidebarLink: React.FC<SidebarLinkProps> = ({
   title,
   href,
 }) => {
+  const router = useRouter();
+  const { id } = router.query;
+
   return (
-    <Link href={href}>
+    <Link href={`/project/${id}/${href}`}>
       <a>
         <div
           className={`m-1 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 w-52 h-12 ${
