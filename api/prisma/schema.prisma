@@ -39,6 +39,7 @@ enum PostType {
   question
   feedback
   suggestion
+  appreciation
 }
 
 model OauthConnection {
