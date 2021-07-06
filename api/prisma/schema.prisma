@@ -33,6 +33,14 @@ enum BugReportSeverity {
   low
 }
 
+enum PostType {
+  post
+  article
+  question
+  feedback
+  suggestion
+}
+
 model OauthConnection {
   id                 String                 @id @default(uuid())
   oauthService       OauthConnectionService
@@ -411,10 +419,11 @@ model Hashtag {
 }
 
 model Post {
-  id             String  @id @default(uuid())
+  id             String   @id @default(uuid())
   title          String
   description    String
   isAnnouncement Boolean
+  type           PostType
 
   reposts        Post[] @relation("RepostingPostsRelation") // the reposts made from this post
   repostedFrom   Post   @relation("RepostingPostsRelation", fields: [repostedFromId], references: [id]) // the post that this post has been reposted from
@@ -428,6 +437,7 @@ model Post {
 
   likers   User[]        @relation("UserLikedPostsRelation")
   comments PostComment[]
+  // TASK: Add promotion ability
 
   attachments Attachment[]
   hashtags    Hashtag[]
