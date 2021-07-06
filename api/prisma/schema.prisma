@@ -196,6 +196,8 @@ model Project {
   logoUrl     String
   bannerUrl   String
 
+  // TASK: ability to lock down access for creating posts
+
   newJoineesRequireApproval Boolean @default(true)
 
   owner   User            @relation(fields: [ownerId], references: [id])
