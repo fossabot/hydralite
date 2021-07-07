@@ -221,9 +221,9 @@ model Project {
 }
 
 model TaskBoard {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
-  description String
+  description String?
 
   tasks Task[]
 
@@ -352,9 +352,9 @@ model Task {
 }
 
 model FeatureRequest {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
-  description String
+  description String?
 
   creator                  User    @relation(fields: [creatorId], references: [id])
   creatorId                String
@@ -376,7 +376,7 @@ model FeatureRequest {
 model BugReport {
   id          String            @id @default(uuid())
   name        String
-  description String
+  description String?
   severity    BugReportSeverity
 
   creator                  User    @relation(fields: [creatorId], references: [id])
@@ -463,7 +463,7 @@ model PostCategory {
 model Post {
   id             String   @id @default(uuid())
   title          String
-  description    String
+  description    String?
   isAnnouncement Boolean
   type           PostType
 
