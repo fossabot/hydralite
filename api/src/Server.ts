@@ -119,8 +119,6 @@ export class Server {
             profile: true,
             createdHashtags: true,
             createdPostComments: true,
-            memberOfPostGroups: true,
-            ownedPostGroups: true,
             posts: true,
             bugReports: true,
             featureRequests: true,

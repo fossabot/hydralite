@@ -29,7 +29,6 @@ export default class UserRepo extends PrismaClient {
       const user = this.user.create({
         data: {
           email: genericUserData.email || "",
-          joinDate: new Date(),
           profile: {
             create: {
               avatarURL: genericUserData.profile.avatarUrl,

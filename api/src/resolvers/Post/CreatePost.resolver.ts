@@ -2,18 +2,25 @@ import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreatePostArgs } from "./args/CreatePostArgs";
 import ContextType from "~/types/Context.type";
-import { User } from "~/resolver-types/models";
+import { Post, User } from "~/resolver-types/models";
 import { connectIdArray } from "~/util/connectIdArray";
+import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
+
+const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class CreatePostResolver {
   @UseMiddleware(isAuthenticated)
-  @Mutation()
+  @Mutation(() => Post)
   async createPost(
     @Arg("args") args: CreatePostArgs,
     @Ctx() { req, prisma }: ContextType
   ) {
     // retrieve the currently logged in user
     const user: User = req.user as User;
+    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+      user.id,
+      args.projectId
+    );
 
     type postType = Parameters<typeof prisma.post.create>[0]["data"];
     const post: postType = {
@@ -30,8 +37,16 @@ export class CreatePostResolver {
       repostedFrom: { connect: { id: args.repostedFromId } },
     };
 
-    // TASK: if they provide isAnnouncement, make sure they have perms
-    // TASK: if they set isPublic to false and assign viewers, make sure they have perms
+    // make sure user can manage posts in this project if they are trying to make an announcement or make a post private
+    if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds)
+      memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
+
+    post.isPublic = args.isPublic || false;
+    post.visibleTo = post.isPublic
+      ? connectIdArray(args.visibleToRolesIds)
+      : {};
+
+    post.isAnnouncement = args.isAnnouncement || false;
 
     const createdPost = await prisma.post.create({ data: post });
     return createdPost;
