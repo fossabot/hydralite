@@ -27,6 +27,9 @@ export const isAuthenticated: MiddlewareFn<ContextType> = async (
       posts: true,
       bugReports: true,
       featureRequests: true,
+      likedPosts: true,
+      postLabels: true,
+      subscribedPostCategories: true,
     },
   });
   req.user = user as any;
