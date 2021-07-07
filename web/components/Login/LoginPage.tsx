@@ -20,7 +20,7 @@ const Login = () => {
             Seamless Project Management is just one click away.
           </p>
           <div className={styles.button_center}>
-            <div>
+            <div className={styles.button_container}>
               <Button
                 className={styles.button_link}
                 color="muted"
