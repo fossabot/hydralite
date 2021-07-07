@@ -36,11 +36,11 @@ export class UpdatePostResolver {
     if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds) {
       memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
 
+      post.isAnnouncement = args.isAnnouncement || false;
       post.isPublic = args.isPublic || false;
       post.visibleTo = post.isPublic
         ? connectIdArray(args.visibleToRolesIds)
         : {};
-      post.isAnnouncement = args.isAnnouncement || false;
     }
 
     const updatedPost = await prisma.post.update({

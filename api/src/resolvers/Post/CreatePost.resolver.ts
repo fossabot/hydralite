@@ -38,15 +38,15 @@ export class CreatePostResolver {
     };
 
     // make sure user can manage posts in this project if they are trying to make an announcement or make a post private
-    if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds)
+    if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds) {
       memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
 
-    post.isPublic = args.isPublic || false;
-    post.visibleTo = post.isPublic
-      ? connectIdArray(args.visibleToRolesIds)
-      : {};
-
-    post.isAnnouncement = args.isAnnouncement || false;
+      post.isAnnouncement = args.isAnnouncement || false;
+      post.isPublic = args.isPublic || false;
+      post.visibleTo = post.isPublic
+        ? connectIdArray(args.visibleToRolesIds)
+        : {};
+    }
 
     const createdPost = await prisma.post.create({ data: post });
     return createdPost;
