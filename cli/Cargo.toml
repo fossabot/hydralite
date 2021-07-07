@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 colored = "2.0.0"
 git2 = "0.13.20"
+indicatif = "0.16.2"

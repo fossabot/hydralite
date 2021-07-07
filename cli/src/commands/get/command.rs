@@ -1,14 +1,20 @@
 use std::path::Path;
 
-use git2::{Cred, Error, RemoteCallbacks};
+use git2::RemoteCallbacks;
+use indicatif::ProgressBar;
 
 pub struct Get {}
 
 impl Get {
     pub fn get() {
         let mut callbacks = RemoteCallbacks::new();
-        callbacks.transfer_progress(|progress| {
-            println!("{}", progress.received_bytes());
+        let progress_bar = ProgressBar::new(0);
+
+        callbacks.transfer_progress(move |progress| {
+            progress_bar.set_length(progress.total_objects() as u64);
+            progress_bar.set_position(progress.indexed_objects() as u64);
+
+            // println!("{}", progress.received_bytes());
             true
         });
 
@@ -20,7 +26,10 @@ impl Get {
         builder.fetch_options(fo);
 
         builder
-            .clone("https://github.com/voltpkg/volt", Path::new("/something"))
+            .clone(
+                "https://github.com/voltpkg/volt",
+                Path::new(r"C:\Users\xtrem\Desktop\vol"),
+            )
             .unwrap();
     }
 }
