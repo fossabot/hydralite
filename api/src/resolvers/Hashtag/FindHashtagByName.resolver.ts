@@ -16,7 +16,7 @@ export default class FindHashtagByNameResolver {
     return executeOrFail(async () => {
       const hashtag = await prisma.$queryRaw(
         `
-			select * from "Hashtag" as h where h.name = $1
+				SELECT h.* FROM "Hashtag" as h WHERE to_tsvector(h.name) @@ to_tsquery($1);
 			`,
         args.name
       );
