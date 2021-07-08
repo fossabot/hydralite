@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { PassportGenericUser } from "~/auth/types/PassportGenericUser.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "~/resolver-types/models";
+import { ApolloError } from "apollo-server-express";
 
 export default class UserRepo extends PrismaClient {
   findOrCreateUser = async (
@@ -60,4 +61,25 @@ export default class UserRepo extends PrismaClient {
       return user;
     }, "Error creating user");
   };
+
+  async userCanViewPrivatePost(
+    userId: string,
+    postId: string,
+    validate: boolean = true
+  ) {
+    const isPostViewable = !!(await this.user.findFirst({
+      where: {
+        id: userId,
+        viewablePosts: { some: { id: postId } },
+      },
+    }));
+
+    if (validate && !isPostViewable)
+      throw new ApolloError(
+        "This action requires elevation.",
+        "not_authorized"
+      );
+
+    return isPostViewable;
+  }
 }
