@@ -22,4 +22,21 @@ export class LikeUnlikePostResolver {
 
     return likedPost;
   }
+
+  @Mutation(() => Post)
+  @UseMiddleware(isAuthenticated)
+  async unlikePost(
+    @Arg("args") { postId }: LikeUnlikePostArgs,
+    @Ctx() { req, prisma }: ContextType
+  ): Promise<Post | null> {
+    // retrieve the currently logged in user
+    const user: User = req.user as User;
+
+    const unlikedPost = prisma.post.update({
+      where: { id: postId },
+      data: { likers: { disconnect: { id: user.id } } },
+    });
+
+    return unlikedPost;
+  }
 }
