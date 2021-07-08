@@ -1,52 +1,33 @@
 // import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 // import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 // import ContextType from "~/types/Context.type";
-// import { Post, User } from "~/resolver-types/models";
-// import { connectIdArray } from "~/util/connectIdArray";
-// import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
-// import { UpdatePostArgs } from "./args/UpdatePostArgs";
+// import { User } from "~/resolver-types/models";
+// import { DeletePostArgs } from "./args/DeletePostArgs";
+// import { PostRepo } from "~/db/PostRepo";
+// import executeOrFail from "~/util/executeOrFail";
 
-// const memberRepo = new ProjectMemberRepo();
+// const postRepo = new PostRepo();
 // @Resolver()
 // export class DeletePostResolver {
 //   @UseMiddleware(isAuthenticated)
-//   @Mutation(() => Post)
-//   async updatePost(
-//     @Arg("args") args: UpdatePostArgs,
+//   @Mutation(() => String)
+//   async deletePost(
+//     @Arg("args") args: DeletePostArgs,
 //     @Ctx() { req, prisma }: ContextType
-//   ) {
+//   ): Promise<String | null> {
 //     // retrieve the currently logged in user
 //     const user: User = req.user as User;
-//     const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
-//       user.id,
-//       args.projectId
-//     );
 
-//     type postType = Parameters<typeof prisma.post.update>[0]["data"];
-//     const post: postType = {};
+//     // ensure the user trying to delete the post was the creator
+//     await postRepo.userIsCreatorOfPost(user.id, args.postId);
 
-//     if (args.title) post.title = args.title;
-//     if (args.description) post.description = args.description;
-//     if (args.hashtagIds) post.hashtags = connectIdArray(args.hashtagIds);
-//     if (args.type) post.type = args.type;
-//     if (args.categoryIds) post.categories = connectIdArray(args.categoryIds);
-//     if (args.labelIds) post.labels = connectIdArray(args.labelIds);
+//     // delete the post
+//     executeOrFail(async () => {
+//       await prisma.post.delete({
+//         where: { id: args.postId },
+//       });
+//     }, "Error deleting post");
 
-//     // make sure user can manage posts in this project if they are trying to make this post an announcement or make a post private
-//     if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds) {
-//       memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
-
-//       post.isAnnouncement = args.isAnnouncement || false;
-//       post.isPublic = args.isPublic || false;
-//       post.visibleTo = post.isPublic
-//         ? connectIdArray(args.visibleToRolesIds)
-//         : {};
-//     }
-
-//     const updatedPost = await prisma.post.update({
-//       where: { id: args.id },
-//       data: post,
-//     });
-//     return updatedPost;
+//     return "Successfully deleted post";
 //   }
 // }

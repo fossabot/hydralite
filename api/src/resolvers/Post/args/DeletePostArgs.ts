@@ -4,7 +4,4 @@ import { Field, InputType } from "type-graphql";
 export class DeletePostArgs {
   @Field(() => String, { nullable: false })
   postId!: string;
-
-  @Field(() => String, { nullable: false })
-  memberId!: string;
 }

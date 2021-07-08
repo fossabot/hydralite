@@ -11,12 +11,12 @@ export class PostRepo extends PrismaClient {
   }
 
   async userIsCreatorOfPost(
-    creatorId: string,
+    userId: string,
     postId: string,
     validate: boolean = true
   ) {
     const userInPost = !!(await this.post.findFirst({
-      where: { id: postId, creatorId },
+      where: { id: postId, creatorId: userId },
     }));
     if (validate && !userInPost)
       throw new ApolloError("User does not own post", "invalid_id");

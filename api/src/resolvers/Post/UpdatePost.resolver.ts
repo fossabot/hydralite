@@ -5,8 +5,11 @@ import { Post, User } from "~/resolver-types/models";
 import { connectIdArray } from "~/util/connectIdArray";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { UpdatePostArgs } from "./args/UpdatePostArgs";
+import { PostRepo } from "~/db/PostRepo";
 
 const memberRepo = new ProjectMemberRepo();
+const postRepo = new PostRepo();
+
 @Resolver()
 export class UpdatePostResolver {
   @UseMiddleware(isAuthenticated)
@@ -17,6 +20,9 @@ export class UpdatePostResolver {
   ) {
     // retrieve the currently logged in user
     const user: User = req.user as User;
+
+    // ensure the user trying to update the post was the creator
+    await postRepo.userIsCreatorOfPost(user.id, args.id);
 
     type postType = Parameters<typeof prisma.post.update>[0]["data"];
     const post: postType = {};
