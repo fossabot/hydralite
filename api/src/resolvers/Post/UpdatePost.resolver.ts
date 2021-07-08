@@ -17,10 +17,6 @@ export class UpdatePostResolver {
   ) {
     // retrieve the currently logged in user
     const user: User = req.user as User;
-    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
-      user.id,
-      args.projectId
-    );
 
     type postType = Parameters<typeof prisma.post.update>[0]["data"];
     const post: postType = {};
@@ -34,6 +30,10 @@ export class UpdatePostResolver {
 
     // make sure user can manage posts in this project if they are trying to make this post an announcement or make a post private
     if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds) {
+      const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+        user.id,
+        args.projectId
+      );
       memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
 
       post.isAnnouncement = args.isAnnouncement || false;
