@@ -30,7 +30,6 @@ export class CreatePostResolver {
       project: { connect: { id: args.projectId } },
       categories: connectIdArray(args.categoryIds),
       labels: connectIdArray(args.labelIds),
-      repostedFrom: { connect: { id: args.repostedFromId } },
     };
 
     // make sure user can manage posts in this project if they are trying to make an announcement or make a post private

@@ -44,11 +44,6 @@ export class CreatePostArgs {
   })
   categoryIds?: string[];
 
-  @Field((_type) => String, {
-    nullable: true,
-  })
-  repostedFromId?: string;
-
   @Field((_type) => [String], {
     nullable: true,
   })

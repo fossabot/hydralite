@@ -471,10 +471,6 @@ model Post {
 
   categories PostCategory[]
 
-  reposts        Post[] @relation("RepostingPostsRelation") // the reposts made from this post
-  repostedFrom   Post   @relation("RepostingPostsRelation", fields: [repostedFromId], references: [id]) // the post that this post has been reposted from
-  repostedFromId String
-
   isPublic  Boolean
   visibleTo ProjectRole[] @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
 
