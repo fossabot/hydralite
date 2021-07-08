@@ -1,4 +1,4 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Query, Resolver, UseMiddleware } from "type-graphql";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { Post, User } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
@@ -7,7 +7,7 @@ import { FindPostsInMassArgs } from "./args/FindPostsInMassArgs";
 
 @Resolver()
 export class FindPostsInMass {
-  @Mutation(() => [Post])
+  @Query(() => [Post])
   @UseMiddleware(isAuthenticated)
   async findPostsInMass(
     @Ctx() { req, prisma }: ContextType,
