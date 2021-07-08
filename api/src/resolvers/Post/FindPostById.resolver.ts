@@ -15,8 +15,8 @@ export class FindPostByIdResolver {
   @Mutation(() => Post)
   @UseMiddleware(isAuthenticated)
   async findPostById(
-    @Arg("args") { postId, projectId }: FindPostByIdArgs,
-    @Ctx() { req, prisma }: ContextType
+    @Arg("args") { postId }: FindPostByIdArgs,
+    @Ctx() { req }: ContextType
   ): Promise<Post | null> {
     // retrieve the currently logged in user
     const user: User = req.user as User;
@@ -26,7 +26,8 @@ export class FindPostByIdResolver {
 
       // the post isnt public
       if (post!.isPublic === false) {
-        // userRepo.userCanViewPrivatePost(user.id, )
+        // make sure user can view post, else throw error
+        await userRepo.userCanViewPrivatePost(user.id, postId);
       }
 
       return post;
