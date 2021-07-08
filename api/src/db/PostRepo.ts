@@ -9,4 +9,18 @@ export class PostRepo extends PrismaClient {
 
     return post;
   }
+
+  async userIsCreatorOfPost(
+    creatorId: string,
+    postId: string,
+    validate: boolean = true
+  ) {
+    const userInPost = !!(await this.post.findFirst({
+      where: { id: postId, creatorId },
+    }));
+    if (validate && !userInPost)
+      throw new ApolloError("User does not own post", "invalid_id");
+
+    return userInPost;
+  }
 }
