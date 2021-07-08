@@ -47,7 +47,7 @@ export class CreatePostArgs {
   @Field((_type) => [String], {
     nullable: true,
   })
-  visibleToRolesIds?: string[];
+  visibleToUserIds?: string[];
 
   @Field((_type) => String, {
     nullable: false,

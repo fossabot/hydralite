@@ -25,7 +25,7 @@ export class ProjectMemberRepo extends PrismaClient {
     // retrieve member
     const member = await this.projectMember.findFirst({
       where: { userId, projectId },
-      include: { overallPermissions: true },
+      include: { overallPermissions: true, roles: true },
     });
 
     // validation

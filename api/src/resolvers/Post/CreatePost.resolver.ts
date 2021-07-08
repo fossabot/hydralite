@@ -33,17 +33,17 @@ export class CreatePostResolver {
     };
 
     // make sure user can manage posts in this project if they are trying to make an announcement or make a post private
-    if (args.isAnnouncement || !args.isPublic || args.visibleToRolesIds) {
+    if (args.isAnnouncement || !args.isPublic || args.visibleToUserIds) {
       const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
         user.id,
         args.projectId
       );
       memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
 
-      post.isAnnouncement = args.isAnnouncement || false;
-      post.isPublic = args.isPublic || false;
+      post.isAnnouncement = args.isAnnouncement!;
+      post.isPublic = args.isPublic!;
       post.visibleTo = post.isPublic
-        ? connectIdArray(args.visibleToRolesIds)
+        ? connectIdArray(args.visibleToUserIds)
         : {};
     }
 
