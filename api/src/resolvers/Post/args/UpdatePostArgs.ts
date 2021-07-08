@@ -57,7 +57,7 @@ export class UpdatePostArgs {
   @Field((_type) => [String], {
     nullable: true,
   })
-  visibleToRolesIds?: string[];
+  visibleToUserIds?: string[];
 
   // TASK: Add attachments
 
