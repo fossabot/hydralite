@@ -2,12 +2,12 @@ import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class FindPostsInMassArgs {
-  @Field()
+  @Field({ nullable: true })
   projectId?: string;
 
-  @Field()
+  @Field({ nullable: true })
   limit?: number;
 
-  @Field()
+  @Field({ nullable: true })
   skip?: number;
 }
