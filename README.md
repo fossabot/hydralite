@@ -24,5 +24,5 @@ Hydralite is a system that steers away from typical scrum methodology and adopts
 
 ## Getting Started
 
-Run `setup` (in the root directory) in a new cmd session (only supports command prompt for now)
+Run `setup.cmd` in Windows Command Prompt or `setup.sh` in an macOS/Linux shell at the root directory after cloning.
 Once the setup command has been run based on your shell provider, run `yarn dev` in the root directory to start the api and web servers.

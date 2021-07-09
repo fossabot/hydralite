@@ -1,0 +1,5 @@
+image:
+  file: .gitpod.Dockerfile
+  context: .devcontainer
+tasks:
+- before: IS_GITPOD_PREBUILD=1 ./setup.sh
