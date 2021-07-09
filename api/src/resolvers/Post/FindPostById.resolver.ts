@@ -21,16 +21,14 @@ export class FindPostByIdResolver {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
-    return executeOrFail(async () => {
-      const post = await postRepo.findPostById(postId);
+    const post = await postRepo.findPostById(postId);
 
-      // the post isnt public
-      if (post!.isPublic === false) {
-        // make sure user can view post, else throw error
-        await userRepo.userCanViewPrivatePost(user.id, postId);
-      }
+    // the post isnt public
+    if (post!.isPublic === false) {
+      // make sure user can view post, else throw error
+      await userRepo.userCanViewPrivatePost(user.id, postId);
+    }
 
-      return post;
-    });
+    return post;
   }
 }

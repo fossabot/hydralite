@@ -40,16 +40,16 @@ export class ProjectMemberRepo extends PrismaClient {
     permissionName: string,
     validate: boolean = true
   ): boolean => {
-    const doesMemberHavePermission = !!(member.overallPermissions as any)[
+    const memberHasPerm = !!(member.overallPermissions as any)?.[
       permissionName
     ];
 
-    if (validate && !doesMemberHavePermission)
+    if (validate && !memberHasPerm)
       throw new ApolloError(
         "This action requires elevation.",
         "perms_not_sufficient"
       );
 
-    return doesMemberHavePermission;
+    return memberHasPerm;
   };
 }

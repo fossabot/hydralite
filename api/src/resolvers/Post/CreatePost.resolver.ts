@@ -42,7 +42,7 @@ export class CreatePostResolver {
 
       post.isAnnouncement = args.isAnnouncement!;
       post.isPublic = args.isPublic!;
-      post.visibleTo = post.isPublic
+      post.visibleTo = !args.isPublic
         ? connectIdArray(args.visibleToUserIds)
         : {};
     }
