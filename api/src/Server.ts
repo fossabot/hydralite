@@ -16,11 +16,6 @@ import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
 import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
 import dotenv from "dotenv";
-import {
-  fieldExtensionsEstimator,
-  getComplexity,
-  simpleEstimator,
-} from "graphql-query-complexity";
 import { apolloPlugins } from "./util/apolloPlugins";
 
 export class Server {
@@ -98,39 +93,11 @@ export class Server {
         user.primaryOauthConnection.oauthService,
         user
       );
-      done(null, dbUser.id);
+      done(!dbUser ? "Error with authentication." : null, dbUser.id);
     });
 
     // deserialize the user
-    passport.deserializeUser<string>(async (userId, done) => {
-      try {
-        const user = await userRepo.user.findUnique({
-          where: {
-            id: userId,
-          },
-          include: {
-            ownedProjects: true,
-            allProjects: true,
-            likedProjects: true,
-            followedProjects: true,
-            followers: true,
-            following: true,
-            oauthConnections: true,
-            profile: true,
-            createdHashtags: true,
-            createdPostComments: true,
-            memberOfPostGroups: true,
-            ownedPostGroups: true,
-            posts: true,
-            bugReports: true,
-            featureRequests: true,
-          },
-        });
-        done(null, user);
-      } catch (err) {
-        done(err, null);
-      }
-    });
+    passport.deserializeUser<string>(async (id, done) => done(null, { id }));
   }
 
   private applyExpressMiddleware() {
@@ -149,6 +116,8 @@ export class Server {
         cookie: {
           httpOnly: true,
           secure: isProd,
+          sameSite: "lax",
+          signed: true,
           maxAge: 1000 * 60 * 60 * 24 * 365,
         },
       })

@@ -33,6 +33,15 @@ enum BugReportSeverity {
   low
 }
 
+enum PostType {
+  post
+  article
+  question
+  feedback
+  suggestion
+  appreciation
+}
+
 model OauthConnection {
   id                 String                 @id @default(uuid())
   oauthService       OauthConnectionService
@@ -75,8 +84,9 @@ model User {
   followers User[] @relation("UserFollowRelation", references: [id])
 
   // Posts
-  posts      Post[] @relation("UserOwnedPostsRelation")
-  likedPosts Post[] @relation("UserLikedPostsRelation")
+  posts         Post[] @relation("UserOwnedPostsRelation")
+  likedPosts    Post[] @relation("UserLikedPostsRelation")
+  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this user
 
   // Post Comments
   createdPostComments PostComment[]
@@ -84,13 +94,18 @@ model User {
   // Post hashtags
   createdHashtags Hashtag[]
 
+  // Post Labels
+  postLabels PostLabel[]
+
+  // Subscribed Post Categories
+  subscribedPostCategories PostCategory[] @relation("UserSubscribedPostCategoriesRelation")
+
   // Bug reports and feature requests
   bugReports      BugReport[]
   featureRequests FeatureRequest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model UserProfile {
@@ -135,8 +150,6 @@ model ProjectRole {
   linkedOpenEndedTasks Task[]
   assignedMembers      ProjectMember[]
 
-  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this role
-
   permissions   ProjectMemberPermissions @relation(fields: [permissionsId], references: [id])
   permissionsId String
 
@@ -162,6 +175,9 @@ model ProjectMember {
   overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
   projectMemberPermissionsId String?
 
+  // created post categories
+  createdPostCategories PostCategory[] @relation("MemberCreatedPostCategoriesRelation")
+
   // forge many to many relation
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
@@ -178,6 +194,8 @@ model Project {
   description String
   logoUrl     String
   bannerUrl   String
+
+  // TASK: ability to lock down access for creating posts
 
   newJoineesRequireApproval Boolean @default(true)
 
@@ -202,9 +220,9 @@ model Project {
 }
 
 model TaskBoard {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
-  description String
+  description String?
 
   tasks Task[]
 
@@ -333,9 +351,9 @@ model Task {
 }
 
 model FeatureRequest {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
-  description String
+  description String?
 
   creator                  User    @relation(fields: [creatorId], references: [id])
   creatorId                String
@@ -357,7 +375,7 @@ model FeatureRequest {
 model BugReport {
   id          String            @id @default(uuid())
   name        String
-  description String
+  description String?
   severity    BugReportSeverity
 
   creator                  User    @relation(fields: [creatorId], references: [id])
@@ -410,24 +428,58 @@ model Hashtag {
   updatedAt DateTime @updatedAt
 }
 
-model Post {
-  id             String  @id @default(uuid())
-  title          String
-  description    String
-  isAnnouncement Boolean
+model PostLabel {
+  id    String @id @default(uuid())
+  title String
+  color String
 
-  reposts        Post[] @relation("RepostingPostsRelation") // the reposts made from this post
-  repostedFrom   Post   @relation("RepostingPostsRelation", fields: [repostedFromId], references: [id]) // the post that this post has been reposted from
-  repostedFromId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostCategory {
+  id   String @id @default(uuid())
+  name String
+
+  creator   ProjectMember @relation("MemberCreatedPostCategoriesRelation", fields: [creatorId], references: [id])
+  creatorId String
+
+  posts Post[]
+
+  subscribers User[] @relation("UserSubscribedPostCategoriesRelation")
+
+  // TASK: Private Post Categories??
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id             String   @id @default(uuid())
+  title          String
+  description    String?
+  isAnnouncement Boolean
+  type           PostType
+
+  labels PostLabel[]
+
+  categories PostCategory[]
 
   isPublic  Boolean
-  visibleTo ProjectRole[] @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
+  visibleTo User[]  @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
 
   likers   User[]        @relation("UserLikedPostsRelation")
   comments PostComment[]
+
+  // TASK: Add promotion ability
 
   attachments Attachment[]
   hashtags    Hashtag[]
