@@ -10,7 +10,7 @@ checkIfYarnInstalled() {
   fi
 }
 
-# Terminal colors, copied from https://github.com/railwayapp
+# Terminal colors, copied from https://github.com/railwayapp/cli/blob/master/install.sh#L60-L79
 useColor() {
   # Only use colors if connected to a terminal
   if [ -t 1 ]; then
