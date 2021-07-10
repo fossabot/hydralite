@@ -1,5 +1,6 @@
 import Button from "../Button/Button";
 import Meta from "partials/Meta";
+import Image from "next/image";
 import styles from "./LoginPage.module.scss";
 
 const Login = () => {
@@ -9,50 +10,43 @@ const Login = () => {
         title="Hydralite"
         description="Hydralite is the new open source platform for project management and open source project discovery."
         url="https://hydralite.io"
-        keywords="open source,hydralite,project management"
+        keywords="open source, hydralite, project management"
       />
-
-      <img src="/logo.png" alt="Logo" className="mt-4 ml-4 w-20" />
-      <div className="flex justify-center items-center">
-        <div className={styles.login_box}>
-          <h1 className={styles.login_header}>Sign in to Hydralite</h1>
-          <p className={styles.p_margin}>
-            Seamless Project Management is just one click away.
-          </p>
-          <div className={styles.button_center}>
-            <div className={styles.button_container}>
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With Google"
-                iconName="google"
-                href="#"
-              />
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With GitHub"
-                iconName="github"
-                href="#"
-              />
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With Discord"
-                iconName="discord"
-                href="#"
-              />
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With Twitter"
-                iconName="twitter"
-                href="#"
-              />
-            </div>
+      <main className={styles.main}>
+        <div className={styles.left_side}></div>
+        <section className={styles.right_sect}>
+          <nav className={styles.right_nav}>
+            <ul className={styles.nav_list}>
+              <li className={styles.nav_li}>
+                <a
+                  href="/login"
+                  className={`${styles.nav_link} ${styles.login_lnk}`}
+                >
+                  Login
+                </a>
+              </li>
+              <li className={styles.nav_li}>
+                <a href="/signup" className={styles.nav_link}>
+                  Create account
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <h1 className={styles.heading}>
+            Login to <span>Hydralite</span>
+          </h1>
+          <h4 className={styles.head_sub}>Discover. Develop. Deploy</h4>
+          <div className={styles.login_options}>
+            <button className={styles.login_btn}>Continue with Google</button>
+            <button className={styles.login_btn}>Continue with Github</button>
+            <button className={styles.login_btn}>Continue with Twitter</button>
+            <button className={styles.login_btn}>Continue with Discord</button>
           </div>
-        </div>
-      </div>
+          <p className={styles.tc_para}>
+            By continuing you, you agree to the <a href="#">Terms of Service</a>
+          </p>
+        </section>
+      </main>
     </>
   );
 };
