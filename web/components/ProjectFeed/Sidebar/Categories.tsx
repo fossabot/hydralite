@@ -37,9 +37,9 @@ const Category = ({ name, isPrivate = false, isSelected }: CategoryType) => {
         }`}
       >
         {isSelected ? (
-          <Icon icon="bx-bxs-category" className="w-5 h-5 ml-5" />
+          <Icon icon="bx-bxs-category" className="w-5 h-5" />
         ) : (
-          <Icon icon="bx-bx-category" className="w-5 h-5 ml-5" />
+          <Icon icon="bx-bx-category" className="w-5 h-5" />
         )}
         <div className="text-base ml-5">{name}</div>
       </div>

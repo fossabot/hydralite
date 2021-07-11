@@ -21,7 +21,7 @@ export const SidebarLink: React.FC<SidebarLinkProps> = ({
     <Link href={`/project/${id}/${href}`}>
       <a>
         <div
-          className={`mx-1 mb-2px flex flex-row justify-start items-center cursor-pointer select-none rounded-10 h-12 relative ${
+          className={`mx-1 mb-1 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 h-12 relative ${
             selected
               ? "text-accent"
               : "text-text"
