@@ -12,6 +12,7 @@ module.exports = {
       accent: "#695cff",
       text: "#2d3748",
       gray: "#9099a8",
+      transparent: "transparent"
     },
     extend: {
       borderRadius: {
