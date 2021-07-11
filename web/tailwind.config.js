@@ -27,6 +27,7 @@ module.exports = {
         bluegrey: "#9099a8",
       },
       spacing: {
+        "2px": "2px",
         112: "28rem",
         120: "48rem",
         160: "40rem",
