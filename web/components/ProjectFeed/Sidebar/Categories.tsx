@@ -36,10 +36,16 @@ const Category = ({ name, isPrivate = false, isSelected }: CategoryType) => {
           isSelected && "font-bold"
         }`}
       >
-        {isSelected ? (
-          <Icon icon="bx-bxs-category" className="w-5 h-5" />
+        {!isPrivate ? (
+          isSelected ? (
+            <Icon icon="bx-bxs-category" className="w-5 h-5" />
+          ) : (
+            <Icon icon="bx-bx-category" className="w-5 h-5" />
+          )
+        ) : isSelected ? (
+          <Icon icon="bx-bxs-lock-alt" className="w-5 h-5" />
         ) : (
-          <Icon icon="bx-bx-category" className="w-5 h-5" />
+          <Icon icon="bx-bx-lock-alt" className="w-5 h-5" />
         )}
         <div className="text-base ml-5">{name}</div>
       </div>

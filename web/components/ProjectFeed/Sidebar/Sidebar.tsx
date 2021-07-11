@@ -3,7 +3,7 @@ import { Categories } from "./Categories";
 import { Labels } from "./Labels";
 
 const categories = [
-  { isPrivate: false, name: "Updates", isSelected: true },
+  { isPrivate: true, name: "Updates", isSelected: true },
   //   { isPrivate: false, name: "Welcome", isSelected: false },
   { isPrivate: false, name: "Questions", isSelected: false },
   //   { isPrivate: false, name: "API", isSelected: false },
