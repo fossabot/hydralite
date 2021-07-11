@@ -813,6 +813,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hydralite/web@workspace:web"
   dependencies:
+    "@iconify/react": alpha
     "@types/node": ^15.12.3
     "@types/react": ^17.0.11
     autoprefixer: latest
@@ -830,6 +831,13 @@ __metadata:
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
+
+"@iconify/react@npm:alpha":
+  version: 3.0.0-beta.1
+  resolution: "@iconify/react@npm:3.0.0-beta.1"
+  checksum: 09c06489040938eb5ebc17ef9baaf6a6e31ccdb0b875a205113f6782bb1a7941daaebe123ab82de15776e347e639f0008f07d36204a45f929d32f0b02b630717
+  languageName: node
+  linkType: hard
 
 "@jfonx/console-utils@npm:^1.0.3":
   version: 1.0.3
