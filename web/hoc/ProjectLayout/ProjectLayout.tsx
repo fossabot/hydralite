@@ -10,11 +10,11 @@ export interface ProjectLayoutProps {
 
 export const ProjectLayout: React.FC<ProjectLayoutProps> = ({ centerContent, selected, children }) => {
     return (
-        <div className="flex w-screen h-screen justify-between items-center">
+        <div className="flex w-screen h-screen justify-between items-center overflow-hidden">
             <Sidebar selected={selected} />
             <div className="flex flex-col w-full h-screen justify-between items-center">
                 <Navbar avatar="/avatar.png" />
-                <div className={`w-full h-screen ${centerContent ? "flex items-center justify-center pr-64 pb-16" : ""}`}>{children}</div>
+                <div className={`w-full h-screen ${centerContent ? "grid place-items-center pb-20" : ""}`}>{children}</div>
             </div>
         </div>
     );
