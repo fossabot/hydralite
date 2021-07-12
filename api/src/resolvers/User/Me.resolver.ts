@@ -9,7 +9,6 @@ export default class MeResolver {
   @Query(() => User)
   me(@Ctx() { req }: ContextType) {
     const user: User = req.user as any;
-
     return user;
   }
 }

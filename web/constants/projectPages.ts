@@ -1,6 +1,6 @@
 export const projectPages = [
   "home",
-  "groups",
+  "feed",
   "roadmap",
   "tasks",
   "meetings",
