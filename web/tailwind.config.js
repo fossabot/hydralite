@@ -7,11 +7,13 @@ module.exports = {
                 hover: '#f5f5f5',
                 'hover-select': '#d5d5d5',
                 selected: '#f1f1f1',
-                seperator: "#E9E9E9"
+                seperator: "#E9E9E9",
+                DEFAULT: '#ffffff'
             },
             accent: '#695cff',
             text: '#2d3748',
             gray: '#9099a8',
+            gray_light: '#515967',
         },
     },
     extend: {
