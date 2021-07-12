@@ -21,8 +21,8 @@ export const projectSidebarUpperLinks: ProjectPageProps[] = [
     logo: HomeIcon,
   },
   {
-    name: "groups",
-    title: "Groups",
+    name: "feed",
+    title: "Feed",
     logo: GroupIcon,
   },
   {

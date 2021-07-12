@@ -24,5 +24,21 @@ Hydralite is a system that steers away from typical scrum methodology and adopts
 
 ## Getting Started
 
-Run `setup` (in the root directory) in a new cmd session (only supports command prompt for now)
-Once the setup command has been run based on your shell provider, run `yarn dev` in the root directory to start the api and web servers.
+### Local Development
+
+Make sure you installed Node.js (web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (mobile
+client app) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server)
+within an Dockerized development environment or in an VPS. Our setup script will only install Yarn for you to get started with the
+webapp and GraphQL API develpment.
+
+* Run `setup.cmd` in Windows Command Prompt or `setup.sh` in an macOS/Linux shell at the root directory after cloning.
+* Once the setup command has been run based on your shell provider, run `yarn dev` in the root directory to start the API and web servers.
+
+### In Gitpod
+
+* [Open this repo in Gitpod.io](https://gitpod.io/#github.com/hydralite/hydralite). Sign in using your GItHub account if needed.
+* Once the API and web servers are up in development mode, enjoy hacking/coding.
+
+While Node.js/Python (web, API, automation and landing page) and Rust (CLI) development will work flawlessly in Gitpod, Flutter/Dart
+development may work but nested virtualization for Android emulators in case of mobile app development isn't supprted in
+Google Kubernetes Engine (where Gitpod.io hosted).
