@@ -32,7 +32,6 @@ module.exports = {
         "30rem": "30rem",
       },
     },
-  },
-  variants: {},
-  plugins: [],
+    variants: {},
+    plugins: [],
 };

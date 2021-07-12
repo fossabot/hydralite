@@ -2,6 +2,8 @@ import Button from "../Button/Button";
 import Meta from "partials/Meta";
 import Image from "next/image";
 import styles from "./LoginPage.module.scss";
+import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
+import React from "react";
 
 const Login = () => {
   return (
@@ -32,15 +34,31 @@ const Login = () => {
               </li>
             </ul>
           </nav>
-          <h1 className={styles.heading}>
-            Login to <span>Hydralite</span>
-          </h1>
-          <h4 className={styles.head_sub}>Discover. Develop. Deploy</h4>
-          <div className={styles.login_options}>
-            <button className={styles.login_btn}>Continue with Google</button>
-            <button className={styles.login_btn}>Continue with Github</button>
-            <button className={styles.login_btn}>Continue with Twitter</button>
-            <button className={styles.login_btn}>Continue with Discord</button>
+          <div className={styles.right_body}>
+            <div className={styles.header}>
+              <h1 className={styles.heading}>
+                Login to <span>Hydralite</span>
+              </h1>
+              <h4 className={styles.head_sub}>Discover. Develop. Deploy</h4>
+            </div>
+            <div className={styles.login_options}>
+              <button className={styles.login_btn}>
+                <div style={{ width: 50, height: 50, marginRight: 60 }}><GoogleIcon /></div>
+                <div>Continue with Google</div>
+              </button>
+              <button className={styles.login_btn}>
+                <div style={{ width: 50, height: 50, marginRight: 60 }}><GithubIcon /></div>
+                <div>Continue with Github</div>
+              </button>
+              <button className={styles.login_btn}>
+                <div style={{ width: 50, height: 50, marginRight: 60 }}><TwitterIcon /></div>
+                <div>Continue with Twitter</div>
+              </button>
+              <button className={styles.login_btn}>
+                <div style={{ width: 50, height: 50, marginRight: 60 }}><DiscordIcon /></div>
+                <div>Continue with Discord</div>
+              </button>
+            </div>
           </div>
           <p className={styles.tc_para}>
             By continuing you, you agree to the <a href="#">Terms of Service</a>
