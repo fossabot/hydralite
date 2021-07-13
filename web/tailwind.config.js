@@ -8,6 +8,7 @@ module.exports = {
         "hover-select": "#d5d5d5",
         selected: "#f1f1f1",
         seperator: "#E9E9E9",
+        "": "#fff"
       },
       accent: "#695cff",
       text: "#2d3748",

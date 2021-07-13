@@ -15,7 +15,6 @@ const categories = [
 export const Sidebar = () => {
   return (
     <div className="w-64 h-full border-r border-white-seperator">
-      <Categories categories={categories} />
       <Labels />
     </div>
   );

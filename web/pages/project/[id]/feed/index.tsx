@@ -2,8 +2,9 @@ import React from "react";
 import { ProjectLayout } from "~/hoc/ProjectLayout/ProjectLayout";
 import MetaData from "~/partials/Meta";
 import { Sidebar } from "~/components/ProjectFeed/Sidebar/Sidebar";
+import { Feed } from "~/components/ProjectFeed/Feed/Feed";
 
-const Feed = () => {
+const ProjectFeed = () => {
   return (
     <>
       <MetaData
@@ -13,10 +14,13 @@ const Feed = () => {
         keywords="open source,hydralite,project management"
       />
       <ProjectLayout selected="feed">
-        <Sidebar />
+        <div className="flex h-full">
+          <Feed />
+          <Sidebar />
+        </div>
       </ProjectLayout>
     </>
   );
 };
 
-export default Feed;
+export default ProjectFeed;

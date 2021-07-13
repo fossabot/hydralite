@@ -14,9 +14,9 @@ export const ProjectLayout: React.FC<ProjectLayoutProps> = ({
   children,
 }) => {
   return (
-    <div className="flex w-screen h-screen justify-between items-center overflow-hidden">
+    <div className="flex w-screen h-screen overflow-hidden">
       <Sidebar selected={selected} />
-      <div className="flex flex-col w-full h-screen justify-between items-center">
+      <div className="flex flex-col w-full h-screen">
         <Navbar avatar="/avatar.png" />
         <div
           className={`w-full h-screen ${
