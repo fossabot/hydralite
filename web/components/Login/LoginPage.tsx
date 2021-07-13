@@ -70,9 +70,11 @@ const Login = () => {
         url="https://hydralite.io"
         keywords="open source, hydralite, project management"
       />
-      <main className="w-screen h-screen flex items-center justify-between bg-accent">
-        <div />
-        <section style={{ width: '40%' }} className="h-full bg-white flex flex-col items-center justify-between">
+      <main className="w-screen h-screen flex items-center justify-between overflow-hidden">
+        <div className="w-full self-stretch bg-secondary">
+          <img src="/login_background.svg" className="w-full" />
+        </div>
+        <section style={{ width: '40%' }} className="h-full bg-white flex flex-col items-center justify-between flex-shrink-0">
           <Navbar />
           <LoginContent />
           <Terms />

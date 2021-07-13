@@ -11,6 +11,7 @@ module.exports = {
               DEFAULT: '#ffffff'
           },
           accent: '#695cff',
+          secondary: '#A2B1FF',
           text: '#2d3748',
           gray: '#9099a8',
           gray_light: '#515967',
