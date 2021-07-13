@@ -12,7 +12,9 @@ module.exports = {
       },
       accent: "#695cff",
       text: "#2d3748",
+      muted: "#55656F",
       gray: "#9099a8",
+      yellow: "#EFA119",
       transparent: "transparent",
     },
     extend: {

@@ -1,16 +1,14 @@
 import React from "react";
+import { Icon } from '@iconify/react';
 
 const Label = ({ borderColor, text }) => {
   return (
     <div
-      className="rounded-full inline-flex items-center gap-3 h-7 p-2 font-semibold text-sm"
-      style={{ border: `2px solid ${borderColor}` }}
+      className="rounded-md inline-flex items-center gap-2 h-7 p-2 font-semibold text-sm"
+      style={{ background: borderColor }}
     >
-      <span
-        className="rounded-full h-4 w-4"
-        style={{ backgroundColor: borderColor }}
-      ></span>
-      <span className="mt-1px">{text}</span>
+      <Icon icon="akar-icons:tag" className="text-text stroke-2 stroke-current font-bold text-white" />
+      <span className="mt-1px text-white">{text}</span>
     </div>
   );
 };
