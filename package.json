@@ -4,7 +4,8 @@
   "workspaces": [
     "api",
     "web",
-    "landing"
+    "landing",
+    "hydrabot"
   ],
   "scripts": {
     "commit": "git add . && cz",
