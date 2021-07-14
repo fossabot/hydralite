@@ -1,11 +1,19 @@
-require('dotenv').config();
+require('dotenv').config(); 
 
 import { Bot } from './classes/bot';
+import { init, sendRoles } from './roles';
+import { servers } from './servers';
+
 const client = new Bot();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user?.tag}!`);
-    client.registerCommands(process.env.GUILD_ID || "");
+    init(client);
+
+    for (const server of servers) {
+        client.registerCommands(server.id);
+        sendRoles(server.id, server.channels.roles);
+    }
 });
 
 
@@ -13,10 +21,9 @@ client.interactions.on("commandInteraction", (interaction) => {
     console.log(client.commands);
 
     if (client.commands) {
-        if (!client.commands.has(interaction.name))
-            return interaction.respond({ content: "Couldn't find command!", isPrivate: true })
+        if (!client.commands.has(interaction.name)) return interaction.respond({ content: "Couldn't find command!", isPrivate: true })
         client.commands.get(interaction.name)?.execute(client, interaction);
     }
-})
+});
 
 client.login(process.env.TOKEN);
