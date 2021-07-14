@@ -9,7 +9,7 @@ generator client {
 
 generator typegraphql {
   provider = "typegraphql-prisma"
-  output   = "../src/typegql-generated"
+  output   = "../src/resolver-types"
 }
 
 enum OauthConnectionService {
@@ -25,6 +25,23 @@ enum AttachmentType {
   other
 }
 
+enum BugReportSeverity {
+  catastrophic
+  critical
+  high
+  medium
+  low
+}
+
+enum PostType {
+  post
+  article
+  question
+  feedback
+  suggestion
+  appreciation
+}
+
 model OauthConnection {
   id                 String                 @id @default(uuid())
   oauthService       OauthConnectionService
@@ -36,23 +53,24 @@ model OauthConnection {
   // Connection Owner
   user   User   @relation(fields: [userId], references: [id])
   userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  username  String   @unique
-  email     String   @unique
-  joinDate  DateTime @default(now())
-  hydra     Int
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
+  hydra    Int
 
   // Profile
   profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])
   profileId String
 
   // Projects
-  ownedProjects Project[] @relation("UserOwnedProjectsRelation")
-  allProjects   Project[] @relation("AllUserProjectsRelation")
+  ownedProjects Project[]
+  allProjects   ProjectMember[]
 
   // Appreciated Projects
   likedProjects    Project[] @relation("UserLikedProjectsRelation")
@@ -65,12 +83,29 @@ model User {
   following User[] @relation("UserFollowRelation", references: [id])
   followers User[] @relation("UserFollowRelation", references: [id])
 
-  // Posts and Post Groups
-  posts               Post[]
+  // Posts
+  posts         Post[] @relation("UserOwnedPostsRelation")
+  likedPosts    Post[] @relation("UserLikedPostsRelation")
+  viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this user
+
+  // Post Comments
   createdPostComments PostComment[]
-  createdHashtags     Hashtag[]
-  ownedPostGroups     PostGroup[]   @relation("UserOwnedPostGroupsRelation")
-  memberOfPostGroups  PostGroup[]   @relation("PostGroupMembersRelation")
+
+  // Post hashtags
+  createdHashtags Hashtag[]
+
+  // Post Labels
+  postLabels PostLabel[]
+
+  // Subscribed Post Categories
+  subscribedPostCategories PostCategory[] @relation("UserSubscribedPostCategoriesRelation")
+
+  // Bug reports and feature requests
+  bugReports      BugReport[]
+  featureRequests FeatureRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserProfile {
@@ -80,6 +115,79 @@ model UserProfile {
   bio       String
 }
 
+model ProjectMemberPermissions {
+  id                            String   @id @default(uuid())
+  canAccessFeatureRequests      Boolean?
+  canAccessBugReports           Boolean?
+  canManageUsers                Boolean?
+  canManageRoles                Boolean?
+  canManageTasks                Boolean?
+  canCreateProjectAnnouncements Boolean?
+  canModeratePosts              Boolean?
+  canManageProjectGroups        Boolean?
+  canGenerateProjectInvites     Boolean?
+  canViewRoadmap                Boolean?
+  canManageRoadmap              Boolean? // cant be turned on unless canViewRoadmap is on
+  canScheduleRooms              Boolean?
+  canManageFundraisers          Boolean?
+  canManageThirdPartyApps       Boolean?
+  canManageProjectSurveys       Boolean?
+  canViewProjectInsights        Boolean?
+  canViewDeveloperInsights      Boolean?
+  canManageProjectWaitlists     Boolean?
+  canManageTesterOutsourcing    Boolean?
+  canWriteDeveloperReviews      Boolean?
+  canViewLogs                   Boolean?
+
+  projectRole   ProjectRole?
+  projectMember ProjectMember?
+}
+
+model ProjectRole {
+  id                   String          @id @default(uuid())
+  title                String          @unique
+  description          String
+  linkedOpenEndedTasks Task[]
+  assignedMembers      ProjectMember[]
+
+  permissions   ProjectMemberPermissions @relation(fields: [permissionsId], references: [id])
+  permissionsId String
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectMember {
+  // explictly defines a many to many relation between Project and User
+  id               String        @id @default(uuid())
+  roles            ProjectRole[]
+  awaitingApproval Boolean
+
+  // Tasks
+  assignedTasks   Task[] @relation("MemberAssignedTasksRelation")
+  authoredTasks   Task[] @relation("MemberAuthoredTasksRelation")
+  coAuthoredTasks Task[] @relation("MemberCoauthoredTasksRelation")
+
+  // Permissions - compiled array of permissions based off of all role permissions
+  overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
+  projectMemberPermissionsId String?
+
+  // created post categories
+  createdPostCategories PostCategory[] @relation("MemberCreatedPostCategoriesRelation")
+
+  // forge many to many relation
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Project {
   id          String @id @default(uuid())
   title       String
@@ -87,38 +195,227 @@ model Project {
   logoUrl     String
   bannerUrl   String
 
-  // Members
-  owner   User   @relation("UserOwnedProjectsRelation", fields: [ownerId], references: [id])
+  // TASK: ability to lock down access for creating posts
+
+  newJoineesRequireApproval Boolean @default(true)
+
+  owner   User            @relation(fields: [ownerId], references: [id])
   ownerId String
+  members ProjectMember[]
 
-  members User[] @relation("AllUserProjectsRelation", references: [id])
-
-  // Appreciators
   likers    User[] @relation("UserLikedProjectsRelation", references: [id])
   followers User[] @relation("UserFollowedProjectsRelation", references: [id])
 
-  // Post Groups
-  postGroups PostGroup[]
+  // roles
+  roles ProjectRole[]
 
-  // TASK -> Add project scheduled meeting rooms
-  // TASK -> Add project tasks
-  // TASK -> Add project roadmap
-  // TASK -> Add project reporting
-  // TASK -> Add project hydra
-  // TASK -> Add project integrations
+  // task-related fields
+  taskBoards     TaskBoard[]
+  taskCategories TaskCategory[]
+  taskLocations  TaskLocation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Post      Post[]
+}
+
+model TaskBoard {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+
+  tasks Task[]
+
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TaskCategory {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  color       String
+
+  linkedTasks Task[]
+
+  // project
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TaskLocation {
+  // task location specifies the directory for the task (e.g web, api, cli, bot, etc)
+  id          String @id @default(uuid())
+  name        String
+  linkedTasks Task[]
+
+  // project
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TaskChecklistItem {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  completed   Boolean?
+
+  checklist   TaskChecklist? @relation(fields: [checklistId], references: [id])
+  checklistId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TaskChecklist {
+  id             String              @id @default(uuid())
+  name           String?
+  description    String?
+  items          TaskChecklistItem[]
+  completedItems Int
+  totalItems     Int
+
+  // task
+  task   Task?   @relation(fields: [taskId], references: [id])
+  taskId String?
+}
+
+model Task {
+  id String @id @default(uuid())
+
+  taskBoard   TaskBoard @relation(fields: [taskBoardId], references: [id])
+  taskBoardId String
+
+  name        String
+  description String?
+  deadline    DateTime?
+  priority    Int?
+  isCompleted Boolean
+  isOpen      Boolean
+
+  // checklist
+  checklists              TaskChecklist[]
+  taskCompletedPercentage Int // computed on a scale of 1 to 100 based on how many checklist items amongst all of the checklists have been completed 
+
+  // authors
+  author    ProjectMember   @relation("MemberAuthoredTasksRelation", fields: [authorId], references: [id])
+  authorId  String
+  coAuthors ProjectMember[] @relation("MemberCoauthoredTasksRelation")
+
+  // open ended tasks - allows members to get recommendations for tasks to take up
+  isOpenEndedTask               Boolean?
+  acceptingTaskRequiresApproval Boolean? // only applicable if isOpenEndedTask is set to true
+  rolesPermittedToAcceptTask    ProjectRole[] // only applicable if isOpenEndedTask is set to true
+
+  // assignees
+  assignees ProjectMember[] @relation("MemberAssignedTasksRelation")
+
+  // linked bugs reports and feature requests
+  linkedFeatureRequests FeatureRequest[]
+  linkedBugReports      BugReport[]
+
+  // linked tasks
+  waitlistedByTasks Task[] @relation("WaitlistingTaskRelation") // tasks that are waitlisting this task
+  waitlistingTasks  Task[] @relation("WaitlistingTaskRelation") // tasks that are waitlisted due to this task
+  duplicatedByTasks Task[] @relation("DuplicatingTaskRelation") // tasks that are duplicates of this task
+  duplicatingTasks  Task[] @relation("DuplicatingTaskRelation") // tasks that are duplicated due to this task
+
+  // complexity allows the ability to quantify the weight of a task
+  complexity Int
+
+  // Linked pull requests or commits
+  // TASK: replace with pr and commit id's once git integrations are implemented
+  linkedPrUrls     String[]
+  linkedCommitUrls String[]
+
+  // descriptive tags
+  taskCategories TaskCategory[]
+  taskLocations  TaskLocation[]
+
+  // attachements
+  attachements Attachment[]
+
+  // TASK: connect flights/features for this task to go under
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FeatureRequest {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+
+  creator                  User    @relation(fields: [creatorId], references: [id])
+  creatorId                String
+  isCreatedByProjectMember Boolean
+
+  attachments Attachment[]
+
+  // TASK: Add comments
+
+  // If this feature request results in the generation of a new feature, link it
+  featureGeneratedFromRequest String // TASK: Replace with actual feature reference once built
+  // If the creation of a new feature is not required, and merely tasks will do, link them
+  linkedTasks                 Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BugReport {
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+  severity    BugReportSeverity
+
+  creator                  User    @relation(fields: [creatorId], references: [id])
+  creatorId                String
+  isCreatedByProjectMember Boolean
+
+  attachments Attachment[]
+
+  // TASK: Add comments
+
+  // linked tasks
+  linkedTasks Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Attachment {
   id            String         @id @default(uuid())
   attachmentURL String
   type          AttachmentType
-  post          Post           @relation(fields: [postId], references: [id])
-  postId        String
+
+  post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+
+  task   Task?   @relation(fields: [taskId], references: [id])
+  taskId String?
+
+  featureRequest   FeatureRequest @relation(fields: [featureRequestId], references: [id])
+  featureRequestId String
+
+  BugReport   BugReport @relation(fields: [bugReportId], references: [id])
+  bugReportId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Hashtag {
-  id         String   @id @default(uuid())
-  createdAt  DateTime @default(now())
+  id         String @id @default(uuid())
   name       String
   numOfPosts BigInt
 
@@ -126,47 +423,76 @@ model Hashtag {
   creatorId String
 
   posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model PostGroup {
-  id          String  @id @default(uuid())
-  title       String
-  description String
-  isCommunity Boolean
-
-  creator   User   @relation("UserOwnedPostGroupsRelation", fields: [creatorId], references: [id])
-  creatorId String
-
-  members User[] @relation("PostGroupMembersRelation")
-
-  posts Post[]
-
-  project   Project? @relation(fields: [projectId], references: [id])
-  projectId String?
-}
-
-model Post {
-  id             String   @id @default(uuid())
-  postedtime     DateTime
-  title          String
-  description    String
-  isAnnouncement Boolean
-
-  postGroups PostGroup[]
+model PostLabel {
+  id    String @id @default(uuid())
+  title String
+  color String
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
 
-  comments    PostComment[]
-  attachments Attachment[]
+  posts Post[]
 
-  hashtags Hashtag[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostCategory {
+  id   String @id @default(uuid())
+  name String
+
+  creator   ProjectMember @relation("MemberCreatedPostCategoriesRelation", fields: [creatorId], references: [id])
+  creatorId String
+
+  posts Post[]
+
+  subscribers User[] @relation("UserSubscribedPostCategoriesRelation")
+
+  // TASK: Private Post Categories??
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id             String   @id @default(uuid())
+  title          String
+  description    String?
+  isAnnouncement Boolean
+  type           PostType
+
+  labels PostLabel[]
+
+  categories PostCategory[]
+
+  isPublic  Boolean
+  visibleTo User[]  @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  likers   User[]        @relation("UserLikedPostsRelation")
+  comments PostComment[]
+
+  // TASK: Add promotion ability
+
+  attachments Attachment[]
+  hashtags    Hashtag[]
+
+  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model PostComment {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-
+  id   String @id @default(uuid())
   body String
 
   creator   User   @relation(fields: [creatorId], references: [id])
@@ -174,4 +500,7 @@ model PostComment {
 
   post   Post   @relation(fields: [postId], references: [id])
   postId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

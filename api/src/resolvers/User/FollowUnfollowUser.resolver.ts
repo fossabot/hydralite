@@ -1,79 +1,66 @@
 import { User } from "@prisma/client";
-import { isAuthenticated } from "src/middleware/isAuthenticated.middleware";
-import {
-    Arg,
-    Ctx,
-    Field,
-    InputType,
-    Mutation,
-    Resolver,
-    UseMiddleware,
-} from "type-graphql";
+import { ApolloError } from "apollo-server-express";
+import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
-
-@InputType()
-export class FollowUnfollowUserInput {
-    @Field()
-    userId: string;
-}
-
+import { FollowUnfollowUserArgs } from "./args/FollowUnfollowUserArgs";
 @Resolver()
 export default class FollowUnfollowUserResolver {
-    @Mutation(() => String)
-    @UseMiddleware(isAuthenticated)
-    async followUser(
-        @Arg("input") input: FollowUnfollowUserInput,
-        @Ctx() { req, prisma }: ContextType
-    ): Promise<User> {
-        return executeOrFail(async () => {
-            const user: User = (req as any).user;
+  @Mutation(() => String)
+  @UseMiddleware(isAuthenticated)
+  async followUser(
+    @Arg("args") args: FollowUnfollowUserArgs,
+    @Ctx() { req, prisma }: ContextType
+  ): Promise<String> {
+    const user: User = (req as any).user;
 
-            if (input.userId === user.id)
-                throw new Error("You cant follow yourself.");
+    if (args.userId === user.id)
+      throw new ApolloError("You cant follow yourself.");
 
-            // add user a to user b's followers
-            await prisma.user.update({
-                where: {
-                    id: input.userId,
-                },
-                data: {
-                    followers: {
-                        connect: {
-                            id: user.id,
-                        },
-                    },
-                },
-            });
+    return executeOrFail(async () => {
+      // add user a to user b's followers
+      await prisma.user.update({
+        where: {
+          id: args.userId,
+        },
+        data: {
+          followers: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
+      });
 
-            return "Followed user";
-        });
-    }
+      return "Followed user";
+    });
+  }
 
-    @Mutation(() => String)
-    @UseMiddleware(isAuthenticated)
-    async unfollowUser(
-        @Arg("input") input: FollowUnfollowUserInput,
-        @Ctx() { req, prisma }: ContextType
-    ): Promise<User> {
-        return executeOrFail(async () => {
-            const user: User = (req as any).user;
+  @Mutation(() => String)
+  @UseMiddleware(isAuthenticated)
+  async unfollowUser(
+    @Arg("args") args: FollowUnfollowUserArgs,
+    @Ctx() { req, prisma }: ContextType
+  ): Promise<String> {
+    return executeOrFail(async () => {
+      const user: User = (req as any).user;
 
-            // remove user a from user b's followers
-            await prisma.user.update({
-                where: {
-                    id: input.userId,
-                },
-                data: {
-                    followers: {
-                        disconnect: {
-                            id: user.id,
-                        },
-                    },
-                },
-            });
+      // remove user a from user b's followers
+      await prisma.user.update({
+        where: {
+          id: args.userId,
+        },
+        data: {
+          followers: {
+            disconnect: {
+              id: user.id,
+            },
+          },
+        },
+      });
 
-            return "Unfollowed user";
-        });
-    }
+      return "Unfollowed user";
+    });
+  }
 }

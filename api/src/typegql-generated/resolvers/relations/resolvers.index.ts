@@ -1,9 +1,0 @@
-export { AttachmentRelationsResolver } from "./Attachment/AttachmentRelationsResolver";
-export { HashtagRelationsResolver } from "./Hashtag/HashtagRelationsResolver";
-export { OauthConnectionRelationsResolver } from "./OauthConnection/OauthConnectionRelationsResolver";
-export { PostRelationsResolver } from "./Post/PostRelationsResolver";
-export { PostCommentRelationsResolver } from "./PostComment/PostCommentRelationsResolver";
-export { PostGroupRelationsResolver } from "./PostGroup/PostGroupRelationsResolver";
-export { ProjectRelationsResolver } from "./Project/ProjectRelationsResolver";
-export { UserRelationsResolver } from "./User/UserRelationsResolver";
-export { UserProfileRelationsResolver } from "./UserProfile/UserProfileRelationsResolver";

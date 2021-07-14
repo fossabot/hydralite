@@ -1,74 +1,62 @@
 import { User } from "@prisma/client";
-import { isAuthenticated } from "src/middleware/isAuthenticated.middleware";
-import {
-    Arg,
-    Ctx,
-    Field,
-    InputType,
-    Mutation,
-    UseMiddleware,
-} from "type-graphql";
+import { Arg, Ctx, Mutation, UseMiddleware } from "type-graphql";
+import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
-
-@InputType()
-export class LikeUnlikeProjectInput {
-    @Field()
-    projectId: string;
-}
+import { LikeUnlikeProjectArgs } from "./args/LikeUnlikeProjectArgs";
 
 export default class LikeUnlikeProjectResolver {
-    @UseMiddleware(isAuthenticated)
-    @Mutation(() => String)
-    async likeProject(
-        @Arg("input") { projectId }: LikeUnlikeProjectInput,
-        @Ctx() { req, prisma }: ContextType
-    ): Promise<string> {
-        return executeOrFail(async () => {
-            // retrieve the currently logged in user
-            const user: User = (req as any).user;
+  @UseMiddleware(isAuthenticated)
+  @Mutation(() => String)
+  async likeProject(
+    @Arg("args") { projectId }: LikeUnlikeProjectArgs,
+    @Ctx() { req, prisma }: ContextType
+  ): Promise<string> {
+    return executeOrFail(async () => {
+      // retrieve the currently logged in user
+      const user: User = (req as any).user;
 
-            await prisma.project.update({
-                where: {
-                    id: projectId,
-                },
-                data: {
-                    likers: {
-                        connect: {
-                            id: user.id,
-                        },
-                    },
-                },
-            });
+      await prisma.project.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          likers: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
+      });
 
-            return "Liked project.";
-        });
-    }
+      return "Liked project.";
+    });
+  }
 
-    @UseMiddleware(isAuthenticated)
-    @Mutation(() => String)
-    async unlikeProject(
-        @Arg("input") { projectId }: LikeUnlikeProjectInput,
-        @Ctx() { req, prisma }: ContextType
-    ): Promise<string> {
-        return executeOrFail(async () => {
-            // retrieve the currently logged in user
-            const user: User = (req as any).user;
+  @UseMiddleware(isAuthenticated)
+  @Mutation(() => String)
+  async unlikeProject(
+    @Arg("args") { projectId }: LikeUnlikeProjectArgs,
+    @Ctx() { req, prisma }: ContextType
+  ): Promise<string> {
+    return executeOrFail(async () => {
+      // retrieve the currently logged in user
+      const user: User = (req as any).user;
 
-            await prisma.project.update({
-                where: {
-                    id: projectId,
-                },
-                data: {
-                    likers: {
-                        disconnect: {
-                            id: user.id,
-                        },
-                    },
-                },
-            });
+      await prisma.project.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          likers: {
+            disconnect: {
+              id: user.id,
+            },
+          },
+        },
+      });
 
-            return "Unliked project.";
-        });
-    }
+      return "Unliked project.";
+    });
+  }
 }

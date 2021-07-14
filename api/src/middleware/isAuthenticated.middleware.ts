@@ -1,32 +1,38 @@
+import { ApolloError } from "apollo-server-express";
 import { MiddlewareFn } from "type-graphql";
 import ContextType from "~/types/Context.type";
 
 export const isAuthenticated: MiddlewareFn<ContextType> = async (
-    { context: { req, prisma } },
-    next
+  { context: { req, prisma } },
+  next
 ) => {
-    // req.user will now store the user id instead of an actual user
+  if (!req.isAuthenticated()) throw new ApolloError("Not Authenticated.");
 
-    if (!req.user) throw new Error("Not Authenticated.");
+  const userId = (req.user as any).id;
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      ownedProjects: true,
+      allProjects: true,
+      likedProjects: true,
+      followedProjects: true,
+      followers: true,
+      following: true,
+      oauthConnections: true,
+      profile: true,
+      createdHashtags: true,
+      createdPostComments: true,
+      posts: true,
+      bugReports: true,
+      featureRequests: true,
+      likedPosts: true,
+      postLabels: true,
+      subscribedPostCategories: true,
+    },
+  });
+  req.user = user as any;
 
-    const user = await prisma.user.findUnique({
-        where: {
-            id: req.user as string,
-        },
-        include: {
-            ownedProjects: true,
-            allProjects: true,
-            likedProjects: true,
-            followedProjects: true,
-            followers: true,
-            following: true,
-            oauthConnections: true,
-            profile: true,
-        },
-    });
-    if (!user) throw new Error("Invalid User");
-
-    req.user = user;
-
-    return next();
+  return next();
 };
