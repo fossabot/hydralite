@@ -1,6 +1,65 @@
-import Button from "../Button/Button";
 import Meta from "partials/Meta";
-import styles from "./LoginPage.module.scss";
+import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
+import React from "react";
+
+const NavLink = ({ href, active, children }) => {
+  const style = ['font-bold'];
+  if (active) style.push('text-accent');
+
+  return (
+    <li className="mx-6 my-2">
+      <a
+        href={href}
+        className={style.join(' ')}
+      >
+        {children}
+      </a>
+    </li>
+  );
+};
+const Navbar = () => {
+  return (
+    <nav className="flex items-center min-w-full" style={{ borderBottom: '1px solid #999' }}>
+      <ul className="flex p-2">
+        <NavLink href="login" active={true}>Login</NavLink>
+        <NavLink href="signup" active={false}>Create account</NavLink>
+      </ul>
+    </nav>
+  );
+};
+
+const LoginButton = ({ icon, title }) => {
+  const wrapper = { icon };
+
+  return (
+    <button className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full">
+      <div style={{ width: 50, height: 50, marginRight: 60 }}><wrapper.icon /></div>
+      <div>Continue with {title}</div>
+    </button>
+  );
+};
+const LoginContent = () => {
+  return (
+    <div className="flex flex-col items-center w-full h-full">
+      <div className="flex flex-col items-center mt-8 mb-24">
+        <h1 className="text-text mt-6 mb-1 font-extrabold text-5xl">
+          Login to <span className="text-accent">Hydralite</span>
+        </h1>
+        <h4 className="text-text m-2 font-extrabold text-2xl">Discover. Develop. Deploy</h4>
+      </div>
+      <div className="flex flex-col items-center self-stretch mx-16">
+        <LoginButton icon={GoogleIcon} title="Google" />
+        <LoginButton icon={GithubIcon} title="Github" />
+        <LoginButton icon={TwitterIcon} title="Twitter" />
+        <LoginButton icon={DiscordIcon} title="Discord" />
+      </div>
+    </div>
+  );
+};
+
+const Terms = () => {
+  return <p className="text-xl font-semibold text-gray_light mb-10">By continuing you, you agree to the <a href="#" className="text-accent font-extrabold">Terms of Service</a></p>;
+};
 
 const Login = () => {
   return (
@@ -9,50 +68,18 @@ const Login = () => {
         title="Hydralite"
         description="Hydralite is the new open source platform for project management and open source project discovery."
         url="https://hydralite.io"
-        keywords="open source,hydralite,project management"
+        keywords="open source, hydralite, project management"
       />
-
-      <img src="/logo.png" alt="Logo" className="mt-4 ml-4 w-20" />
-      <div className="flex justify-center items-center">
-        <div className={styles.login_box}>
-          <h1 className={styles.login_header}>Sign in to Hydralite</h1>
-          <p className={styles.p_margin}>
-            Seamless Project Management is just one click away.
-          </p>
-          <div className={styles.button_center}>
-            <div className={styles.button_container}>
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With Google"
-                iconName="google"
-                href="#"
-              />
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With GitHub"
-                iconName="github"
-                href="#"
-              />
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With Discord"
-                iconName="discord"
-                href="#"
-              />
-              <Button
-                className={styles.button_link}
-                color="muted"
-                text="Continue With Twitter"
-                iconName="twitter"
-                href="#"
-              />
-            </div>
-          </div>
+      <main className="w-screen h-screen flex items-center justify-between overflow-hidden">
+        <div className="w-full self-stretch bg-secondary">
+          <img src="/login_background.svg" className="w-full" />
         </div>
-      </div>
+        <section style={{ width: '40%' }} className="h-full bg-white flex flex-col items-center justify-between flex-shrink-0">
+          <Navbar />
+          <LoginContent />
+          <Terms />
+        </section>
+      </main>
     </>
   );
 };
