@@ -3,7 +3,7 @@ import { Post } from "~/components/Post/Post";
 
 export const Feed = () => {
   return (
-    <div className="container mx-auto px-4">
+    <div className="px-4 bg-white-secondBg h-full w-full">
       {/* <EngagementBanner projectName="Volt" /> */}
       {/* <Post
         creator={{
