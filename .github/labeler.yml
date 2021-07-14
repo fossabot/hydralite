@@ -6,5 +6,7 @@ mobile:
   - mobile/**/*
 landing:
   - landing/**/*
-bot:
-  - bot/**/*
+hydrabot:
+  - hydrabot/**/*
+cli:
+  - cli/**/*
