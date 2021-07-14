@@ -8,7 +8,7 @@ export const Sidebar = () => {
     <div className="w-96 h-full border-l border-white-seperator">
       <Labels />
       <div className="border-b border-white-seperator"></div>
-      <Members />
+      <Members members={[]} />
     </div>
   );
 };
