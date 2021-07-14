@@ -814,11 +814,13 @@ __metadata:
   resolution: "@hydralite/web@workspace:web"
   dependencies:
     "@iconify/react": alpha
+    "@types/faker": ^5.5.7
     "@types/node": ^15.12.3
     "@types/react": ^17.0.11
     autoprefixer: latest
     axios: ^0.21.1
     evernote: ^2.0.5
+    faker: ^5.5.3
     googleapis: ^76.0.0
     heroku-client: ^3.1.0
     next: 10.2.3
@@ -1647,6 +1649,13 @@ __metadata:
   version: 5.5.6
   resolution: "@types/faker@npm:5.5.6"
   checksum: d14deb091d2bb905079e5c3792f6ee3e78048f25cbc08cdd563724caebf7426430d84e95bd85783f1d3bbd28ae7de9b1b7e349167afe288420f5135e3ba648d2
+  languageName: node
+  linkType: hard
+
+"@types/faker@npm:^5.5.7":
+  version: 5.5.7
+  resolution: "@types/faker@npm:5.5.7"
+  checksum: 27cce2c2f4843cae730a9a1dbb2ec695d1c24c893ea4ef4a5208b897931afce211802b3e01f86bdf6660124ca102c9abab9b5b101295082342bf27e80a9e4f18
   languageName: node
   linkType: hard
 

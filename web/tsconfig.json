@@ -23,7 +23,8 @@
       "~/logic/*": ["logic/*"],
       "~/constants/*": ["constants/*"],
       "~/hoc/*": ["hoc/*"],
-      "~/partials/*": ["partials/*"]
+      "~/partials/*": ["partials/*"],
+      "~/data/*": ["data/*"]
     },
     "allowSyntheticDefaultImports": true
   },

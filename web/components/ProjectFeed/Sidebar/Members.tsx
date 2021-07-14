@@ -24,6 +24,7 @@ export const Members = ({
         <Icon icon="bi-plus-lg" className="text-text text-md" />
       </div>
       <div className="mt-3 flex flex-col">
+        {/* TASK: Implement infinity scroll/lazy load */}
         <Section a={members.team} />
         <Section a={members.mods} />
         <Section a={members.community} />
