@@ -25,7 +25,7 @@ export const Sidebar = () => {
   // console.log(JSON.stringify(members))
 
   return (
-    <div className="w-96 h-full border-l border-white-seperator">
+    <div className="w-80 h-full border-l border-white-seperator">
       <Labels />
       <div className="border-b border-white-seperator"></div>
       <Members members={members} />
