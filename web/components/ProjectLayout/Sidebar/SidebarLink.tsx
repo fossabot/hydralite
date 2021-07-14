@@ -21,13 +21,13 @@ export const SidebarLink: React.FC<SidebarLinkProps> = ({
     <Link href={`/project/${id}/${href}`}>
       <a>
         <div
-          className={`mx-1 mb-1 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 h-12 relative ${
+          className={`mx-1 mb-6 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 relative ${
             selected ? "text-accent" : "text-text"
           }`}
-          style={{ width: "14.2rem" }}
+          style={{ width: "12.4rem" }}
         >
-          <div className="w-5 h-5 ml-5">{image}</div>
-          <div className="hidden lg:block text-md ml-5 font-bold">{title}</div>
+          <div className="w-4.5 h-4.5 ml-3">{image}</div>
+          <div className="hidden lg:block text-md ml-3 font-bold">{title}</div>
           {selected && (
             <div className="rounded-full bg-accent h-7 w-1 absolute right-0 hidden lg:block"></div>
           )}

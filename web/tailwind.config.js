@@ -32,12 +32,16 @@ module.exports = {
       spacing: {
         "1px": "1px",
         "2px": "2px",
+        "4.5": "1.1rem",
         112: "28rem",
         120: "48rem",
         160: "40rem",
         "9vh": "9vh",
         "30rem": "30rem",
       },
+      fontSize: {
+        "md": "0.9rem"
+      }
     },
   },
   variants: {},

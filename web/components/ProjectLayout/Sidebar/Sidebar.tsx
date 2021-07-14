@@ -14,7 +14,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   selected,
 }) => {
   return (
-    <div className="flex flex-col items-start border-r border-white-seperator py-5 pl-2 h-screen w-20 lg:w-60">
+    <div className="flex flex-col items-start border-r border-white-seperator py-5 pl-2 h-screen w-20 lg:w-52">
       <div className="flex flex-row justify-start items-center mb-6 ml-3">
         <img
           src="https://www.voltpkg.com/static/media/Logo.87cb34d7.svg"
@@ -22,7 +22,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           className="w-10 h-10"
         />
         <div className="hidden lg:flex flex-col justify-between items-start ml-3">
-          <div className="font-extrabold text-xl">Project Volt</div>
+          <div className="font-extrabold text-lg">Volt</div>
           <div className="text-sm font-bold">299 members</div>
         </div>
       </div>
