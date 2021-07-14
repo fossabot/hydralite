@@ -7,8 +7,7 @@ export const Sidebar = () => {
   return (
     <div className="w-96 h-full border-l border-white-seperator">
       <Labels />
-          <div className="border-b border-white-seperator"></div>
-
+      <span className="border-b border-white-seperator"></span>
       <Members />
     </div>
   );

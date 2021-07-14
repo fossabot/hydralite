@@ -4,10 +4,10 @@ import Label from "~/components/Label";
 
 export const Labels = () => {
   return (
-    <div className="w-full p-6 overflow-y-auto">
+    <div className="w-full p-5 overflow-y-auto">
       <div className="flex justify-between items-center w-full">
-        <h1 className="font-extrabold text-xl">Labels</h1>
-        <Icon icon="bi-plus-lg" className="text-text text-lg" />
+        <h1 className="font-extrabold text-lg">Labels</h1>
+        <Icon icon="bi-plus-lg" className="text-text text-md" />
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
         <Label borderColor="#FED7A9" text="Story" />
