@@ -22,3 +22,5 @@ dist
 .vscode/
 
 cli/target
+
+data/
