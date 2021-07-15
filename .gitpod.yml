@@ -23,7 +23,7 @@ vscode:
     # Wait a sec, Docker stuff?
     - ms-azuretools.vscode-docker
     
- github:
+github:
   prebuilds:
     # enable for the default branch (defaults to true)
     master: true
