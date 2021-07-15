@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: hydralite
+      # Generated with "openssl rand -hex 32", DO NOT USE THIS ON OTHER ACCOUNTS!
+      POSTGRES_PASSWORD: 80ccb4856afd53bc049e3dac9759090c3f3af163325149e8e51053ecc2155fce
+      # Used by initdb script in entrypoint to initalize database, see https://www.postgresql.org/docs/11/app-postgres.html#id-1.9.5.14.7
+      PGDATA: /var/lib/postgresql/data/hydralitedb
+    volumes:
+      - ./data/db:/var/lib/postgresql/data/hydralitedb
+    networks:
+      - postgres
+    ports:
+      - 5432:5432
+    # To avoid "ERROR: could not resize shared memory segment . . . : No space left on device", which usually caused by default /dev/shm size of 64MB,
+    # we'll raise it to 512 MB, enough for development and small self-hosted instances. It is advised to adjust this as your Compose-based instance of
+    # Hydralite continues to give, say 2 GB.
+    # Ensure your system has enough memory for that, otherwise expect OOM and regular sluggishness due to the usage of swap, or worse, your OS will start stabbing other processes and even shut down by itself.
+    shm_size: 512m
+    restart: unless-stopped
+  server:
+    image: ghcr.io/hydralite/server:dev
+    build: .
+    volumes:
+      # Possibly mess up with hotreloading
+      - ./:/app/hydralite
+    networks:
+      - postgres
+    # To avoid "ERROR: could not resize shared memory segment . . . : No space left on device", which usually caused by default /dev/shm size of 64MB,
+    # we'll raise it to 256 MB, enough for development and small self-hosted instances. It is advised to adjust this as your Compose-based instance of
+    # Hydralite continues to give, say 2 GB.
+    # Ensure your system has enough memory for that, otherwise expect OOM and regular sluggishness due to the usage of swap, or worse, your OS will start stabbing other processes and even shut down by itself.
+    shm_size: 256m
+    env_file: 
+      - api/.env
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
