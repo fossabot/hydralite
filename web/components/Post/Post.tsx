@@ -100,13 +100,30 @@ const PostBody = ({
     <div className="mt-2">
       <p className="text-sm text-muted">{description}</p>
       {attachments && (
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap mt-3">
           {attachments.slice(0, 3).map((v, i) => {
-            if (i === 3) {
+            const al = attachments.length;
+
+            if (i === 2) {
               return <div>view all attachments</div>;
             }
 
-            return <img key={i} src={v} alt="" />;
+            return (
+              <img
+                key={i}
+                src={v}
+                alt=""
+                className={`
+                  rounded-10 
+                  
+                  ${al === 1 && i === 0 && "w-full"}
+                  ${al > 1 && i === 0 && "w-1/2"}
+                  
+                  ${al === 2 && i === 1 && "w-1/2"}
+                  ${al > 2 && i === 1 && "w-1/2 h-1/2"}
+                `}
+              />
+            );
           })}
         </div>
       )}
