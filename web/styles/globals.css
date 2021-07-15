@@ -43,4 +43,8 @@ body {
   scroll-behavior: smooth;
 }
 
+.boxShadow1 {
+  box-shadow: 0px 0px 20px 0px #C0BFBF40;
+}
+
 @tailwind utilities;
