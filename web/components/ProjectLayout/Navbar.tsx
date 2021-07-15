@@ -7,7 +7,7 @@ export interface NavbarProps {
 const SearchBar = () => {
   return (
     <div
-      className="rounded-5 w-120 max-w-md h-9 flex justify-start items-center"
+      className="rounded-5 w-30rem max-w-md h-9 flex justify-start items-center"
       style={{ boxShadow: "0px 0px 5px #cccccc" }}
     >
       <Icon icon="eva:search-fill" className="mx-4.5 h-5 w-5 text-muted" />

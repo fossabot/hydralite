@@ -5,7 +5,7 @@ export const Feed = () => {
   return (
     <div className="px-4 bg-white-secondBg h-full w-full">
       {/* <EngagementBanner projectName="Volt" /> */}
-      {/* <Post
+      <Post
         creator={{
           name: "xtremedevx",
           isProjectOwner: true,
@@ -19,7 +19,7 @@ export const Feed = () => {
         postedtime="1 hour ago"
         title="How we built the world’s fastest package manager."
         type="Article"
-      /> */}
+      />
     </div>
   );
 };

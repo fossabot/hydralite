@@ -19,7 +19,7 @@ interface ProjectProps {
 
 export const Post: React.FC<ProjectProps> = (props) => {
   return (
-    <div className={`${props.isFocused && "shadow-md"} w-96 rounded-10 p-5`}>
+    <div className={`${props.isFocused && "shadow-md"} w-35rem rounded-10 p-5 bg-white-base`}>
       <PostHeader
         creatorName={props.creator.name}
         isCreatorOwnerOfProject={props.creator.isProjectOwner}
@@ -47,9 +47,9 @@ const PostHeader = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img src={creatorPfp} alt="" className="w-4 h-4 rounded-full" />
-          <h3 className="text-md font-semibold flex">
+        <div className="flex items-center mb-1">
+          <img src={creatorPfp} alt="" className="w-4 h-4 rounded-full mr-2" />
+          <h3 className="text-sm text-muted font-semibold flex items-center mt-1px">
             Posted by
             <span className="ml-1 mr-1 font-bold flex items-center">
               {creatorName}
@@ -69,10 +69,11 @@ const PostHeader = ({
         <div className="">{/* TASK: put labels here */}</div>
       </div>
 
-      <h1 className="text-xl font-bold">{postTitle}</h1>
+      <h1 className="text-lg font-bold">{postTitle}</h1>
       <div className="flex items-center gap-1">
-        <span className="text-sm text-muted font-semibold">{postTime}</span>
-        <span className="text-sm text-muted font-semibold">{postType}</span>
+        <span className="text-xs text-muted font-semibold">{postTime}</span>
+        <Icon icon="bi-dot" className="text-muted" />
+        <span className="text-xs text-muted font-semibold">{postType}</span>
       </div>
     </div>
   );

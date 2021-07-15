@@ -4,12 +4,14 @@ module.exports = {
   theme: {
     colors: {
       white: {
+        base: "#fff",
         hover: "#f5f5f5",
         "hover-select": "#d5d5d5",
         selected: "#f1f1f1",
         seperator: "#E9E9E9",
         secondBg: "#F8F8F8"
       },
+
       accent: "#695cff",
       text: "#2d3748",
       muted: "#55656F",
@@ -34,11 +36,14 @@ module.exports = {
         "2px": "2px",
         "4.5": "1.1rem",
         "7.5": "30px",
-        112: "28rem",
-        120: "48rem",
-        160: "40rem",
-        "9vh": "9vh",
+        "28rem": "28rem",
         "30rem": "30rem",
+        "35rem": "35rem",
+        "40rem": "40rem",
+        "45rem": "45rem",
+        "50rem": "50rem",
+        "55rem": "55rem",
+        "9vh": "9vh",
       },
       fontSize: {
         "md": "0.9rem"
