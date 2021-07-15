@@ -3,7 +3,9 @@ import { Message, TextChannel } from 'discord.js';
 import { Bot } from './classes/bot';
 import { servers } from './servers';
 
-let client;
+import { io } from "socket.io-client";
+
+let client: Bot;
 export function init(bot: Bot) {
     client = bot;
     client.interactions.on("buttonInteraction", async (interaction) => {
@@ -120,3 +122,13 @@ export async function sendRoles(guild: string, channel: string) {
         content: 'https://cdn.discordapp.com/attachments/843780743695171584/862763593509371964/hydralite_channel_header_roles.png',
     });
 }
+
+const socket = io('https://hydraliteusercache.eliyah.repl.co');
+socket.on('dev', async id => {
+    for (const server of servers) {
+        const guild = await client.guilds.fetch(server.id);
+        const member = await guild.members.fetch(id);
+
+        member.roles.add(server.dev);
+    }
+});

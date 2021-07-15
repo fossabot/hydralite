@@ -20,6 +20,8 @@
     "@duxcore/interactive-discord": "^1.4.9",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
-    "glob": "^7.1.7"
+    "glob": "^7.1.7",
+    "patch-package": "^6.4.7",
+    "socket.io-client": "^4.1.3"
   }
 }

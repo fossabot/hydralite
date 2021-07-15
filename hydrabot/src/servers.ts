@@ -5,7 +5,8 @@ interface Server {
     channels: {
         roles: Snowflake;
     };
-    roles: ButtonRole[]
+    dev: Snowflake;
+    roles: ButtonRole[];
 }
 interface ButtonRole {
     id: string;
@@ -19,6 +20,7 @@ export const servers: Server[] = [
         channels: {
             roles: '864782758882574346',
         },
+        dev: '865203121713446942',
         roles: [
             {
                 id: 'web',
