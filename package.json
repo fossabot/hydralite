@@ -8,10 +8,20 @@
     "hydrabot"
   ],
   "scripts": {
-    "commit": "git add . && cz",
-    "commit:signed": "cz -S",
+    "commit": "yarn commit:stage-all",
+    "commit:stage-all": "git add . && yarn commit:dco",
+    "commit:stage-all-plain": "git add . && yarn commit:plain",
+    "commit:stage-all-gpgsign": "git add . && yarn commit:gpgsign",
+    "commit:plain": "cz",
+    "commit:gpgsign": "yarn commit:dco -- -S",
+    "commit:dco": "cz --signoff",
+    "commit:signed": "yarn commit:gpgsign",
+    "commit:no-gpgsign": "yarn commit:dco -- --no-gpgsign",
     "setup": "yarn workspace @hydralite/api run setup",
     "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\"",
+    "docker:psql": "docker exec -it hydralite_db_1 psql -U hydralite",
+    "docker:start": "docker-compose up",
+    "docker:shell": "docker exec -it hydralite_server_1 bash",
     "prettier:format": "prettier --write ."
   },
   "devDependencies": {
