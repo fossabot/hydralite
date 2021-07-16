@@ -121,8 +121,31 @@ const PostBody = ({
               src={attachments[sliderPositon]}
               className={`rounded-10 w-full`}
             />
-            <button onClick={() => setSliderPositon((c) => c + 1)}>next</button>
-            <button onClick={() => setSliderPositon((c) => c - 1)}>prev</button>
+            <button
+              onClick={() =>
+                setSliderPositon((c) => {
+                  if (c !== attachments.length) {
+                    return c + 1;
+                  }
+                  return c
+                })
+              }
+            >
+              next
+            </button>
+            <button
+              onClick={() =>
+                setSliderPositon((c) => {
+                  if (c !== 1) {
+                    return c - 1;
+                  }
+                  return c
+                })
+              }
+            >
+              prev
+            </button>
+            {sliderPositon}
           </div>
         </div>
       )}
