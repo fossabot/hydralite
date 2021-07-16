@@ -1,9 +1,6 @@
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 
-import Slider from "react-slick";
-import Button from "../Button/Button";
-
 interface PostProps {
   project: {
     name: string;
@@ -108,7 +105,7 @@ const PostBody = ({
         <div className="mt-3">
           <div className="">
             <img
-              src={attachments[sliderPositon]}
+              src={attachments[sliderPositon - 1]}
               className={`rounded-10 w-full`}
             />
             <button
