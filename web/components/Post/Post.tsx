@@ -106,16 +106,6 @@ const PostBody = ({
       <p className="text-sm text-muted">{description}</p>
       {attachments && (
         <div className="mt-3">
-          {/* <Slider {...settings}>
-            {attachments.map((v, i) => {
-              return (
-                <div>
-                  <img src={v} key={i} className={`rounded-10 w-full`} />
-                </div>
-              );
-            })}
-          </Slider> */}
-
           <div className="">
             <img
               src={attachments[sliderPositon]}
@@ -123,25 +113,13 @@ const PostBody = ({
             />
             <button
               onClick={() =>
-                setSliderPositon((c) => {
-                  if (c !== attachments.length) {
-                    return c + 1;
-                  }
-                  return c
-                })
+                setSliderPositon((c) => (c !== attachments.length ? c + 1 : c))
               }
             >
               next
             </button>
             <button
-              onClick={() =>
-                setSliderPositon((c) => {
-                  if (c !== 1) {
-                    return c - 1;
-                  }
-                  return c
-                })
-              }
+              onClick={() => setSliderPositon((c) => (c !== 1 ? c - 1 : c))}
             >
               prev
             </button>
