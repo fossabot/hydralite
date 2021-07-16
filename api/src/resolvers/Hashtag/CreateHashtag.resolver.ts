@@ -3,7 +3,7 @@ import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Hashtag } from "src/typegql-generated";
+import { Hashtag } from "~/resolver-types/models/Hashtag";
 import { CreateHashtagArgs } from "./args/CreateHashtagArgs";
 
 @Resolver()

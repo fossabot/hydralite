@@ -3,23 +3,17 @@ import { Field, InputType } from "type-graphql";
 @InputType()
 export class CreateTaskCategoryArgs {
   @Field()
-  name!: string;
+  name: string;
 
-  @Field({
-    nullable: true,
-  })
+  @Field({ nullable: true })
   description?: string;
 
-  @Field({
-    nullable: true,
-  })
+  @Field({ nullable: true })
   color: string;
 
-  @Field(() => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   linkedTaskIds: string[];
 
   @Field()
-  projectId!: string;
+  projectId: string;
 }

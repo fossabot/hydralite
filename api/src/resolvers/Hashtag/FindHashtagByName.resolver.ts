@@ -2,7 +2,7 @@ import { Arg, Ctx, Query, Resolver, UseMiddleware } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Hashtag } from "src/typegql-generated";
+import { Hashtag } from "~/resolver-types/models/Hashtag";
 import { FindHashtagByNameArgs } from "./args/FindHashtagByNameArgs";
 
 @Resolver()

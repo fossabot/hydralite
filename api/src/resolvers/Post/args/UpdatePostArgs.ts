@@ -3,34 +3,22 @@ import { PostType } from "~/resolver-types/enums";
 
 @InputType()
 export class UpdatePostArgs {
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  id!: string;
+  @Field(() => String)
+  id: string;
 
-  @Field((_type) => String, {
-    nullable: true,
-  })
+  @Field(() => String, { nullable: true })
   title?: string;
 
-  @Field((_type) => String, {
-    nullable: true,
-  })
+  @Field(() => String, { nullable: true })
   description?: string;
 
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  projectId!: string; // can not be used to alter the project a post lies in, only used to query post creator
+  @Field(() => String)
+  projectId: string; // can not be used to alter the project a post lies in, only used to query post creator
 
-  @Field((_type) => Boolean, {
-    nullable: true,
-  })
+  @Field(() => Boolean, { nullable: true })
   isAnnouncement?: boolean;
 
-  @Field((_type) => PostType, {
-    nullable: true,
-  })
+  @Field(() => PostType, { nullable: true })
   type?:
     | "post"
     | "article"
@@ -39,30 +27,20 @@ export class UpdatePostArgs {
     | "suggestion"
     | "appreciation";
 
-  @Field((_type) => Boolean, {
-    nullable: true,
-  })
+  @Field(() => Boolean, { nullable: true })
   isPublic?: boolean;
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   labelIds?: string[];
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   categoryIds?: string[];
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   visibleToUserIds?: string[];
 
   // TASK: Add attachments
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   hashtagIds?: string[];
 }
