@@ -1,6 +1,6 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { User } from "@prisma/client";
 import { AssignProjectRoleArgs } from "./args/AssignProjectRoleArgs";
 import { ProjectMember } from "~/resolver-types/models";
@@ -12,7 +12,7 @@ const roleRepo = new ProjectRoleRepo();
 @Resolver()
 export default class AssignProjectRoleResolver {
   @Mutation(() => ProjectMember)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async assignProjectRole(
     @Arg("args") args: AssignProjectRoleArgs,
     @Ctx() { req, prisma }: ContextType

@@ -1,5 +1,5 @@
-import { Arg, Ctx, Query, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Arg, Ctx, Query, Resolver } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { Post, User } from "~/resolver-types/models";
 import { FindPostByIdArgs } from "./args/FindPostByIdArgs";
 import ContextType from "~/types/Context.type";
@@ -13,7 +13,7 @@ const userRepo = new UserRepo();
 @Resolver()
 export class FindPostByIdResolver {
   @Query(() => Post)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async findPostById(
     @Arg("args") { postId }: FindPostByIdArgs,
     @Ctx() { req }: ContextType

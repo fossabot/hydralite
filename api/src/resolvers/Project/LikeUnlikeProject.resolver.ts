@@ -1,12 +1,12 @@
 import { User } from "@prisma/client";
-import { Arg, Ctx, Mutation, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Arg, Ctx, Mutation } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { LikeUnlikeProjectArgs } from "./args/LikeUnlikeProjectArgs";
 
 export default class LikeUnlikeProjectResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => String)
   async likeProject(
     @Arg("args") { projectId }: LikeUnlikeProjectArgs,
@@ -33,7 +33,7 @@ export default class LikeUnlikeProjectResolver {
     });
   }
 
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => String)
   async unlikeProject(
     @Arg("args") { projectId }: LikeUnlikeProjectArgs,
