@@ -1,6 +1,6 @@
 import { Task } from "~/resolver-types/models";
-import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Resolver, Mutation, Ctx, Arg } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
@@ -12,7 +12,7 @@ const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export default class CreateTaskResolver {
   @Mutation(() => Task)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async createTask(
     @Arg("args") args: CreateTaskArgs,
     @Ctx() { req, prisma }: ContextType
