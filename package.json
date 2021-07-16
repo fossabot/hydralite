@@ -12,6 +12,7 @@
     "commit:signed": "cz -S",
     "setup": "yarn workspace @hydralite/api run setup",
     "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\"",
+    "start": "concurrently \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\"",
     "prettier:format": "prettier --write ."
   },
   "devDependencies": {

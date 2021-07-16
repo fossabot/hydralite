@@ -822,6 +822,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@hydralite/hydrabot@workspace:hydrabot":
+  version: 0.0.0-use.local
+  resolution: "@hydralite/hydrabot@workspace:hydrabot"
+  dependencies:
+    "@duxcore/interactive-discord": ^1.4.9
+    "@types/node": ^16.3.2
+    discord.js: ^12.5.3
+    dotenv: ^10.0.0
+    glob: ^7.1.7
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
+
 "@hydralite/landing@workspace:landing":
   version: 0.0.0-use.local
   resolution: "@hydralite/landing@workspace:landing"
@@ -5514,19 +5527,6 @@ __metadata:
   checksum: 4a08769434132a229a6153e77c869a9fe7132dc003d90119d54958e7b75feb65a3c4eca19fb18921568878ac455b6f399013279ad33248d94bd61a25def1fdda
   languageName: node
   linkType: hard
-
-"hydralite-bot@workspace:hydrabot":
-  version: 0.0.0-use.local
-  resolution: "hydralite-bot@workspace:hydrabot"
-  dependencies:
-    "@duxcore/interactive-discord": ^1.4.9
-    "@types/node": ^16.3.2
-    discord.js: ^12.5.3
-    dotenv: ^10.0.0
-    glob: ^7.1.7
-    typescript: ^4.3.5
-  languageName: unknown
-  linkType: soft
 
 "hydralite@workspace:.":
   version: 0.0.0-use.local
