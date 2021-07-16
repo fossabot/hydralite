@@ -1,7 +1,10 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useState } from "react";
 
-interface ProjectProps {
+import Slider from "react-slick";
+import Button from "../Button/Button";
+
+interface PostProps {
   project: {
     name: string;
     gradient: string;
@@ -19,7 +22,7 @@ interface ProjectProps {
   attachments?: string[];
 }
 
-export const Post: React.FC<ProjectProps> = (props) => {
+export const Post: React.FC<PostProps> = (props) => {
   return (
     <div
       className={`${
@@ -96,35 +99,31 @@ const PostBody = ({
   description: string;
   attachments?: string[];
 }) => {
+  const [sliderPositon, setSliderPositon] = useState<number>(1);
+
   return (
     <div className="mt-2">
       <p className="text-sm text-muted">{description}</p>
       {attachments && (
-        <div className="flex flex-wrap mt-3">
-          {attachments.slice(0, 3).map((v, i) => {
-            const al = attachments.length;
+        <div className="mt-3">
+          {/* <Slider {...settings}>
+            {attachments.map((v, i) => {
+              return (
+                <div>
+                  <img src={v} key={i} className={`rounded-10 w-full`} />
+                </div>
+              );
+            })}
+          </Slider> */}
 
-            if (i === 2) {
-              return <div>view all attachments</div>;
-            }
-
-            return (
-              <img
-                key={i}
-                src={v}
-                alt=""
-                className={`
-                  rounded-10 
-                  
-                  ${al === 1 && i === 0 && "w-full"}
-                  ${al > 1 && i === 0 && "w-1/2"}
-                  
-                  ${al === 2 && i === 1 && "w-1/2"}
-                  ${al > 2 && i === 1 && "w-1/2 h-1/2"}
-                `}
-              />
-            );
-          })}
+          <div className="">
+            <img
+              src={attachments[sliderPositon]}
+              className={`rounded-10 w-full`}
+            />
+            <button onClick={() => setSliderPositon((c) => c + 1)}>next</button>
+            <button onClick={() => setSliderPositon((c) => c - 1)}>prev</button>
+          </div>
         </div>
       )}
     </div>
