@@ -1,11 +1,14 @@
+import { Length } from "class-validator";
 import { Field, InputType } from "type-graphql";
 import { PostType } from "~/resolver-types/enums";
 
 @InputType()
 export class CreatePostArgs {
+  @Length(1, 100)
   @Field(() => String)
   title: string;
 
+  @Length(1, 500)
   @Field(() => String, { nullable: true })
   description?: string;
 
