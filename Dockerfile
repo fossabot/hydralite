@@ -37,6 +37,11 @@ RUN yarn workspace @hydralite/api run prisma:generate \
 COPY docker-entrypoint.sh /hydralite/docker-entrypoint.sh
 RUN chmod +x /hydralite/docker-entrypoint.sh
 
+# You need to manually publish these ports when you run them with Docker
+# If you run them from VS Code with the Docker extension, it should be fine.
+EXPOSE 8000
+EXPOSE 3000
+
 # Finally start the server (we might need to configure the API endpoints first when running in production)
 ENTRYPOINT [ "/hydralite/docker-entrypoint.sh" ]
 # Use NODE_ENV variable to set modes, by default you'll be running in development mode.
