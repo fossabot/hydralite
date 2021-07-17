@@ -2,13 +2,13 @@ import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { DeleteHashtagArgs } from "./args/DeleteHashtagArgs";
 
 @Resolver()
 export default class DeleteHashtagResolver {
   @Mutation(() => Boolean)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async deleteHashtag(
     @Arg("args") args: DeleteHashtagArgs,
     @Ctx() { req, prisma }: ContextType

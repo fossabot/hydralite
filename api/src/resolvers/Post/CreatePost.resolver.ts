@@ -1,5 +1,5 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreatePostArgs } from "./args/CreatePostArgs";
 import ContextType from "~/types/Context.type";
 import { Post, User } from "~/resolver-types/models";
@@ -9,7 +9,7 @@ import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class CreatePostResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => Post)
   async createPost(
     @Arg("args") args: CreatePostArgs,

@@ -1,5 +1,5 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import { User } from "~/resolver-types/models";
 import { DeletePostArgs } from "./args/DeletePostArgs";
@@ -9,7 +9,7 @@ import executeOrFail from "~/util/executeOrFail";
 const postRepo = new PostRepo();
 @Resolver()
 export class DeletePostResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => String)
   async deletePost(
     @Arg("args") args: DeletePostArgs,

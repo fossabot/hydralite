@@ -1,14 +1,14 @@
 import { User } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { FollowUnfollowUserArgs } from "./args/FollowUnfollowUserArgs";
 @Resolver()
 export default class FollowUnfollowUserResolver {
   @Mutation(() => String)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async followUser(
     @Arg("args") args: FollowUnfollowUserArgs,
     @Ctx() { req, prisma }: ContextType
@@ -38,7 +38,7 @@ export default class FollowUnfollowUserResolver {
   }
 
   @Mutation(() => String)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async unfollowUser(
     @Arg("args") args: FollowUnfollowUserArgs,
     @Ctx() { req, prisma }: ContextType

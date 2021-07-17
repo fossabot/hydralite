@@ -22,6 +22,7 @@
     "docker:psql": "docker exec -it hydralite_db_1 psql -U hydralite",
     "docker:start": "docker-compose up --build",
     "docker:shell": "docker exec -it hydralite_server_1 bash",
+    "start": "concurrently \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\"",
     "prettier:format": "prettier --write ."
   },
   "devDependencies": {

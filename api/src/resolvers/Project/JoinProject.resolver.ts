@@ -1,5 +1,5 @@
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { JoinProjectArgs } from "./args/JoinProjectArgs";
@@ -10,7 +10,7 @@ import { ApolloError } from "apollo-server-express";
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class JoinProject {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => Project)
   async joinProject(
     @Ctx() { req: { user: _ }, prisma }: ContextType,

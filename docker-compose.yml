@@ -1,4 +1,7 @@
-version: "3"
+# Use of Docker Compose is only recommended in development and not in production.
+# Use Kubernetes instead of yu need to run Hydralite in production.
+# Related StackOverflow answer: https://stackoverflow.com/questions/47536536/whats-the-difference-between-docker-compose-and-kubernetes#47537046
+version: "3.9"
 
 services:
   db:
@@ -48,9 +51,11 @@ services:
       REDIS_HOST: redis
       REDIS_PASSWORD: 4dd8275a97b3a02ebeb2153f
       DATABASE_URL: postgres://hydralite:80ccb4856afd53bc049e3dac9759090c3f3af163325149e8e51053ecc2155fce@db/hydralite?sslmode=disable
-    restart: unless-stopped
+      API_PORT: 8000
+      WEB_PORT: 3000
     ports:
-      - 3000:3000
+      - "${WEB_PORT}:${WEB_PORT}"
+      - "${API_PORT}:${API_PORT}"
 
 networks:
   postgres:
