@@ -106,7 +106,7 @@ const PostBody = ({
           <div className="">
             <img
               src={attachments[sliderPositon - 1]}
-              className={`rounded-10 w-full`}
+              className={`rounded-10 w-full h-52 object-cover`}
             />
             <button
               onClick={() =>
