@@ -1,6 +1,8 @@
 #!/bin/bash
 # shellcheck disable=SC2034
 
+set -e
+
 checkIfYarnInstalled() {
   YARNPKG_PATH=$(which yarn)
 
