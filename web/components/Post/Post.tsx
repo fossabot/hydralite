@@ -103,24 +103,25 @@ const PostBody = ({
       <p className="text-sm text-muted">{description}</p>
       {attachments && (
         <div className="mt-3">
-          <div className="">
+          <div className="w-full h-52 relative">
             <img
               src={attachments[sliderPositon - 1]}
-              className={`rounded-10 w-full h-52 object-cover`}
+              className={`rounded-10 w-full h-full object-cover`}
             />
-            <button
+            <span
               onClick={() =>
                 setSliderPositon((c) => (c !== attachments.length ? c + 1 : c))
               }
+              className="absolute"
             >
               next
-            </button>
-            <button
+            </span>
+            <span
               onClick={() => setSliderPositon((c) => (c !== 1 ? c - 1 : c))}
+              className="absolute "
             >
               prev
-            </button>
-            {sliderPositon}
+            </span>
           </div>
         </div>
       )}
