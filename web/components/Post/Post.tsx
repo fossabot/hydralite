@@ -112,15 +112,15 @@ const PostBody = ({
               onClick={() =>
                 setSliderPositon((c) => (c !== attachments.length ? c + 1 : c))
               }
-              className="absolute"
+              className="absolute right-2 top-[6.5rem] cursor-pointer"
             >
-              next
+              <Icon icon="grommet-icons:next" className="h-6 w-6 text-[#c5c5c5]" />
             </span>
             <span
               onClick={() => setSliderPositon((c) => (c !== 1 ? c - 1 : c))}
-              className="absolute "
+              className="absolute left-2 top-[6.5rem] cursor-pointer"
             >
-              prev
+              <Icon icon="grommet-icons:previous" className="h-6 w-6 text-[#c5c5c5]" />
             </span>
           </div>
         </div>
