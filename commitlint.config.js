@@ -4,7 +4,16 @@ module.exports = {
     "scope-enum": [
       2,
       "always",
-      ["global", "api", "landing", "automation", "mobile", "prototype", "web", "hydrabot"],
+      [
+        "global",
+        "api",
+        "landing",
+        "automation",
+        "mobile",
+        "prototype",
+        "web",
+        "hydrabot",
+      ],
     ],
   },
 };

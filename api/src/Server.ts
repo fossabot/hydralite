@@ -17,6 +17,8 @@ import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
 import dotenv from "dotenv";
 import { apolloPlugins } from "./util/apolloPlugins";
+import { TwitterOAuth } from "./auth/strategies/TwitterOAuth";
+import { GoogleOAuth } from "./auth/strategies/GoogleOAuth";
 
 export class Server {
   public app: Application;
@@ -144,6 +146,8 @@ export class Server {
     // oauth strategies
     this.app.use("/api/auth/github", GithubOAuth(passport));
     this.app.use("/api/auth/discord", DiscordOAuth(passport));
+    this.app.use("/api/auth/twitter", TwitterOAuth(passport));
+    this.app.use("/api/auth/google", GoogleOAuth(passport));
 
     // logout
     this.app.get("/api/auth/logout", function (req, res) {
