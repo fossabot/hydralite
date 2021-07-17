@@ -16,7 +16,7 @@ COPY ./ /app/hydralite
 
 # ...so we can install them all
 WORKDIR /app/hydralite
-RUN yarn
+RUN yarn && yarn prisma:generate
 
 # Ensure our entrypoint script is executable
 RUN chmod +x /app/hydralite/docker-entrypoint.sh
