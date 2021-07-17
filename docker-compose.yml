@@ -1,5 +1,5 @@
 # Use of Docker Compose is only recommended in development and not in production.
-# Use Kubernetes instead of yu need to run Hydralite in production.
+# Use Kubernetes instead if you need to run Hydralite in production.
 # Related StackOverflow answer: https://stackoverflow.com/questions/47536536/whats-the-difference-between-docker-compose-and-kubernetes#47537046
 version: "3.9"
 
@@ -22,15 +22,9 @@ services:
     # Ensure your system has enough memory for that, otherwise expect OOM and regular sluggishness due to the usage of swap, or worse, your OS will start stabbing other processes and even shut down by itself.
     shm_size: 512m
     restart: unless-stopped
-  redis:
-    image: redis:6.2-alpine
-    command: ["redis-server", "--appendonly", "yes", "--requirepass", "4dd8275a97b3a02ebeb2153f"]
-    volumes:
-      - ./data/redis:/data
-  server:
+  web:
     depends_on: 
       - db
-      - redis
     image: ghcr.io/hydralite/server:dev
     build: .
     # You may need to restart your Compose instance due to permissions chaos
@@ -39,7 +33,6 @@ services:
       #- ./:/app/hydralite
     networks:
       - postgres
-      - redis
     # To avoid "ERROR: could not resize shared memory segment . . . : No space left on device", which usually caused by default /dev/shm size of 64MB,
     # we'll raise it to 256 MB, enough for development and small self-hosted instances. It is advised to adjust this as your Compose-based instance of
     # Hydralite continues to give, say 2 GB.
@@ -47,18 +40,15 @@ services:
     shm_size: 256m
     env_file: 
       - api/.env
-    environment: 
-      REDIS_HOST: redis
-      REDIS_PASSWORD: 4dd8275a97b3a02ebeb2153f
+    ports:
+      - 3000:3000
+      - 8000:8000
+    environment:
       DATABASE_URL: postgres://hydralite:80ccb4856afd53bc049e3dac9759090c3f3af163325149e8e51053ecc2155fce@db/hydralite?sslmode=disable
       API_PORT: 8000
       WEB_PORT: 3000
-    ports:
-      - "${WEB_PORT}:${WEB_PORT}"
-      - "${API_PORT}:${API_PORT}"
+    restart: unless-stopped
 
 networks:
   postgres:
-    driver: bridge
-  redis:
     driver: bridge
