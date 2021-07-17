@@ -20,7 +20,7 @@
     "setup": "yarn workspace @hydralite/api run setup",
     "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\"",
     "docker:psql": "docker exec -it hydralite_db_1 psql -U hydralite",
-    "docker:start": "docker-compose up",
+    "docker:start": "docker-compose up --build",
     "docker:shell": "docker exec -it hydralite_server_1 bash",
     "prettier:format": "prettier --write ."
   },
