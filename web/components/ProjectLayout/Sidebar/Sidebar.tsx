@@ -1,10 +1,10 @@
-import React from "react";
-import { SidebarLink } from "./SidebarLink";
-import { ProjectPage } from "~/types/ProjectPageProps";
+import React from 'react';
+import { SidebarLink } from './SidebarLink';
+import { ProjectPage } from '~/types/ProjectPageProps';
 import {
   projectSidebarLowerLinks,
   projectSidebarUpperLinks,
-} from "~/constants/projectSidebarLinks";
+} from '~/constants/projectSidebarLinks';
 
 export interface SidebarProps {
   selected: ProjectPage;

@@ -1,20 +1,20 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import ContextType from "~/types/Context.type";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { User } from "@prisma/client";
-import { AssignProjectRoleArgs } from "./args/AssignProjectRoleArgs";
-import { ProjectMember } from "~/resolver-types/models";
-import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
-import { ProjectRoleRepo } from "~/db/ProjectRoleRepo";
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import ContextType from '~/types/Context.type';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import { User } from '@prisma/client';
+import { AssignProjectRoleArgs } from './args/AssignProjectRoleArgs';
+import { ProjectMember } from '~/resolver-types/models';
+import { ProjectMemberRepo } from '~/db/ProjectMemberRepo';
+import { ProjectRoleRepo } from '~/db/ProjectRoleRepo';
 
 const memberRepo = new ProjectMemberRepo();
 const roleRepo = new ProjectRoleRepo();
 @Resolver()
 export default class AssignProjectRoleResolver {
   @Mutation(() => ProjectMember)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async assignProjectRole(
-    @Arg("args") args: AssignProjectRoleArgs,
+    @Arg('args') args: AssignProjectRoleArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<ProjectMember | null> {
     // retrieve the currently logged in user
@@ -25,7 +25,7 @@ export default class AssignProjectRoleResolver {
       user.id,
       args.projectId
     );
-    await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles");
+    await memberRepo.memberHasPermission(loggedInMember!, 'canManageRoles');
 
     // validate the member to assign the role to exists
     await memberRepo.findMemberById(args.memberId);
@@ -44,7 +44,7 @@ export default class AssignProjectRoleResolver {
     const commonPerms = { ...memberWithUpdatedRole.overallPermissions };
     Object.keys(role!.permissions as object).forEach((permKey) => {
       // ignore model fields that are not permissions
-      if (permKey === "id") return;
+      if (permKey === 'id') return;
 
       const rolePerm: boolean = (role!.permissions as any)[permKey];
       let commonPerm: boolean = (commonPerms as any)[permKey];

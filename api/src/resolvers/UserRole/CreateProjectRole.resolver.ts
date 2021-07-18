@@ -1,17 +1,17 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import ContextType from "~/types/Context.type";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { CreateProjectRoleArgs } from "./args/CreateProjectRoleArgs";
-import { ProjectRole, User } from "~/resolver-types/models";
-import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import ContextType from '~/types/Context.type';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import { CreateProjectRoleArgs } from './args/CreateProjectRoleArgs';
+import { ProjectRole, User } from '~/resolver-types/models';
+import { ProjectMemberRepo } from '~/db/ProjectMemberRepo';
 
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export default class CreateProjectRoleResolver {
   @Mutation(() => ProjectRole)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async createProjectRole(
-    @Arg("args") args: CreateProjectRoleArgs,
+    @Arg('args') args: CreateProjectRoleArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<ProjectRole | null> {
     // retrieve the currently logged in user
@@ -24,12 +24,12 @@ export default class CreateProjectRoleResolver {
     );
 
     // ensure loggedInMember has required permissions
-    await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles");
+    await memberRepo.memberHasPermission(loggedInMember!, 'canManageRoles');
 
     const createdRole = await prisma.projectRole.create({
       data: {
         title: args.title,
-        description: args.description || "",
+        description: args.description || '',
         permissions: {
           create: {
             canAccessBugReports: !!args.canAccessBugReports,

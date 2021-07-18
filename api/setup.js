@@ -1,20 +1,54 @@
-require("dotenv").config();
+require('dotenv').config();
+const fs = require('fs');
+const inquirer = require('inquirer');
+const chalk = require('chalk');
 
-function envCheck() {
-  const env = process.env;
+const prompt = async (args) =>
+  await inquirer.prompt([{ type: 'input', ...args, name: 'cmd' }]).then((a) => {
+    return args.parse ? args.parse(a.cmd) : a.cmd;
+  });
 
-  // Databse Env Check
-  if (!env.DATABASE_URL)
-    throw new Error("Please provide DATABASE_URL in the api/.env file");
+(async () => {
+  if (
+    process.env.GITHUB_CLIENT_ID ||
+    process.env.GITHUB_CLIENT_SECRET ||
+    process.env.DATABASE_URL
+  )
+    return console.log(
+      chalk.red('!') +
+        chalk.red.bold(' Skipping .env setup (.env values already exist).')
+    );
+  console.clear();
+  console.log(chalk.green('!') + chalk.blue.bold(' API .env Configurator\n'));
 
-  // Github Oauth Env Check
-  if (!env.GITHUB_CLIENT_ID)
-    throw new Error("Please provide GITHUB_CLIENT_ID in the api/.env file");
-  if (!env.GITHUB_CLIENT_SECRET)
-    throw new Error("Please provide GITHUB_CLIENT_SECRET in the api/.env file");
+  let env = {};
 
-  // Success Case
-  console.log("All Environment Variables Present!");
-}
+  env.GITHUB_CLIENT_ID = await prompt({
+    message: `Please enter your GitHub Client ID:`,
+  });
 
-envCheck();
+  env.GITHUB_CLIENT_SECRET = await prompt({
+    message: `Please enter your GitHub Client Secret:`,
+  });
+
+  if (!process.env.IS_GITPOD) {
+    env.DATABASE_URL = await prompt({
+      message: `Please enter your PostgresSQL Database URL:`,
+      default: 'postgresql://postgres@localhost/postgres',
+    });
+  } else {
+    env.DATABASE_URL = 'postgresql://gitpod@localhost/postgres';
+  }
+
+  console.log(
+    chalk.green('*') + chalk.magenta.bold(' Writing configuration...')
+  );
+
+  const mapped = Object.keys(env).map((k) => `${k}='${env[k]}'`);
+
+  fs.writeFile(`.env`, mapped.join('\n'), () => {});
+
+  console.log(
+    chalk.green('^') + chalk.yellow.bold(' Finished writing configuration!\n')
+  );
+})();

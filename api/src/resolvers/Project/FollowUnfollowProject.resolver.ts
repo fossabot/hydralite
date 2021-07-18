@@ -1,15 +1,15 @@
-import { User } from "@prisma/client";
-import { Arg, Ctx, Mutation, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import ContextType from "~/types/Context.type";
-import executeOrFail from "~/util/executeOrFail";
-import { FollowUnfollowProjectArgs } from "./args/FollowUnfollowProjectArgs";
+import { User } from '@prisma/client';
+import { Arg, Ctx, Mutation } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import ContextType from '~/types/Context.type';
+import executeOrFail from '~/util/executeOrFail';
+import { FollowUnfollowProjectArgs } from './args/FollowUnfollowProjectArgs';
 
 export default class FollowUnfollowProjectResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => String)
   async followProject(
-    @Arg("args") { projectId }: FollowUnfollowProjectArgs,
+    @Arg('args') { projectId }: FollowUnfollowProjectArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<string> {
     return executeOrFail(async () => {
@@ -29,14 +29,14 @@ export default class FollowUnfollowProjectResolver {
         },
       });
 
-      return "Followed project.";
+      return 'Followed project.';
     });
   }
 
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => String)
   async unfollowProject(
-    @Arg("args") { projectId }: FollowUnfollowProjectArgs,
+    @Arg('args') { projectId }: FollowUnfollowProjectArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<string> {
     return executeOrFail(async () => {
@@ -56,7 +56,7 @@ export default class FollowUnfollowProjectResolver {
         },
       });
 
-      return "Unfollowed project.";
+      return 'Unfollowed project.';
     });
   }
 }

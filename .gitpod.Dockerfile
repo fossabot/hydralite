@@ -1,41 +1,98 @@
-# syntax=docker/dockerfile:1
-FROM gitpod/workspace-full
-# TODO: Possibly build WS image from scratch using gitpod/workspace-base to optmize image size and boot times.
-# If gone to that path, we'll only install Python 3.x through pyenv, Node.js 14.x through nvm and Cargo/Rust.
-
-### NOTE FROM ANDREI JIROH - START ###
-# TL;DR: 1) run "docker build --tag eu.gcr.io/gitpodify/hydralite:dev --file .gitpod.Dockerfile .devcontainer" when reproducing this image, and 2) keep Flutter code up-to-date with Flutter releases as much as possible
-# - If you reproducing the build of this Dockerfile for Gitpod, please use the .devcontainer directory as your context while $PWD/.gitpod.Dockerfile as the file flag when doing docker build locally. Enabling BuildKit at client or deamon side or setting up Buildx and using "docker buildx build" instead of the "docker build" command above are welcome.
-# - After confirming that the image build succeeds, fire up an seperate Gitpod workspace to check if its working, especially if your edited the .gitpod.yml file.
-# - Update Flutter code to be compartible with latest release as possible. (Beware of major releases!) If in the future HydraLite wants its Flutter code to be also works 
-# for desktop and web, update this Dockerfile to include commands found in https://flutter.dev/docs/get-started/install/linux#linux-setup and https://flutter.dev/docs/get-started/web
-# - Actually there's an offical workspace image with Dart installed (https://github.com/gitpod-io/workspace-images/blob/master/dart/Dockerfile), but I preferred to use the one that included in Flutter
-### NOTE FROM ANDREI JIROH - END ###
+FROM gitpod/workspace-base:latest
 
 USER gitpod
-
-# Make sure we have latest repositories' cache first, so we don't hit that 404 Not Fund errors when doing "apt install"
 RUN sudo apt update
+ENV IS_GITPOD=true
+
+### Node.js ###
+LABEL dazzle/layer=lang-node
+LABEL dazzle/test=tests/lang-node.yaml
+ENV NODE_VERSION=14.17.3
+ENV TRIGGER_REBUILD=1
+RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | PROFILE=/dev/null bash \
+    && bash -c ". .nvm/nvm.sh \
+        && nvm install $NODE_VERSION \
+        && nvm alias default $NODE_VERSION \
+        && npm install -g typescript yarn node-gyp" \
+    && echo ". ~/.nvm/nvm-lazy.sh"  >> /home/gitpod/.bashrc.d/50-node
+# above, we are adding the lazy nvm init to .bashrc, because one is executed on interactive shells, the other for non-interactive shells (e.g. plugin-host)
+RUN curl https://raw.githubusercontent.com/gitpod-io/workspace-images/master/full/nvm-lazy.sh >> /home/gitpod/.nvm/nvm-lazy.sh \
+    && chmod +x+ /home/gitpod/.nvm/nvm-lazy.sh
+ENV PATH=$PATH:/home/gitpod/.nvm/versions/node/v${NODE_VERSION}/bin
+
+### Python ###
+LABEL dazzle/layer=lang-python
+LABEL dazzle/test=tests/lang-python.yaml
+RUN sudo install-packages python3-pip
+
+ENV PATH=$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH
+RUN curl -fsSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
+    && { echo; \
+        echo 'eval "$(pyenv init -)"'; \
+        echo 'eval "$(pyenv virtualenv-init -)"'; } >> /home/gitpod/.bashrc.d/60-python \
+    && pyenv update \
+    && pyenv install 3.8.11 \
+    && pyenv global 3.8.11 \
+    && python3 -m pip install --no-cache-dir --upgrade pip \
+    && python3 -m pip install --no-cache-dir --upgrade \
+        setuptools wheel virtualenv pipenv pylint rope flake8 \
+        mypy autopep8 pep8 pylama pydocstyle bandit notebook \
+        twine \
+    && sudo rm -rf /tmp/*
+
+
+### Rust ###
+LABEL dazzle/layer=lang-rust
+LABEL dazzle/test=tests/lang-rust.yaml
+RUN cp /home/gitpod/.profile /home/gitpod/.profile_orig && \
+    curl -fsSL https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.53.0 \
+    && .cargo/bin/rustup component add \
+        rls \
+        rust-analysis \
+        rust-src \
+        rustfmt \
+    && .cargo/bin/rustup completions bash | sudo tee /etc/bash_completion.d/rustup.bash-completion > /dev/null \
+    && .cargo/bin/rustup completions bash cargo | sudo tee /etc/bash_completion.d/rustup.cargo-bash-completion > /dev/null \
+    && grep -v -F -x -f /home/gitpod/.profile_orig /home/gitpod/.profile > /home/gitpod/.bashrc.d/80-rust
+ENV PATH=$PATH:$HOME/.cargo/bin
+
+RUN bash -lc "cargo install cargo-watch cargo-edit cargo-tree"
+
+
+### PostgresSQL ###
+RUN sudo install-packages postgresql-12 postgresql-contrib-12
+ENV PATH="$PATH:/usr/lib/postgresql/12/bin"
+ENV PGDATA="/workspace/.pgsql/data"
+RUN mkdir -p ~/.pg_ctl/bin ~/.pg_ctl/sockets \
+ && printf '#!/bin/bash\n[ ! -d $PGDATA ] && mkdir -p $PGDATA && initdb -D $PGDATA\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" start\n' > ~/.pg_ctl/bin/pg_start \
+ && printf '#!/bin/bash\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" stop\n' > ~/.pg_ctl/bin/pg_stop \
+ && chmod +x ~/.pg_ctl/bin/*
+ENV PATH="$PATH:$HOME/.pg_ctl/bin"
+ENV DATABASE_URL="postgresql://gitpod@localhost"
+ENV PGHOSTADDR="127.0.0.1"
+ENV PGDATABASE="postgres"
+
+
 
 ### Flutter ###
 # Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
 # See Gitpod issue at https://github.com/gitpod-io/gitpod/issues/1273 and also in Google Issue Tracker in general at https://issuetracker.google.com/issues/110507927?pli=1
+RUN set -ex; \
+    sudo apt-get update; \
+    sudo apt-get install -y libglu1-mesa; \
+    sudo rm -rf /var/lib/apt/lists/*
 
-# Update the FLUTTER_VERSION variable below to the latest major.minor.patch release and update Flutter code to be compartible with that version as per the official docs.
-ENV FLUTTER_VERSION=2.0.5 FLUTTER_RELEASE_CHANNEL=stable
-# Dependencies for Dart itself, even we used the one included in Flutter, just in case you prefer not to use Flutter
-RUN sudo apt install libkrb5-dev gcc make build-essential -y
-# Main Flutter install
-RUN sudo apt install libglu1-mesa -y \
-    && wget -qO- https://storage.googleapis.com/flutter_infra_release/releases/${FLUTTER_RELEASE_CHANNEL}/linux/flutter_linux_${FLUTTER_VERSION}-${FLUTTER_RELEASE_CHANNEL}.tar.xz | tar -xJv -C /home/gitpod \
-    # Note from @ajhalili2006: precaching platform-specific dev binaries are optionally btw, but include them to speed up development time
-    # we'll pull artifacts for Android and iOS + universal artifacts for any dev platform
-    # For desktop development, add linux, windows and macos flags. For the web, add web flag.
-    && /home/gitpod/flutter/bin/flutter precache --android --ios --universal -v
-    # TODO: Add Linux setup for desktop if needed. Also install Chrome for web
+RUN set -ex; \
+    mkdir ~/development; \
+    cd ~/development; \
+    git clone --depth 1 https://github.com/flutter/flutter.git -b stable --no-single-branch
 
-# Note from @ajhalili2006: $PROJECT_ROOT/.devcontainer/flutter.bashrc
-COPY flutter.bashrc /home/gitpod/.bashrc.d/40-flutter
+ENV PATH="$PATH:/home/gitpod/development/flutter/bin"
+
+RUN set -ex; \
+    flutter channel stable; \
+    flutter upgrade; \
+    flutter precache --android --ios --universal -v
 
 ### Cleanup ###
 RUN sudo apt-get clean -y && \

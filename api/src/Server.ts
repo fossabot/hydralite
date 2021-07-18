@@ -1,22 +1,24 @@
-import connectRedis from "connect-redis";
-import { createClient, RedisClient } from "redis";
-import session from "express-session";
-import { PrismaClient } from "@prisma/client";
-import { ApolloServer } from "apollo-server-express";
-import createSchema from "./util/CreateSchema";
-import ContextType from "./types/Context.type";
-import { GraphQLSchema } from "graphql";
-import express, { Application } from "express";
-import cors from "cors";
-import { v4 as uuid } from "uuid";
-import { isProd, projectName } from "./constants";
-import passport from "passport";
-import UserRepo from "./db/UserRepo";
-import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
-import { GithubOAuth } from "./auth/strategies/GithubOAuth";
-import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
-import dotenv from "dotenv";
-import { apolloPlugins } from "./util/apolloPlugins";
+import connectRedis from 'connect-redis';
+import { createClient, RedisClient } from 'redis';
+import session from 'express-session';
+import { PrismaClient } from '@prisma/client';
+import { ApolloServer } from 'apollo-server-express';
+import createSchema from './util/CreateSchema';
+import ContextType from './types/Context.type';
+import { GraphQLSchema } from 'graphql';
+import express, { Application } from 'express';
+import cors from 'cors';
+import { v4 as uuid } from 'uuid';
+import { isProd, projectName } from './constants';
+import passport from 'passport';
+import UserRepo from './db/UserRepo';
+import { PassportGenericUser } from './auth/types/PassportGenericUser.type';
+import { GithubOAuth } from './auth/strategies/GithubOAuth';
+import { DiscordOAuth } from './auth/strategies/DiscordOAuth';
+import dotenv from 'dotenv';
+import { apolloPlugins } from './util/apolloPlugins';
+import { TwitterOAuth } from './auth/strategies/TwitterOAuth';
+import { GoogleOAuth } from './auth/strategies/GoogleOAuth';
 
 export class Server {
   public app: Application;
@@ -55,15 +57,15 @@ export class Server {
     this.redisStore = connectRedis(session);
     this.redisClient = createClient({
       port: Number(process.env.REDIS_PORT) || 6379,
-      host: process.env.REDIS_HOST || "localhost",
-      password: process.env.REDIS_PASSWORD || "",
+      host: process.env.REDIS_HOST || 'localhost',
+      password: process.env.REDIS_PASSWORD || '',
     });
 
-    this.redisClient.on("error", function (err) {
+    this.redisClient.on('error', function (err) {
       console.error(`Error connecting to redis: ${err}`);
     });
-    this.redisClient.on("connect", function () {
-      console.log("Connected to redis.");
+    this.redisClient.on('connect', function () {
+      console.log('Connected to redis.');
     });
   };
 
@@ -93,7 +95,7 @@ export class Server {
         user.primaryOauthConnection.oauthService,
         user
       );
-      done(!dbUser ? "Error with authentication." : null, dbUser.id);
+      done(!dbUser ? 'Error with authentication.' : null, dbUser.id);
     });
 
     // deserialize the user
@@ -102,21 +104,21 @@ export class Server {
 
   private applyExpressMiddleware() {
     // cors
-    this.app.use(cors({ origin: "*" }));
+    this.app.use(cors({ origin: '*' }));
 
     // session
     this.app.use(
       session({
-        name: "_hl_sess",
+        name: '_hl_sess',
         genid: (_) => uuid(),
         store: new this.redisStore({ client: this.redisClient }),
-        secret: process.env.sessionSecret || "hydraliteispog",
+        secret: process.env.sessionSecret || 'hydraliteispog',
         resave: false,
         saveUninitialized: true,
         cookie: {
           httpOnly: true,
           secure: isProd,
-          sameSite: "lax",
+          sameSite: 'lax',
           signed: true,
           maxAge: 1000 * 60 * 60 * 24 * 365,
         },
@@ -130,9 +132,9 @@ export class Server {
 
   private routes() {
     // welcome route
-    this.app.get("/", function (req, res) {
-      console.log("session", req.session);
-      console.log("user", req.user);
+    this.app.get('/', function (req, res) {
+      console.log('session', req.session);
+      console.log('user', req.user);
       return res.json({
         message: `Welcome to ${projectName}`,
         authorized: !!req.isAuthenticated(),
@@ -142,15 +144,17 @@ export class Server {
 
   private auth() {
     // oauth strategies
-    this.app.use("/api/auth/github", GithubOAuth(passport));
-    this.app.use("/api/auth/discord", DiscordOAuth(passport));
+    this.app.use('/api/auth/github', GithubOAuth(passport));
+    this.app.use('/api/auth/discord', DiscordOAuth(passport));
+    this.app.use('/api/auth/twitter', TwitterOAuth(passport));
+    this.app.use('/api/auth/google', GoogleOAuth(passport));
 
     // logout
-    this.app.get("/api/auth/logout", function (req, res) {
+    this.app.get('/api/auth/logout', function (req, res) {
       req.session.destroy((err) => {
         if (err) throw err;
         req.logout();
-        res.redirect("/");
+        res.redirect('/');
       });
     });
   }

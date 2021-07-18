@@ -103,7 +103,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "hydra"
+name = "hydralite"
 version = "1.0.0"
 dependencies = [
  "colored",

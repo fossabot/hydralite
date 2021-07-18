@@ -1,23 +1,23 @@
-import Heroku from "heroku-client";
+import Heroku from 'heroku-client';
 
 export default class HerokuApiManager {
   getCurrentAccount = (token: string) => {
     const heroku = new Heroku({ token: token });
-    heroku.get("/account").then((account) => {
+    heroku.get('/account').then((account) => {
       console.log(account);
     });
   };
 
   getHerokuApps = (token: string) => {
     const heroku = new Heroku({ token: token });
-    heroku.get("/apps").then((apps) => {
+    heroku.get('/apps').then((apps) => {
       console.log(apps);
     });
   };
 
   createHerokuApp = (name: string, token: string) => {
     const heroku = new Heroku({ token: token });
-    heroku.post("/apps", { body: { name: name } }).then((app) => {
+    heroku.post('/apps', { body: { name: name } }).then((app) => {
       console.log(app);
     });
   };
@@ -44,7 +44,7 @@ export default class HerokuApiManager {
           {
             name: name,
             url: `https://github.com/heroku/heroku-buildpack-${
-              buildpack.split("/")[1]
+              buildpack.split('/')[1]
             }`,
           },
         ],

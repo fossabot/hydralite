@@ -1,21 +1,21 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import ContextType from "~/types/Context.type";
-import { Post, User } from "~/resolver-types/models";
-import { connectIdArray } from "~/util/connectIdArray";
-import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
-import { UpdatePostArgs } from "./args/UpdatePostArgs";
-import { PostRepo } from "~/db/PostRepo";
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import ContextType from '~/types/Context.type';
+import { Post, User } from '~/resolver-types/models';
+import { connectIdArray } from '~/util/connectIdArray';
+import { ProjectMemberRepo } from '~/db/ProjectMemberRepo';
+import { UpdatePostArgs } from './args/UpdatePostArgs';
+import { PostRepo } from '~/db/PostRepo';
 
 const memberRepo = new ProjectMemberRepo();
 const postRepo = new PostRepo();
 
 @Resolver()
 export class UpdatePostResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => Post)
   async updatePost(
-    @Arg("args") args: UpdatePostArgs,
+    @Arg('args') args: UpdatePostArgs,
     @Ctx() { req, prisma }: ContextType
   ) {
     // retrieve the currently logged in user
@@ -24,7 +24,7 @@ export class UpdatePostResolver {
     // ensure the user trying to update the post was the creator
     await postRepo.userIsCreatorOfPost(user.id, args.id);
 
-    type postType = Parameters<typeof prisma.post.update>[0]["data"];
+    type postType = Parameters<typeof prisma.post.update>[0]['data'];
     const post: postType = {};
 
     if (args.title) post.title = args.title;
@@ -40,7 +40,7 @@ export class UpdatePostResolver {
         user.id,
         args.projectId
       );
-      memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
+      memberRepo.memberHasPermission(loggedInMember!, 'canModeratePosts');
 
       post.isAnnouncement = args.isAnnouncement;
       post.isPublic = args.isPublic;
