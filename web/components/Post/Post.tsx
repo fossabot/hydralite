@@ -48,6 +48,7 @@ export const Post: React.FC<PostProps> = (props) => {
         hydra="200k"
       />
       <ReplyBar avatar="/avatar.png" name="Aaryaman Maheshwari" />
+      <Reactions />
     </div>
   );
 };
@@ -184,10 +185,34 @@ const PostAction = ({ icon, count }) => {
 const ReplyBar = ({ avatar, name }) => {
   return (
     <div className="w-full flex items-center gap-3 bg-white-secondBg mt-4 p-3 rounded-5 select-none cursor-pointer">
-      <img src={avatar} alt="" className="h-5 w-5 rounded-full" />
+      <img src={avatar} alt="" className="h-4 w-4 rounded-full" />
       <h4 className="text-xs font-semibold">
         Reply as <span className="font-bold">{name}</span>
       </h4>
+    </div>
+  );
+};
+
+const Reactions = () => {
+  const reactions = [{ icon: "noto-v1:thumbs-up", count: "93k", chosen: true }, { icon: "twemoji:smiling-face-with-sunglasses", count: "20k", chosen: true }, { icon: "fxemoji:bolt", count: "20k", chosen: false }];
+
+  return (
+    <div className="flex items-center gap-1 mt-2">
+      {reactions.map((r, i) => {
+        return (
+          <div
+            className={`flex items-center gap-1 rounded-5 p-1 select-none cursor-pointer ${
+              r.chosen
+                ? "border-accent border bg-[#E7E9FF]"
+                : "bg-white-secondBg"
+            }`}
+            key={i}
+          >
+            <Icon icon={r.icon} className="h-3 w-3" />
+            <span className="font-bold text-[0.5rem] mt-[2px]">{r.count}</span>
+          </div>
+        );
+      })}
     </div>
   );
 };
