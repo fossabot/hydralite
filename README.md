@@ -31,8 +31,8 @@ client app) before start hacking/contributing within your local machine, especia
 within an Dockerized development environment or in an VPS. Our setup script will only install Yarn for you to get started with the
 webapp and GraphQL API develpment.
 
-- Run `setup.cmd` in Windows Command Prompt or `setup.sh` in an macOS/Linux shell at the root directory after cloning.
-- Once the setup command has been run based on your shell provider, run `yarn dev` in the root directory to start the API and web servers.
+* After cloning, install dependencies with `yarn` (or `yarn install`). Then run the setup process with `yarn setup`.
+* Once Prisma-generated files are ready and database migrations has been finished (if you forget to create `api/.env` file), run `yarn dev` in the root directory to start the API and web servers.
 
 ### In Gitpod
 
