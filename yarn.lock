@@ -866,11 +866,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hydralite/web@workspace:web"
   dependencies:
+    "@iconify/react": alpha
+    "@types/faker": ^5.5.7
     "@types/node": ^15.12.3
     "@types/react": ^17.0.11
+    "@types/react-slick": ^0.23.5
     autoprefixer: latest
     axios: ^0.21.1
     evernote: ^2.0.5
+    faker: ^5.5.3
     googleapis: ^76.0.0
     heroku-client: ^3.1.0
     next: 10.2.3
@@ -883,6 +887,13 @@ __metadata:
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
+
+"@iconify/react@npm:alpha":
+  version: 3.0.0-beta.1
+  resolution: "@iconify/react@npm:3.0.0-beta.1"
+  checksum: 09c06489040938eb5ebc17ef9baaf6a6e31ccdb0b875a205113f6782bb1a7941daaebe123ab82de15776e347e639f0008f07d36204a45f929d32f0b02b630717
+  languageName: node
+  linkType: hard
 
 "@jfonx/console-utils@npm:^1.0.3":
   version: 1.0.3
@@ -1695,6 +1706,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/faker@npm:^5.5.7":
+  version: 5.5.7
+  resolution: "@types/faker@npm:5.5.7"
+  checksum: 27cce2c2f4843cae730a9a1dbb2ec695d1c24c893ea4ef4a5208b897931afce211802b3e01f86bdf6660124ca102c9abab9b5b101295082342bf27e80a9e4f18
+  languageName: node
+  linkType: hard
+
 "@types/fs-capacitor@npm:*":
   version: 2.0.0
   resolution: "@types/fs-capacitor@npm:2.0.0"
@@ -1970,6 +1988,26 @@ __metadata:
   version: 1.2.3
   resolution: "@types/range-parser@npm:1.2.3"
   checksum: 092fabae0ecbd728d3e4debc938cd043e97cb9f210cfec1c56ff6065c6e91666f376eb586591825d6757a058fd1a1dc4831d34e04ecfbb0800f35b8d86d38635
+  languageName: node
+  linkType: hard
+
+"@types/react-slick@npm:^0.23.5":
+  version: 0.23.5
+  resolution: "@types/react-slick@npm:0.23.5"
+  dependencies:
+    "@types/react": "*"
+  checksum: 22b5807ab27b5d86f20b47e7fb218c76c4a9e90a10246c9a469c64ae3ff0b40cad5ed27b2cd45bb0d35a85b6232c4cfdd551f689edd7e8518c9a130630b8e2c7
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*":
+  version: 17.0.14
+  resolution: "@types/react@npm:17.0.14"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 3c5373845b0869d9ce3db16917c87707cdfdb6c08d9ca7ed90a2a097cb3cbec8d037d37e81c3cf5af721d92f8fdc62431405f1874f9a02dea6ec05e5d81e77fe
   languageName: node
   linkType: hard
 
