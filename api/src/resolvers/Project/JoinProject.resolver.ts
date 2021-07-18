@@ -3,7 +3,7 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { JoinProjectArgs } from "./args/JoinProjectArgs";
-import { Project } from "~/resolver-types/models";
+import { Project } from "~/resolver-types/models/Project";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { ApolloError } from "apollo-server-express";
 
@@ -14,8 +14,8 @@ export class JoinProject {
   @Mutation(() => Project)
   async joinProject(
     @Ctx() { req: { user: _ }, prisma }: ContextType,
-    @Arg("args") { projectId }: JoinProjectArgs
-  ): Promise<Project> {
+    @Arg("args") { projectId, role }: JoinProjectArgs
+  ) {
     const user: User = _ as any;
 
     // validate project existence
@@ -39,7 +39,10 @@ export class JoinProject {
           create: [
             {
               user: { connect: { id: user.id } },
-              awaitingApproval: projectToJoin.newJoineesRequireApproval,
+              awaitingApproval:
+                projectToJoin.newJoineesRequireApproval ||
+                role === "moderator" ||
+                role === "projectTeam",
             },
           ],
         },
