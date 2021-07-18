@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { Strategy } from "passport-github2";
-import { PassportStatic } from "passport";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
-import { PassportGithubProfile } from "../types/PassportGithubProfile.type";
-import { PassportGenericUser } from "../types/PassportGenericUser.type";
+import { Router } from 'express';
+import { Strategy } from 'passport-github2';
+import { PassportStatic } from 'passport';
+import fetchOauthClientInfo from '~/auth/util/fetchOauthClientInfo';
+import { PassportGithubProfile } from '../types/PassportGithubProfile.type';
+import { PassportGenericUser } from '../types/PassportGenericUser.type';
 
 export const GithubOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo("github");
+  const oauthInfo = fetchOauthClientInfo('github');
 
   passport.use(
     new Strategy(
@@ -22,15 +22,15 @@ export const GithubOAuth = (passport: PassportStatic) => {
         done: any
       ) => {
         const genericUser: PassportGenericUser = {
-          email: profile._json.email || "",
+          email: profile._json.email || '',
           username: profile.username,
           profile: {
             avatarUrl: profile.photos[0].value,
-            bio: profile._json.bio || "",
+            bio: profile._json.bio || '',
           },
           primaryOauthConnection: {
-            email: profile._json.email || "",
-            oauthService: "github",
+            email: profile._json.email || '',
+            oauthService: 'github',
             username: profile.username,
             oauthServiceUserId: profile.id,
           },
@@ -44,23 +44,23 @@ export const GithubOAuth = (passport: PassportStatic) => {
   const router = Router();
 
   router.get(
-    "/",
-    passport.authenticate("github", {
-      scope: ["user:email"],
+    '/',
+    passport.authenticate('github', {
+      scope: ['user:email'],
       failureRedirect: `/`,
       session: true,
     })
   );
 
   router.get(
-    "/cb",
-    passport.authenticate("github", {
+    '/cb',
+    passport.authenticate('github', {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
       // redirect to main site
-      res.redirect("/");
+      res.redirect('/');
     }
   );
 

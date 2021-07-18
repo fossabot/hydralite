@@ -1,7 +1,7 @@
-import React from "react";
-import { Navbar } from "~/components/ProjectLayout/Navbar";
-import { Sidebar } from "~/components/ProjectLayout/Sidebar/Sidebar";
-import { ProjectPage } from "~/types/ProjectPageProps";
+import React from 'react';
+import { Navbar } from '~/components/ProjectLayout/Navbar';
+import { Sidebar } from '~/components/ProjectLayout/Sidebar/Sidebar';
+import { ProjectPage } from '~/types/ProjectPageProps';
 
 export interface ProjectLayoutProps {
   selected: ProjectPage;
@@ -20,7 +20,7 @@ export const ProjectLayout: React.FC<ProjectLayoutProps> = ({
         <Navbar avatar="/avatar.png" />
         <div
           className={`w-full h-screen ${
-            centerContent ? "flex items-center justify-center pr-64 pb-16" : ""
+            centerContent ? 'flex items-center justify-center pr-64 pb-16' : ''
           }`}
         >
           {children}

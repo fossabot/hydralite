@@ -1,7 +1,7 @@
-import { Ctx, Query, Resolver } from "type-graphql";
-import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { User } from "~/resolver-types/models";
-import ContextType from "~/types/Context.type";
+import { Ctx, Query, Resolver } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import { User } from '~/resolver-types/models';
+import ContextType from '~/types/Context.type';
 
 @Resolver()
 export default class MeResolver {

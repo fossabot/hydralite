@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 export interface CaseProps {
   nextValue?: boolean;
   default?: boolean;

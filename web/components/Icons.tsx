@@ -1,6 +1,6 @@
 export const Icon: React.FC<{ viewBox?: string }> = ({ children, viewBox }) => {
   return (
-    <svg viewBox={viewBox ?? "0 0 30 30"} fill="none">
+    <svg viewBox={viewBox ?? '0 0 30 30'} fill="none">
       {children}
     </svg>
   );

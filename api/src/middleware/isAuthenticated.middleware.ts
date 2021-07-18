@@ -1,11 +1,11 @@
-import { ApolloError } from "apollo-server-express";
-import { MiddlewareFn, createMethodDecorator } from "type-graphql";
-import ContextType from "~/types/Context.type";
+import { ApolloError } from 'apollo-server-express';
+import { MiddlewareFn, createMethodDecorator } from 'type-graphql';
+import ContextType from '~/types/Context.type';
 
 export const IsAuthenticated = () =>
   createMethodDecorator<ContextType>(
     async ({ context: { req, prisma } }, next) => {
-      if (!req.isAuthenticated()) throw new ApolloError("Not Authenticated.");
+      if (!req.isAuthenticated()) throw new ApolloError('Not Authenticated.');
 
       const userId = (req.user as any).id;
       const user = await prisma.user.findUnique({

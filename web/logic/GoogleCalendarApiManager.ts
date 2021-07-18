@@ -1,15 +1,15 @@
-import { google } from "googleapis";
+import { google } from 'googleapis';
 const { OAuth2 } = google.auth;
 
 export default class GoogleCalendarApiManager {
   createMeeting = (summary: string, description: string) => {
-    const client = new OAuth2("", "");
+    const client = new OAuth2('', '');
     client.setCredentials({
-      refresh_token: "",
+      refresh_token: '',
     });
 
     const calendar = google.calendar({
-      version: "v3",
+      version: 'v3',
       auth: client,
     });
 
@@ -24,15 +24,15 @@ export default class GoogleCalendarApiManager {
 
     const event = {
       summary: summary,
-      location: "",
+      location: '',
       description: description,
       start: {
         dateTime: startTime,
-        timeZone: "",
+        timeZone: '',
       },
       end: {
         dateTime: endTime,
-        timeZone: "",
+        timeZone: '',
       },
       colorId: 1,
     };
