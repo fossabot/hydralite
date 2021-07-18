@@ -40,7 +40,14 @@ export const Post: React.FC<PostProps> = (props) => {
         description={props.description}
         attachments={props.attachments}
       />
-      <PostActions likes="39k" replies="29k" reposts="10k" shares="1k" hydra="200k" />
+      <PostActions
+        likes="39k"
+        replies="29k"
+        reposts="10k"
+        shares="1k"
+        hydra="200k"
+      />
+      <ReplyBar avatar="/avatar.png" name="Aaryaman Maheshwari" />
     </div>
   );
 };
@@ -137,14 +144,29 @@ const PostActions = ({ likes, replies, shares, reposts, hydra }) => {
   return (
     <div className="border-t border-white-seperator mt-6 pt-4 flex justify-between">
       <div className="flex items-center gap-5">
-        <PostAction icon={<Icon icon="fxemoji:fire" className="h-4 w-4" />} count={likes} />
-        <PostAction icon={<Icon icon="akar-icons:comment" className="h-4 w-4" />} count={replies} />
-        <PostAction icon={<Icon icon="bx-bx-share-alt" className="h-4 w-4" />} count={shares} />
-        <PostAction icon={<Icon icon="ps:retweet-1" className="h-5 w-5" />} count={reposts} />
-        <PostAction icon={<Icon icon="ion:rocket" className="h-4 w-4" />} count={hydra} />
+        <PostAction
+          icon={<Icon icon="fxemoji:fire" className="h-4 w-4" />}
+          count={likes}
+        />
+        <PostAction
+          icon={<Icon icon="akar-icons:comment" className="h-4 w-4" />}
+          count={replies}
+        />
+        <PostAction
+          icon={<Icon icon="bx-bx-share-alt" className="h-4 w-4" />}
+          count={shares}
+        />
+        <PostAction
+          icon={<Icon icon="ps:retweet-1" className="h-5 w-5" />}
+          count={reposts}
+        />
+        <PostAction
+          icon={<Icon icon="ion:rocket" className="h-4 w-4" />}
+          count={hydra}
+        />
       </div>
       <div>
-        <Icon icon="bi:bookmark" className="h-4 w-4"/>
+        <Icon icon="bi:bookmark" className="h-4 w-4" />
       </div>
     </div>
   );
@@ -156,5 +178,16 @@ const PostAction = ({ icon, count }) => {
       {icon}
       {count}
     </span>
+  );
+};
+
+const ReplyBar = ({ avatar, name }) => {
+  return (
+    <div className="w-full flex items-center gap-3 bg-white-secondBg mt-4 p-3 rounded-5">
+      <img src={avatar} alt="" className="h-5 w-5 rounded-full" />
+      <h4 className="text-xs font-semibold">
+        Reply as <span className="font-bold">{name}</span>
+      </h4>
+    </div>
   );
 };
