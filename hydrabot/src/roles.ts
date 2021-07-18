@@ -1,4 +1,4 @@
-import { ButtonComponent, ButtonStyle, ComponentActionRow, ComponentCluster, Member } from '@duxcore/interactive-discord';
+import { ButtonComponent, ButtonStyle, ComponentActionRow, ComponentCluster, LinkButtonComponent, Member } from '@duxcore/interactive-discord';
 import { Message, TextChannel } from 'discord.js';
 import { Bot } from './classes/bot';
 import { servers } from './servers';
@@ -83,7 +83,7 @@ function getButton(type: string, title: string) {
     const r = recent.get(type);
 
     let msg = title;
-    let style = ButtonStyle.Primary;
+    let style = ButtonStyle.Secondary;
 
     if (r) style = r.add ? ButtonStyle.Success : ButtonStyle.Danger;
     if (r) msg = `${r.add ? '+' : '-'} ${r.user}`
@@ -99,10 +99,16 @@ function getButtons(guild: string) {
     const server = servers.find(v => v.id == guild);
     if (!server) return new ComponentCluster();
 
-    const buttons: ButtonComponent[] = server.roles.map(v => getButton(v.id, v.title));
-    const actionRow = new ComponentActionRow(...buttons);
+    const dev = new LinkButtonComponent('https://hydraliteusercache.eliyah.repl.co/', {
+        style: ButtonStyle.Link,
+        label: 'Refresh Developer Role',
+    });
 
-    return new ComponentCluster(actionRow);
+    const buttons: ButtonComponent[] = server.roles.map(v => getButton(v.id, v.title));
+    const actionRow1 = new ComponentActionRow(...buttons);
+    const actionRow2 = new ComponentActionRow(dev);
+
+    return new ComponentCluster(actionRow1, actionRow2);
 }
 
 export async function sendRoles(guild: string, channel: string) {
