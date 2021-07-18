@@ -1,13 +1,13 @@
-import { Field, InputType } from "type-graphql";
+import { Field, InputType } from 'type-graphql';
 
 @InputType()
 export class CreateTaskBoardArgs {
   @Field(() => String)
-  title!: string;
+  title: string;
 
   @Field(() => String)
-  description!: string;
+  description: string;
 
   @Field(() => String)
-  projectId!: string;
+  projectId: string;
 }

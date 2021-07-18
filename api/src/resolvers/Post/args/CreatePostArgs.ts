@@ -1,63 +1,40 @@
-import { Field, InputType } from "type-graphql";
-import { PostType } from "~/resolver-types/enums";
+import { Length } from 'class-validator';
+import { Field, InputType } from 'type-graphql';
+import { PostType } from '~/resolver-types/enums';
 
 @InputType()
 export class CreatePostArgs {
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  title!: string;
+  @Length(1, 100)
+  @Field(() => String)
+  title: string;
 
-  @Field((_type) => String, {
-    nullable: true,
-  })
+  @Length(1, 500)
+  @Field(() => String, { nullable: true })
   description?: string;
 
-  @Field((_type) => Boolean, {
-    nullable: true,
-  })
+  @Field(() => Boolean, { nullable: true })
   isAnnouncement?: boolean;
 
-  @Field((_type) => PostType, {
-    nullable: false,
-  })
-  type!:
-    | "post"
-    | "article"
-    | "question"
-    | "feedback"
-    | "suggestion"
-    | "appreciation";
+  @Field(() => PostType)
+  type: PostType;
 
-  @Field((_type) => Boolean, {
-    nullable: true,
-  })
+  @Field(() => Boolean, { nullable: true })
   isPublic?: boolean;
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   labelIds?: string[];
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   categoryIds?: string[];
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   visibleToUserIds?: string[];
 
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  projectId!: string;
+  @Field(() => String)
+  projectId: string;
 
   // TASK: Add attachments
 
-  @Field((_type) => [String], {
-    nullable: true,
-  })
+  @Field(() => [String], { nullable: true })
   hashtagIds?: string[];
 }

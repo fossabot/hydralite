@@ -1,8 +1,13 @@
 [package]
-name = "hydra"
+name = "hydralite"
 version = "1.0.0"
 authors = ["XtremeDevX <xtremedevx@gmail.com>"]
 edition = "2018"
+description = "The official hydra command line tool for Hydralite."
+license = "Apache-2.0"
+homepage = "https://hydralite.io"
+repository = "https://github.com/hydralite/hydralite"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

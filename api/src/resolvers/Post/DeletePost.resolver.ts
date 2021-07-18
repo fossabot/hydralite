@@ -1,18 +1,18 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import ContextType from "~/types/Context.type";
-import { User } from "~/resolver-types/models";
-import { DeletePostArgs } from "./args/DeletePostArgs";
-import { PostRepo } from "~/db/PostRepo";
-import executeOrFail from "~/util/executeOrFail";
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import ContextType from '~/types/Context.type';
+import { User } from '~/resolver-types/models';
+import { DeletePostArgs } from './args/DeletePostArgs';
+import { PostRepo } from '~/db/PostRepo';
+import executeOrFail from '~/util/executeOrFail';
 
 const postRepo = new PostRepo();
 @Resolver()
 export class DeletePostResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => String)
   async deletePost(
-    @Arg("args") args: DeletePostArgs,
+    @Arg('args') args: DeletePostArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<String | null> {
     // retrieve the currently logged in user
@@ -26,8 +26,8 @@ export class DeletePostResolver {
       await prisma.post.delete({
         where: { id: args.postId },
       });
-    }, "Error deleting post");
+    }, 'Error deleting post');
 
-    return "Successfully deleted post";
+    return 'Successfully deleted post';
   }
 }

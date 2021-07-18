@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from 'next/head';
 
 const MetaData = (props) => (
   <Head>
@@ -17,7 +17,7 @@ const MetaData = (props) => (
     <meta name="twitter:description" content={props.description} />
     <meta name="twitter:site" content={props.url} />
     <meta name="keywords" content={props.keywords} />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href={props.url} />
   </Head>

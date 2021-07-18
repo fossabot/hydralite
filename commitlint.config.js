@@ -1,10 +1,22 @@
 module.exports = {
-  extends: ["@commitlint/config-conventional"],
+  extends: ['@commitlint/config-conventional'],
   rules: {
-    "scope-enum": [
+    'scope-enum': [
       2,
-      "always",
-      ["global", "api", "landing", "automation", "mobile", "prototype", "web", "hydrabot"],
+      'always',
+      [
+        'global',
+        'api',
+        'landing',
+        'automation',
+        'mobile',
+        'prototype',
+        'web',
+        'hydrabot',
+        'docker',
+        'gitpod',
+        'devcontainer',
+      ],
     ],
   },
 };

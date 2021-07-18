@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export interface SidebarLinkProps {
   image: React.ReactFragment;
@@ -21,16 +21,24 @@ export const SidebarLink: React.FC<SidebarLinkProps> = ({
     <Link href={`/project/${id}/${href}`}>
       <a>
         <div
-          className={`m-1 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 w-52 h-12 ${
-            selected
-              ? "bg-white-selected fill-select text-accent"
-              : "hover:bg-white-hover bg-transparent fill-text text-text"
+          className={`mx-2 mb-6 flex flex-row justify-start items-center cursor-pointer select-none rounded-10 relative ${
+            selected ? "text-accent" : "text-text"
           }`}
+          style={{ width: "12.1rem" }}
         >
-          <div className="w-5 h-5 ml-5">{image}</div>
-          <div className="text-base ml-5 font-semibold">{title}</div>
+          <div className="w-4.5 h-4.5 ml-3">{image}</div>
+          <div className="hidden lg:block text-md ml-5 font-bold">{title}</div>
+          <SelectedIndicator selected={selected} />
         </div>
       </a>
     </Link>
+  );
+};
+
+const SelectedIndicator = ({ selected }) => {
+  return selected ? (
+    <div className="rounded-full bg-accent h-7 w-1 absolute right-0 hidden lg:block"></div>
+  ) : (
+    <></>
   );
 };

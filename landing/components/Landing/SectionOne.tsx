@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "~/styles/index.module.css";
+import React from 'react';
+import styles from '~/styles/index.module.css';
 
 const SectionOne = () => {
   return (
@@ -12,12 +12,12 @@ const SectionOne = () => {
         />
         <div className={styles.sectionOne__content}>
           <span className={styles.sectionOne__preHeading}>
-            {"Intuitive, Fast, Powerful".toUpperCase()}
+            {'Intuitive, Fast, Powerful'.toUpperCase()}
           </span>
           <h1 className={styles.sectionOne__heading}>Project Management</h1>
           <p
             className={styles.sectionOne__description}
-            style={{ marginTop: "10px" }}
+            style={{ marginTop: '10px' }}
           >
             Hydralite enables easy, intuitive project management, and allows for
             efficient and highly collaborative feature planning, task
@@ -29,7 +29,7 @@ const SectionOne = () => {
       </div>
       <div className={styles.sectionOne__featureContainer}>
         <div className={styles.sectionOne__feature}>
-          <h3>{"Task Boards".toUpperCase()}</h3>
+          <h3>{'Task Boards'.toUpperCase()}</h3>
           <p>
             Seamlessly collaborate with task boards while enjoying effeciency
             and performance analytics for all your team members.Set priorities
@@ -38,7 +38,7 @@ const SectionOne = () => {
         </div>
         <span className={styles.sectionOne__featureSeperator}></span>
         <div className={styles.sectionOne__feature}>
-          <h3>{"Project Roadmap".toUpperCase()}</h3>
+          <h3>{'Project Roadmap'.toUpperCase()}</h3>
           <p>
             Track and manage features you want for your next release seamlessly
             through a roadmap. Quickly deploy the latest version of your
@@ -47,7 +47,7 @@ const SectionOne = () => {
         </div>
         <span className={styles.sectionOne__featureSeperator}></span>
         <div className={styles.sectionOne__feature}>
-          <h3>{"Audio Rooms".toUpperCase()}</h3>
+          <h3>{'Audio Rooms'.toUpperCase()}</h3>
           <p>
             Collaborate with the other developers and your teammates and
             brainstorm the coolest features for your software. Use task boards
