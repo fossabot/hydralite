@@ -183,7 +183,7 @@ const PostAction = ({ icon, count }) => {
 
 const ReplyBar = ({ avatar, name }) => {
   return (
-    <div className="w-full flex items-center gap-3 bg-white-secondBg mt-4 p-3 rounded-5">
+    <div className="w-full flex items-center gap-3 bg-white-secondBg mt-4 p-3 rounded-5 select-none cursor-pointer">
       <img src={avatar} alt="" className="h-5 w-5 rounded-full" />
       <h4 className="text-xs font-semibold">
         Reply as <span className="font-bold">{name}</span>
