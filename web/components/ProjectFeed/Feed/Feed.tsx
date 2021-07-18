@@ -1,4 +1,5 @@
 import React from "react";
+import NewPostCard from "~/components/NewPostCard";
 import { Post } from "~/components/Post/Post";
 
 export const Feed = () => {
@@ -6,6 +7,7 @@ export const Feed = () => {
     <div className="px-4 bg-white-secondBg h-full w-full overflow-y-auto">
       {/* <EngagementBanner projectName="Volt" /> */}
       <div className="mx-auto container mt-3 space-y-5">
+        <NewPostCard avatarUrl="/avatar.png" name="fullstackslayer" />
         <Post
           creator={{
             name: "xtremedevx",
