@@ -1,14 +1,14 @@
-require("dotenv").config();
+require('dotenv').config();
 
-import { Bot } from "./classes/bot";
+import { Bot } from './classes/bot';
 const client = new Bot();
 
-client.on("ready", () => {
+client.on('ready', () => {
   console.log(`Logged in as ${client.user?.tag}!`);
-  client.registerCommands(process.env.GUILD_ID || "");
+  client.registerCommands(process.env.GUILD_ID || '');
 });
 
-client.interactions.on("commandInteraction", (interaction) => {
+client.interactions.on('commandInteraction', (interaction) => {
   console.log(client.commands);
 
   if (client.commands) {

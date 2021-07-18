@@ -1,7 +1,7 @@
-import { Client } from "discord.js";
-import InteractiveClient, { SlashCommand } from "@duxcore/interactive-discord";
-import { Command } from "../types";
-import { glob } from "glob";
+import { Client } from 'discord.js';
+import InteractiveClient, { SlashCommand } from '@duxcore/interactive-discord';
+import { Command } from '../types';
+import { glob } from 'glob';
 export class Bot extends Client {
   constructor() {
     super();

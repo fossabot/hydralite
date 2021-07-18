@@ -1,5 +1,5 @@
-import { UseableIcon } from "~/components/Icons";
-import { projectPages } from "~/constants/projectPages";
+import { UseableIcon } from '~/components/Icons';
+import { projectPages } from '~/constants/projectPages';
 
 export type ProjectPage = typeof projectPages[number];
 

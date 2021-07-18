@@ -1,18 +1,18 @@
-import { Client, MessageEmbed } from "discord.js";
-import { getData } from "../data";
-import { Command } from "../types";
+import { Client, MessageEmbed } from 'discord.js';
+import { getData } from '../data';
+import { Command } from '../types';
 import {
   ApplicationCommandOptionType,
   CommandInteractionController,
-} from "@duxcore/interactive-discord";
+} from '@duxcore/interactive-discord';
 
 export default {
-  name: "balance",
-  description: "Show the balance of an user",
+  name: 'balance',
+  description: 'Show the balance of an user',
   options: [
     {
-      name: "user",
-      description: "The user to get",
+      name: 'user',
+      description: 'The user to get',
       type: ApplicationCommandOptionType.USER,
       required: true,
     },
@@ -27,11 +27,11 @@ export default {
       ? (await client.users.fetch(interaction.options[0].value)).username
       : interaction.member?.user.username;
 
-    const user = getData(username || "");
+    const user = getData(username || '');
 
     if (error) {
       const embed = new MessageEmbed()
-        .setTitle("User not found")
+        .setTitle('User not found')
         .setDescription(`There is no user with the name \`${username}\` `)
         .setColor(16720418);
       interaction.respond({ embeds: [embed] });

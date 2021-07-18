@@ -1,12 +1,13 @@
-import { Router } from "express";
-import { Strategy } from "passport-discord";
-import { PassportStatic } from "passport";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
-import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import { PassportDiscordProfile } from "../types/PassportDiscordProfile.type";
+import { Router } from 'express';
+import { Strategy } from 'passport-discord';
+import { PassportStatic } from 'passport';
+import fetchOauthClientInfo from '~/auth/util/fetchOauthClientInfo';
+import { PassportGenericUser } from '../types/PassportGenericUser.type';
+import { PassportDiscordProfile } from '../types/PassportDiscordProfile.type';
+import discordAvatarUrl from '../util/discordAvatarUrl';
 
 export const DiscordOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo("discord");
+  const oauthInfo = fetchOauthClientInfo('discord');
 
   passport.use(
     new Strategy(
@@ -14,7 +15,7 @@ export const DiscordOAuth = (passport: PassportStatic) => {
         clientID: oauthInfo.clientId,
         clientSecret: oauthInfo.clientSecret,
         callbackURL: oauthInfo.cbUrl!,
-        scope: ["email", "identify"],
+        scope: ['email', 'identify'],
       },
       async (
         _: string,
@@ -23,14 +24,18 @@ export const DiscordOAuth = (passport: PassportStatic) => {
         done: any
       ) => {
         const genericUser: PassportGenericUser = {
-          email: profile.email || "",
+          email: profile.email || '',
           username: `${profile.username}#${profile.discriminator}`, // TASK: Randomize usernames for each provider
           profile: {
-            avatarUrl: profile.avatar, // TASK: replace with real avatar url and not just hash
+            avatarUrl: discordAvatarUrl(
+              profile.id,
+              profile.discriminator,
+              profile.avatar
+            ),
           },
           primaryOauthConnection: {
-            email: profile.email || "",
-            oauthService: "discord",
+            email: profile.email || '',
+            oauthService: 'discord',
             username: `${profile.username}#${profile.discriminator}`,
             oauthServiceUserId: profile.id,
           },
@@ -44,22 +49,22 @@ export const DiscordOAuth = (passport: PassportStatic) => {
   const router = Router();
 
   router.get(
-    "/",
-    passport.authenticate("discord", {
+    '/',
+    passport.authenticate('discord', {
       failureRedirect: `/`,
       session: true,
     })
   );
 
   router.get(
-    "/cb",
-    passport.authenticate("discord", {
+    '/cb',
+    passport.authenticate('discord', {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
       // TASK: redirect to main site
-      res.redirect("/");
+      res.redirect('/');
     }
   );
 

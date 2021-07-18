@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { Strategy } from "passport-google-oauth20";
-import { PassportStatic } from "passport";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
-import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import { PassportGoogleProfile } from "../types/PassportGoogleProfile.type";
+import { Router } from 'express';
+import { Strategy } from 'passport-google-oauth20';
+import { PassportStatic } from 'passport';
+import fetchOauthClientInfo from '~/auth/util/fetchOauthClientInfo';
+import { PassportGenericUser } from '../types/PassportGenericUser.type';
+import { PassportGoogleProfile } from '../types/PassportGoogleProfile.type';
 
 export const GoogleOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo("google");
+  const oauthInfo = fetchOauthClientInfo('google');
 
   passport.use(
     new Strategy(
@@ -16,8 +16,8 @@ export const GoogleOAuth = (passport: PassportStatic) => {
         clientSecret: oauthInfo.clientSecret,
         callbackURL: oauthInfo.cbUrl!,
         scope: [
-          "https://www.googleapis.com/auth/userinfo.email",
-          "https://www.googleapis.com/auth/userinfo.profile",
+          'https://www.googleapis.com/auth/userinfo.email',
+          'https://www.googleapis.com/auth/userinfo.profile',
         ],
       },
       (_, __, profile: PassportGoogleProfile, done) => {
@@ -29,7 +29,7 @@ export const GoogleOAuth = (passport: PassportStatic) => {
           },
           primaryOauthConnection: {
             email: profile._json.email,
-            oauthService: "google",
+            oauthService: 'google',
             username: profile.displayName,
             oauthServiceUserId: profile.id,
           },
@@ -43,21 +43,21 @@ export const GoogleOAuth = (passport: PassportStatic) => {
   const router = Router();
 
   router.get(
-    "/",
-    passport.authenticate("google", {
+    '/',
+    passport.authenticate('google', {
       failureRedirect: `/`,
       session: true,
     })
   );
 
   router.get(
-    "/cb",
-    passport.authenticate("google", {
+    '/cb',
+    passport.authenticate('google', {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
-      res.redirect("/");
+      res.redirect('/');
     }
   );
 

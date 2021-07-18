@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import {
   BackIcon,
   SearchIcon,
   BellIcon,
   DropdownIcon,
-} from "~/components/Icons";
+} from '~/components/Icons';
 export interface NavbarProps {
   avatar: string;
 }
@@ -20,7 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({ avatar }) => {
       </div>
       <div
         className="rounded-5 w-120 h-10 flex justify-start items-center"
-        style={{ boxShadow: "0px 0px 5px #cccccc" }}
+        style={{ boxShadow: '0px 0px 5px #cccccc' }}
       >
         <div className="ml-4 mr-5 w-6 h-6 text-gray">
           <SearchIcon />

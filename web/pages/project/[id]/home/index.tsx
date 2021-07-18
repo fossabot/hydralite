@@ -1,8 +1,8 @@
-import Meta from "partials/Meta";
-import React from "react";
-import { ProjectLayout } from "hoc/ProjectLayout/ProjectLayout";
+import Meta from 'partials/Meta';
+import React from 'react';
+import { ProjectLayout } from 'hoc/ProjectLayout/ProjectLayout';
 
-import { FlagIcon, HornIcon, PersonIcon, GotoIcon } from "~/components/Icons";
+import { FlagIcon, HornIcon, PersonIcon, GotoIcon } from '~/components/Icons';
 
 const WelcomeWidget: React.FC<{
   color: string;
@@ -45,16 +45,16 @@ const HomePage = () => {
         url="https://hydralite.io"
         keywords="open source,hydralite,project management"
       />
-      <ProjectLayout selected={"home"} centerContent={true}>
+      <ProjectLayout selected={'home'} centerContent={true}>
         <div>
           <h2 className="text-4xl font-black mb-3 text-center">
-            Welcome to{" "}
+            Welcome to{' '}
             <span
               style={{
                 background:
-                  "linear-gradient(180deg, #15DB74 0%, #06A688 49.85%, #0EBD75 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                  'linear-gradient(180deg, #15DB74 0%, #06A688 49.85%, #0EBD75 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
               Volt
