@@ -40,6 +40,7 @@ export const Post: React.FC<PostProps> = (props) => {
         description={props.description}
         attachments={props.attachments}
       />
+      <PostActions likes="39k" replies="29k" reposts="10k" shares="1k" hydra="200k" />
     </div>
   );
 };
@@ -120,11 +121,40 @@ const PostBody = ({
               onClick={() => setSliderPositon((c) => (c !== 1 ? c - 1 : c))}
               className="absolute left-2 top-[6rem] cursor-pointer bg-accent h-7 w-7 rounded-full grid place-items-center"
             >
-              <Icon icon="grommet-icons:previous" className="h-4 w-4 text-[#fff]" />
+              <Icon
+                icon="grommet-icons:previous"
+                className="h-4 w-4 text-[#fff]"
+              />
             </span>
           </div>
         </div>
       )}
     </div>
+  );
+};
+
+const PostActions = ({ likes, replies, shares, reposts, hydra }) => {
+  return (
+    <div className="border-t border-white-seperator mt-6 pt-4 flex justify-between">
+      <div className="flex items-center gap-5">
+        <PostAction icon={<Icon icon="fxemoji:fire" className="h-4 w-4" />} count={likes} />
+        <PostAction icon={<Icon icon="akar-icons:comment" className="h-4 w-4" />} count={replies} />
+        <PostAction icon={<Icon icon="bx-bx-share-alt" className="h-4 w-4" />} count={shares} />
+        <PostAction icon={<Icon icon="ps:retweet-1" className="h-5 w-5" />} count={reposts} />
+        <PostAction icon={<Icon icon="ion:rocket" className="h-4 w-4" />} count={hydra} />
+      </div>
+      <div>
+        <Icon icon="bi:bookmark" className="h-4 w-4"/>
+      </div>
+    </div>
+  );
+};
+
+const PostAction = ({ icon, count }) => {
+  return (
+    <span className="flex items-center gap-2 font-bold text-sm">
+      {icon}
+      {count}
+    </span>
   );
 };
