@@ -14,7 +14,7 @@ interface PostProps {
   title: string;
   postedtime: string;
   type: string;
-  isFocused: boolean;
+  isFocused?: boolean;
   description: string;
   attachments?: string[];
 }
