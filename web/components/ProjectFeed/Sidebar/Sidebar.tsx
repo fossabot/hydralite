@@ -1,7 +1,7 @@
 import React from "react";
 import { Labels } from "./Labels";
 import { Members } from "./Members";
-import members from "~/data/project/members.json"
+import members from "~/data/project/members.json";
 
 export const Sidebar = () => {
   // const members = {

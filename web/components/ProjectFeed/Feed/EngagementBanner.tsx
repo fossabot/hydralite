@@ -10,7 +10,9 @@ const EngagementBanner = ({ projectName }) => {
       }}
     >
       <div>
-        <h1 className="text-2xl font-extrabold text-">Tell the world about {projectName}</h1>
+        <h1 className="text-2xl font-extrabold text-">
+          Tell the world about {projectName}
+        </h1>
         <p className="mt-5 text-lg text-">
           Promote your project, showcase new features, interact with like-minded
           developers, and much more

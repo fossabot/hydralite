@@ -1,5 +1,5 @@
 module.exports = {
-  mode: 'jit',
+  mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false,
   theme: {
@@ -10,7 +10,7 @@ module.exports = {
         "hover-select": "#d5d5d5",
         selected: "#f1f1f1",
         seperator: "#E9E9E9",
-        secondBg: "#F8F8F8"
+        secondBg: "#F8F8F8",
       },
 
       accent: "#695cff",
@@ -35,8 +35,8 @@ module.exports = {
       spacing: {
         "1px": "1px",
         "2px": "2px",
-        "4.5": "1.1rem",
-        "7.5": "30px",
+        4.5: "1.1rem",
+        7.5: "30px",
         "28rem": "28rem",
         "30rem": "30rem",
         "35rem": "35rem",
@@ -47,8 +47,8 @@ module.exports = {
         "9vh": "9vh",
       },
       fontSize: {
-        "md": "0.9rem"
-      }
+        md: "0.9rem",
+      },
     },
   },
   variants: {},
