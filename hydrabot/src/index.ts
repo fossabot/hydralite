@@ -1,16 +1,25 @@
-require('dotenv').config();
+require('dotenv').config(); 
 
 import { Bot } from './classes/bot';
+import { init, sendRoles } from './roles';
+import { servers } from './servers';
+
 const client = new Bot();
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user?.tag}!`);
-  client.registerCommands(process.env.GUILD_ID || '');
+    console.log(`Logged in as ${client.user?.tag}!`);
+    init(client);
+
+    for (const server of servers) {
+        client.registerCommands(server.id);
+        sendRoles(server.id, server.channels.roles);
+    }
 });
 
 client.interactions.on('commandInteraction', (interaction) => {
   console.log(client.commands);
 
+client.interactions.on("commandInteraction", (interaction) => {
   if (client.commands) {
     if (!client.commands.has(interaction.name))
       return interaction.respond({
