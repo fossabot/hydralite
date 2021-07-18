@@ -107,33 +107,35 @@ const PostBody = ({
 }) => {
   const [sliderPositon, setSliderPositon] = useState<number>(1);
 
+  function incrementSliderPosition() {
+    setSliderPositon((c) => (c !== attachments.length ? c + 1 : c));
+  }
+
+  function decrementSliderPosition() {
+    setSliderPositon((c) => (c !== 1 ? c - 1 : c));
+  }
+
   return (
     <div className="mt-2">
       <p className="text-sm text-muted">{description}</p>
       {attachments && (
         <div className="mt-3">
-          <div className="w-full h-52 relative">
+          <div className="w-full h-52 flex items-center gap-2">
+            <Icon
+              icon="grommet-icons:previous"
+              className="h-5 w-5 cursor-pointer"
+              onClick={decrementSliderPosition}
+            />
             <img
               src={attachments[sliderPositon - 1]}
-              className={`rounded-10 w-full h-full object-cover`}
+              className={`rounded-10 w-[33rem] h-full object-cover select-none`}
+              draggable={false}
             />
-            <span
-              onClick={() =>
-                setSliderPositon((c) => (c !== attachments.length ? c + 1 : c))
-              }
-              className="absolute right-2 top-[6rem] cursor-pointer bg-accent h-7 w-7 rounded-full grid place-items-center"
-            >
-              <Icon icon="grommet-icons:next" className="h-4 w-4 text-[#fff]" />
-            </span>
-            <span
-              onClick={() => setSliderPositon((c) => (c !== 1 ? c - 1 : c))}
-              className="absolute left-2 top-[6rem] cursor-pointer bg-accent h-7 w-7 rounded-full grid place-items-center"
-            >
-              <Icon
-                icon="grommet-icons:previous"
-                className="h-4 w-4 text-[#fff]"
-              />
-            </span>
+            <Icon
+              icon="grommet-icons:next"
+              className="h-5 w-5 cursor-pointer"
+              onClick={incrementSliderPosition}
+            />
           </div>
         </div>
       )}
@@ -194,7 +196,15 @@ const ReplyBar = ({ avatar, name }) => {
 };
 
 const Reactions = () => {
-  const reactions = [{ icon: "noto-v1:thumbs-up", count: "93k", chosen: true }, { icon: "twemoji:smiling-face-with-sunglasses", count: "20k", chosen: true }, { icon: "fxemoji:bolt", count: "20k", chosen: false }];
+  const reactions = [
+    { icon: "noto-v1:thumbs-up", count: "93k", chosen: true },
+    {
+      icon: "twemoji:smiling-face-with-sunglasses",
+      count: "20k",
+      chosen: true,
+    },
+    { icon: "fxemoji:bolt", count: "20k", chosen: false },
+  ];
 
   return (
     <div className="flex items-center gap-1 mt-2">
