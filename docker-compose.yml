@@ -39,12 +39,14 @@ services:
     # Ensure your system has enough memory for that, otherwise expect OOM and regular sluggishness due to the usage of swap, or worse, your OS will start stabbing other processes and even shut down by itself.
     shm_size: 256m
     env_file: 
+      # The only thing you need is Redis host, port and password (username support will probably added later), and OAuth client ID and secret for Google, Twitter, GitHub and Discord.
       - api/.env
     ports:
       - 3000:3000
       - 8000:8000
     environment:
       DATABASE_URL: postgres://hydralite:80ccb4856afd53bc049e3dac9759090c3f3af163325149e8e51053ecc2155fce@db/hydralite?sslmode=disable
+      # We'll still keep these, just in case Hydralite frontend and backend can use different ports instead of these defaults in the future.
       API_PORT: 8000
       WEB_PORT: 3000
     restart: unless-stopped

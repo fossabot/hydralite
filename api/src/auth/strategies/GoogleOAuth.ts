@@ -1,37 +1,36 @@
 import { Router } from 'express';
-import { Strategy } from 'passport-github2';
+import { Strategy } from 'passport-google-oauth20';
 import { PassportStatic } from 'passport';
 import fetchOauthClientInfo from '~/auth/util/fetchOauthClientInfo';
-import { PassportGithubProfile } from '../types/PassportGithubProfile.type';
 import { PassportGenericUser } from '../types/PassportGenericUser.type';
+import { PassportGoogleProfile } from '../types/PassportGoogleProfile.type';
 
-export const GithubOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo('github');
+export const GoogleOAuth = (passport: PassportStatic) => {
+  const oauthInfo = fetchOauthClientInfo('google');
 
   passport.use(
     new Strategy(
+      // @ts-ignore Something wrong with the typings.
       {
         clientID: oauthInfo.clientId,
         clientSecret: oauthInfo.clientSecret,
         callbackURL: oauthInfo.cbUrl!,
+        scope: [
+          'https://www.googleapis.com/auth/userinfo.email',
+          'https://www.googleapis.com/auth/userinfo.profile',
+        ],
       },
-      async (
-        _: string,
-        __: string,
-        profile: PassportGithubProfile,
-        done: any
-      ) => {
+      (_, __, profile: PassportGoogleProfile, done) => {
         const genericUser: PassportGenericUser = {
-          email: profile._json.email || '',
-          username: profile.username,
+          email: profile._json.email,
+          username: profile.displayName,
           profile: {
-            avatarUrl: profile.photos[0].value,
-            bio: profile._json.bio || '',
+            avatarUrl: profile._json.picture,
           },
           primaryOauthConnection: {
-            email: profile._json.email || '',
-            oauthService: 'github',
-            username: profile.username,
+            email: profile._json.email,
+            oauthService: 'google',
+            username: profile.displayName,
             oauthServiceUserId: profile.id,
           },
         };
@@ -45,8 +44,7 @@ export const GithubOAuth = (passport: PassportStatic) => {
 
   router.get(
     '/',
-    passport.authenticate('github', {
-      scope: ['user:email'],
+    passport.authenticate('google', {
       failureRedirect: `/`,
       session: true,
     })
@@ -54,12 +52,11 @@ export const GithubOAuth = (passport: PassportStatic) => {
 
   router.get(
     '/cb',
-    passport.authenticate('github', {
+    passport.authenticate('google', {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
-      // redirect to main site
       res.redirect('/');
     }
   );

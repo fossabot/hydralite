@@ -790,6 +790,8 @@ __metadata:
     "@types/passport": ^1.0.6
     "@types/passport-discord": ^0.1.3
     "@types/passport-github2": ^1.2.4
+    "@types/passport-google-oauth20": ^2.0.9
+    "@types/passport-twitter": ^1.0.37
     "@types/uuid": ^8.3.0
     apollo-server-express: ^2.25.1
     axios: ^0.21.1
@@ -811,6 +813,8 @@ __metadata:
     passport: ^0.4.1
     passport-discord: ^0.1.4
     passport-github2: ^0.1.12
+    passport-google-oauth20: ^2.0.0
+    passport-twitter: ^1.0.4
     pg: ^8.6.0
     prisma: ^2.25.0
     redis: ^3.1.2
@@ -1907,6 +1911,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/passport-google-oauth20@npm:^2.0.9":
+  version: 2.0.9
+  resolution: "@types/passport-google-oauth20@npm:2.0.9"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+    "@types/passport-oauth2": "*"
+  checksum: 87ca4268031024070188e869318e9259bc2a4fcdb0bdf80d70eca3222230e8d61c3a912d5cf441ff2ff96fd6f74d2d45e737a87992b734756f366245d6951ba2
+  languageName: node
+  linkType: hard
+
 "@types/passport-oauth2@npm:*":
   version: 1.4.10
   resolution: "@types/passport-oauth2@npm:1.4.10"
@@ -1915,6 +1930,16 @@ __metadata:
     "@types/oauth": "*"
     "@types/passport": "*"
   checksum: 242af065a77d90f37ad1cb95d2882a4f75db3163a0e12e4f2b5a804f00924af743f92b0eaa5967e77929cfb30e5d3e7ca20d20e2ecff30d47fbee4bf408c054e
+  languageName: node
+  linkType: hard
+
+"@types/passport-twitter@npm:^1.0.37":
+  version: 1.0.37
+  resolution: "@types/passport-twitter@npm:1.0.37"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+  checksum: 585a24a641b1098fb35bcac744fc2c394caf139ce474550fbeb63bc4f92de6a813902506d5344c3c85ffb2ef955602d3c3df66e13e083e5be2d1aa9d2efa225d
   languageName: node
   linkType: hard
 
@@ -7567,6 +7592,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"passport-google-oauth20@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "passport-google-oauth20@npm:2.0.0"
+  dependencies:
+    passport-oauth2: 1.x.x
+  checksum: 151d01295638bb4fb9fc7eb986770e862f9ba7e358ba707979b58fa05db02629f642bcc8adc60fed7dc81dec3a6a0822e1c37d37ab5702b8fb43d71773491f8a
+  languageName: node
+  linkType: hard
+
+"passport-oauth1@npm:1.x.x":
+  version: 1.2.0
+  resolution: "passport-oauth1@npm:1.2.0"
+  dependencies:
+    oauth: 0.9.x
+    passport-strategy: 1.x.x
+    utils-merge: 1.x.x
+  checksum: 1d164c28b4c90e8f793b427123eb201f3a9e3104dd2106a160d7445dcfdeeba0d0a5ac30ea2e7f0884b269a4a4e7f2b0afdfba3a79ac210890bd97857ddf1b4c
+  languageName: node
+  linkType: hard
+
 "passport-oauth2@npm:1.x.x":
   version: 1.5.0
   resolution: "passport-oauth2@npm:1.5.0"
@@ -7597,6 +7642,16 @@ __metadata:
   version: 1.0.0
   resolution: "passport-strategy@npm:1.0.0"
   checksum: 4ad0b62fcb411df70484aef44a958bc545801170e27c46a8bc38776c370d9cc67df9a4a4046ac6146fbd95d6650e554468df72b282cde22e81a42369472e9cfc
+  languageName: node
+  linkType: hard
+
+"passport-twitter@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "passport-twitter@npm:1.0.4"
+  dependencies:
+    passport-oauth1: 1.x.x
+    xtraverse: 0.1.x
+  checksum: 5fbe6dd615af3abfcd47da3b3214ae7befaf4c559ada930d0abdbb95993e63ef15f5ae9246be8d9fdf276e3058cac32afbc9342733b26fd1df83b1d1922a8733
   languageName: node
   linkType: hard
 
@@ -10488,6 +10543,13 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
+"xmldom@npm:0.1.x":
+  version: 0.1.31
+  resolution: "xmldom@npm:0.1.31"
+  checksum: 69b741952c32338c915a74d3a6edc37bade58f93ff3722704cc6a10461c62cb5d6d1bcf2e7a3db6e3ff713f15c7e43089e54dfa369d471898905c489bd8e397b
+  languageName: node
+  linkType: hard
+
 "xmlhttprequest@npm:1.8.0":
   version: 1.8.0
   resolution: "xmlhttprequest@npm:1.8.0"
@@ -10511,6 +10573,15 @@ typescript@^4.3.5:
   version: 4.0.2
   resolution: "xtend@npm:4.0.2"
   checksum: 37ee522a3e9fb9b143a400c30b21dc122aa8c9c9411c6afae1005a4617dc20a21765c114d544e37a6bb60c2733dd8ee0a44ed9e80d884ac78cccd30b5e0ab0da
+  languageName: node
+  linkType: hard
+
+"xtraverse@npm:0.1.x":
+  version: 0.1.0
+  resolution: "xtraverse@npm:0.1.0"
+  dependencies:
+    xmldom: 0.1.x
+  checksum: 0c267c9f89ce2581f39ff5b15daf799e0418b0ebca0d1872b5b637ef108284270b6085b4cf47d7979454cb90aa15539fb68e7e62803237a8e246b2d749fe5c74
   languageName: node
   linkType: hard
 

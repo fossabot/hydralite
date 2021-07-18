@@ -1,18 +1,18 @@
-import React, { useRef } from "react";
-import Button from "~/components/Button/Button";
-import styles from "~/styles/index.module.css";
-import TextLoop from "react-text-loop";
-import { projectName } from "~/constants";
-import SectionOne from "~/components/Landing/SectionOne";
-import SectionTwo from "~/components/Landing/SectionTwo";
-import Layout from "~/components/Layout";
-import scrollToRef from "util/scrollToRef";
-import ConnectCard from "~/components/ConnectCard/ConnectCard";
-import Meta from "~/components/Meta";
+import React, { useRef } from 'react';
+import Button from '~/components/Button/Button';
+import styles from '~/styles/index.module.css';
+import TextLoop from 'react-text-loop';
+import { projectName } from '~/constants';
+import SectionOne from '~/components/Landing/SectionOne';
+import SectionTwo from '~/components/Landing/SectionTwo';
+import Layout from '~/components/Layout';
+import scrollToRef from 'util/scrollToRef';
+import ConnectCard from '~/components/ConnectCard/ConnectCard';
+import Meta from '~/components/Meta';
 
 const Home = () => {
   const connectCardRef = useRef(null);
-  const adjectives = ["Discover", "Develop", "Deliver", "Deploy"];
+  const adjectives = ['Discover', 'Develop', 'Deliver', 'Deploy'];
   return (
     <>
       <Meta
@@ -26,14 +26,14 @@ const Home = () => {
           <div className={styles.main__sub}>
             <h1 className={styles.main__text}>
               The Place for Developers <br />
-              to{" "}
+              to{' '}
               <TextLoop interval={2000}>
                 {adjectives.map((word, index) => (
                   <span key={index} className={styles.main__text_Gradient}>
                     {word}
                   </span>
                 ))}
-              </TextLoop>{" "}
+              </TextLoop>{' '}
               Software
             </h1>
             <p className={styles.main__description}>

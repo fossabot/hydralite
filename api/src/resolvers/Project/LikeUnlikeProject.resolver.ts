@@ -1,15 +1,15 @@
-import { User } from "@prisma/client";
-import { Arg, Ctx, Mutation } from "type-graphql";
-import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import ContextType from "~/types/Context.type";
-import executeOrFail from "~/util/executeOrFail";
-import { LikeUnlikeProjectArgs } from "./args/LikeUnlikeProjectArgs";
+import { User } from '@prisma/client';
+import { Arg, Ctx, Mutation } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import ContextType from '~/types/Context.type';
+import executeOrFail from '~/util/executeOrFail';
+import { LikeUnlikeProjectArgs } from './args/LikeUnlikeProjectArgs';
 
 export default class LikeUnlikeProjectResolver {
   @IsAuthenticated()
   @Mutation(() => String)
   async likeProject(
-    @Arg("args") { projectId }: LikeUnlikeProjectArgs,
+    @Arg('args') { projectId }: LikeUnlikeProjectArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<string> {
     return executeOrFail(async () => {
@@ -29,14 +29,14 @@ export default class LikeUnlikeProjectResolver {
         },
       });
 
-      return "Liked project.";
+      return 'Liked project.';
     });
   }
 
   @IsAuthenticated()
   @Mutation(() => String)
   async unlikeProject(
-    @Arg("args") { projectId }: LikeUnlikeProjectArgs,
+    @Arg('args') { projectId }: LikeUnlikeProjectArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<string> {
     return executeOrFail(async () => {
@@ -56,7 +56,7 @@ export default class LikeUnlikeProjectResolver {
         },
       });
 
-      return "Unliked project.";
+      return 'Unliked project.';
     });
   }
 }

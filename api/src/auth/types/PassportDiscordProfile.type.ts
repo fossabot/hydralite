@@ -2,7 +2,7 @@ export interface PassportDiscordProfile {
   id: string;
   username: string;
   avatar: string;
-  discriminator: string;
+  discriminator: number;
   public_flags: number;
   flags: number;
   locale: string;

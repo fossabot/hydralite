@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "~/styles/index.module.css";
+import React from 'react';
+import styles from '~/styles/index.module.css';
 
 const Segment = ({ subHeading, heading, description, vectorPath }) => {
   return (

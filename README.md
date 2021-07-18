@@ -36,8 +36,8 @@ webapp and GraphQL API develpment.
 
 ### In Gitpod
 
-* [Open this repo in Gitpod.io](https://gitpod.io/#github.com/hydralite/hydralite). Sign in using your GItHub account if needed.
-* Once the API and web servers are up in development mode, enjoy hacking/coding.
+- [Open this repo in Gitpod.io](https://gitpod.io/#github.com/hydralite/hydralite). Sign in using your GItHub account if needed.
+- Once the API and web servers are up in development mode, enjoy hacking/coding.
 
 While Node.js/Python (web, API, automation and landing page) and Rust (CLI) development will work flawlessly in Gitpod, Flutter/Dart
 development may work but nested virtualization for Android emulators in case of mobile app development isn't supprted in

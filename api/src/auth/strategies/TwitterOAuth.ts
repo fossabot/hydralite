@@ -1,36 +1,30 @@
 import { Router } from 'express';
-import { Strategy } from 'passport-github2';
+import { Strategy } from 'passport-twitter';
 import { PassportStatic } from 'passport';
 import fetchOauthClientInfo from '~/auth/util/fetchOauthClientInfo';
-import { PassportGithubProfile } from '../types/PassportGithubProfile.type';
 import { PassportGenericUser } from '../types/PassportGenericUser.type';
+import { PassportTwitterProfile } from '../types/PassportTwitterProfile.type';
 
-export const GithubOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo('github');
+export const TwitterOAuth = (passport: PassportStatic) => {
+  const oauthInfo = fetchOauthClientInfo('twitter');
 
   passport.use(
     new Strategy(
       {
-        clientID: oauthInfo.clientId,
-        clientSecret: oauthInfo.clientSecret,
+        consumerKey: oauthInfo.clientId,
+        consumerSecret: oauthInfo.clientSecret,
         callbackURL: oauthInfo.cbUrl!,
       },
-      async (
-        _: string,
-        __: string,
-        profile: PassportGithubProfile,
-        done: any
-      ) => {
+      (_, __, profile: PassportTwitterProfile, done) => {
         const genericUser: PassportGenericUser = {
-          email: profile._json.email || '',
+          email: '',
           username: profile.username,
           profile: {
-            avatarUrl: profile.photos[0].value,
-            bio: profile._json.bio || '',
+            avatarUrl: profile._json.profile_image_url_https,
           },
           primaryOauthConnection: {
-            email: profile._json.email || '',
-            oauthService: 'github',
+            email: '',
+            oauthService: 'twitter',
             username: profile.username,
             oauthServiceUserId: profile.id,
           },
@@ -45,8 +39,7 @@ export const GithubOAuth = (passport: PassportStatic) => {
 
   router.get(
     '/',
-    passport.authenticate('github', {
-      scope: ['user:email'],
+    passport.authenticate('twitter', {
       failureRedirect: `/`,
       session: true,
     })
@@ -54,12 +47,11 @@ export const GithubOAuth = (passport: PassportStatic) => {
 
   router.get(
     '/cb',
-    passport.authenticate('github', {
+    passport.authenticate('twitter', {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
-      // redirect to main site
       res.redirect('/');
     }
   );

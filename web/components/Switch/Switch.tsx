@@ -1,4 +1,4 @@
-import React, { Key } from "react";
+import React, { Key } from 'react';
 
 export interface SwitchProps {
   value: Key;
@@ -7,7 +7,7 @@ export interface SwitchProps {
 export const Switch: React.FC<SwitchProps> = ({ value, children }) => {
   const cases = Array.isArray(children)
     ? (children as React.ReactElement[])
-    : typeof children === "object"
+    : typeof children === 'object'
     ? [children as React.ReactElement]
     : [];
 

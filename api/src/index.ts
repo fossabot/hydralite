@@ -1,5 +1,5 @@
-import { Server } from "./Server";
-import "reflect-metadata";
+import { Server } from './Server';
+import 'reflect-metadata';
 
 async function main() {
   const server = new Server();
