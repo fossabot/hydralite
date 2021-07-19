@@ -25,9 +25,6 @@ export class CreatePostArgs {
   labelIds?: string[];
 
   @Field(() => [String], { nullable: true })
-  categoryIds?: string[];
-
-  @Field(() => [String], { nullable: true })
   visibleToUserIds?: string[];
 
   @Field(() => String)

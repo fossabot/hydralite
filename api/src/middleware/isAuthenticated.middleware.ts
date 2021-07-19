@@ -28,7 +28,6 @@ export const IsAuthenticated = () =>
           featureRequests: true,
           likedPosts: true,
           postLabels: true,
-          subscribedPostCategories: true,
         },
       });
       req.user = user as any;

@@ -28,7 +28,6 @@ export class CreatePostResolver {
       type: args.type,
       isPublic: args.isPublic ?? true,
       project: { connect: { id: args.projectId } },
-      categories: connectIdArray(args.categoryIds),
       labels: connectIdArray(args.labelIds),
     };
 

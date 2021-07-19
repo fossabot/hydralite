@@ -34,9 +34,6 @@ export class UpdatePostArgs {
   labelIds?: string[];
 
   @Field(() => [String], { nullable: true })
-  categoryIds?: string[];
-
-  @Field(() => [String], { nullable: true })
   visibleToUserIds?: string[];
 
   // TASK: Add attachments
