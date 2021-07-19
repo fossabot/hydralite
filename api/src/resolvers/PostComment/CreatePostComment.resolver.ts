@@ -1,13 +1,13 @@
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreatePostCommentArgs } from "./args/CreatePostCommentArgs";
 import ContextType from "~/types/Context.type";
 import { PostComment, User } from "~/resolver-types/models";
 
 @Resolver()
 export class CreatePostCommentResolver {
-  @UseMiddleware(isAuthenticated)
   @Mutation(() => PostComment)
+  @IsAuthenticated()
   async createPostComment(
     @Arg("args") args: CreatePostCommentArgs,
     @Ctx() { req, prisma }: ContextType

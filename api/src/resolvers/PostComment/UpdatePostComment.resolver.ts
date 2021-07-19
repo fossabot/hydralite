@@ -1,5 +1,5 @@
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { UpdatePostCommentArgs } from "./args/UpdatePostCommentArgs";
 import ContextType from "~/types/Context.type";
 import { PostComment, User } from "~/resolver-types/models";
@@ -7,8 +7,8 @@ import { ApolloError } from "apollo-server-express";
 
 @Resolver()
 export class UpdatePostCommentResolver {
-  @UseMiddleware(isAuthenticated)
   @Mutation(() => PostComment)
+  @IsAuthenticated()
   async updatePostComment(
     @Arg("args") args: UpdatePostCommentArgs,
     @Ctx() { req, prisma }: ContextType
