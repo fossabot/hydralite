@@ -20,7 +20,12 @@ export const GoogleOAuth = (passport: PassportStatic) => {
           "https://www.googleapis.com/auth/userinfo.profile",
         ],
       },
-      (_, __, profile: PassportGoogleProfile, done) => {
+      async (
+        _: string,
+        __: string,
+        profile: PassportGoogleProfile,
+        done: any
+      ) => {
         const genericUser: PassportGenericUser = {
           email: profile._json.email,
           username: profile.displayName,

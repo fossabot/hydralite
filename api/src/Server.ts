@@ -1,24 +1,25 @@
-import connectRedis from "connect-redis";
-import { createClient, RedisClient } from "redis";
-import session from "express-session";
-import { PrismaClient } from "@prisma/client";
-import { ApolloServer } from "apollo-server-express";
-import createSchema from "./util/CreateSchema";
-import ContextType from "./types/Context.type";
-import { GraphQLSchema } from "graphql";
-import express, { Application } from "express";
-import cors from "cors";
-import { v4 as uuid } from "uuid";
-import { isProd, projectName } from "./constants";
-import passport from "passport";
-import UserRepo from "./db/UserRepo";
-import { PassportGenericUser } from "./auth/types/PassportGenericUser.type";
-import { GithubOAuth } from "./auth/strategies/GithubOAuth";
-import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
-import dotenv from "dotenv";
-import { apolloPlugins } from "./util/apolloPlugins";
-import { TwitterOAuth } from "./auth/strategies/TwitterOAuth";
-import { GoogleOAuth } from "./auth/strategies/GoogleOAuth";
+import connectRedis from 'connect-redis';
+import { createClient, RedisClient } from 'redis';
+import session from 'express-session';
+import { PrismaClient } from '@prisma/client';
+import { ApolloServer } from 'apollo-server-express';
+import createSchema from './util/CreateSchema';
+import ContextType from './types/Context.type';
+import { GraphQLSchema } from 'graphql';
+import express, { Application } from 'express';
+import cors from 'cors';
+import { v4 as uuid } from 'uuid';
+import { isProd, projectName } from './constants';
+import passport from 'passport';
+import UserRepo from './db/UserRepo';
+import { PassportGenericUser } from './auth/types/PassportGenericUser.type';
+import { GithubOAuth } from './auth/strategies/GithubOAuth';
+import { DiscordOAuth } from './auth/strategies/DiscordOAuth';
+import dotenv from 'dotenv';
+import { apolloPlugins } from './util/apolloPlugins';
+import { TwitterOAuth } from './auth/strategies/TwitterOAuth';
+import { GoogleOAuth } from './auth/strategies/GoogleOAuth';
+import fetchOauthClientInfo from './auth/util/fetchOauthClientInfo';
 
 export class Server {
   public app: Application;
@@ -144,10 +145,10 @@ export class Server {
 
   private auth() {
     // oauth strategies
-    this.app.use("/api/auth/github", GithubOAuth(passport));
-    this.app.use("/api/auth/discord", DiscordOAuth(passport));
-    this.app.use("/api/auth/twitter", TwitterOAuth(passport));
-    this.app.use("/api/auth/google", GoogleOAuth(passport));
+    if (fetchOauthClientInfo('github').clientId) this.app.use('/api/auth/github', GithubOAuth(passport));
+    if (fetchOauthClientInfo('discord').clientId) this.app.use('/api/auth/discord', DiscordOAuth(passport));
+    if (fetchOauthClientInfo('twitter').clientId) this.app.use('/api/auth/twitter', TwitterOAuth(passport));
+    if (fetchOauthClientInfo('google').clientId) this.app.use('/api/auth/google', GoogleOAuth(passport));
 
     // logout
     this.app.get("/api/auth/logout", function (req, res) {

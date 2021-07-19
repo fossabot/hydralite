@@ -38,9 +38,9 @@ export class CreatePostResolver {
         args.projectId
       );
       memberRepo.memberHasPermission(loggedInMember!, "canManagePosts");
+      post.isPublic = args.isPublic ?? true;
+      post.isAnnouncement = !!args.isAnnouncement;
 
-      post.isAnnouncement = args.isAnnouncement!;
-      post.isPublic = args.isPublic!;
       post.visibleTo = !args.isPublic
         ? connectIdArray(args.visibleToUserIds)
         : {};
