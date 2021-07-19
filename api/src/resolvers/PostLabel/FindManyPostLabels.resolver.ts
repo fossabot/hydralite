@@ -3,14 +3,14 @@ import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import { PostLabel } from "~/resolver-types/models";
 import executeOrFail from "~/util/executeOrFail";
-import { ReadManyPostLabelsArgs } from "./args/ReadManyPostLabelsArgs";
+import { FindManyPostLabelsArgs } from "./args/FindManyPostLabelsArgs";
 
 @Resolver()
-export class ReadManyPostLabelsResolver {
+export class FindManyPostLabelsResolver {
   @IsAuthenticated()
   @Mutation(() => [PostLabel])
-  async readManyPostLabels(
-    @Arg("args") args: ReadManyPostLabelsArgs,
+  async findManyPostLabels(
+    @Arg("args") args: FindManyPostLabelsArgs,
     @Ctx() { prisma }: ContextType
   ): Promise<PostLabel[] | null> {
     return await executeOrFail(async () => {

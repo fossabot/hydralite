@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class ReadManyPostLabelsArgs {
+export class FindManyPostLabelsArgs {
   @Field()
   projectId: string;
 }
