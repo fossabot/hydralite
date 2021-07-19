@@ -25,12 +25,12 @@ export class UpdatePostCommentResolver {
     if (postComment == null) throw new ApolloError("Comment not found");
     if (postComment.creatorId != user.id) throw new ApolloError("You didnt create this comment");
 
-    postComment.body = args.body;
-    postComment.edited = true;
-
     await prisma.postComment.update({
       where,
-      data: postComment
+      data: {
+        body: args.body,
+        edited: true
+      }
     });
     return postComment;
   }
