@@ -4,8 +4,11 @@ import ContextType from "~/types/Context.type";
 import { PostLabel, User } from "~/resolver-types/models";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { UpdatePostLabelArgs } from "./args/UpdatePostLabelArgs";
+import { PostLabelRepo } from "~/db/PostLabelRepo";
+import executeOrFail from "~/util/executeOrFail";
 
 const memberRepo = new ProjectMemberRepo();
+const postLabelRepo = new PostLabelRepo();
 
 @Resolver()
 export class UpdatePostLabelResolver {
@@ -18,24 +21,25 @@ export class UpdatePostLabelResolver {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
-    // ensure user has perms to update label
+    // retrieve the post label
+    const postLabel = await postLabelRepo.findPostLabelById(args.id);
+
+    // ensure user has perms to delete label
     const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
       user.id,
-      args.projectId
+      postLabel!.projectId
     );
     memberRepo.memberHasPermission(loggedInMember!, "canManagePosts");
 
-    type postLabelType = Parameters<typeof prisma.postLabel.update>[0]["data"];
-    const postLabel: postLabelType = {
-      title: args.title,
-      description: args.description,
-      color: args.color,
-    };
-
-    const updatedPostLabel = await prisma.postLabel.update({
-      where: { id: args.id },
-      data: postLabel,
-    });
-    return updatedPostLabel;
+    return executeOrFail(async () => {
+      return await prisma.postLabel.update({
+        where: { id: args.id },
+        data: {
+          title: args.title,
+          description: args.description,
+          color: args.color,
+        },
+      });
+    }, "Error updating label.");
   }
 }

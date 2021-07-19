@@ -13,7 +13,4 @@ export class UpdatePostLabelArgs {
 
   @Field({ nullable: true })
   description?: string;
-
-  @Field()
-  projectId: string;
 }
