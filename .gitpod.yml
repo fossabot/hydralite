@@ -24,7 +24,7 @@ vscode:
     - eamodio.gitlens
     # Wait a sec, Docker stuff?
     - ms-azuretools.vscode-docker
-    
+
 github:
   prebuilds:
     # enable for the default branch (defaults to true)

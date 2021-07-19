@@ -23,14 +23,14 @@ services:
     shm_size: 512m
     restart: unless-stopped
   web:
-    depends_on: 
+    depends_on:
       - db
     image: ghcr.io/hydralite/server:dev
     build: .
     # You may need to restart your Compose instance due to permissions chaos
     #volumes:
-      # Possibly mess up with hot reloading
-      #- ./:/app/hydralite
+    # Possibly mess up with hot reloading
+    #- ./:/app/hydralite
     networks:
       - postgres
     # To avoid "ERROR: could not resize shared memory segment . . . : No space left on device", which usually caused by default /dev/shm size of 64MB,
@@ -38,7 +38,7 @@ services:
     # Hydralite continues to give, say 2 GB.
     # Ensure your system has enough memory for that, otherwise expect OOM and regular sluggishness due to the usage of swap, or worse, your OS will start stabbing other processes and even shut down by itself.
     shm_size: 256m
-    env_file: 
+    env_file:
       # The only thing you need is Redis host, port and password (username support will probably added later), and OAuth client ID and secret for Google, Twitter, GitHub and Discord.
       - api/.env
     ports:

@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import FirestoreManager from '~/util/firestoreManager';
-import styles from './ConnectCard.module.css';
-import toast, { Toaster } from 'react-hot-toast';
-import Icon from '~/components/Icon';
+import React, { useState } from "react";
+import FirestoreManager from "~/util/firestoreManager";
+import styles from "./ConnectCard.module.css";
+import toast, { Toaster } from "react-hot-toast";
+import Icon from "~/components/Icon";
 
 const error = (msg) => toast.error(msg);
-const success = () => toast.success('Successfully Waitlisted Email');
+const success = () => toast.success("Successfully Waitlisted Email");
 
 const firestoreManager = new FirestoreManager();
 
 const ConnectCard = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   async function handleSubmit(e: any) {
     e.preventDefault();
     firestoreManager.validateEmail(email).then((status) => {
-      if (status == 'Success') {
+      if (status == "Success") {
         firestoreManager.setEmail(email);
         success();
       } else {
@@ -50,7 +50,7 @@ const ConnectCard = () => {
               <form onSubmit={handleSubmit}>
                 <input
                   type="email"
-                  placeholder={'email'.toUpperCase()}
+                  placeholder={"email".toUpperCase()}
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
@@ -101,8 +101,8 @@ function SocialCard({ icon, heading, description, buttonText, buttonHref }) {
         <Icon
           name={icon}
           style={{
-            height: '3rem',
-            marginTop: '0.6rem',
+            height: "3rem",
+            marginTop: "0.6rem",
           }}
         />
       </div>
@@ -122,9 +122,9 @@ function SocialCardButton({ text, href }) {
       <Icon
         name="arrow_right"
         style={{
-          height: '1.1rem',
-          marginLeft: '1rem',
-          marginBottom: '-3px',
+          height: "1.1rem",
+          marginLeft: "1rem",
+          marginBottom: "-3px",
         }}
       />
     </a>

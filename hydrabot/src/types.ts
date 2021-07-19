@@ -1,8 +1,8 @@
 import {
   ApplicationCommandOption,
   CommandInteractionController,
-} from '@duxcore/interactive-discord';
-import * as Discord from 'discord.js';
+} from "@duxcore/interactive-discord";
+import * as Discord from "discord.js";
 
 export interface Command {
   name: string;

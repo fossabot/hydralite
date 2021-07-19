@@ -1,5 +1,5 @@
-import { IsBoolean, IsDate, Max, Min } from 'class-validator';
-import { Field, InputType } from 'type-graphql';
+import { IsBoolean, IsDate, Max, Min } from "class-validator";
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class CreateTaskArgs {

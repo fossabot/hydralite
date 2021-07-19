@@ -1,5 +1,5 @@
-import Navbar from '../components/Dashboard/Navbar';
-import Meta from 'partials/Meta';
+import Navbar from "../components/Dashboard/Navbar";
+import Meta from "partials/Meta";
 
 const Dashboard = () => {
   return (

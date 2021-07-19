@@ -1,6 +1,6 @@
-import React from 'react';
-import Navbar from '~/components/Navbar/Navbar';
-import Footer from './Footer/Footer';
+import React from "react";
+import Navbar from "~/components/Navbar/Navbar";
+import Footer from "./Footer/Footer";
 
 const Layout = ({
   children,
@@ -8,12 +8,12 @@ const Layout = ({
   connectCardRef,
 }: {
   children?: any;
-  navType: 'home' | 'dash';
+  navType: "home" | "dash";
   connectCardRef: React.MutableRefObject<any>;
 }) => {
   return (
     <div>
-      {navType === 'home' && <Navbar connectCardRef={connectCardRef} />}
+      {navType === "home" && <Navbar connectCardRef={connectCardRef} />}
       {children}
       <Footer />
     </div>

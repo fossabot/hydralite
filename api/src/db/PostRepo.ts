@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import { ApolloError } from 'apollo-server-express';
-import { Post } from '~/resolver-types/models';
+import { PrismaClient } from "@prisma/client";
+import { ApolloError } from "apollo-server-express";
+import { Post } from "~/resolver-types/models";
 
 export class PostRepo extends PrismaClient {
   async findPostById(
@@ -12,7 +12,7 @@ export class PostRepo extends PrismaClient {
       include: { visibleTo: true },
     });
     if (validate && !post)
-      throw new ApolloError("This post doesn't exist.", 'invalid_id');
+      throw new ApolloError("This post doesn't exist.", "invalid_id");
 
     return post;
   }
@@ -26,7 +26,7 @@ export class PostRepo extends PrismaClient {
       where: { id: postId, creatorId: userId },
     }));
     if (validate && !userInPost)
-      throw new ApolloError('User does not own post', 'invalid_id');
+      throw new ApolloError("User does not own post", "invalid_id");
 
     return userInPost;
   }

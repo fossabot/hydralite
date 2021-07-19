@@ -1,14 +1,14 @@
-import Meta from 'partials/Meta';
-import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from '../Icons';
-import React from 'react';
+import Meta from "partials/Meta";
+import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
+import React from "react";
 
 const NavLink = ({ href, active, children }) => {
-  const style = ['font-bold'];
-  if (active) style.push('text-accent');
+  const style = ["font-bold"];
+  if (active) style.push("text-accent");
 
   return (
     <li className="mx-6 my-2">
-      <a href={href} className={style.join(' ')}>
+      <a href={href} className={style.join(" ")}>
         {children}
       </a>
     </li>
@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <nav
       className="flex items-center min-w-full"
-      style={{ borderBottom: '1px solid #999' }}
+      style={{ borderBottom: "1px solid #999" }}
     >
       <ul className="flex p-2">
         <NavLink href="login" active={true}>
@@ -68,7 +68,7 @@ const LoginContent = () => {
 const Terms = () => {
   return (
     <p className="text-xl font-semibold text-gray_light mb-10">
-      By continuing you, you agree to the{' '}
+      By continuing you, you agree to the{" "}
       <a href="#" className="text-accent font-extrabold">
         Terms of Service
       </a>
@@ -90,7 +90,7 @@ const Login = () => {
           <img src="/login_background.svg" className="w-full" />
         </div>
         <section
-          style={{ width: '40%' }}
+          style={{ width: "40%" }}
           className="h-full bg-white flex flex-col items-center justify-between flex-shrink-0"
         >
           <Navbar />

@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import { ApolloError } from 'apollo-server-express';
-import { ProjectMember } from '~/resolver-types/models';
+import { PrismaClient } from "@prisma/client";
+import { ApolloError } from "apollo-server-express";
+import { ProjectMember } from "~/resolver-types/models";
 
 export class ProjectMemberRepo extends PrismaClient {
   findMemberById = async (
@@ -12,7 +12,7 @@ export class ProjectMemberRepo extends PrismaClient {
 
     // validation
     if (validate && !member)
-      throw new ApolloError('Invalid member Id', 'invalid_id');
+      throw new ApolloError("Invalid member Id", "invalid_id");
 
     return member;
   };
@@ -30,7 +30,7 @@ export class ProjectMemberRepo extends PrismaClient {
 
     // validation
     if (validate && !member)
-      throw new ApolloError('Invalid user or project id', 'invalid_id');
+      throw new ApolloError("Invalid user or project id", "invalid_id");
 
     return member;
   };
@@ -46,8 +46,8 @@ export class ProjectMemberRepo extends PrismaClient {
 
     if (validate && !memberHasPerm)
       throw new ApolloError(
-        'This action requires elevation.',
-        'perms_not_sufficient'
+        "This action requires elevation.",
+        "perms_not_sufficient"
       );
 
     return memberHasPerm;

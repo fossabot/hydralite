@@ -1,5 +1,5 @@
-import { Length, IsAlphanumeric } from 'class-validator';
-import { Field, InputType } from 'type-graphql';
+import { Length, IsAlphanumeric } from "class-validator";
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class FindHashtagByNameArgs {

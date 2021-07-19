@@ -1,7 +1,7 @@
-import React from 'react';
-import { Navbar } from '~/components/ProjectLayout/Navbar';
-import { Sidebar } from '~/components/ProjectLayout/Sidebar/Sidebar';
-import { ProjectPage } from '~/types/ProjectPageProps';
+import React from "react";
+import { Navbar } from "~/components/ProjectLayout/Navbar";
+import { Sidebar } from "~/components/ProjectLayout/Sidebar/Sidebar";
+import { ProjectPage } from "~/types/ProjectPageProps";
 
 export interface ProjectLayoutProps {
   selected: ProjectPage;

@@ -16,9 +16,6 @@ client.on('ready', () => {
     }
 });
 
-client.interactions.on('commandInteraction', (interaction) => {
-  console.log(client.commands);
-
 client.interactions.on("commandInteraction", (interaction) => {
   if (client.commands) {
     if (!client.commands.has(interaction.name))

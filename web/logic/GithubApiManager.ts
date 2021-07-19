@@ -1,5 +1,5 @@
-import { Octokit } from 'octokit';
-import GithubRepo from '~/types/GithubRepo';
+import { Octokit } from "octokit";
+import GithubRepo from "~/types/GithubRepo";
 
 export default class GithubApiManager {
   getUserRepos = async (githubUserName: string, token: string) => {
@@ -9,7 +9,7 @@ export default class GithubApiManager {
 
     let repos: GithubRepo[] = [];
 
-    const result = await octokit.request('/user/repos', {
+    const result = await octokit.request("/user/repos", {
       per_page: 100,
     });
 
@@ -44,7 +44,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('POST /user/repos', {
+    await octokit.request("POST /user/repos", {
       name: details.name,
       description: details.description,
       private: details.private,
@@ -56,7 +56,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('DELETE /repos/{owner}/{repo}', {
+    await octokit.request("DELETE /repos/{owner}/{repo}", {
       owner: owner,
       repo: repo,
     });
@@ -72,7 +72,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PATCH /repos/{owner}/{repo}', {
+    await octokit.request("PATCH /repos/{owner}/{repo}", {
       owner: owner,
       repo: repo,
       private: !visible!,
@@ -84,7 +84,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}/issues', {
+    await octokit.request("GET /repos/{owner}/{repo}/issues", {
       owner: owner,
       repo: repo,
     });
@@ -101,7 +101,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('POST /repos/{owner}/{repo}/issues', {
+    await octokit.request("POST /repos/{owner}/{repo}/issues", {
       owner: owner,
       repo: repo,
       title: title,
@@ -119,7 +119,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}/issues/{issue_number}', {
+    await octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}", {
       owner: owner,
       repo: repo,
       issue_number: issue_number,
@@ -138,7 +138,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
+    await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
       owner: owner,
       repo: repo,
       title: title,
@@ -152,7 +152,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}', {
+    await octokit.request("GET /repos/{owner}/{repo}", {
       owner: owner,
       repo: repo,
     });
@@ -169,7 +169,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+    await octokit.request("POST /repos/{owner}/{repo}/pulls", {
       owner: owner,
       repo: repo,
       head: head,
@@ -187,7 +187,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}', {
+    await octokit.request("GET /repos/{owner}/{repo}/pulls/{pull_number}", {
       owner: owner,
       repo: repo,
       pull_number: pull_number,
@@ -205,7 +205,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+    await octokit.request("POST /repos/{owner}/{repo}/pulls", {
       owner: owner,
       repo: repo,
       head: head,
@@ -224,7 +224,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PATCH /repos/{owner}/{repo}/pulls/{pull_number}', {
+    await octokit.request("PATCH /repos/{owner}/{repo}/pulls/{pull_number}", {
       owner: owner,
       repo: repo,
       pull_number: pull_number,
@@ -244,7 +244,7 @@ export default class GithubApiManager {
     });
 
     await octokit.request(
-      'PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge',
+      "PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge",
       {
         owner: owner,
         repo: repo,
@@ -265,7 +265,7 @@ export default class GithubApiManager {
     });
 
     await octokit.request(
-      'GET /repos/{owner}/{repo}/pulls/{pull_number}/commits',
+      "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits",
       {
         owner: owner,
         repo: repo,
@@ -285,7 +285,7 @@ export default class GithubApiManager {
     });
 
     await octokit.request(
-      'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
+      "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
       {
         owner: owner,
         repo: repo,
@@ -305,7 +305,7 @@ export default class GithubApiManager {
     });
 
     await octokit.request(
-      'GET /repos/{owner}/{repo}/pulls/{pull_number}/merge',
+      "GET /repos/{owner}/{repo}/pulls/{pull_number}/merge",
       {
         owner: owner,
         repo: repo,
@@ -325,7 +325,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
+    await octokit.request("POST /repos/{owner}/{repo}/git/commits", {
       owner: owner,
       repo: repo,
       message: message,
@@ -344,7 +344,7 @@ export default class GithubApiManager {
     });
 
     await octokit.request(
-      'GET /repos/{owner}/{repo}/git/commits/{commit_sha}',
+      "GET /repos/{owner}/{repo}/git/commits/{commit_sha}",
       {
         owner: owner,
         repo: repo,
@@ -358,7 +358,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}/commits', {
+    await octokit.request("GET /repos/{owner}/{repo}/commits", {
       owner: owner,
       repo: repo,
     });
@@ -369,7 +369,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /user');
+    await octokit.request("GET /user");
   };
 
   updateUser = async (name: string, token: string) => {
@@ -377,7 +377,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PATCH /user', {
+    await octokit.request("PATCH /user", {
       name: name,
     });
   };
@@ -387,7 +387,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /users/{username}', {
+    await octokit.request("GET /users/{username}", {
       username: username,
     });
   };
@@ -397,7 +397,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /user/blocks');
+    await octokit.request("GET /user/blocks");
   };
 
   blockUser = async (username: string, token: string) => {
@@ -405,7 +405,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /user/blocks/{username}', {
+    await octokit.request("GET /user/blocks/{username}", {
       username: username,
     });
   };
@@ -415,7 +415,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PUT /user/blocks/{username}', {
+    await octokit.request("PUT /user/blocks/{username}", {
       username: username,
     });
   };
@@ -425,7 +425,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /notifications');
+    await octokit.request("GET /notifications");
   };
 
   markNotificationsAsRead = async (last_read_at: string, token: string) => {
@@ -433,7 +433,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PUT /notifications', {
+    await octokit.request("PUT /notifications", {
       last_read_at: last_read_at,
     });
   };
@@ -443,7 +443,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}/stargazers', {
+    await octokit.request("GET /repos/{owner}/{repo}/stargazers", {
       owner: owner,
       repo: repo,
     });
@@ -454,7 +454,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /user/starred');
+    await octokit.request("GET /user/starred");
   };
 
   checkRepoStarred = async (owner: string, repo: string, token: string) => {
@@ -462,7 +462,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /user/starred/{owner}/{repo}', {
+    await octokit.request("GET /user/starred/{owner}/{repo}", {
       owner: owner,
       repo: repo,
     });
@@ -473,7 +473,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('DELETE /user/starred/{owner}/{repo}', {
+    await octokit.request("DELETE /user/starred/{owner}/{repo}", {
       owner: owner,
       repo: repo,
     });
@@ -484,7 +484,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('DELETE /user/starred/{owner}/{repo}', {
+    await octokit.request("DELETE /user/starred/{owner}/{repo}", {
       owner: owner,
       repo: repo,
     });
@@ -495,7 +495,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('GET /repos/{owner}/{repo}/subscribers', {
+    await octokit.request("GET /repos/{owner}/{repo}/subscribers", {
       owner: owner,
       repo: repo,
     });
@@ -506,7 +506,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('PUT /repos/{owner}/{repo}/subscription', {
+    await octokit.request("PUT /repos/{owner}/{repo}/subscription", {
       owner: owner,
       repo: repo,
       subscribed: true,
@@ -518,7 +518,7 @@ export default class GithubApiManager {
       auth: token,
     });
 
-    await octokit.request('DELETE /repos/{owner}/{repo}/subscription', {
+    await octokit.request("DELETE /repos/{owner}/{repo}/subscription", {
       owner: owner,
       repo: repo,
     });

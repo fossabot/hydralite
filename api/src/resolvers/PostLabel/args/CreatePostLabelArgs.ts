@@ -3,7 +3,7 @@ import { Field, InputType } from "type-graphql";
 @InputType()
 export class CreatePostLabelArgs {
   @Field()
-  name: string;
+  title: string;
 
   @Field()
   color: string;

@@ -1,6 +1,6 @@
-import { Length } from 'class-validator';
-import { Field, InputType } from 'type-graphql';
-import { PostType } from '~/resolver-types/enums';
+import { Length } from "class-validator";
+import { Field, InputType } from "type-graphql";
+import { PostType } from "~/resolver-types/enums";
 
 @InputType()
 export class CreatePostArgs {
