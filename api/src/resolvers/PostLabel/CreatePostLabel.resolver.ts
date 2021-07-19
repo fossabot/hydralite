@@ -14,7 +14,7 @@ export class CreatePostLabelResolver {
   async createPostLabel(
     @Arg("args") args: CreatePostLabelArgs,
     @Ctx() { req, prisma }: ContextType
-  ): Promise<PostLabel> {
+  ) {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
