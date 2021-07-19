@@ -210,7 +210,10 @@ model Project {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Post      Post[]
+
+  Post Post[]
+
+  postLabels PostLabel[]
 }
 
 model TaskBoard {
@@ -423,9 +426,13 @@ model Hashtag {
 }
 
 model PostLabel {
-  id    String @id @default(uuid())
-  title String
-  color String
+  id          String  @id @default(uuid())
+  title       String
+  color       String
+  description String?
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
