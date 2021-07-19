@@ -12,10 +12,13 @@ export class ReadAllPostCommentsResolver {
     @Arg("args") args: ReadAllPostCommentsArgs,
     @Ctx() { req, prisma }: ContextType
   ) {
-    return await prisma.postComment.findMany({
+    const comments = await prisma.postComment.findMany({
       where: {
         postId: args.postId
-      }
+      },
     });
+    
+    const sortedComments = comments.sort((a, b) => b.likes - a.likes);
+    return sortedComments;
   }
 }

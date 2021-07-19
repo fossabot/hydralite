@@ -86,6 +86,7 @@ model User {
   // Posts
   posts         Post[] @relation("UserOwnedPostsRelation")
   likedPosts    Post[] @relation("UserLikedPostsRelation")
+  likedComments PostComment[] @relation("UserLikedCommentsRelation")
   viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this user
 
   // Post Comments
@@ -489,4 +490,7 @@ model PostComment {
   updatedAt DateTime @updatedAt
 
   edited Boolean @default(false)
+
+  likers User[] @relation("UserLikedCommentsRelation")
+  likes  Int    @default(0)
 }

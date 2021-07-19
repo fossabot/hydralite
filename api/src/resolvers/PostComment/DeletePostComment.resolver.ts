@@ -27,8 +27,8 @@ export class DeletePostCommentResolver {
 
     executeOrFail(async () => {
         await prisma.postComment.delete({ where });
-    }, 'Error deleting post');
+    }, 'Error deleting post comment');
   
-    return 'Successfully deleted post';
+    return 'Successfully deleted post comment';
   }
 }
