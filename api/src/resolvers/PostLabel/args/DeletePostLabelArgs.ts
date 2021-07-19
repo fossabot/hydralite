@@ -4,7 +4,4 @@ import { Field, InputType } from "type-graphql";
 export class DeletePostLabelArgs {
   @Field()
   labelId: string;
-
-  @Field()
-  projectId: string;
 }
