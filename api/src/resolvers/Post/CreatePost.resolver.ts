@@ -1,24 +1,24 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { CreatePostArgs } from "./args/CreatePostArgs";
-import ContextType from "~/types/Context.type";
-import { Post, User } from "~/resolver-types/models";
-import { connectIdArray } from "~/util/connectIdArray";
-import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import { CreatePostArgs } from './args/CreatePostArgs';
+import ContextType from '~/types/Context.type';
+import { Post, User } from '~/resolver-types/models';
+import { connectIdArray } from '~/util/connectIdArray';
+import { ProjectMemberRepo } from '~/db/ProjectMemberRepo';
 
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class CreatePostResolver {
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   @Mutation(() => Post)
   async createPost(
-    @Arg("args") args: CreatePostArgs,
+    @Arg('args') args: CreatePostArgs,
     @Ctx() { req, prisma }: ContextType
   ) {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
-    type postType = Parameters<typeof prisma.post.create>[0]["data"];
+    type postType = Parameters<typeof prisma.post.create>[0]['data'];
     const post: postType = {
       title: args.title,
       description: args.description,
@@ -38,7 +38,7 @@ export class CreatePostResolver {
         user.id,
         args.projectId
       );
-      memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
+      memberRepo.memberHasPermission(loggedInMember!, 'canModeratePosts');
 
       post.visibleTo = !args.isPublic
         ? connectIdArray(args.visibleToUserIds)

@@ -1,5 +1,5 @@
 {
-  "name": "hydralite-bot",
+  "name": "@hydralite/hydrabot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

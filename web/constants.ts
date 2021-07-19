@@ -1,1 +1,1 @@
-export const projectName = "Hydralite";
+export const projectName = 'Hydralite';

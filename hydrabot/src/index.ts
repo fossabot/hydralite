@@ -16,14 +16,18 @@ client.on('ready', () => {
     }
 });
 
+client.interactions.on('commandInteraction', (interaction) => {
+  console.log(client.commands);
 
 client.interactions.on("commandInteraction", (interaction) => {
-    console.log(client.commands);
-
-    if (client.commands) {
-        if (!client.commands.has(interaction.name)) return interaction.respond({ content: "Couldn't find command!", isPrivate: true })
-        client.commands.get(interaction.name)?.execute(client, interaction);
-    }
+  if (client.commands) {
+    if (!client.commands.has(interaction.name))
+      return interaction.respond({
+        content: "Couldn't find command!",
+        isPrivate: true,
+      });
+    client.commands.get(interaction.name)?.execute(client, interaction);
+  }
 });
 
 client.login(process.env.TOKEN);

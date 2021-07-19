@@ -1,20 +1,20 @@
-import { Task } from "~/resolver-types/models";
-import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import ContextType from "~/types/Context.type";
-import executeOrFail from "~/util/executeOrFail";
-import { User } from "@prisma/client";
-import { connectIdArray } from "~/util/connectIdArray";
-import { CreateTaskArgs } from "./args/CreateTaskArgs";
-import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
+import { Task } from '~/resolver-types/models';
+import { Resolver, Mutation, Ctx, Arg } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import ContextType from '~/types/Context.type';
+import executeOrFail from '~/util/executeOrFail';
+import { User } from '@prisma/client';
+import { connectIdArray } from '~/util/connectIdArray';
+import { CreateTaskArgs } from './args/CreateTaskArgs';
+import { ProjectMemberRepo } from '~/db/ProjectMemberRepo';
 
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export default class CreateTaskResolver {
   @Mutation(() => Task)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async createTask(
-    @Arg("args") args: CreateTaskArgs,
+    @Arg('args') args: CreateTaskArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<Task> {
     // extract the logged in user
@@ -25,10 +25,10 @@ export default class CreateTaskResolver {
       user.id,
       args.projectId
     );
-    await memberRepo.memberHasPermission(loggedInMember!, "canManageTasks");
+    await memberRepo.memberHasPermission(loggedInMember!, 'canManageTasks');
 
     return executeOrFail<Task>(() => {
-      type TaskData = Parameters<typeof prisma.task.create>[0]["data"];
+      type TaskData = Parameters<typeof prisma.task.create>[0]['data'];
 
       const task: TaskData = {
         name: args.name,

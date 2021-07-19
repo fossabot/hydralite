@@ -1,15 +1,15 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { isAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Post, User } from "~/resolver-types/models";
-import ContextType from "~/types/Context.type";
-import { LikeUnlikePostArgs } from "./args/LikeUnlikePostArgs";
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
+import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
+import { Post, User } from '~/resolver-types/models';
+import ContextType from '~/types/Context.type';
+import { LikeUnlikePostArgs } from './args/LikeUnlikePostArgs';
 
 @Resolver()
 export class LikeUnlikePostResolver {
   @Mutation(() => Post)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async likePost(
-    @Arg("args") { postId }: LikeUnlikePostArgs,
+    @Arg('args') { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<Post | null> {
     // retrieve the currently logged in user
@@ -24,9 +24,9 @@ export class LikeUnlikePostResolver {
   }
 
   @Mutation(() => Post)
-  @UseMiddleware(isAuthenticated)
+  @IsAuthenticated()
   async unlikePost(
-    @Arg("args") { postId }: LikeUnlikePostArgs,
+    @Arg('args') { postId }: LikeUnlikePostArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<Post | null> {
     // retrieve the currently logged in user

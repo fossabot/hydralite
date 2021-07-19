@@ -1,7 +1,7 @@
 {
   "name": "@hydralite/web",
   "author": {
-    "name": "Tejas Ravishankar, Pranav Doshi, Aaryaman Maheshwari and The Collaborators of Project Hydralite",
+    "name": "Tejas Ravishankar, Aaryaman Maheshwari and The Collaborators of Project Hydralite",
     "url": "https://hydralite.io"
   },
   "repository": {
@@ -14,6 +14,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@iconify/react": "alpha",
     "axios": "^0.21.1",
     "evernote": "^2.0.5",
     "googleapis": "^76.0.0",
@@ -25,9 +26,12 @@
     "react-google-calendar-api": "^1.4.0"
   },
   "devDependencies": {
+    "@types/faker": "^5.5.7",
     "@types/node": "^15.12.3",
     "@types/react": "^17.0.11",
+    "@types/react-slick": "^0.23.5",
     "autoprefixer": "latest",
+    "faker": "^5.5.3",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "^4.3.2"

@@ -1,16 +1,18 @@
 image:
   file: .gitpod.Dockerfile
-  context: .devcontainer
 
-# See https://www.gitpod.io/docs/config-start-tasks to configure tasks in Gitpod
-# Before and init tasks are better run in tandem during prebuilds, which you can learn more at https://www.gitpod.io/docs/prebuilds.
+# init tasks are ran in prebuilds, command tasks are run when the user starts a new session.
 tasks:
-  # Install Yarn dependencies during prebuilds first with IS_GITPOD_PREBUILD set to 1 to ensure we don't hit that "api/.env Not found" error. Possibly implement Docker Compose and installing crates for the cli directory soon
-  - init: IS_GITPOD_PREBUILD=1 ./setup.sh
+  - name: Install Packages (Global)
+    init: yarn
+
+  - name: Setup Web/Api Server
+    # TODO: Use Docker Compose instead for starting development servers
+    command: |
+      yarn setup
+      yarn dev
 
 vscode:
-  # Open this repo inside Gitpod to upload *.vsix files that's not found on Open VSIX or if you built an opensource VS Code extension yourself.
-  # WARNING: DO NOT UPLOAD EVERYTHING from Microsoft VS Code Extensions Store for legal reasons. See VS Code terms of use for details.
   extensions:
     # Prettier VS Code extension
     - esbenp.prettier-vscode
@@ -23,7 +25,7 @@ vscode:
     # Wait a sec, Docker stuff?
     - ms-azuretools.vscode-docker
     
- github:
+github:
   prebuilds:
     # enable for the default branch (defaults to true)
     master: true
