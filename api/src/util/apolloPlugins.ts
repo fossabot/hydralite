@@ -1,9 +1,9 @@
-import { ApolloError } from 'apollo-server-express';
+import { ApolloError } from "apollo-server-express";
 import {
   fieldExtensionsEstimator,
   getComplexity,
   simpleEstimator,
-} from 'graphql-query-complexity';
+} from "graphql-query-complexity";
 
 export function apolloPlugins(schema: any) {
   return [

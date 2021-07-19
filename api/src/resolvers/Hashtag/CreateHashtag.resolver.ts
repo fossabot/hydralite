@@ -1,17 +1,17 @@
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
-import ContextType from '~/types/Context.type';
-import executeOrFail from '~/util/executeOrFail';
-import { User } from '@prisma/client';
-import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
-import { Hashtag } from '~/resolver-types/models/Hashtag';
-import { CreateHashtagArgs } from './args/CreateHashtagArgs';
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import ContextType from "~/types/Context.type";
+import executeOrFail from "~/util/executeOrFail";
+import { User } from "@prisma/client";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Hashtag } from "~/resolver-types/models/Hashtag";
+import { CreateHashtagArgs } from "./args/CreateHashtagArgs";
 
 @Resolver()
 export default class CreateHashtagResolver {
   @Mutation(() => Hashtag)
   @IsAuthenticated()
   async createHashtag(
-    @Arg('args') args: CreateHashtagArgs,
+    @Arg("args") args: CreateHashtagArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<Hashtag> {
     // retrieve the currently logged in user

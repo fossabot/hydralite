@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import { ApolloError } from 'apollo-server-express';
-import { TaskLocation } from '~/resolver-types/models';
+import { PrismaClient } from "@prisma/client";
+import { ApolloError } from "apollo-server-express";
+import { TaskLocation } from "~/resolver-types/models";
 
 export class TaskRepo extends PrismaClient {
   findTaskLocationByNameAndProjectId = async (
@@ -13,7 +13,7 @@ export class TaskRepo extends PrismaClient {
     });
 
     if (validate && taskLocation)
-      throw new ApolloError('Task location already exists.', 'resource_exists');
+      throw new ApolloError("Task location already exists.", "resource_exists");
 
     return taskLocation;
   };
@@ -28,7 +28,7 @@ export class TaskRepo extends PrismaClient {
     });
 
     if (validate && taskCategory)
-      throw new ApolloError('Task category already exists.', 'resource_exists');
+      throw new ApolloError("Task category already exists.", "resource_exists");
 
     return taskCategory;
   };

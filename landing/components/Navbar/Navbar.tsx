@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './Navbar.module.css';
-import { projectName } from '~/constants';
-import scrollToRef from 'util/scrollToRef';
+import React from "react";
+import styles from "./Navbar.module.css";
+import { projectName } from "~/constants";
+import scrollToRef from "util/scrollToRef";
 
 const NavLink = ({
   text,
@@ -13,7 +13,7 @@ const NavLink = ({
   onClick: (e) => any;
 }) => {
   return (
-    <a className={styles.navbar__link} href={href || ''} onClick={onClick}>
+    <a className={styles.navbar__link} href={href || ""} onClick={onClick}>
       {text}
     </a>
   );

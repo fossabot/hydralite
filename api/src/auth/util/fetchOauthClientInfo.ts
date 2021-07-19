@@ -1,5 +1,5 @@
 export default function fetchOauthClientInfo(
-  provider: 'github' | 'discord' | 'google' | 'twitter'
+  provider: "github" | "discord" | "google" | "twitter"
 ) {
   let info: {
     clientId: string;
@@ -7,25 +7,25 @@ export default function fetchOauthClientInfo(
     cbUrl?: string;
   };
   switch (provider) {
-    case 'github':
+    case "github":
       info = {
         clientId: process.env.GITHUB_CLIENT_ID!,
         clientSecret: process.env.GITHUB_CLIENT_SECRET!,
       };
       break;
-    case 'discord':
+    case "discord":
       info = {
         clientId: process.env.DISCORD_CLIENT_ID!,
         clientSecret: process.env.DISCORD_CLIENT_SECRET!,
       };
       break;
-    case 'google':
+    case "google":
       info = {
         clientId: process.env.GOOGLE_CLIENT_ID!,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       };
       break;
-    case 'twitter':
+    case "twitter":
       info = {
         clientId: process.env.TWITTER_CLIENT_ID!,
         clientSecret: process.env.TWITTER_CLIENT_SECRET!,

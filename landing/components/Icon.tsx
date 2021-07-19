@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties } from "react";
 
 const Icon = ({
   name,
@@ -15,7 +15,7 @@ const Icon = ({
       src={`/icons/${name}.svg`}
       draggable="false"
       style={{
-        userSelect: 'none',
+        userSelect: "none",
         ...style,
       }}
     />

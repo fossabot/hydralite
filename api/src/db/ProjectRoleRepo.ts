@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import { ApolloError } from 'apollo-server-express';
-import { ProjectRole } from '~/resolver-types/models';
+import { PrismaClient } from "@prisma/client";
+import { ApolloError } from "apollo-server-express";
+import { ProjectRole } from "~/resolver-types/models";
 
 export class ProjectRoleRepo extends PrismaClient {
   findRoleById = async (
@@ -15,7 +15,7 @@ export class ProjectRoleRepo extends PrismaClient {
 
     // validate if it exists
     if (validate && !role)
-      throw new ApolloError('Invalid Role Id.', 'invalid_id');
+      throw new ApolloError("Invalid Role Id.", "invalid_id");
 
     return role;
   };

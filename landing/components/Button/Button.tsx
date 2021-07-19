@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import React from 'react';
-import { FC } from 'react';
-import styles from './Button.module.css';
-import Icon from '~/components/Icon';
+import Link from "next/link";
+import React from "react";
+import { FC } from "react";
+import styles from "./Button.module.css";
+import Icon from "~/components/Icon";
 interface Props {
-  color: 'accent' | 'muted' | 'black';
+  color: "accent" | "muted" | "black";
   text: string;
   iconName?: any;
   onClick?: () => any;
@@ -14,13 +14,13 @@ interface Props {
 const Button: FC<Props> = ({ color, text, onClick, iconName, href }) => {
   let colorClass;
   switch (color) {
-    case 'accent':
+    case "accent":
       colorClass = styles.button__accent;
       break;
-    case 'muted':
+    case "muted":
       colorClass = styles.button__muted;
       break;
-    case 'black':
+    case "black":
       colorClass = styles.button__black;
       break;
   }

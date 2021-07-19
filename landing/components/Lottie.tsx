@@ -1,5 +1,5 @@
-import React from 'react';
-import Lottie from 'react-lottie';
+import React from "react";
+import Lottie from "react-lottie";
 
 export default function LottieAnimation({
   lotti,
@@ -17,7 +17,7 @@ export default function LottieAnimation({
     autoplay: true,
     animationData: lotti,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+      preserveAspectRatio: "xMidYMid slice",
     },
   };
 

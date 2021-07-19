@@ -11,7 +11,7 @@ interface Profile {
 }
 
 interface PrimaryOauthConnection {
-  oauthService: 'discord' | 'github' | 'twitter' | 'google';
+  oauthService: "discord" | "github" | "twitter" | "google";
   email: string;
   username: string;
   oauthServiceUserId: string;

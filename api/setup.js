@@ -1,10 +1,10 @@
-require('dotenv').config();
-const fs = require('fs');
-const inquirer = require('inquirer');
-const chalk = require('chalk');
+require("dotenv").config();
+const fs = require("fs");
+const inquirer = require("inquirer");
+const chalk = require("chalk");
 
 const prompt = async (args) =>
-  await inquirer.prompt([{ type: 'input', ...args, name: 'cmd' }]).then((a) => {
+  await inquirer.prompt([{ type: "input", ...args, name: "cmd" }]).then((a) => {
     return args.parse ? args.parse(a.cmd) : a.cmd;
   });
 
@@ -15,11 +15,11 @@ const prompt = async (args) =>
     process.env.DATABASE_URL
   )
     return console.log(
-      chalk.red('!') +
-        chalk.red.bold(' Skipping .env setup (.env values already exist).')
+      chalk.red("!") +
+        chalk.red.bold(" Skipping .env setup (.env values already exist).")
     );
   console.clear();
-  console.log(chalk.green('!') + chalk.blue.bold(' API .env Configurator\n'));
+  console.log(chalk.green("!") + chalk.blue.bold(" API .env Configurator\n"));
 
   let env = {};
 
@@ -34,21 +34,21 @@ const prompt = async (args) =>
   if (!process.env.IS_GITPOD) {
     env.DATABASE_URL = await prompt({
       message: `Please enter your PostgresSQL Database URL:`,
-      default: 'postgresql://postgres@localhost/postgres',
+      default: "postgresql://postgres@localhost/postgres",
     });
   } else {
-    env.DATABASE_URL = 'postgresql://gitpod@localhost/postgres';
+    env.DATABASE_URL = "postgresql://gitpod@localhost/postgres";
   }
 
   console.log(
-    chalk.green('*') + chalk.magenta.bold(' Writing configuration...')
+    chalk.green("*") + chalk.magenta.bold(" Writing configuration...")
   );
 
   const mapped = Object.keys(env).map((k) => `${k}='${env[k]}'`);
 
-  fs.writeFile(`.env`, mapped.join('\n'), () => {});
+  fs.writeFile(`.env`, mapped.join("\n"), () => {});
 
   console.log(
-    chalk.green('^') + chalk.yellow.bold(' Finished writing configuration!\n')
+    chalk.green("^") + chalk.yellow.bold(" Finished writing configuration!\n")
   );
 })();

@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import { Strategy } from 'passport-twitter';
-import { PassportStatic } from 'passport';
-import fetchOauthClientInfo from '~/auth/util/fetchOauthClientInfo';
-import { PassportGenericUser } from '../types/PassportGenericUser.type';
-import { PassportTwitterProfile } from '../types/PassportTwitterProfile.type';
+import { Router } from "express";
+import { Strategy } from "passport-twitter";
+import { PassportStatic } from "passport";
+import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
+import { PassportGenericUser } from "../types/PassportGenericUser.type";
+import { PassportTwitterProfile } from "../types/PassportTwitterProfile.type";
 
 export const TwitterOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo('twitter');
+  const oauthInfo = fetchOauthClientInfo("twitter");
 
   passport.use(
     new Strategy(
@@ -17,14 +17,14 @@ export const TwitterOAuth = (passport: PassportStatic) => {
       },
       (_, __, profile: PassportTwitterProfile, done) => {
         const genericUser: PassportGenericUser = {
-          email: '',
+          email: "",
           username: profile.username,
           profile: {
             avatarUrl: profile._json.profile_image_url_https,
           },
           primaryOauthConnection: {
-            email: '',
-            oauthService: 'twitter',
+            email: "",
+            oauthService: "twitter",
             username: profile.username,
             oauthServiceUserId: profile.id,
           },
@@ -38,21 +38,21 @@ export const TwitterOAuth = (passport: PassportStatic) => {
   const router = Router();
 
   router.get(
-    '/',
-    passport.authenticate('twitter', {
+    "/",
+    passport.authenticate("twitter", {
       failureRedirect: `/`,
       session: true,
     })
   );
 
   router.get(
-    '/cb',
-    passport.authenticate('twitter', {
+    "/cb",
+    passport.authenticate("twitter", {
       failureRedirect: `/`,
       session: true,
     }),
     (_, res) => {
-      res.redirect('/');
+      res.redirect("/");
     }
   );
 

@@ -1,5 +1,5 @@
-import { Field, InputType } from 'type-graphql';
-import { PostType } from '~/resolver-types/enums';
+import { Field, InputType } from "type-graphql";
+import { PostType } from "~/resolver-types/enums";
 
 @InputType()
 export class UpdatePostArgs {
@@ -20,12 +20,12 @@ export class UpdatePostArgs {
 
   @Field(() => PostType, { nullable: true })
   type?:
-    | 'post'
-    | 'article'
-    | 'question'
-    | 'feedback'
-    | 'suggestion'
-    | 'appreciation';
+    | "post"
+    | "article"
+    | "question"
+    | "feedback"
+    | "suggestion"
+    | "appreciation";
 
   @Field(() => Boolean, { nullable: true })
   isPublic?: boolean;

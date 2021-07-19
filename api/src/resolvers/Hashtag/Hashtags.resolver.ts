@@ -1,8 +1,8 @@
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
-import ContextType from '~/types/Context.type';
-import executeOrFail from '~/util/executeOrFail';
-import { IsAuthenticated } from '~/middleware/isAuthenticated.middleware';
-import { Hashtag } from 'src/resolver-types/models/Hashtag';
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import ContextType from "~/types/Context.type";
+import executeOrFail from "~/util/executeOrFail";
+import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Hashtag } from "src/resolver-types/models/Hashtag";
 
 @Resolver()
 export default class HashtagsResolver {

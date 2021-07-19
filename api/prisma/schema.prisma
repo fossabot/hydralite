@@ -120,7 +120,7 @@ model ProjectMemberPermissions {
   canManageRoles                Boolean?
   canManageTasks                Boolean?
   canCreateProjectAnnouncements Boolean?
-  canModeratePosts              Boolean?
+  canManagePosts                Boolean?
   canManageProjectGroups        Boolean?
   canGenerateProjectInvites     Boolean?
   canViewRoadmap                Boolean?

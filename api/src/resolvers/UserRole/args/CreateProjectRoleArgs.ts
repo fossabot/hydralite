@@ -1,4 +1,4 @@
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class CreateProjectRoleArgs {
@@ -30,7 +30,7 @@ export class CreateProjectRoleArgs {
   canCreateProjectAnnouncements?: boolean;
 
   @Field({ nullable: true })
-  canModeratePosts?: boolean;
+  canManagePosts?: boolean;
 
   @Field({ nullable: true })
   canManageProjectGroups?: boolean;

@@ -3,7 +3,7 @@ const Navbar = () => {
     <div
       className="w-full h-9vh flex justify-between items-center"
       style={{
-        boxShadow: '0px 4px 10px rgba(217, 217, 217, 0.25)',
+        boxShadow: "0px 4px 10px rgba(217, 217, 217, 0.25)",
       }}
     >
       <div className="flex justify-center items-center">
