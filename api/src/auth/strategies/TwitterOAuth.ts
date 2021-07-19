@@ -15,7 +15,12 @@ export const TwitterOAuth = (passport: PassportStatic) => {
         consumerSecret: oauthInfo.clientSecret,
         callbackURL: oauthInfo.cbUrl!,
       },
-      (_, __, profile: PassportTwitterProfile, done) => {
+      async (
+        _: string,
+        __: string,
+        profile: PassportTwitterProfile,
+        done: any
+      ) => {
         const genericUser: PassportGenericUser = {
           email: '',
           username: profile.username,
