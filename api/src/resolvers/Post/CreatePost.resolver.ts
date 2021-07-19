@@ -22,11 +22,11 @@ export class CreatePostResolver {
     const post: postType = {
       title: args.title,
       description: args.description,
-      isAnnouncement: false,
+      isAnnouncement: !!args.isAnnouncement,
       hashtags: connectIdArray(args.hashtagIds),
       creator: { connect: { id: user.id } },
       type: args.type,
-      isPublic: true,
+      isPublic: args.isPublic ?? true,
       project: { connect: { id: args.projectId } },
       categories: connectIdArray(args.categoryIds),
       labels: connectIdArray(args.labelIds),
@@ -40,8 +40,6 @@ export class CreatePostResolver {
       );
       memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
 
-      post.isAnnouncement = args.isAnnouncement!;
-      post.isPublic = args.isPublic!;
       post.visibleTo = !args.isPublic
         ? connectIdArray(args.visibleToUserIds)
         : {};
