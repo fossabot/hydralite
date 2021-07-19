@@ -503,4 +503,6 @@ model PostComment {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  edited Boolean @default(false)
 }
