@@ -10,7 +10,7 @@
     "watch": "tsc --watch"
   },
   "keywords": [],
-  "author": "firecraftgaming",
+  "author": "Firecraft Gaming and Hydralite Contributors (https://github.com/hydralite/hydralite/contributors)",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^16.3.2",

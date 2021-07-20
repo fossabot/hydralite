@@ -38,8 +38,6 @@ Usage: {} {} {}"#,
 
 pub fn map_commands() {
     let args: Vec<String> = env::args().collect::<Vec<String>>();
-    Get::get();
-    std::process::exit(0);
 
     if args.len() > 2 {
         let app: App = App::new();
