@@ -8,8 +8,8 @@ class Hydralite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light(), // Provide light theme.
-      darkTheme: ThemeData.dark(), // Provide dark theme.
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: Login(),
