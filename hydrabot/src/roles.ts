@@ -41,23 +41,27 @@ async function update(message: Message) {
 }
 
 async function toogleRole(type: string, user: Member, message: Message) {
-    if (!message) return;
-    if (!message.member) return;
-    if (!message.guild) return;
+    try {
+        if (!message) return;
+        if (!message.member) return;
+        if (!message.guild) return;
 
-    const server = servers.find(v => v.id == message.guild?.id ?? '');
-    if (!server) return;
+        const server = servers.find(v => v.id == message.guild?.id ?? '');
+        if (!server) return;
 
-    const role = server.roles.find(v => v.id == type);
-    if (!role) return;
+        const role = server.roles.find(v => v.id == type);
+        if (!role) return;
 
-    const guild_role = await message.guild.roles.fetch(role?.role);
-    const member = await (await message.guild.members.fetch(user.user.id)).fetch(true);
+        const guild_role = await message.guild.roles.fetch(role?.role);
+        const member = await (await message.guild.members.fetch(user.user.id)).fetch(true);
 
-    if (!guild_role) return;
-    if (guild_role.members.has(member.id)) member.roles.remove(guild_role); else member.roles.add(guild_role);
+        if (!guild_role) return;
+        if (guild_role.members.has(member.id)) member.roles.remove(guild_role); else member.roles.add(guild_role);
 
-    addRecent(type, user.nick ?? user.user.username, message, !guild_role.members.has(member.id));
+        addRecent(type, user.nick ?? user.user.username, message, !guild_role.members.has(member.id));
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function addRecent(type: string, user: string, message: Message, add: boolean) {
@@ -112,21 +116,25 @@ function getButtons(guild: string) {
 }
 
 export async function sendRoles(guild: string, channel: string) {
-    const g = await client.guilds.fetch(guild);
-    if (g == null) return;
+    try {
+        const g = await client.guilds.fetch(guild);
+        if (g == null) return;
 
-    const c = g.channels.resolve(channel) as TextChannel;
-    if (c == null) return;
+        const c = g.channels.resolve(channel) as TextChannel;
+        if (c == null) return;
 
-    const m = await c.messages.fetch({ limit: 1 });
-    if (m.size > 0) return;
-    
-    const buttonCluster = getButtons(guild);
-    client.interactions.sendComponents({
-        channel: c, 
-        components: buttonCluster, 
-        content: 'https://cdn.discordapp.com/attachments/843780743695171584/862763593509371964/hydralite_channel_header_roles.png',
-    });
+        const m = await c.messages.fetch({ limit: 1 });
+        if (m.size > 0) return;
+        
+        const buttonCluster = getButtons(guild);
+        client.interactions.sendComponents({
+            channel: c, 
+            components: buttonCluster, 
+            content: 'https://cdn.discordapp.com/attachments/843780743695171584/862763593509371964/hydralite_channel_header_roles.png',
+        });
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 const socket = io('https://hydraliteusercache.eliyah.repl.co');
