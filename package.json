@@ -4,8 +4,7 @@
   "workspaces": [
     "api",
     "web",
-    "landing",
-    "hydrabot"
+    "landing"
   ],
   "scripts": {
     "commit": "yarn commit:stage-all",
