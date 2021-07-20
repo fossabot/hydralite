@@ -11,9 +11,3 @@ services:
     command: redis-server --requirepass password
     ports:
       - "6379:6379"
-  redisinsight:
-    image: redislabs/redisinsight:latest
-    links:
-      - "redis:redis"
-    ports:
-      - "8001:8001"
