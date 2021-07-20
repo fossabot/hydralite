@@ -8,13 +8,10 @@
     "prisma:push": "prisma db push",
     "prisma:generate": "prisma generate",
     "prisma:format": "prisma format",
-<<<<<<< HEAD
 
     "db:start": "cd .. & npm run db:start",
     "db:stop": "cd .. & npm run db:stop",
 
-=======
->>>>>>> 85eddb3d7bdcd21a15a7d81031112d660e85958c
     "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
     "setup": "node setup.js && npm run prisma:push",
