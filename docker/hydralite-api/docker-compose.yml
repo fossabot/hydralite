@@ -1,0 +1,17 @@
+version: "3.9" # optional since v1.27.0
+services:
+  api:
+    build: "../../api"
+    ports:
+      - 8000:8000
+  postgresql:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "password"
+  redis:
+    image: redis
+    command: redis-server --requirepass password
+    ports:
+      - "6379:6379"
