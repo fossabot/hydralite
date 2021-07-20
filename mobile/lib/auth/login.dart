@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hydralite_app/auth/loginButton.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -10,47 +13,55 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
+    final bool lightMode = Theme.of(context).brightness == Brightness.light;
+
+    final theme = SystemUiOverlayStyle.light.copyWith(
+        systemNavigationBarColor: lightMode ? Colors.white : Colors.black);
+
+    SystemChrome.setSystemUIOverlayStyle(theme);
+
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: lightMode ? Colors.white : Color(0xFF303030),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(
                 top: 18.0,
-                left: 36.0,
               ),
-              child: Row(
+              child: Wrap(
+                direction: Axis.horizontal,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                spacing: 30.0,
                 children: [
                   Text(
                     'Login',
+                    textAlign: TextAlign.start,
                     style: GoogleFonts.montserrat(
-                      color: Color(
-                        0xFF695CFF,
-                      ),
+                      color: lightMode ? Color(0x303030FF) : Color(0xFFAF98FF),
                       fontSize: 17.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Text(
-                      'Create Account',
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF2D3748),
-                        fontSize: 16.5,
-                      ),
+                  Text(
+                    'Create Account',
+                    textAlign: TextAlign.end,
+                    style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w600,
+                      color: lightMode ? Color(0xFF2D3748) : Color(0xFFFFFFFF),
+                      fontSize: 16.5,
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 13.0),
+              padding: const EdgeInsets.only(
+                top: 13.0,
+              ),
               child: Divider(
-                color: Color(0xFFBFBFBF),
+                color: lightMode ? Color(0xFFBFBFBF) : Color(0xFF555555),
                 thickness: 0.75,
               ),
             ),
@@ -66,7 +77,7 @@ class _LoginState extends State<Login> {
                     style: GoogleFonts.montserrat(
                       fontSize: 35.0,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF2D3748),
+                      color: lightMode ? Color(0xFF2D3748) : Color(0xFFFFFFFF),
                     ),
                   ),
                   Text(
@@ -74,7 +85,7 @@ class _LoginState extends State<Login> {
                     style: GoogleFonts.montserrat(
                       fontSize: 35.0,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF695CFF),
+                      color: lightMode ? Color(0xFF695CFF) : Color(0xFFAF98FF),
                     ),
                   ),
                 ],
@@ -89,7 +100,7 @@ class _LoginState extends State<Login> {
                 style: GoogleFonts.montserrat(
                   fontSize: 21,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF2D3748),
+                  color: lightMode ? Color(0xFF2D3748) : Color(0xFFFFFFFF),
                 ),
               ),
             ),
@@ -99,39 +110,12 @@ class _LoginState extends State<Login> {
             SizedBox(
               width: MediaQuery.of(context).size.width - 40,
               height: 65,
-              child: TextButton.icon(
-                icon: FaIcon(
-                  FontAwesomeIcons.google,
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
+              child: LoginButton(
+                  icon: FaIcon(
+                    FontAwesomeIcons.google,
                   ),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFF2D3748,
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFFF5F5F5,
-                    ),
-                  ),
-                ),
-                label: Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
-                  child: Text(
-                    'Continue With Google',
-                    style: GoogleFonts.nunitoSans(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                onPressed: () {},
-              ),
+                  value: "Continue With Google",
+                  lightMode: lightMode),
             ),
             SizedBox(
               height: 15,
@@ -139,120 +123,33 @@ class _LoginState extends State<Login> {
             SizedBox(
               width: MediaQuery.of(context).size.width - 40,
               height: 65,
-              child: TextButton.icon(
-                icon: FaIcon(
-                  FontAwesomeIcons.github,
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFF2D3748,
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFFF5F5F5,
-                    ),
-                  ),
-                ),
-                label: Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
-                  child: Text(
-                    'Continue With Github',
-                    style: GoogleFonts.nunitoSans(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                onPressed: () {},
+              child: LoginButton(
+                icon: FaIcon(FontAwesomeIcons.github),
+                value: "Continue With Github",
+                lightMode: lightMode,
               ),
             ),
             SizedBox(
               height: 15,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
-              height: 65,
-              child: TextButton.icon(
-                icon: FaIcon(
-                  FontAwesomeIcons.twitter,
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFF2D3748,
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFFF5F5F5,
-                    ),
-                  ),
-                ),
-                label: Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
-                  child: Text(
-                    'Continue With Twitter',
-                    style: GoogleFonts.nunitoSans(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                onPressed: () {},
-              ),
-            ),
+                width: MediaQuery.of(context).size.width - 40,
+                height: 65,
+                child: LoginButton(
+                    icon: FaIcon(FontAwesomeIcons.twitter),
+                    lightMode: lightMode,
+                    value: "Continue With Twitter")),
             SizedBox(
               height: 15,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
-              height: 65,
-              child: TextButton.icon(
-                icon: FaIcon(
-                  FontAwesomeIcons.discord,
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFF2D3748,
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(
-                      0xFFF5F5F5,
-                    ),
-                  ),
-                ),
-                label: Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
-                  child: Text(
-                    'Continue With Discord',
-                    style: GoogleFonts.nunitoSans(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                onPressed: () {},
-              ),
-            ),
+                width: MediaQuery.of(context).size.width - 40,
+                height: 65,
+                child: LoginButton(
+                  icon: FaIcon(FontAwesomeIcons.discord),
+                  value: "Continue With Discord",
+                  lightMode: lightMode,
+                )),
             Padding(
               padding: const EdgeInsets.only(top: 75.0),
               child: Row(
@@ -268,9 +165,11 @@ class _LoginState extends State<Login> {
                   Text(
                     'Terms & Privacy',
                     style: GoogleFonts.montserrat(
-                      color: Color(
-                        0xFF695CFF,
-                      ),
+                      color: lightMode
+                          ? Color(
+                              0xFF695CFF,
+                            )
+                          : Color(0xFFAF98FF),
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
                     ),

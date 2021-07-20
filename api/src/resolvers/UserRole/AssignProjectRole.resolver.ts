@@ -6,6 +6,7 @@ import { AssignProjectRoleArgs } from "./args/AssignProjectRoleArgs";
 import { ProjectMember } from "~/resolver-types/models";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { ProjectRoleRepo } from "~/db/ProjectRoleRepo";
+import executeOrFail from "~/util/executeOrFail";
 
 const memberRepo = new ProjectMemberRepo();
 const roleRepo = new ProjectRoleRepo();
@@ -17,48 +18,58 @@ export default class AssignProjectRoleResolver {
     @Arg("args") args: AssignProjectRoleArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<ProjectMember | null> {
-    // retrieve the currently logged in user
-    const user: User = req.user as User;
+    return executeOrFail(async () => {
+      // retrieve the currently logged in user
+      const user: User = req.user as User;
 
-    // validate that user that is assigning the role has perms
-    const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
-      user.id,
-      args.projectId
-    );
-    await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles");
+      /* 
+        Validation Workflow To Confirm The User's Permissions:
+          - We find the role to assign using the id provided in args
+          - We find a project member that corresponds to the logged in user id as well as the project id extracted from the role found
+      */
 
-    // validate the member to assign the role to exists
-    await memberRepo.findMemberById(args.memberId);
+      // retrieve and confirm role to add exists
+      const role = await roleRepo.findRoleById(args.roleId);
 
-    // retrieve and confirm role to add exists
-    const role = await roleRepo.findRoleById(args.roleId);
+      // validate that user that is assigning the role has perms
+      const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
+        user.id,
+        role!.projectId
+      );
+      await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles");
 
-    // add role to member
-    const memberWithUpdatedRole = await prisma.projectMember.update({
-      where: { id: args.memberId },
-      data: { roles: { connect: { id: role!.id } } },
-      include: { overallPermissions: true },
-    });
+      /* Assigning the Role */
 
-    // update members common permission after adding a new role
-    const commonPerms = { ...memberWithUpdatedRole.overallPermissions };
-    Object.keys(role!.permissions as object).forEach((permKey) => {
-      // ignore model fields that are not permissions
-      if (permKey === "id") return;
+      // validate the member to assign the role to exists
+      await memberRepo.findMemberById(args.memberId);
 
-      const rolePerm: boolean = (role!.permissions as any)[permKey];
-      let commonPerm: boolean = (commonPerms as any)[permKey];
+      // add role to member
+      const memberWithUpdatedRole = await prisma.projectMember.update({
+        where: { id: args.memberId },
+        data: { roles: { connect: { id: role!.id } } },
+        include: { overallPermissions: true },
+      });
 
-      // if the role perm is set to true but the common perm is false, override the common perm
-      if (rolePerm && !commonPerm) (commonPerms as any)[permKey] = true;
-    });
+      // update members common permission after adding a new role
+      const commonPerms = { ...memberWithUpdatedRole.overallPermissions };
+      Object.keys(role!.permissions as object).forEach((permKey) => {
+        // ignore model fields that are not permissions
+        if (permKey === "id") return;
 
-    console.log(commonPerms);
+        const rolePerm: boolean = (role!.permissions as any)[permKey];
+        let commonPerm: boolean = (commonPerms as any)[permKey];
 
-    const memberWithUpdatedOverallPerms = await prisma.projectMember.update({
-      where: { id: args.memberId },
-      data: { overallPermissions: { update: { ...commonPerms } } },
-    });
-    return memberWithUpdatedOverallPerms;
+        // if the role perm is set to true but the common perm is false, override the common perm
+        if (rolePerm && !commonPerm) (commonPerms as any)[permKey] = true;
+      });
+
+      // update the member with their new overall permissions
+      const memberWithUpdatedOverallPerms = await prisma.projectMember.update({
+        where: { id: args.memberId },
+        data: { overallPermissions: { update: { ...commonPerms } } },
+      });
+
+      return memberWithUpdatedOverallPerms;
+    }, "Error assigning role.");
   }
 }
