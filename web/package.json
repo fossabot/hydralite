@@ -9,6 +9,12 @@
   },
   "version": "0.1.0",
   "scripts": {
+    "web:start": "cd .. & npm run web:start",
+    "web:stop": "cd .. & npm run web:stop",
+
+    "all:start": "cd .. & npm run all:start",
+    "all:stop": "cd .. & npm run all:stop",
+
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

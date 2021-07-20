@@ -9,13 +9,28 @@
   "scripts": {
     "commit": "yarn commit:stage-all",
     "commit:signed": "yarn commit:gpgsign",
+
     "db:start": "cd docker/hydralite-db/ && docker compose up -d",
     "db:stop": "cd docker/hydralite-db/ && docker compose down",
+
+    "dbg:start": "cd docker/hydralite-db-gui/ && docker compose up -d",
+    "dbg:stop": "cd docker/hydralite-db-gui/ && docker compose down",
+
+    "web:start": "cd docker/hydralite-web/ && docker compose up -d",
+    "web:stop": "cd docker/hydralite-web/ && docker compose down",
+
+    "api:start": "cd docker/hydralite-api/ && docker compose up -d",
+    "api:stop": "cd docker/hydralite-api/ && docker compose down",
+
+    "all:start": "cd docker/hydralite/ && docker compose up -d",
+    "all:stop": "cd docker/hydralite/ && docker compose down",
+
     "docker:psql": "docker exec -it hydralite_db_1 psql -U hydralite",
     "docker:start": "docker-compose up --build",
     "docker:shell": "docker exec -it hydralite_server_1 bash",
     "docker:buildkit": "DOCKER_BUILDKIT=1 docker build -t ghcr.io/hydralite/server:dev .",
     "docker:build": "DOCKER_BUILDKIT=0 docker build -t ghcr.io/hydralite/server:dev .",
+
     "setup": "yarn workspace @hydralite/api run setup",
     "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\"",
     "start": "concurrently \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\"",
