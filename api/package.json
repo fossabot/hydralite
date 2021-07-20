@@ -9,8 +9,8 @@
     "prisma:generate": "prisma generate",
     "prisma:format": "prisma format",
 
-    "db:start": "cd docker/hydralite-api/ & docker compose up -d",
-    "db:stop": "cd docker/hydralite-api/ & docker compose down",
+    "db:start": "cd .. & npm run db:start",
+    "db:stop": "cd .. & npm run db:stop",
 
     "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
