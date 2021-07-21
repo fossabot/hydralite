@@ -38,6 +38,16 @@ We also support running individual components:
 
 Using the `:stop` postfix on any of these commands will stop the running network
 
+### Using Gitpod
+
+1. [Open this repo in Gitpod.io](https://gitpod.io/#github.com/hydralite/hydralite). Sign in using your GItHub account if needed.
+2. Start the components you need with either [Docker]() or [Normal Mode]()
+3. Enjoy Hacking/Coding
+
+While Node.js/Python (web, API, automation and landing page) and Rust (CLI) development will work flawlessly in Gitpod, Flutter/Dart
+development may work but nested virtualization for Android emulators in case of mobile app development isn't supprted in
+Google Kubernetes Engine (where Gitpod.io hosted).
+
 ## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
 
 Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:

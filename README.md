@@ -25,6 +25,7 @@ Although we highly recommend reading <a href="https://github.com/hydralite/hydra
 Make sure you've installed Node.js (Web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (Mobile App) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server)
 
 To start both the web and api servers -
+
 1. Navigate to the root directory and install dependencies with `yarn` (or `yarn install`)
 2. Then, run an intuitive setup procedure with `yarn setup`
 3. Once Setup is complete, run `yarn dev`
@@ -33,13 +34,3 @@ To start both the web and api servers -
 
 - Running Hydralite With Docker - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md">Click Here</a>
 - Running Hydralite On Gitpod - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md">Click Here</a>
-
-<!--
-### In Gitpod
-
-- [Open this repo in Gitpod.io](https://gitpod.io/#github.com/hydralite/hydralite). Sign in using your GItHub account if needed.
-- Once the API and web servers are up in development mode, enjoy hacking/coding.
-
-While Node.js/Python (web, API, automation and landing page) and Rust (CLI) development will work flawlessly in Gitpod, Flutter/Dart
-development may work but nested virtualization for Android emulators in case of mobile app development isn't supprted in
-Google Kubernetes Engine (where Gitpod.io hosted). -->
