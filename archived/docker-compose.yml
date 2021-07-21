@@ -1,3 +1,5 @@
+# ./docker-compose.yml
+
 # Use of Docker Compose is only recommended in development and not in production.
 # Use Kubernetes instead if you need to run Hydralite in production.
 # Related StackOverflow answer: https://stackoverflow.com/questions/47536536/whats-the-difference-between-docker-compose-and-kubernetes#47537046

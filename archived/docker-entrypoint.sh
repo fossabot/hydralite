@@ -1,3 +1,5 @@
+# ./docker-entrypoint.sh
+
 #!/usr/local/bin/dumb-init /bin/bash
 # shellcheck shell=bash
 
