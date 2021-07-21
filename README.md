@@ -22,17 +22,22 @@ Hydralite is a system that steers away from typical scrum methodology and adopts
 <a href="https://github.com/hydralite/hydralite/tree/dev/mobile">`mobile`</a> - Mobile <br>
 <a href="https://github.com/hydralite/prototypes">`repo:prototypes`</a> - Prototypes
 
-## Getting Started
+## Quick Start
+
+Make sure you installed Node.js (Web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (Mobile App) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server)
+
+- To start the web and api servers, navigate to the root directory and install dependencies with `yarn` (or `yarn install`)
+- Then, run an intuitive setup procedure with `yarn setup`
+- Once Setup is complete, run `yarn dev`
+
+<!-- ## Getting Started
 
 ### Local Development
 
-Make sure you installed Node.js (web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (mobile
-client app) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server)
-within an Dockerized development environment or in an VPS. Our setup script will only install Yarn for you to get started with the
-webapp and GraphQL API develpment.
+Make sure you installed Node.js (Web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (Mobile App) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server)
 
 - After cloning, install dependencies with `yarn` (or `yarn install`). Then run the setup process with `yarn setup`.
-- Once Prisma-generated files are ready and database migrations has been finished (if you forget to create `api/.env` file), run `yarn dev` in the root directory to start the API and web servers.
+- Once Prisma-generated files are ready and database migrations has been finished, run `yarn dev`
 
 ### In Gitpod
 
@@ -41,4 +46,4 @@ webapp and GraphQL API develpment.
 
 While Node.js/Python (web, API, automation and landing page) and Rust (CLI) development will work flawlessly in Gitpod, Flutter/Dart
 development may work but nested virtualization for Android emulators in case of mobile app development isn't supprted in
-Google Kubernetes Engine (where Gitpod.io hosted).
+Google Kubernetes Engine (where Gitpod.io hosted). -->
