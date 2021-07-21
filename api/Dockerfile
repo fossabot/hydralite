@@ -7,8 +7,8 @@ COPY tsconfig.json ./
 COPY src ./src
 COPY prisma ./prisma
 
-RUN npm install
-RUN npm run prisma:generate
-RUN npm run build
+RUN yarn
+RUN yarn prisma:generate
+RUN yarn build
 
 CMD ["npm", "start"]

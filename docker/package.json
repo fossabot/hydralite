@@ -1,0 +1,11 @@
+{
+    "name": "@hydralite/docker",
+    "scripts": {
+        "hydralite:start": "cd hydralite/ && docker compose up -d",
+        "hydralite:stop": "cd hydralite/ && docker compose down",
+        "api:start": "cd hydralite-api/ && docker compose up -d",
+        "api:stop": "cd hydralite-api/ && docker compose down",
+        "web:start": "cd hydralite-web/ && docker compose up -d",
+        "web:stop": "cd hydralite-web/ && docker compose down"
+    }
+}
