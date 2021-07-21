@@ -1,0 +1,30 @@
+FROM node
+
+WORKDIR /app
+
+COPY package.json ./
+COPY tsconfig.json ./
+
+COPY postcss.config.js ./
+COPY tailwind.config.js ./
+
+COPY constants.ts ./
+COPY next-env.d.ts ./
+
+#copying all the files from the src folder
+COPY components ./components
+COPY constants ./constants
+COPY data ./data
+COPY hoc ./hoc
+COPY logic ./logic
+COPY pages ./pages
+COPY partials ./partials
+COPY public ./public
+COPY styles ./styles
+COPY types ./types
+COPY util ./util
+
+RUN npm install
+RUN npm run build
+
+CMD ["npm", "start"]

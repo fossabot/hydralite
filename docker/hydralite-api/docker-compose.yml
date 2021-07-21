@@ -1,17 +1,29 @@
-version: "3.9" # optional since v1.27.0
+version: "3.9"
 services:
   api:
     build: "../../api"
+    networks:
+      - api
+    depends_on: 
+      - postgresql
+      - redis
     ports:
       - 8000:8000
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@postgres:5432"
+      REDIS_HOST: "redis"
   postgresql:
     image: postgres
-    ports:
-      - "5432:5432"
+    networks:
+      - api
     environment:
       POSTGRES_PASSWORD: "password"
   redis:
     image: redis
-    command: redis-server --requirepass password
-    ports:
-      - "6379:6379"
+    networks:
+      - api
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+networks:
+  api:
+    driver: bridge
