@@ -8,6 +8,7 @@ services:
       POSTGRES_PASSWORD: "password"
   redis:
     image: redis
-    command: redis-server --requirepass password
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "6379:6379"

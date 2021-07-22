@@ -10,7 +10,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      DATABASE_URL: "postgresql://postgres:password@postgres:5432"
+      DATABASE_URL: "postgresql://postgres:password@postgresql:5432"
       REDIS_HOST: "redis"
   postgresql:
     image: postgres
