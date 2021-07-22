@@ -55,9 +55,7 @@ RUN cp /home/gitpod/.profile /home/gitpod/.profile_orig && \
     && .cargo/bin/rustup completions bash cargo | sudo tee /etc/bash_completion.d/rustup.cargo-bash-completion > /dev/null \
     && grep -v -F -x -f /home/gitpod/.profile_orig /home/gitpod/.profile > /home/gitpod/.bashrc.d/80-rust
 ENV PATH=$PATH:$HOME/.cargo/bin
-
 RUN bash -lc "cargo install cargo-watch cargo-edit cargo-tree"
-
 
 ### PostgresSQL ###
 RUN sudo install-packages postgresql-12 postgresql-contrib-12
@@ -71,8 +69,27 @@ ENV PATH="$PATH:$HOME/.pg_ctl/bin"
 ENV DATABASE_URL="postgresql://gitpod@localhost"
 ENV PGHOSTADDR="127.0.0.1"
 ENV PGDATABASE="postgres"
+# This is a bit of a hack. At the moment we have no means of starting background
+# tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
+# PostgreSQL server is running, and if not starts it.
+RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
 
-
+### Docker ###
+RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    && apt-key add /tmp/docker.gpg \
+    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+    && sudo /usr/bin/install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io \
+    && rm /tmp/docker.gpg
+# slirp4netns for rootless containers
+RUN sudo curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.9/slirp4netns-$(uname -m) \
+    && sudo chmod +x /usr/bin/slirp4netns
+# Docker Compose
+RUN sudo curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64 \
+    && sudo chmod +x /usr/local/bin/docker-compose
+# https://github.com/wagoodman/dive
+RUN sudo curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb \
+    && sudo apt install /tmp/dive.deb \
+    && sudo rm /tmp/dive.deb
 
 ### Flutter ###
 # Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
@@ -86,9 +103,7 @@ RUN set -ex; \
     mkdir ~/development; \
     cd ~/development; \
     git clone --depth 1 https://github.com/flutter/flutter.git -b stable --no-single-branch
-
 ENV PATH="$PATH:/home/gitpod/development/flutter/bin"
-
 RUN set -ex; \
     flutter channel stable; \
     flutter upgrade; \
