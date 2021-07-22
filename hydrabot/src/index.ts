@@ -1,16 +1,22 @@
 require("dotenv").config();
 
 import { Bot } from "./classes/bot";
+import { init, sendRoles } from "./roles";
+import { servers } from "./servers";
+
 const client = new Bot();
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user?.tag}!`);
-  client.registerCommands(process.env.GUILD_ID || "");
+  init(client);
+
+  for (const server of servers) {
+    client.registerCommands(server.id);
+    sendRoles(server.id, server.channels.roles);
+  }
 });
 
 client.interactions.on("commandInteraction", (interaction) => {
-  console.log(client.commands);
-
   if (client.commands) {
     if (!client.commands.has(interaction.name))
       return interaction.respond({
@@ -22,3 +28,7 @@ client.interactions.on("commandInteraction", (interaction) => {
 });
 
 client.login(process.env.TOKEN);
+
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});

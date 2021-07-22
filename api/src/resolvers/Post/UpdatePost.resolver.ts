@@ -31,7 +31,6 @@ export class UpdatePostResolver {
     if (args.description) post.description = args.description;
     if (args.hashtagIds) post.hashtags = connectIdArray(args.hashtagIds);
     if (args.type) post.type = args.type;
-    if (args.categoryIds) post.categories = connectIdArray(args.categoryIds);
     if (args.labelIds) post.labels = connectIdArray(args.labelIds);
 
     // make sure user can manage posts in this project if they are trying to make this post an announcement or make a post private
@@ -40,7 +39,7 @@ export class UpdatePostResolver {
         user.id,
         args.projectId
       );
-      memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
+      memberRepo.memberHasPermission(loggedInMember!, "canManagePosts");
 
       post.isAnnouncement = args.isAnnouncement;
       post.isPublic = args.isPublic;

@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  web:
+    build: "../../web"
+    networks:
+      - main
+    ports:
+      - 3000:3000
+  api:
+    build: "../../api"
+    networks:
+      - main
+      - api
+    depends_on:
+      - postgresql
+      - redis
+    ports:
+      - 8000:8000
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@postgres:5432"
+      REDIS_HOST: "redis"
+  postgresql:
+    image: postgres
+    networks:
+      - api
+      - db
+    environment:
+      POSTGRES_PASSWORD: "password"
+  redis:
+    image: redis
+    networks:
+      - api
+      - db
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+networks:
+  main:
+    driver: bridge
+  api:
+    driver: bridge
+  db:
+    driver: bridge

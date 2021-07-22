@@ -1,43 +1,41 @@
+import { Icon } from "@iconify/react";
 import React from "react";
-import {
-  BackIcon,
-  SearchIcon,
-  BellIcon,
-  DropdownIcon,
-} from "~/components/Icons";
 export interface NavbarProps {
   avatar: string;
 }
 
+const SearchBar = () => {
+  return (
+    <div
+      className="rounded-5 w-30rem max-w-md h-9 flex justify-start items-center"
+      style={{ boxShadow: "0px 0px 5px #cccccc" }}
+    >
+      <Icon icon="eva:search-fill" className="mx-4.5 h-5 w-5 text-muted" />
+      <input
+        className="text-text border-none outline-none font-bold text-md mr-4 bg-transparent w-full h-full placeholder-muted placeholder-"
+        placeholder="Search"
+      />
+    </div>
+  );
+};
+
 export const Navbar: React.FC<NavbarProps> = ({ avatar }) => {
   return (
-    <div className="flex w-full p-4 justify-between items-center border-b border-white-seperator">
+    <div className="flex w-full p-3 justify-between items-center border-b border-white-seperator">
       <div className="flex justify-center items-center text-black cursor-pointer select-none">
-        <div className="w-5 h-5">
-          <BackIcon />
-        </div>
-        <div className="pl-1 font-semibold text-sm">Go Home</div>
+        <Icon icon="eva:arrow-back-outline" className="w-4 h-4" />
+        <div className="pl-1 font-bold text-xs">Go Home</div>
       </div>
-      <div
-        className="rounded-5 w-120 h-10 flex justify-start items-center"
-        style={{ boxShadow: "0px 0px 5px #cccccc" }}
-      >
-        <div className="ml-4 mr-5 w-6 h-6 text-gray">
-          <SearchIcon />
+      <SearchBar />
+      <div className="flex justify-center items-center text-black cursor-pointer select-none">
+        <div>
+          <Icon icon="akar-icons:bell" className="text-muted h-4 w-4" />
         </div>
-        <input
-          className="text-text border-none outline-none font-bold text-base mr-4 bg-transparent w-full h-full"
-          placeholder="Search"
+        <img className="w-8 h-8 rounded-half ml-2 mr-1" src={avatar} />
+        <Icon
+          icon="fluent-caret-down-12-filled"
+          className="text-muted h-3 w-3"
         />
-      </div>
-      <div className="flex justify-center items-center text-black cursor-pointer select-none">
-        <div className="flex justify-center items-center w-4 h-4 text-gray">
-          <BellIcon />
-        </div>
-        <img className="w-9 h-9 rounded-half ml-3 mr-1" src={avatar} />
-        <div className="flex justify-center items-center mr-5 w-2 h-1">
-          <DropdownIcon />
-        </div>
       </div>
     </div>
   );

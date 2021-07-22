@@ -4,6 +4,7 @@ import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { PassportDiscordProfile } from "../types/PassportDiscordProfile.type";
+import discordAvatarUrl from "../util/discordAvatarUrl";
 
 export const DiscordOAuth = (passport: PassportStatic) => {
   const oauthInfo = fetchOauthClientInfo("discord");
@@ -26,7 +27,11 @@ export const DiscordOAuth = (passport: PassportStatic) => {
           email: profile.email || "",
           username: `${profile.username}#${profile.discriminator}`, // TASK: Randomize usernames for each provider
           profile: {
-            avatarUrl: profile.avatar, // TASK: replace with real avatar url and not just hash
+            avatarUrl: discordAvatarUrl(
+              profile.id,
+              profile.discriminator,
+              profile.avatar
+            ),
           },
           primaryOauthConnection: {
             email: profile.email || "",

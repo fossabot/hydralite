@@ -92,6 +92,7 @@ model User {
   // Posts
   posts         Post[] @relation("UserOwnedPostsRelation")
   likedPosts    Post[] @relation("UserLikedPostsRelation")
+  likedComments PostComment[] @relation("UserLikedCommentsRelation")
   viewablePosts Post[] @relation("PostVisibleToRelation") // private posts that are visible to this user
 
   // Post Comments
@@ -102,9 +103,6 @@ model User {
 
   // Post Labels
   postLabels PostLabel[]
-
-  // Subscribed Post Categories
-  subscribedPostCategories PostCategory[] @relation("UserSubscribedPostCategoriesRelation")
 
   // Bug reports and feature requests
   bugReports      BugReport[]
@@ -129,7 +127,7 @@ model ProjectMemberPermissions {
   canManageRoles                Boolean?
   canManageTasks                Boolean?
   canCreateProjectAnnouncements Boolean?
-  canModeratePosts              Boolean?
+  canManagePosts                Boolean?
   canManageProjectGroups        Boolean?
   canGenerateProjectInvites     Boolean?
   canViewRoadmap                Boolean?
@@ -183,9 +181,6 @@ model ProjectMember {
   overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
   projectMemberPermissionsId String?
 
-  // created post categories
-  createdPostCategories PostCategory[] @relation("MemberCreatedPostCategoriesRelation")
-
   // forge many to many relation
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
@@ -224,7 +219,10 @@ model Project {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Post      Post[]
+
+  Post Post[]
+
+  postLabels PostLabel[]
 }
 
 model TaskBoard {
@@ -437,31 +435,18 @@ model Hashtag {
 }
 
 model PostLabel {
-  id    String @id @default(uuid())
-  title String
-  color String
+  id          String  @id @default(uuid())
+  title       String
+  color       String
+  description String?
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
 
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
 
   posts Post[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model PostCategory {
-  id   String @id @default(uuid())
-  name String
-
-  creator   ProjectMember @relation("MemberCreatedPostCategoriesRelation", fields: [creatorId], references: [id])
-  creatorId String
-
-  posts Post[]
-
-  subscribers User[] @relation("UserSubscribedPostCategoriesRelation")
-
-  // TASK: Private Post Categories??
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -476,13 +461,13 @@ model Post {
 
   labels PostLabel[]
 
-  categories PostCategory[]
-
   isPublic  Boolean
   visibleTo User[]  @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
+
+  // TASK: Add Custom Like Emojis
 
   likers   User[]        @relation("UserLikedPostsRelation")
   comments PostComment[]
@@ -511,4 +496,9 @@ model PostComment {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  edited Boolean @default(false)
+
+  likers User[] @relation("UserLikedCommentsRelation")
+  likes  Int    @default(0)
 }

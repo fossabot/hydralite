@@ -28,7 +28,6 @@ export class CreatePostResolver {
       type: args.type,
       isPublic: true,
       project: { connect: { id: args.projectId } },
-      categories: connectIdArray(args.categoryIds),
       labels: connectIdArray(args.labelIds),
     };
 
@@ -38,10 +37,10 @@ export class CreatePostResolver {
         user.id,
         args.projectId
       );
-      memberRepo.memberHasPermission(loggedInMember!, "canModeratePosts");
+      memberRepo.memberHasPermission(loggedInMember!, "canManagePosts");
+      post.isPublic = args.isPublic ?? true;
+      post.isAnnouncement = !!args.isAnnouncement;
 
-      post.isAnnouncement = args.isAnnouncement!;
-      post.isPublic = args.isPublic!;
       post.visibleTo = !args.isPublic
         ? connectIdArray(args.visibleToUserIds)
         : {};

@@ -22,3 +22,9 @@ dist
 .vscode/
 
 cli/target
+
+data/
+
+# vim programmers can rest now
+
+Session.vim

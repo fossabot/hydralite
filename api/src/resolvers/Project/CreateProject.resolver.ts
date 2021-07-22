@@ -48,7 +48,7 @@ export default class CreateProjectResolver {
                     canManageTesterOutsourcing: true,
                     canManageThirdPartyApps: true,
                     canManageUsers: true,
-                    canModeratePosts: true,
+                    canManagePosts: true,
                     canScheduleRooms: true,
                     canViewDeveloperInsights: true,
                     canViewLogs: true,

@@ -46,7 +46,7 @@ export default class CreateProjectRoleResolver {
             canManageTesterOutsourcing: !!args.canManageTesterOutsourcing,
             canManageThirdPartyApps: !!args.canManageThirdPartyApps,
             canManageUsers: !!args.canManageUsers,
-            canModeratePosts: !!args.canModeratePosts,
+            canManagePosts: !!args.canManagePosts,
             canScheduleRooms: !!args.canScheduleRooms,
             canViewDeveloperInsights: !!args.canViewDeveloperInsights,
             canViewLogs: !!args.canViewLogs,
