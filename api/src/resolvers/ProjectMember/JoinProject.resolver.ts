@@ -15,7 +15,7 @@ export class JoinProject {
   async joinProject(
     @Ctx() { req: { user: _ }, prisma }: ContextType,
     @Arg("args") { projectId }: JoinProjectArgs
-  ) {
+  ): Promise<Project> {
     const user: User = _ as any;
 
     // validate project existence
