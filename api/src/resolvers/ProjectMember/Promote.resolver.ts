@@ -14,33 +14,23 @@ export class Promote {
   @Mutation(() => ProjectMember)
   async promote(
     @Ctx() { req: { user: _ }, prisma }: ContextType,
-    @Arg("args") { projectId, memberId, newRole }: PromoteArgs
+    @Arg("args") { memberId, newRole }: PromoteArgs
   ): Promise<ProjectMember> {
     const user: User = _ as any;
-    // validate project existence
-    const projectToJoin = await prisma.project.findUnique({
-      where: { id: projectId },
-    });
-    if (!projectToJoin) throw new ApolloError("Invalid project.", "invalid_id");
 
-    // validate that the promoter (person giving promotion) is actually in the project, has the valid permissions
+    const memberToPromote = (await prisma.projectMember.findUnique({
+      where: { id: memberId },
+    })) as ProjectMember;
 
-    const promoter = await memberRepo.findMemberByUserAndProjectId(
-      user.id,
-      projectId
-    );
+    const promoter = (await prisma.projectMember.findFirst({
+      where: { userId: user.id, projectId: memberToPromote!.projectId },
+    })) as ProjectMember;
 
-    memberRepo.memberHasPermission(promoter!, "canManageUsers");
-
-    // check if the recipient is in the project
-    const member = await memberRepo.findMemberById(memberId);
-
-    if (!member || member.projectId !== projectId)
-      throw new ApolloError("Invalid project member.", "invalid_id");
+    memberRepo.memberHasPermission(promoter, "canManageUsers");
 
     // finally, update the member with the new role
     return prisma.projectMember.update({
-      where: { id: member.id },
+      where: { id: memberToPromote.id },
       data: {
         type: newRole,
       },

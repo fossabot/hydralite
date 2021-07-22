@@ -4,9 +4,6 @@ import { Field, InputType } from "type-graphql";
 @InputType()
 export class PromoteArgs {
   @Field()
-  projectId: string;
-
-  @Field()
   memberId: string;
 
   @Field()
