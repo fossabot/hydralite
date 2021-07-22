@@ -1,6 +1,5 @@
 import connectRedis from 'connect-redis';
 import { createClient, RedisClient } from 'redis';
-import session from 'express-session';
 import { PrismaClient } from '@prisma/client';
 import { ApolloServer } from 'apollo-server-express';
 import createSchema from './util/CreateSchema';
@@ -8,11 +7,7 @@ import ContextType from './types/Context.type';
 import { GraphQLSchema } from 'graphql';
 import express, { Application } from 'express';
 import cors from 'cors';
-import { v4 as uuid } from 'uuid';
-import { isProd, projectName } from './constants';
-import passport from 'passport';
-import UserRepo from './db/UserRepo';
-import { PassportGenericUser } from './auth/types/PassportGenericUser.type';
+import { projectName } from './constants';
 import { GithubOAuth } from './auth/strategies/GithubOAuth';
 import { DiscordOAuth } from './auth/strategies/DiscordOAuth';
 import dotenv from 'dotenv';
@@ -20,6 +15,10 @@ import { apolloPlugins } from './util/apolloPlugins';
 import { TwitterOAuth } from './auth/strategies/TwitterOAuth';
 import { GoogleOAuth } from './auth/strategies/GoogleOAuth';
 import fetchOauthClientInfo from './auth/util/fetchOauthClientInfo';
+import { TokenPairUtil } from './auth/token/util/TokenPair';
+import Regenerate from './auth/token/resolvers/regenerate';
+import Revoke from './auth/token/resolvers/revoke';
+import Validate from './auth/token/resolvers/validate';
 
 export class Server {
   public app: Application;
@@ -27,6 +26,8 @@ export class Server {
   public redisClient: RedisClient;
   public schema: GraphQLSchema;
   public gqlServer: ApolloServer;
+  public prisma: PrismaClient;
+  public tokens: TokenPairUtil;
 
   public constructor() {
     // initialize dontenv
@@ -44,18 +45,17 @@ export class Server {
     // apply express middleware
     this.applyExpressMiddleware();
 
-    // initialize passport
-    this.passportInit();
-
     // implement general-purpose routes
     this.routes();
+
+    // setup tokens
+    this.setupTokens();
 
     // implement authentication routes
     this.auth();
   }
 
   private redisInit = () => {
-    this.redisStore = connectRedis(session);
     this.redisClient = createClient({
       port: Number(process.env.REDIS_PORT) || 6379,
       host: process.env.REDIS_HOST || "localhost",
@@ -71,6 +71,7 @@ export class Server {
   };
 
   private async apolloInit() {
+    this.prisma = new PrismaClient();
     this.schema = await createSchema();
     const plugins = apolloPlugins(this.schema);
     this.gqlServer = new ApolloServer({
@@ -78,7 +79,7 @@ export class Server {
       context: ({ req, res }: ContextType) => ({
         req,
         res,
-        prisma: new PrismaClient(),
+        prisma: this.prisma,
       }),
       plugins,
     });
@@ -86,78 +87,39 @@ export class Server {
     this.gqlServer.applyMiddleware({ app: this.app });
   }
 
-  private passportInit() {
-    const userRepo = new UserRepo();
-
-    // serialize the user
-    passport.serializeUser(async (_, done) => {
-      const user: PassportGenericUser = _ as any;
-      const dbUser = await userRepo.findOrCreateUser(
-        user.primaryOauthConnection.oauthService,
-        user
-      );
-      done(!dbUser ? "Error with authentication." : null, dbUser.id);
-    });
-
-    // deserialize the user
-    passport.deserializeUser<string>(async (id, done) => done(null, { id }));
-  }
-
   private applyExpressMiddleware() {
     // cors
     this.app.use(cors({ origin: "*" }));
-
-    // session
-    this.app.use(
-      session({
-        name: "_hl_sess",
-        genid: (_) => uuid(),
-        store: new this.redisStore({ client: this.redisClient }),
-        secret: process.env.sessionSecret || "hydraliteispog",
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-          httpOnly: true,
-          secure: isProd,
-          sameSite: "lax",
-          signed: true,
-          maxAge: 1000 * 60 * 60 * 24 * 365,
-        },
-      })
-    );
-
-    // passport
-    this.app.use(passport.initialize());
-    this.app.use(passport.session());
   }
 
   private routes() {
     // welcome route
     this.app.get("/", function (req, res) {
-      console.log("session", req.session);
-      console.log("user", req.user);
       return res.json({
         message: `Welcome to ${projectName}`,
-        authorized: !!req.isAuthenticated(),
       });
     });
   }
 
   private auth() {
     // oauth strategies
-    if (fetchOauthClientInfo('github').clientId) this.app.use('/api/auth/github', GithubOAuth(passport));
-    if (fetchOauthClientInfo('discord').clientId) this.app.use('/api/auth/discord', DiscordOAuth(passport));
-    if (fetchOauthClientInfo('twitter').clientId) this.app.use('/api/auth/twitter', TwitterOAuth(passport));
-    if (fetchOauthClientInfo('google').clientId) this.app.use('/api/auth/google', GoogleOAuth(passport));
+    if (fetchOauthClientInfo('github').clientId) this.app.use('/api/auth/github', GithubOAuth(this.tokens));
+    if (fetchOauthClientInfo('discord').clientId) this.app.use('/api/auth/discord', DiscordOAuth(this.tokens));
+    if (fetchOauthClientInfo('twitter').clientId) this.app.use('/api/auth/twitter', TwitterOAuth(this.tokens));
+    if (fetchOauthClientInfo('google').clientId) this.app.use('/api/auth/google', GoogleOAuth(this.tokens));
 
     // logout
     this.app.get("/api/auth/logout", function (req, res) {
-      req.session.destroy((err) => {
-        if (err) throw err;
-        req.logout();
-        res.redirect("/");
-      });
+      
     });
+  }
+
+  private setupTokens() {
+    this.tokens = new TokenPairUtil(this.prisma);
+
+    this.app.use("/api/token/regenerate", Regenerate(this.prisma));
+    this.app.use("/api/token/revoke", Revoke(this.prisma));
+    this.app.use("/api/token/validate", Validate(this.prisma));
   }
 
   public run() {
