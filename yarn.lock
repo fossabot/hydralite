@@ -745,7 +745,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hydralite/api@workspace:api"
   dependencies:
-    "@prisma/client": ~2.23.0
+    "@prisma/client": ^2.27.0
     "@types/connect-redis": ^0.0.16
     "@types/cors": ^2.8.10
     "@types/express": ^4.17.12
@@ -1262,17 +1262,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:~2.23.0":
-  version: 2.23.0
-  resolution: "@prisma/client@npm:2.23.0"
+"@prisma/client@npm:^2.27.0":
+  version: 2.27.0
+  resolution: "@prisma/client@npm:2.27.0"
   dependencies:
-    "@prisma/engines-version": 2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b
+    "@prisma/engines-version": 2.27.0-43.cdba6ec525e0213cce26f8e4bb23cf556d1479bb
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: f90e8360047c5ff6f33b803d146660c6a5c248306d4ae40c11ad2e04eeaa9f0ac55e922b65e053b25ea92688d5ed343ed9f0a68326eb8e9fc4de241e1a586b97
+  checksum: 6406473719f183e05cb99e0dd08af4168edd2b147c4c1f0cf7f34630e3aa383072e28ff5151322cd159f8dc31574c61ba75b60992d998232bde0d4e93d7a6aaa
   languageName: node
   linkType: hard
 
@@ -1306,10 +1306,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b":
-  version: 2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b
-  resolution: "@prisma/engines-version@npm:2.23.0-36.adf5e8cba3daf12d456d911d72b6e9418681b28b"
-  checksum: 71798acd7a9758a0dbd2238f0122a6f391528ffe0fd6b9e2551b901aca4834bf2272ae85e1be48cf513f441068733ce51d5633b76995e90c9104299d8c0b5336
+"@prisma/engines-version@npm:2.27.0-43.cdba6ec525e0213cce26f8e4bb23cf556d1479bb":
+  version: 2.27.0-43.cdba6ec525e0213cce26f8e4bb23cf556d1479bb
+  resolution: "@prisma/engines-version@npm:2.27.0-43.cdba6ec525e0213cce26f8e4bb23cf556d1479bb"
+  checksum: d85213deac14a2599475f86db3c977125453fe1f9fcf1101c5818a76c2c0d081ed82ed53af8fdeb59b9fdc4ff3cd8fcf43ddcc508bf6bbcc78c30e8a32121fdd
   languageName: node
   linkType: hard
 

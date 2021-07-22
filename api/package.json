@@ -22,7 +22,7 @@
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts"
   },
   "dependencies": {
-    "@prisma/client": "~2.23.0",
+    "@prisma/client": "^2.27.0",
     "apollo-server-express": "^2.25.1",
     "axios": "^0.21.1",
     "chalk": "^4.1.1",

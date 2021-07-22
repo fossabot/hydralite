@@ -14,7 +14,7 @@ export class JoinProject {
   @Mutation(() => Project)
   async joinProject(
     @Ctx() { req: { user: _ }, prisma }: ContextType,
-    @Arg("args") { projectId, role }: JoinProjectArgs
+    @Arg("args") { projectId }: JoinProjectArgs
   ) {
     const user: User = _ as any;
 
@@ -39,11 +39,7 @@ export class JoinProject {
           create: [
             {
               user: { connect: { id: user.id } },
-              type: role,
-              awaitingApproval:
-                projectToJoin.newJoineesRequireApproval ||
-                role === "moderator" ||
-                role === "projectTeam",
+              awaitingApproval: projectToJoin.newJoineesRequireApproval,
             },
           ],
         },
