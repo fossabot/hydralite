@@ -11,7 +11,6 @@ COPY tailwind.config.js ./
 COPY constants.ts ./
 COPY next-env.d.ts ./
 
-#copying all the files from the src folder
 COPY components ./components
 COPY constants ./constants
 COPY data ./data

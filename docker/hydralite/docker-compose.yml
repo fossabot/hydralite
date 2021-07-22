@@ -11,7 +11,7 @@ services:
     networks:
       - main
       - api
-    depends_on: 
+    depends_on:
       - postgresql
       - redis
     ports:
@@ -23,16 +23,20 @@ services:
     image: postgres
     networks:
       - api
+      - db
     environment:
       POSTGRES_PASSWORD: "password"
   redis:
     image: redis
     networks:
       - api
+      - db
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
 networks:
   main:
     driver: bridge
   api:
+    driver: bridge
+  db:
     driver: bridge
