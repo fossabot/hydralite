@@ -33,7 +33,6 @@ RUN yarn workspace @hydralite/api run prisma:generate \
     && yarn workspace @hydralite/api run build \
     && yarn workspace @hydralite/hydrabot run build \
     && yarn workspace @hydralite/web run build
-# RUN yarn workspaces foreach --include @hydralite/api,@hydralite/web,@hydralite/hydrabot -p run build
 
 # Ensure our entrypoint script is available and executable
 COPY docker-entrypoint.sh /hydralite/docker-entrypoint.sh
