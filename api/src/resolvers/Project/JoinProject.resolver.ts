@@ -39,6 +39,7 @@ export class JoinProject {
           create: [
             {
               user: { connect: { id: user.id } },
+              type: role,
               awaitingApproval:
                 projectToJoin.newJoineesRequireApproval ||
                 role === "moderator" ||

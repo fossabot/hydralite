@@ -30,6 +30,7 @@ export default class CreateProjectResolver {
           members: {
             create: [
               {
+                type: "projectTeam",
                 user: { connect: { id: user.id } },
                 overallPermissions: {
                   create: {
