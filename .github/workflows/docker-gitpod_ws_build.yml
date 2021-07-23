@@ -1,16 +1,6 @@
 name: docker:gitpod_ws_build
 
-on:
-  push:
-    branches: [dev]
-    paths:
-      - ".gitpod.Dockerfile"
-      - ".dockerignore"
-  pull_request:
-    branches: [dev]
-    paths:
-      - ".gitpod.Dockerfile"
-      - ".dockerignore"
+on: [push, pull_request]
 
 jobs:
   build-image:
@@ -45,7 +35,7 @@ jobs:
         with:
           repo-token: ${{ github.token }}
           message: |
-            :warning: The Gitpod workspace image failed to build for commit ID ${{github.sha.}} See https://github.com/${{github.repository}}/pull/${{github.event.pull_request.number}}/checks?check_run_id=${{github.run_id}} for the build log on why it's failed.
+            :warning: The Gitpod workspace image failed to build for commit ID ${{github.sha}}. See https://github.com/${{github.repository}}/pull/${{github.event.pull_request.number}}/checks?check_run_id=${{github.run_id}} for the build log on why it's failed.
 
       - name: Comment PR when successful
         uses: github-actions-up-and-running/pr-comment@v1.0.0
@@ -53,4 +43,19 @@ jobs:
         with:
           repo-token: ${{ github.token }}
           message: |
-            :white_check_mark: The Gitpod workspace image successfully built for commit ID ${{github.sha.}} See https://github.com/${{github.repository}}/pull/${{github.event.pull_request.number}}/checks?check_run_id=${{github.run_id}} for the full build changelog.
+            :white_check_mark: The Gitpod workspace image successfully built for commit ID ${{github.sha}}. See https://github.com/${{github.repository}}/pull/${{github.event.pull_request.number}}/checks?check_run_id=${{github.run_id}} for the full build log.
+            
+      - name: Comment on commit when failed
+        uses: peter-evans/commit-comment@v1.3.2
+        if:  ${{ failure() && github.event_name != 'pull_request' }}
+        with:
+          sha: ${{github.sha}}
+          body: |
+            :warning: The Gitpod workspace image failed to build for commit ID ${{github.sha}}. See https://github.com/${{github.repository}}/runs/${{github.run_id}} for the build log on why it's failed.
+      - name: Comment on commit when successful
+        uses: peter-evans/commit-comment@v1.3.2
+        if:  ${{ success() && github.event_name != 'pull_request' }}
+        with:
+          sha: ${{github.sha}}
+          body: |
+            :white_check_mark: The Gitpod workspace image successfully built for commit ID ${{github.sha}}. See https://github.com/${{github.repository}}/runs/${{github.run_id}} for the full build log.
