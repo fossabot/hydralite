@@ -6,6 +6,8 @@
         "api:start": "cd hydralite-api/ && docker compose up -d",
         "api:stop": "cd hydralite-api/ && docker compose down",
         "web:start": "cd hydralite-web/ && docker compose up -d",
-        "web:stop": "cd hydralite-web/ && docker compose down"
+        "web:stop": "cd hydralite-web/ && docker compose down",
+        "db:start": "cd hydralite-db/ && docker compose up -d",
+        "db:stop": "cd hydralite-db/ && docker compose down"
     }
 }

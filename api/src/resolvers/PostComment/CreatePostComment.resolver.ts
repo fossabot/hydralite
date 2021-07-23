@@ -1,4 +1,4 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreatePostCommentArgs } from "./args/CreatePostCommentArgs";
 import ContextType from "~/types/Context.type";
@@ -15,14 +15,18 @@ export class CreatePostCommentResolver {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
-    type postCommentType = Parameters<typeof prisma.postComment.create>[0]["data"];
+    type postCommentType = Parameters<
+      typeof prisma.postComment.create
+    >[0]["data"];
     const postComment: postCommentType = {
       body: args.body,
       creator: { connect: { id: user.id } },
-      post: { connect: { id: args.postId } }
+      post: { connect: { id: args.postId } },
     };
 
-    const createdPostComment = await prisma.postComment.create({ data: postComment });
+    const createdPostComment = await prisma.postComment.create({
+      data: postComment,
+    });
     return createdPostComment;
   }
 }
