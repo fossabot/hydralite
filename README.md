@@ -32,5 +32,5 @@ To start both the web and api servers -
 
 **Other Ways To Get Started**
 
-- Running Hydralite With Docker - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md">Click Here</a>
-- Running Hydralite On Gitpod - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md">Click Here</a>
+- Running Hydralite With Docker - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md#using-docker">Click Here</a>
+- Running Hydralite On Gitpod - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md#using-gitpod">Click Here</a>

@@ -8,6 +8,7 @@ import { DeleteHashtagArgs } from "./args/DeleteHashtagArgs";
 @Resolver()
 export default class DeleteHashtagResolver {
   @Mutation(() => Boolean)
+  // TASK: Only site admins should be able to delete hashtags
   @IsAuthenticated()
   async deleteHashtag(
     @Arg("args") args: DeleteHashtagArgs,
