@@ -18,7 +18,7 @@ export default class GithubApiManager {
 
       data.forEach((obj: any) => {
         let license = null;
-        if (obj.license != null) {
+        if (obj.license !== null) {
           license = obj.license.name;
         }
 
