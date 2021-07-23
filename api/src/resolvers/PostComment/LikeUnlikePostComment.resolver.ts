@@ -1,6 +1,6 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Post, PostComment, User } from "~/resolver-types/models";
+import { PostComment, User } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
 import { LikeUnlikePostCommentArgs } from "./args/LikeUnlikePostCommentArgs";
 
@@ -19,13 +19,13 @@ export class LikeUnlikePostCommentResolver {
       where: { id: commentId },
       data: { likers: { connect: [{ id: user.id }] } },
       include: {
-        likers: true
-      }
+        likers: true,
+      },
     });
 
     return await prisma.postComment.update({
-        where: { id: likedPostComment.id },
-        data: { likes: likedPostComment.likers.length },
+      where: { id: likedPostComment.id },
+      data: { likes: likedPostComment.likers.length },
     });
   }
 
@@ -42,13 +42,13 @@ export class LikeUnlikePostCommentResolver {
       where: { id: commentId },
       data: { likers: { disconnect: { id: user.id } } },
       include: {
-        likers: true
-      }
+        likers: true,
+      },
     });
 
     return await prisma.postComment.update({
-        where: { id: unlikedPostComment.id },
-        data: { likes: unlikedPostComment.likers.length },
+      where: { id: unlikedPostComment.id },
+      data: { likes: unlikedPostComment.likers.length },
     });
   }
 }

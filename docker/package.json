@@ -1,11 +1,17 @@
 {
     "name": "@hydralite/docker",
     "scripts": {
-        "hydralite:start": "cd hydralite/ && docker compose up -d",
-        "hydralite:stop": "cd hydralite/ && docker compose down",
-        "api:start": "cd hydralite-api/ && docker compose up -d",
-        "api:stop": "cd hydralite-api/ && docker compose down",
-        "web:start": "cd hydralite-web/ && docker compose up -d",
-        "web:stop": "cd hydralite-web/ && docker compose down"
+        "hydralite:start": "cd hydralite/ && docker-compose up -d --build",
+        "hydralite:stop": "cd hydralite/ && docker-compose down",
+        "hydralite:logs": "cd hydralite/ && docker-compose logs --tail=all -f",
+        "api:start": "cd hydralite-api/ && docker-compose up -d --build",
+        "api:stop": "cd hydralite-api/ && docker-compose down",
+        "api:logs": "cd hydralite-api/ && docker-compose logs --tail=all -f",
+        "web:start": "cd hydralite-web/ && docker-compose up -d --build",
+        "web:stop": "cd hydralite-web/ && docker-compose down",
+        "web:logs": "cd hydralite-api/ && docker-compose logs --tail=all -f",
+        "db:start": "cd hydralite-db/ && docker compose up -d",
+        "db:stop": "cd hydralite-db/ && docker compose down",
+        "db:logs": "cd hydralite-db/ && docker-compose logs --tail=all -f"
     }
 }

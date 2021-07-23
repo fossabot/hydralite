@@ -10,14 +10,14 @@ export class ReadAllPostCommentsResolver {
   @IsAuthenticated()
   async readAllPostComments(
     @Arg("args") args: ReadAllPostCommentsArgs,
-    @Ctx() { req, prisma }: ContextType
+    @Ctx() { prisma }: ContextType
   ) {
     const comments = await prisma.postComment.findMany({
       where: {
-        postId: args.postId
+        postId: args.postId,
       },
     });
-    
+
     const sortedComments = comments.sort((a, b) => b.likes - a.likes);
     return sortedComments;
   }
