@@ -1,7 +1,6 @@
 FROM gitpod/workspace-base:latest
 
 USER gitpod
-RUN sudo apt update
 ENV IS_GITPOD=true
 
 ### Node.js ###
@@ -78,7 +77,9 @@ RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]
 RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
     && sudo apt-key add /tmp/docker.gpg \
     && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
-    && sudo /usr/bin/install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io
+    && sudo install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io \
+    # Don't forget to add Gitpod user to the docker Unix group
+    && usermod -aG docker gitpod
 # slirp4netns for rootless containers
 RUN sudo curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.9/slirp4netns-$(uname -m) \
     && sudo chmod +x /usr/bin/slirp4netns
@@ -87,16 +88,12 @@ RUN sudo curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/c
     && sudo chmod +x /usr/local/bin/docker-compose
 # https://github.com/wagoodman/dive
 RUN sudo curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb \
-    && sudo apt install /tmp/dive.deb \
-    && sudo rm /tmp/dive.deb
+    && sudo install-packages /tmp/dive.deb
 
 ### Flutter ###
 # Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
 # See Gitpod issue at https://github.com/gitpod-io/gitpod/issues/1273 and also in Google Issue Tracker in general at https://issuetracker.google.com/issues/110507927?pli=1
-RUN set -ex; \
-    sudo apt-get update; \
-    sudo apt-get install -y libglu1-mesa; \
-    sudo rm -rf /var/lib/apt/lists/*
+RUN sudo install-packages libglu1-mesa
 
 RUN set -ex; \
     mkdir ~/development; \
@@ -109,8 +106,5 @@ RUN set -ex; \
     flutter precache --android --ios --universal -v
 
 ### Cleanup ###
-RUN sudo apt-get clean -y && \
-   sudo rm -rfv /var/cache/debconf/* \
-   /var/lib/apt/lists/* \
-   /tmp/* \
-   /var/tmp/*
+RUN sudo apt-get clean -y \
+    && sudo rm -rfv /var/cache/debconf/* /var/lib/apt/lists/* /tmp/* /var/tmp/*
