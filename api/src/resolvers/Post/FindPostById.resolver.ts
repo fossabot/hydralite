@@ -12,7 +12,6 @@ const userRepo = new UserRepo();
 @Resolver()
 export class FindPostByIdResolver {
   @Query(() => Post)
-  @IsAuthenticated()
   async findPostById(
     @Arg("args") { postId }: FindPostByIdArgs,
     @Ctx() { req }: ContextType
