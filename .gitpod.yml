@@ -4,12 +4,14 @@ image:
 # init tasks are ran in prebuilds, command tasks are run when the user starts a new session.
 tasks:
   - name: Install Packages (Global)
-    init: |
-      yarn
+    init: yarn
+    # Since we cannot call this command during the workspace creation process, we'll call sync-done after the workspace is ready, and then exits the terminal gracefully
+    command: gp sync-done yarn-install && exit 0
 
   - name: Setup Web/Api Server
-    # TODO: Use Docker Compose instead for starting development servers
+# TODO: Use Docker Compose instead for starting development servers
     command: |
+      gp sync-await yarn-install 
       yarn setup
       yarn dev
 
@@ -25,6 +27,10 @@ vscode:
     - eamodio.gitlens
     # Wait a sec, Docker stuff?
     - ms-azuretools.vscode-docker
+    # Rust Analyizer is configured in this repo's settings, so we'll add it also
+    - matklad.rust-analyzer
+    # Don't forget the main one, but YOLO if you enabled both.
+    #- rust-lang.rust
 
 github:
   prebuilds:
@@ -42,3 +48,9 @@ github:
     addComment: true
     # add a "Review in Gitpod" button to the pull request's description (defaults to false)
     addBadge: false
+
+ports:
+  # ignore when the Postgres server starts by either our bashrc hack or one of the before scripts.
+  - port: 5432
+    onOpen: ignore
+    visibility: private
