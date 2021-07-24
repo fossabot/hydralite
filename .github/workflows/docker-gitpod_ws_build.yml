@@ -39,6 +39,7 @@ jobs:
         with:
           push: false
           context: .
+          file: .gitpod.Dockerfile
           platforms: linux/amd64
 
       - name: Comment PR when failed
