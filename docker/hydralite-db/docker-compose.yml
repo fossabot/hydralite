@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  postgresql:
+    image: postgres
+    networks:
+      - db
+    environment:
+      POSTGRES_PASSWORD: "password"
+  redis:
+    image: redis
+    networks:
+      - db
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    networks:
+      - db
+    depends_on:
+      - redis
+    ports:
+      - "8001:8001"
+networks:
+  db:
+    driver: bridge
