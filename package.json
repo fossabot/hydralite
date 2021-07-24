@@ -20,6 +20,8 @@
     "docker:build": "DOCKER_BUILDKIT=0 docker build -t ghcr.io/hydralite/server:dev .",
     "db:start": "cd docker/hydralite-db/ && docker compose up -d",
     "db:stop": "cd docker/hydralite-db/ && docker compose down",
+    "dbg:start": "cd docker/hydralite-db-gui/ && docker compose up -d",
+    "dbg:stop": "cd docker/hydralite-db-gui/ && docker compose down",
     "web:start": "cd docker/hydralite-web/ && docker compose up -d",
     "web:stop": "cd docker/hydralite-web/ && docker compose down",
     "api:start": "cd docker/hydralite-api/ && docker compose up -d",

@@ -10,6 +10,8 @@
     "prisma:format": "prisma format",
     "db:start": "cd .. & npm run db:start",
     "db:stop": "cd .. & npm run db:stop",
+    "dbg:start": "cd .. & npm run dbg:start",
+    "dbg:stop": "cd .. & npm run dbg:stop",
     "api:start": "cd .. & npm run api:start",
     "api:stop": "cd .. & npm run api:stop",
     "all:start": "cd .. & npm run all:start",
