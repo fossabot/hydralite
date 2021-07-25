@@ -1,70 +1,58 @@
 import { Router } from "express";
-import { Strategy } from "passport-discord";
-import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import { PassportDiscordProfile } from "../types/PassportDiscordProfile.type";
-import discordAvatarUrl from "../util/discordAvatarUrl";
+import UserRepo from "~/db/UserRepo";
+import { TokenPairUtil } from "../token/util/TokenPair";
 
-export const DiscordOAuth = (passport: PassportStatic) => {
+export const DiscordOAuth = (tokens: TokenPairUtil) => {
   const oauthInfo = fetchOauthClientInfo("discord");
+  const userRepo = new UserRepo();
+  
+  const router = Router();
+  router.get(
+    "/",
+    (_, res) => {
+      // TODO: respond with the oauth url
 
-  passport.use(
-    new Strategy(
-      {
-        clientID: oauthInfo.clientId,
-        clientSecret: oauthInfo.clientSecret,
-        callbackURL: oauthInfo.cbUrl!,
-        scope: ["email", "identify"],
-      },
-      async (
-        _: string,
-        __: string,
-        profile: PassportDiscordProfile,
-        done: any
-      ) => {
-        const genericUser: PassportGenericUser = {
-          email: profile.email || "",
-          username: `${profile.username}#${profile.discriminator}`, // TASK: Randomize usernames for each provider
+      res.json({
+        url: ``
+      });
+    }
+  );
+
+
+  router.post(
+    "/",
+    async (req, res) => {
+      try {
+        // TODO: get user info from discord by using the code provided by "req.query.code"
+
+        const user: PassportGenericUser = {
+          email: "",
+          username: "",
           profile: {
-            avatarUrl: discordAvatarUrl(
-              profile.id,
-              profile.discriminator,
-              profile.avatar
-            ),
+            avatarUrl: "",
+            bio: "",
           },
           primaryOauthConnection: {
-            email: profile.email || "",
+            email: "",
             oauthService: "discord",
-            username: `${profile.username}#${profile.discriminator}`,
-            oauthServiceUserId: profile.id,
+            username: "",
+            oauthServiceUserId: "",
           },
         };
 
-        return done(null, genericUser);
+        const dbUser = await userRepo.findOrCreateUser(
+          user.primaryOauthConnection.oauthService,
+          user
+        );
+
+        const tokenPair = await tokens.generateTokenPair(dbUser.id);
+        
+        res.json(tokenPair);
+      } catch (error) {
+        res.json({ error: error.message });
       }
-    )
-  );
-
-  const router = Router();
-
-  router.get(
-    "/",
-    passport.authenticate("discord", {
-      failureRedirect: `/`,
-      session: true,
-    })
-  );
-
-  router.get(
-    "/cb",
-    passport.authenticate("discord", {
-      failureRedirect: `/`,
-      session: true,
-    }),
-    (_, res) => {
-      // TASK: redirect to main site
-      res.redirect("/");
     }
   );
 

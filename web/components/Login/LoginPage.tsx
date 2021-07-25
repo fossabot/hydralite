@@ -32,11 +32,17 @@ const Navbar = () => {
   );
 };
 
-const LoginButton = ({ icon, title }) => {
+const LoginButton = ({ icon, title, id }) => {
   const wrapper = { icon };
 
   return (
-    <button className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full">
+    <button
+      className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full"
+      onClick={async () => {
+        const url = await fetch(`http://localhost:8000/api/auth/${id}`).then(v => v.json()).then(v => v.url);
+        window.location.href = url;
+      }}
+    >
       <div style={{ width: 50, height: 50, marginRight: 60 }}>
         <wrapper.icon />
       </div>
@@ -56,10 +62,10 @@ const LoginContent = () => {
         </h4>
       </div>
       <div className="flex flex-col items-center self-stretch mx-16">
-        <LoginButton icon={GoogleIcon} title="Google" />
-        <LoginButton icon={GithubIcon} title="Github" />
-        <LoginButton icon={TwitterIcon} title="Twitter" />
-        <LoginButton icon={DiscordIcon} title="Discord" />
+        <LoginButton icon={GoogleIcon} title="Google" id="google" />
+        <LoginButton icon={GithubIcon} title="Github" id="github" />
+        <LoginButton icon={TwitterIcon} title="Twitter" id="twitter" />
+        <LoginButton icon={DiscordIcon} title="Discord" id="discord" />
       </div>
     </div>
   );

@@ -33,9 +33,7 @@ export default function fetchOauthClientInfo(
       break;
   }
 
-  info.cbUrl = `http://localhost:${
-    process.env.PORT || 8000
-  }/api/auth/${provider}/cb`;
+  info.cbUrl = `http://localhost:3000/auth/${provider}`;
 
   return info;
 }

@@ -1,63 +1,58 @@
 import { Router } from "express";
-import { Strategy } from "passport-twitter";
-import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import { PassportTwitterProfile } from "../types/PassportTwitterProfile.type";
+import UserRepo from "~/db/UserRepo";
+import { TokenPairUtil } from "../token/util/TokenPair";
 
-export const TwitterOAuth = (passport: PassportStatic) => {
+export const TwitterOAuth = (tokens: TokenPairUtil) => {
   const oauthInfo = fetchOauthClientInfo("twitter");
+  const userRepo = new UserRepo();
+  
+  const router = Router();
+  router.get(
+    "/",
+    (_, res) => {
+      // TODO: respond with the oauth url
 
-  passport.use(
-    new Strategy(
-      {
-        consumerKey: oauthInfo.clientId,
-        consumerSecret: oauthInfo.clientSecret,
-        callbackURL: oauthInfo.cbUrl!,
-      },
-      async (
-        _: string,
-        __: string,
-        profile: PassportTwitterProfile,
-        done: any
-      ) => {
-        const genericUser: PassportGenericUser = {
+      res.json({
+        url: ``
+      });
+    }
+  );
+
+
+  router.post(
+    "/",
+    async (req, res) => {
+      try {
+        // TODO: get user info from twitter by using the code provided by "req.query.code"
+
+        const user: PassportGenericUser = {
           email: "",
-          username: profile.username,
+          username: "",
           profile: {
-            avatarUrl: profile._json.profile_image_url_https,
+            avatarUrl: "",
+            bio: "",
           },
           primaryOauthConnection: {
             email: "",
             oauthService: "twitter",
-            username: profile.username,
-            oauthServiceUserId: profile.id,
+            username: "",
+            oauthServiceUserId: "",
           },
         };
 
-        return done(null, genericUser);
+        const dbUser = await userRepo.findOrCreateUser(
+          user.primaryOauthConnection.oauthService,
+          user
+        );
+
+        const tokenPair = await tokens.generateTokenPair(dbUser.id);
+        
+        res.json(tokenPair);
+      } catch (error) {
+        res.json({ error: error.message });
       }
-    )
-  );
-
-  const router = Router();
-
-  router.get(
-    "/",
-    passport.authenticate("twitter", {
-      failureRedirect: `/`,
-      session: true,
-    })
-  );
-
-  router.get(
-    "/cb",
-    passport.authenticate("twitter", {
-      failureRedirect: `/`,
-      session: true,
-    }),
-    (_, res) => {
-      res.redirect("/");
     }
   );
 

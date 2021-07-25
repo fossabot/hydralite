@@ -7,6 +7,7 @@ COPY ./tsconfig.json ./tsconfig.json
 COPY ./setup.js ./setup.js
 COPY ./src ./src
 COPY ./prisma ./prisma
+COPY .env ./
 
 # Install Bash first, because in Alpine that's not preinstalled
 ARG DUMB_INIT_RELEASE=1.2.5
