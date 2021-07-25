@@ -1,60 +1,27 @@
-import { Router } from "express";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import UserRepo from "~/db/UserRepo";
-import { TokenPairUtil } from "../token/util/TokenPair";
+import { OAuthStrategy, StrategyInfo } from "./Strategy";
 
-export const TwitterOAuth = (tokens: TokenPairUtil) => {
-  const oauthInfo = fetchOauthClientInfo("twitter");
-  const userRepo = new UserRepo();
-  
-  const router = Router();
-  router.get(
-    "/",
-    (_, res) => {
-      // TODO: respond with the oauth url
+async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+  // TODO: get user data from twitter
+  return {
+    email: "",
+    username: "",
+    profile: {
+      avatarUrl: "",
+      bio: "",
+    },
+    primaryOauthConnection: {
+      email: "",
+      oauthService: "google",
+      username: "",
+      oauthServiceUserId: "",
+    },
+  };
+}
 
-      res.json({
-        url: ``
-      });
-    }
-  );
+function getAuthUrl(oauthInfo: StrategyInfo) {
+  // TODO: return an redirect URI for twitter oauth
+  return '';
+}
 
-
-  router.post(
-    "/",
-    async (req, res) => {
-      try {
-        // TODO: get user info from twitter by using the code provided by "req.query.code"
-
-        const user: PassportGenericUser = {
-          email: "",
-          username: "",
-          profile: {
-            avatarUrl: "",
-            bio: "",
-          },
-          primaryOauthConnection: {
-            email: "",
-            oauthService: "twitter",
-            username: "",
-            oauthServiceUserId: "",
-          },
-        };
-
-        const dbUser = await userRepo.findOrCreateUser(
-          user.primaryOauthConnection.oauthService,
-          user
-        );
-
-        const tokenPair = await tokens.generateTokenPair(dbUser.id);
-        
-        res.json(tokenPair);
-      } catch (error) {
-        res.json({ error: error.message });
-      }
-    }
-  );
-
-  return router;
-};
+export const TwitterOAuth = OAuthStrategy('twitter', getAuthUrl, getUser);

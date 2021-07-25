@@ -103,15 +103,10 @@ export class Server {
 
   private auth() {
     // oauth strategies
-    if (fetchOauthClientInfo('github').clientId) this.app.use('/api/auth/github', GithubOAuth(this.tokens));
-    if (fetchOauthClientInfo('discord').clientId) this.app.use('/api/auth/discord', DiscordOAuth(this.tokens));
-    if (fetchOauthClientInfo('twitter').clientId) this.app.use('/api/auth/twitter', TwitterOAuth(this.tokens));
-    if (fetchOauthClientInfo('google').clientId) this.app.use('/api/auth/google', GoogleOAuth(this.tokens));
-
-    // logout
-    this.app.get("/api/auth/logout", function (req, res) {
-      
-    });
+    if (fetchOauthClientInfo('github').clientId) this.app.use('/api/auth/github', GithubOAuth);
+    if (fetchOauthClientInfo('discord').clientId) this.app.use('/api/auth/discord', DiscordOAuth);
+    if (fetchOauthClientInfo('twitter').clientId) this.app.use('/api/auth/twitter', TwitterOAuth);
+    if (fetchOauthClientInfo('google').clientId) this.app.use('/api/auth/google', GoogleOAuth);
   }
 
   private setupTokens() {

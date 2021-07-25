@@ -16,8 +16,8 @@ export class TokenPair {
 
 export class TokenPairUtil {
   private prisma: PrismaClient;
-  constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
+  constructor(prisma?: PrismaClient) {
+    this.prisma = prisma ?? new PrismaClient();
   }
 
   static generateUniqueToken() {

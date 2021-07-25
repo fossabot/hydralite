@@ -1,60 +1,27 @@
-import { Router } from "express";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import UserRepo from "~/db/UserRepo";
-import { TokenPairUtil } from "../token/util/TokenPair";
+import { OAuthStrategy, StrategyInfo } from "./Strategy";
 
-export const DiscordOAuth = (tokens: TokenPairUtil) => {
-  const oauthInfo = fetchOauthClientInfo("discord");
-  const userRepo = new UserRepo();
-  
-  const router = Router();
-  router.get(
-    "/",
-    (_, res) => {
-      // TODO: respond with the oauth url
+async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+  // TODO: get user data from discord
+  return {
+    email: "",
+    username: "",
+    profile: {
+      avatarUrl: "",
+      bio: "",
+    },
+    primaryOauthConnection: {
+      email: "",
+      oauthService: "google",
+      username: "",
+      oauthServiceUserId: "",
+    },
+  };
+}
 
-      res.json({
-        url: ``
-      });
-    }
-  );
+function getAuthUrl(oauthInfo: StrategyInfo) {
+  // TODO: return an redirect URI for discord oauth
+  return '';
+}
 
-
-  router.post(
-    "/",
-    async (req, res) => {
-      try {
-        // TODO: get user info from discord by using the code provided by "req.query.code"
-
-        const user: PassportGenericUser = {
-          email: "",
-          username: "",
-          profile: {
-            avatarUrl: "",
-            bio: "",
-          },
-          primaryOauthConnection: {
-            email: "",
-            oauthService: "discord",
-            username: "",
-            oauthServiceUserId: "",
-          },
-        };
-
-        const dbUser = await userRepo.findOrCreateUser(
-          user.primaryOauthConnection.oauthService,
-          user
-        );
-
-        const tokenPair = await tokens.generateTokenPair(dbUser.id);
-        
-        res.json(tokenPair);
-      } catch (error) {
-        res.json({ error: error.message });
-      }
-    }
-  );
-
-  return router;
-};
+export const DiscordOAuth = OAuthStrategy('discord', getAuthUrl, getUser);
