@@ -3,10 +3,11 @@ import { PassportGenericUser } from "~/auth/types/PassportGenericUser.type";
 import executeOrFail from "~/util/executeOrFail";
 import { User } from "~/resolver-types/models";
 import { ApolloError } from "apollo-server-express";
+import { AuthProviderType } from "~/types/AuthProvider.type";
 
 export default class UserRepo extends PrismaClient {
   findOrCreateUser = async (
-    oauthProvider: "discord" | "github" | "twitter" | "google",
+    oauthProvider: AuthProviderType,
     genericUserData: PassportGenericUser
   ): Promise<User> => {
     return executeOrFail(async () => {

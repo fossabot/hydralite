@@ -1,6 +1,6 @@
-export default function fetchOauthClientInfo(
-  provider: "github" | "discord" | "google" | "twitter"
-) {
+import { AuthProviderType } from "~/types/AuthProvider.type";
+
+export default function fetchOauthClientInfo(provider: AuthProviderType) {
   let info: {
     clientId: string;
     clientSecret: string;
