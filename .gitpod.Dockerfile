@@ -1,4 +1,10 @@
-FROM gitpod/workspace-base:latest
+FROM golang:1.16 AS shfmt
+
+# Formatting shell scripts, especially our Docker image's entrypoint script
+# https://github.com/mvdan/sh#shfmt
+RUN GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+
+FROM gitpod/workspace-base:latest AS base
 
 USER gitpod
 ENV IS_GITPOD=true
@@ -70,8 +76,12 @@ ENV PGHOSTADDR="127.0.0.1"
 ENV PGDATABASE="postgres"
 # This is a bit of a hack. At the moment we have no means of starting background
 # tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
-# PostgreSQL server is running, and if not starts it.
+# PostgreSQL server is running, and if not starts it. We can proably add this into
+# our tasks, probably on the before part for Postgres one.
 RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
+
+### Redis ###
+# TODO
 
 ### Docker ###
 RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
@@ -94,7 +104,6 @@ RUN sudo curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/
 # Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
 # See Gitpod issue at https://github.com/gitpod-io/gitpod/issues/1273 and also in Google Issue Tracker in general at https://issuetracker.google.com/issues/110507927?pli=1
 RUN sudo install-packages libglu1-mesa
-
 RUN set -ex; \
     mkdir ~/development; \
     cd ~/development; \
@@ -104,6 +113,23 @@ RUN set -ex; \
     flutter channel stable; \
     flutter upgrade; \
     flutter precache --android --ios --universal -v
+
+### ShellCheck/Halolint and other linting tools ###
+# scversion can be also "v0.4.7", or "latest", which shuld be changed on build time via
+# --build-args flag.
+ARG scversion="stable"
+# ShellCheck for our Docker image's entrypoint script
+RUN set -ex; \
+    wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv -C /tmp; \
+    cp "/tmp/shellcheck-${scversion}/shellcheck" /usr/bin/; \
+    rm -rfv /tmp/shellcheck-*
+# Shell script linting / formatter from our golang build stage
+COPY --from=shfmt /go/bin/shfmt /usr/bin/shfmt
+# Hadolint is ShellCheck for Dockerfiles, we cannot use Homebrew here.
+ARG HADOLINT_VERSION="stable"
+RUN set -ex; \
+    wget -q "https://github.com/hadolint/hadolint/releases/download/${HALOLINT_VERSION?}/hadolint-Linux-x86_64" -O /tmp/hadolint; \
+    sudo mv /tmp/halolint /usr/local/bin/hadolint; sudo chmod +x /usr/bin/hadolint
 
 ### Cleanup ###
 RUN sudo apt-get clean -y \
