@@ -1,6 +1,6 @@
-import { AuthProviderType } from "~/types/AuthProvider.type";
+import { AuthProviderStandaloneType } from "~/types/AuthProvider.type";
 
-export default function fetchOauthClientInfo(provider: AuthProviderType) {
+export default function fetchOauthClientInfo(provider: AuthProviderStandaloneType) {
   let info: {
     clientId: string;
     clientSecret: string;

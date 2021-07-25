@@ -3,8 +3,8 @@ import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import UserRepo from "~/db/UserRepo";
 import { TokenPairUtil } from "../token/util/TokenPair";
+import { AuthProviderType } from "~/types/AuthProvider.type";
 
-export type StrategyType = 'github' | 'discord' | 'google' | 'twitter';
 export type StrategyInfo = {
   clientId: string;
   clientSecret: string;
@@ -14,7 +14,7 @@ export type StrategyInfo = {
 export type GetAuthUrlFunction = (oauthInfo: StrategyInfo) => string;
 export type GetUserFunction = (code: string, oauthInfo: StrategyInfo) => Promise<PassportGenericUser | null>;
 
-export const OAuthStrategy = (strategy: StrategyType, getAuthUrl: GetAuthUrlFunction, getUser: GetUserFunction) => {
+export const OAuthStrategy = (strategy: AuthProviderType, getAuthUrl: GetAuthUrlFunction, getUser: GetUserFunction) => {
   const oauthInfo = fetchOauthClientInfo(strategy);
   const standaloneOauthInfo = fetchOauthClientInfo(`standalone/${strategy}`);
 
