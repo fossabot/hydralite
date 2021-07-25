@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 
 export class TokenPair {
   public accessToken: string;
@@ -27,7 +27,7 @@ export class TokenPairUtil {
       return Math.floor(Math.random() * 16).toString(16);
     });
 
-    return data.join('');
+    return data.join("");
   }
 
   generateTokenPair = async (userId: string) => {

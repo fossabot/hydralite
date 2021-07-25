@@ -1,4 +1,3 @@
-import Meta from "partials/Meta";
 import React from "react";
 import { useRouter } from "next/router";
 import Home from "~/pages/project/[id]/home";

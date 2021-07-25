@@ -4,7 +4,6 @@ import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGithubProfile } from "../types/PassportGithubProfile.type";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import { Server } from "src/Server";
 
 export const GithubOAuth = (passport: PassportStatic) => {
   const oauthInfo = fetchOauthClientInfo("github");
@@ -36,8 +35,6 @@ export const GithubOAuth = (passport: PassportStatic) => {
             oauthServiceUserId: profile.id,
           },
         };
-
-        
 
         return done(null, genericUser);
       }
