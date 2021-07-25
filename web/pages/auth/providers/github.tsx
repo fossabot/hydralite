@@ -1,7 +1,8 @@
 import { useEffect } from "react";
+import { serverUrl } from "../../../constantVars";
 
 async function get(code: string) {
-    const result = await fetch(`http://localhost:8000/api/auth/github?code=${code}`, { method: 'post' }).then(v => v.json());
+    const result = await fetch(`${serverUrl}/api/auth/github?code=${code}`, { method: 'post' }).then(v => v.json());
     if (result.error) return;
 
     if (result.accessToken) localStorage.setItem('accessToken', result.accessToken);

@@ -1,3 +1,5 @@
+import { AuthProviderType } from "~/types/AuthProvider.type";
+
 export interface PassportGenericUser {
   email?: string;
   profile: Profile;
@@ -11,7 +13,7 @@ interface Profile {
 }
 
 interface PrimaryOauthConnection {
-  oauthService: "discord" | "github" | "twitter" | "google";
+  oauthService: AuthProviderType;
   email: string;
   username: string;
   oauthServiceUserId: string;

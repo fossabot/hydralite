@@ -5,6 +5,7 @@ import {
     InMemoryCache,
     NormalizedCacheObject
 } from "@apollo/client";
+import { serverUrl } from "constantVars";
 import React, { useEffect, useMemo, useState } from "react";
 
 type V = ApolloClient<NormalizedCacheObject> | null;
@@ -25,7 +26,7 @@ function getAuthToken() {
 }
 
 
-const httpLink = new HttpLink({ uri: 'http://localhost:8000/graphql' });
+const httpLink = new HttpLink({ uri: `${serverUrl}/graphql` });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

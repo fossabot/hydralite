@@ -1,6 +1,6 @@
-export default function fetchOauthClientInfo(
-  provider: "github" | "discord" | "google" | "twitter" | "standalone/github" | "standalone/discord" | "standalone/google" | "standalone/twitter",
-) {
+import { AuthProviderType } from "~/types/AuthProvider.type";
+
+export default function fetchOauthClientInfo(provider: AuthProviderType) {
   let info: {
     clientId: string;
     clientSecret: string;
@@ -57,7 +57,7 @@ export default function fetchOauthClientInfo(
       break;
     }
 
-  info.cbUrl = (process.env.WEB_URL ?? 'http://localhost:3000') + `/auth/${provider}`;
+  info.cbUrl = (process.env.WEB_URL ?? 'http://localhost:3000') + `/auth/providers/${provider}`;
   if (provider.startsWith("standalone")) info.cbUrl = (process.env.API_URL ?? 'http://localhost:8000') + `/api/auth/${provider.substr('standalone/'.length)}/standalone/callback`;
 
   return info;

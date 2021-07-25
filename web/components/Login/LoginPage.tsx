@@ -1,6 +1,7 @@
 import Meta from "partials/Meta";
 import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
 import React from "react";
+import { serverUrl } from "../../constantVars";
 
 const NavLink = ({ href, active, children }) => {
   const style = ["font-bold"];
@@ -32,14 +33,14 @@ const Navbar = () => {
   );
 };
 
-const LoginButton = ({ icon, title, id }) => {
+const LoginButton = ({ icon, title, provider }) => {
   const wrapper = { icon };
 
   return (
     <button
       className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full"
       onClick={async () => {
-        const url = await fetch(`http://localhost:8000/api/auth/${id}`).then(v => v.json()).then(v => v.url);
+        const url = await fetch(`${serverUrl}/api/auth/${provider}`).then(v => v.json()).then(v => v.url);
         window.location.href = url;
       }}
     >
@@ -62,10 +63,10 @@ const LoginContent = () => {
         </h4>
       </div>
       <div className="flex flex-col items-center self-stretch mx-16">
-        <LoginButton icon={GoogleIcon} title="Google" id="google" />
-        <LoginButton icon={GithubIcon} title="Github" id="github" />
-        <LoginButton icon={TwitterIcon} title="Twitter" id="twitter" />
-        <LoginButton icon={DiscordIcon} title="Discord" id="discord" />
+        <LoginButton icon={GoogleIcon} title="Google" provider="google" />
+        <LoginButton icon={GithubIcon} title="Github" provider="github" />
+        <LoginButton icon={TwitterIcon} title="Twitter" provider="twitter" />
+        <LoginButton icon={DiscordIcon} title="Discord" provider="discord" />
       </div>
     </div>
   );

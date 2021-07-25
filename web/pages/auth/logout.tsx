@@ -1,7 +1,8 @@
+import { serverUrl } from "constantVars";
 import { useEffect } from "react";
 
 async function get() {
-    const result = await fetch(`http://localhost:8000/api/token/revoke?accessToken=${localStorage.getItem('accessToken')}`, { method: 'post' }).then(v => v.json());
+    const result = await fetch(`${serverUrl}/api/token/revoke?accessToken=${localStorage.getItem('accessToken')}`, { method: 'post' }).then(v => v.json());
     if (result.error) return;
 
     localStorage.removeItem('accessToken');
