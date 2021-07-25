@@ -33,7 +33,7 @@ export default function fetchOauthClientInfo(
       break;
   }
 
-  info.cbUrl = `http://localhost:3000/auth/${provider}`;
+  info.cbUrl = `http://localhost:3000/auth/providers/${provider}`;
 
   return info;
 }

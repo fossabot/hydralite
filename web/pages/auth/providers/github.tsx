@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { serverUrl } from "../../constantVars";
+import { serverUrl } from "../../../constantVars";
 
 async function get(code: string) {
     const result = await fetch(`${serverUrl}/api/auth/github?code=${code}`, { method: 'post' }).then(v => v.json());
