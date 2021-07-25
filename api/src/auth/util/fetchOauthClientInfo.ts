@@ -1,5 +1,5 @@
 export default function fetchOauthClientInfo(
-  provider: "github" | "discord" | "google" | "twitter"
+  provider: "github" | "discord" | "google" | "twitter" | "standalone/github" | "standalone/discord" | "standalone/google" | "standalone/twitter",
 ) {
   let info: {
     clientId: string;
@@ -31,9 +31,34 @@ export default function fetchOauthClientInfo(
         clientSecret: process.env.TWITTER_CLIENT_SECRET!,
       };
       break;
-  }
+    case "standalone/github":
+      info = {
+        clientId: process.env.STANDALONE_GITHUB_CLIENT_ID ?? process.env.GITHUB_CLIENT_ID!,
+        clientSecret: process.env.STANDALONE_GITHUB_CLIENT_SECRET ?? process.env.GITHUB_CLIENT_SECRET!,
+      };
+      break;
+    case "standalone/discord":
+      info = {
+        clientId: process.env.STANDALONE_DISCORD_CLIENT_ID ?? process.env.DISCORD_CLIENT_ID!,
+        clientSecret: process.env.STANDALONE_DISCORD_CLIENT_SECRET ?? process.env.DISCORD_CLIENT_SECRET!,
+      };
+      break;
+    case "standalone/google":
+      info = {
+        clientId: process.env.STANDALONE_GOOGLE_CLIENT_ID ?? process.env.GOOGLE_CLIENT_ID!,
+        clientSecret: process.env.STANDALONE_GOOGLE_CLIENT_SECRET ?? process.env.GOOGLE_CLIENT_SECRET!,
+      };
+      break;
+    case "standalone/twitter":
+      info = {
+        clientId: process.env.STANDALONE_TWITTER_CLIENT_ID ?? process.env.TWITTER_CLIENT_ID!,
+        clientSecret: process.env.STANDALONE_TWITTER_CLIENT_SECRET ?? process.env.TWITTER_CLIENT_SECRET!,
+      };
+      break;
+    }
 
-  info.cbUrl = `http://localhost:3000/auth/${provider}`;
+  info.cbUrl = (process.env.WEB_URL ?? 'http://localhost:3000') + `/auth/${provider}`;
+  if (provider.startsWith("standalone")) info.cbUrl = (process.env.API_URL ?? 'http://localhost:8000') + `/api/auth/${provider.substr('standalone/'.length)}/standalone/callback`;
 
   return info;
 }
