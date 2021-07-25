@@ -132,7 +132,7 @@ jobs:
           sha: ${{github.sha}}
           # when failed, this will tag BOTH the commiter and Andrei Jiroh, so please don't make chaos in .gitpod.Dockerfile.
           body: |
-            :warning: The Gitpod workspace image failed to build for this commit, please see https://github.com/${{github.repository}}/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
+            :warning: The Gitpod workspace image failed to build for this commit, please see https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
             
             ${{github.actor}} @ajhalili2006
             
@@ -147,7 +147,7 @@ jobs:
           sha: ${{github.sha}}
           # if Andrei made chaos directly once he has push access to the repo, DON'T TAG ANYONE.
           body: |
-            :warning: Looks like @ajhalili2006 just made chaos to the custom Gitpod workspace Dockerfile or to the Docker Buildx configuration, please see https://github.com/${{github.repository}}/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
+            :warning: Looks like @ajhalili2006 just made chaos to the custom Gitpod workspace Dockerfile or to the Docker Buildx configuration, please see https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
             
             ---
             
@@ -159,7 +159,7 @@ jobs:
           token: ${{ secrets.HYDRABOT_GH_PAT }}
           sha: ${{github.sha}}
           body: |
-            :white_check_mark: The Gitpod workspace image successfully built for this commit, though any tasks configured in the `.gitpod.yml` file should be manually tested. See https://github.com/${{github.repository}}/runs/${{github.run_id}} for the full build log.
+            :white_check_mark: The Gitpod workspace image successfully built for this commit, though any tasks configured in the `.gitpod.yml` file should be manually tested. See https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the full build log.
             
             ---
             
