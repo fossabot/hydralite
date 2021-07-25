@@ -10,7 +10,6 @@ import {
   MoreIcon,
   HydraIcon,
   SettingsIcon,
-  UseableIcon,
 } from "~/components/Icons";
 import { ProjectPageProps } from "~/types/ProjectPageProps";
 

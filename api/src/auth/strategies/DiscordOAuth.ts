@@ -1,7 +1,8 @@
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { OAuthStrategy, StrategyInfo } from "./Strategy";
 
-async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+async function getUser(): Promise<PassportGenericUser | null> {
+  // code: string, oauthInfo: StrategyInfo
   // TODO: get user data from discord
   return {
     email: "",
@@ -19,9 +20,10 @@ async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportG
   };
 }
 
-function getAuthUrl(oauthInfo: StrategyInfo) {
+// param -> oauthInfo: StrategyInfo
+function getAuthUrl() {
   // TODO: return an redirect URI for discord oauth
-  return '';
+  return "";
 }
 
-export const DiscordOAuth = OAuthStrategy('discord', getAuthUrl, getUser);
+export const DiscordOAuth = OAuthStrategy("discord", getAuthUrl, getUser);
