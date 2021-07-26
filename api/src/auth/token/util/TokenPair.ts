@@ -20,7 +20,13 @@ export class TokenPairUtil {
     this.prisma = prisma ?? new PrismaClient();
   }
 
-  static generateUniqueToken() {
+  /**
+   * Generate a unique access token (UUID).
+   *
+   * @returns {String} uuid - The generated access token.
+   *
+   * **/
+  static generateUniqueToken(): String {
     // return uuid();
 
     const data = new Array(64).fill(0).map((_, __) => {

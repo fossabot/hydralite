@@ -16,19 +16,23 @@ export class DeletePostCommentResolver {
   ) {
     const user: User = req.user as User;
 
-    type postCommentType = Parameters<typeof prisma.postComment.create>[0]["data"];
+    type postCommentType = Parameters<
+      typeof prisma.postComment.create
+    >[0]["data"];
     const where = {
-      id: args.commentId
+      id: args.commentId,
     };
 
-    const postComment: postCommentType | null = await prisma.postComment.findUnique({ where });
-    if (postComment == null) throw new ApolloError("Comment not found");
-    if (postComment.creatorId != user.id) throw new ApolloError("You didnt create this comment");
+    const postComment: postCommentType | null =
+      await prisma.postComment.findUnique({ where });
+    if (postComment === null) throw new ApolloError("Comment not found");
+    if (postComment.creatorId != user.id)
+      throw new ApolloError("You didnt create this comment");
 
     executeOrFail(async () => {
-        await prisma.postComment.delete({ where });
-    }, 'Error deleting post comment');
-  
-    return 'Successfully deleted post comment';
+      await prisma.postComment.delete({ where });
+    }, "Error deleting post comment");
+
+    return "Successfully deleted post comment";
   }
 }
