@@ -5,12 +5,13 @@
     "api",
     "web",
     "landing",
-    "docker"
+    "docker",
+    "cz-commitlint-config"
   ],
   "scripts": {
     "commit": "yarn commit:stage-all",
     "commit:stage-all": "git add . && yarn commit:dco",
-    "commit:dco": "cz --signoff",
+    "commit:dco": "node ./cz-commitlint-config/adapter.js --signoff",
     "commit:gpgsign": "yarn commit:dco -S",
     "commit:signed": "yarn commit:gpgsign",
     "docker:psql": "docker exec -it hydralite_db_1 psql -U hydralite",
@@ -35,7 +36,20 @@
     "setup": "yarn workspace @hydralite/api run setup",
     "dev": "concurrently \"yarn workspace @hydralite/api run dev\" \"yarn workspace @hydralite/web run dev\"",
     "start": "concurrently \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\" \"yarn workspace @hydralite/api run start\"",
-    "prettier:format": "prettier --write ."
+    "prettier:format": "yarn prettier:format-all",
+    "prettier:format-all": "prettier --write .",
+    "prettier:format-frontend": "prettier --write web",
+    "prettier:format-backend": "prettier --write api",
+    "prettier:format-landing": "prettier --write landing",
+    "prettier:format-hydrabot": "prettier --write hydrabot",
+    "prettier:format-cz-adapter": "prettier --write cz-commitlint-config",
+    "prettier:lint": "yarn prettier:lint-all",
+    "prettier:lint-all": "prettier .",
+    "prettier:lint-frontend": "prettier --check web",
+    "prettier:lint-backend": "prettier --check api",
+    "prettier:lint-landing": "prettier --check landing",
+    "prettier:lint-hydrabot": "prettier --check hydrabot",
+    "prettier:lint-cz-adapter": "prettier --check cz-commitlint-config"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -47,10 +61,5 @@
   },
   "dependencies": {
     "concurrently": "^6.2.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

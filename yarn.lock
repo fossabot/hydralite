@@ -835,6 +835,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@hydralite/cz-commitlint-config@workspace:cz-commitlint-config":
+  version: 0.0.0-use.local
+  resolution: "@hydralite/cz-commitlint-config@workspace:cz-commitlint-config"
+  dependencies:
+    commitizen: ^4.2.4
+    cz-conventional-changelog: ^3.3.0
+  languageName: unknown
+  linkType: soft
+
 "@hydralite/docker@workspace:docker":
   version: 0.0.0-use.local
   resolution: "@hydralite/docker@workspace:docker"
@@ -3941,7 +3950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cz-conventional-changelog@npm:3.3.0":
+"cz-conventional-changelog@npm:3.3.0, cz-conventional-changelog@npm:^3.3.0":
   version: 3.3.0
   resolution: "cz-conventional-changelog@npm:3.3.0"
   dependencies:
