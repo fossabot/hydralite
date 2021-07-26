@@ -1,0 +1,11 @@
+{
+    "name": "@hydralite/cz-commitlint-config",
+    "version": "0.1.0",
+    "description": "Customizations to cz-conventional-changelog and @commitlint/conventional-",
+    "main": "./adapter.js",
+    "author": {
+        "name": "Hydralite Contributors and Maintainers",
+        "email": "hello@hydralite.io",
+        "url": "https://github.com/hydralite/hydralite"
+    }
+}
