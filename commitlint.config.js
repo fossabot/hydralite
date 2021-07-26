@@ -24,7 +24,9 @@ module.exports = {
         "prettier", // prettierrc, prettierignore
         "assets", // images, logos, screenshots
         "github-actions", "actions", "gh-actions", // GitHub Actions
-        "gitlab-ci" // GitLab CI/CD 
+        "gitlab-ci", // GitLab CI/CD
+        "deps-dev", "deps-peer", "deps-optional", "deps", // Dependabot stuff
+        "lockfiles" // yarn.lock and Cargo.lock
       ],
     ],
   },
