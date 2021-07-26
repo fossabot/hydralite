@@ -12,6 +12,9 @@
         "web:logs": "cd hydralite-api/ && docker-compose logs --tail=all -f",
         "db:start": "cd hydralite-db/ && docker compose up -d",
         "db:stop": "cd hydralite-db/ && docker compose down",
-        "db:logs": "cd hydralite-db/ && docker-compose logs --tail=all -f"
+        "db:logs": "cd hydralite-db/ && docker-compose logs --tail=all -f",
+        "dbg:start": "cd hydralite-db-gui/ && docker compose up -d",
+        "dbg:stop": "cd hydralite-db-gui/ && docker compose down",
+        "dbg:logs": "cd hydralite-db-gui/ && docker-compose logs --tail=all -f"
     }
 }

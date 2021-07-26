@@ -1,68 +1,57 @@
-import { Router } from "express";
-import { Strategy } from "passport-github2";
-import { PassportStatic } from "passport";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
-import { PassportGithubProfile } from "../types/PassportGithubProfile.type";
+import axios from "axios";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
+import { OAuthStrategy, StrategyInfo } from "./Strategy";
+import QueryString from "qs";
 
-export const GithubOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo("github");
+async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+  const data = await axios({
+    method: 'POST',
+    url: 'https://github.com/login/oauth/access_token',
 
-  passport.use(
-    new Strategy(
-      {
-        clientID: oauthInfo.clientId,
-        clientSecret: oauthInfo.clientSecret,
-        callbackURL: oauthInfo.cbUrl!,
-      },
-      async (
-        _: string,
-        __: string,
-        profile: PassportGithubProfile,
-        done: any
-      ) => {
-        const genericUser: PassportGenericUser = {
-          email: profile._json.email || "",
-          username: profile.username,
-          profile: {
-            avatarUrl: profile.photos[0].value,
-            bio: profile._json.bio || "",
-          },
-          primaryOauthConnection: {
-            email: profile._json.email || "",
-            oauthService: "github",
-            username: profile.username,
-            oauthServiceUserId: profile.id,
-          },
-        };
-
-        return done(null, genericUser);
-      }
-    )
-  );
-
-  const router = Router();
-
-  router.get(
-    "/",
-    passport.authenticate("github", {
-      scope: ["user:email"],
-      failureRedirect: `/`,
-      session: true,
-    })
-  );
-
-  router.get(
-    "/cb",
-    passport.authenticate("github", {
-      failureRedirect: `/`,
-      session: true,
-    }),
-    (_, res) => {
-      // redirect to main site
-      res.redirect("/");
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+    data: {
+      client_id: oauthInfo.clientId,
+      client_secret: oauthInfo.clientSecret,
+      code,
     }
-  );
+  }).then(v => v.data);
 
-  return router;
-};
+  const { access_token, token_type } = data;
+  if (!access_token) return null;
+
+  const json = await axios.get('https://api.github.com/user', {
+    headers: {
+      'Authorization': `${token_type} ${access_token}`,
+      'Accept': 'application/json',
+    }
+  }).then(v => v.data);
+
+  return {
+    email: json.email || "",
+    username: json.login,
+    profile: {
+      avatarUrl: json.avatar_url,
+      bio: json.bio || "",
+    },
+    primaryOauthConnection: {
+      email: json.email || "",
+      oauthService: "github",
+      username: json.login,
+      oauthServiceUserId: String(json.id),
+    },
+  };
+}
+
+function getAuthUrl(oauthInfo: StrategyInfo) {
+  const data = {
+    client_id: oauthInfo.clientId,
+    redirect_uri: oauthInfo.cbUrl,
+  };
+
+  return `https://github.com/login/oauth/authorize?${QueryString.stringify(data)}`;
+}
+
+export const GithubOAuth = OAuthStrategy('github', getAuthUrl, getUser);

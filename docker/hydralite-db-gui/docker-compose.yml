@@ -1,4 +1,4 @@
-version: "3.9" # optional since v1.27.0
+version: "3.9"
 services:
   postgresql:
     image: postgres
@@ -8,7 +8,18 @@ services:
       POSTGRES_PASSWORD: "password"
   redis:
     image: redis
-    environment:
-      ALLOW_EMPTY_PASSWORD: "yes"
+    networks:
+      - redis
     ports:
       - "6379:6379"
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    networks:
+      - redis
+    ports:
+      - "8001:8001"
+networks:
+  redis:
+    driver: bridge

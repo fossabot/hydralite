@@ -1,65 +1,27 @@
-import { Router } from "express";
-import { Strategy } from "passport-twitter";
-import { PassportStatic } from "passport";
-import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
-import { PassportTwitterProfile } from "../types/PassportTwitterProfile.type";
+import { OAuthStrategy, StrategyInfo } from "./Strategy";
 
-export const TwitterOAuth = (passport: PassportStatic) => {
-  const oauthInfo = fetchOauthClientInfo("twitter");
+async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+  // TODO: get user data from twitter
+  return {
+    email: "",
+    username: "",
+    profile: {
+      avatarUrl: "",
+      bio: "",
+    },
+    primaryOauthConnection: {
+      email: "",
+      oauthService: "google",
+      username: "",
+      oauthServiceUserId: "",
+    },
+  };
+}
 
-  passport.use(
-    new Strategy(
-      {
-        consumerKey: oauthInfo.clientId,
-        consumerSecret: oauthInfo.clientSecret,
-        callbackURL: oauthInfo.cbUrl!,
-      },
-      async (
-        _: string,
-        __: string,
-        profile: PassportTwitterProfile,
-        done: any
-      ) => {
-        const genericUser: PassportGenericUser = {
-          email: "",
-          username: profile.username,
-          profile: {
-            avatarUrl: profile._json.profile_image_url_https,
-          },
-          primaryOauthConnection: {
-            email: "",
-            oauthService: "twitter",
-            username: profile.username,
-            oauthServiceUserId: profile.id,
-          },
-        };
+function getAuthUrl(oauthInfo: StrategyInfo) {
+  // TODO: return an redirect URI for twitter oauth
+  return '';
+}
 
-        return done(null, genericUser);
-      }
-    )
-  );
-
-  const router = Router();
-
-  router.get(
-    "/",
-    passport.authenticate("twitter", {
-      failureRedirect: `/`,
-      session: true,
-    })
-  );
-
-  router.get(
-    "/cb",
-    passport.authenticate("twitter", {
-      failureRedirect: `/`,
-      session: true,
-    }),
-    (_, res) => {
-      res.redirect("/");
-    }
-  );
-
-  return router;
-};
+export const TwitterOAuth = OAuthStrategy('twitter', getAuthUrl, getUser);
