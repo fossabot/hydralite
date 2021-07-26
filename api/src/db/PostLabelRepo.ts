@@ -5,7 +5,7 @@ import { PostLabel } from "~/resolver-types/models";
 export class PostLabelRepo extends PrismaClient {
   async findPostLabelById(
     id: string,
-    validate: boolean = true
+    validate = true
   ): Promise<PostLabel | null> {
     const postLabel = await this.postLabel.findUnique({ where: { id } });
     if (validate && !postLabel)
