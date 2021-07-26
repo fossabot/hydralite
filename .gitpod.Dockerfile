@@ -121,7 +121,7 @@ ARG scversion="stable"
 # ShellCheck for our Docker image's entrypoint script
 RUN set -ex; \
     wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv -C /tmp; \
-    cp "/tmp/shellcheck-${scversion}/shellcheck" /usr/bin/; \
+    sudo cp "/tmp/shellcheck-${scversion}/shellcheck" /usr/bin/; \
     rm -rfv /tmp/shellcheck-*
 # Shell script linting / formatter from our golang build stage
 COPY --from=shfmt /go/bin/shfmt /usr/bin/shfmt
