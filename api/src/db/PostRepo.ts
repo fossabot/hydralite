@@ -5,7 +5,7 @@ import { Post } from "~/resolver-types/models";
 export class PostRepo extends PrismaClient {
   async findPostById(
     id: string,
-    validate: boolean = true
+    validate = true
   ): Promise<Post | null> {
     const post = await this.post.findUnique({
       where: { id },
@@ -20,7 +20,7 @@ export class PostRepo extends PrismaClient {
   async userIsCreatorOfPost(
     userId: string,
     postId: string,
-    validate: boolean = true
+    validate = true
   ) {
     const userInPost = !!(await this.post.findFirst({
       where: { id: postId, creatorId: userId },
