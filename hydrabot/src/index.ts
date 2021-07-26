@@ -29,6 +29,6 @@ client.interactions.on("commandInteraction", (interaction) => {
 
 client.login(process.env.TOKEN);
 
-process.on('unhandledRejection', (reason, p) => {
-  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+process.on("unhandledRejection", (reason, p) => {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
 });

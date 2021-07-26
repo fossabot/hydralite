@@ -12,16 +12,23 @@ export type StrategyInfo = {
 };
 
 export type GetAuthUrlFunction = (oauthInfo: StrategyInfo) => string;
-export type GetUserFunction = (code: string, oauthInfo: StrategyInfo) => Promise<PassportGenericUser | null>;
+export type GetUserFunction = (
+  code: string,
+  oauthInfo: StrategyInfo
+) => Promise<PassportGenericUser | null>;
 
-export const OAuthStrategy = (strategy: AuthProviderType, getAuthUrl: GetAuthUrlFunction, getUser: GetUserFunction) => {
+export const OAuthStrategy = (
+  strategy: AuthProviderType,
+  getAuthUrl: GetAuthUrlFunction,
+  getUser: GetUserFunction
+) => {
   const oauthInfo = fetchOauthClientInfo(strategy);
   const standaloneOauthInfo = fetchOauthClientInfo(`standalone/${strategy}`);
 
   const userRepo = new UserRepo();
   const tokens = new TokenPairUtil();
 
-  function AuthenticateHandler(oauthInfo: StrategyInfo) : RequestHandler {
+  function AuthenticateHandler(oauthInfo: StrategyInfo): RequestHandler {
     return async (req, res) => {
       try {
         const code = req.query.code;
@@ -35,28 +42,28 @@ export const OAuthStrategy = (strategy: AuthProviderType, getAuthUrl: GetAuthUrl
           user
         );
 
-        const tokenPair = await tokens.generateTokenPair(dbUser.id);   
+        const tokenPair = await tokens.generateTokenPair(dbUser.id);
         res.json(tokenPair);
       } catch (error) {
         res.json({ error: error.message });
       }
-    }
+    };
   }
 
-  function AuthUrlHandler(oauthInfo: StrategyInfo) : RequestHandler {
+  function AuthUrlHandler(oauthInfo: StrategyInfo): RequestHandler {
     return async (_, res) => {
       res.json({
         url: getAuthUrl(oauthInfo),
       });
-    }
+    };
   }
-  
+
   const router = Router();
   router.get("/", AuthUrlHandler(oauthInfo));
   router.post("/", AuthenticateHandler(oauthInfo));
 
   router.get("/standalone", (_, res) => {
-    res.redirect(getAuthUrl(standaloneOauthInfo)); 
+    res.redirect(getAuthUrl(standaloneOauthInfo));
   });
   router.get("/standalone/callback", AuthenticateHandler(standaloneOauthInfo));
 

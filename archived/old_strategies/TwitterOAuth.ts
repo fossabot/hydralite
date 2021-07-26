@@ -13,7 +13,7 @@ export const TwitterOAuth = (passport: PassportStatic) => {
       {
         consumerKey: oauthInfo.clientId,
         consumerSecret: oauthInfo.clientSecret,
-        callbackURL: oauthInfo.cbUrl!,
+        callbackURL: oauthInfo.cbUrl as string,
       },
       async (
         _: string,

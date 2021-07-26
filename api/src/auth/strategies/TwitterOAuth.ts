@@ -38,6 +38,14 @@ async function getUser(): Promise<PassportGenericUser | null> {
   };
 }
 
+/**
+ * Returns a redirect URI for Twitter OAuth User Info.
+ *
+ * @remarks
+ * This function is part of the `TwitterOAuth.ts` file.
+ *
+ * @returns {String} - Redirect URI for Twitter OAuth User Info.
+ **/
 // todo:  impl with param -> oauthInfo: StrategyInfo
 function getAuthUrl() {
   // TODO: return an redirect URI for twitter oauth

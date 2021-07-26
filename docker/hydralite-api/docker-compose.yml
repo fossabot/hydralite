@@ -4,7 +4,7 @@ services:
     build: "../../api"
     networks:
       - api
-    depends_on: 
+    depends_on:
       - postgresql
       - redis
     ports:
