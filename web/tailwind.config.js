@@ -4,21 +4,19 @@ module.exports = {
   darkMode: false,
   theme: {
     colors: {
-      white: {
-        base: "#fff",
-        hover: "#f5f5f5",
-        "hover-select": "#d5d5d5",
-        selected: "#f1f1f1",
-        seperator: "#E9E9E9",
-        secondBg: "#F8F8F8",
-      },
-
-      accent: "#695cff",
-      text: "#2d3748",
-      muted: "#55656F",
-      gray: "#9099a8",
-      yellow: "#EFA119",
       transparent: "transparent",
+      dark: {
+        bg: "#242832",
+        fg: "#ffffff",
+        textMuted: "#E5E5E5",
+        bgMuted1: "#1C212D",
+        bgMuted2: "#1C212D75",
+        bgMuted3: "#292F40",
+        color: {
+          accent: "#695cff",
+          yellow: "#EFA119",
+        },
+      },
     },
     extend: {
       borderRadius: {
