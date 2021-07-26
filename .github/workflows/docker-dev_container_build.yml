@@ -3,15 +3,6 @@ name: docker:dev_container_build
 
 on:
   push:
-    paths:
-      - ".github/workflows/docker-dev_container_build.yml" # workflow file changes
-      - ".trigger-ci" # when manually triggered through yarn ci:trigger
-      # Gitpod
-      - ".gitpod.Dockerfile"
-      - ".gitpod.yml"
-      # Dev Containers / Codespaces
-      - ".devcontainer/**"
-      - ".dockerignore"
   pull_request:
     paths:
       - ".gitpod.Dockerfile"
@@ -51,7 +42,6 @@ jobs:
             gitpod:
               - ".gitpod.Dockerfile"
               - ".gitpod.yml"
-              - ".devcontainer/flutter.bashrc"
             # This is currently TODO/WIP for now
             codespaces:
               - ".devcontainer/Dockerfile"
@@ -60,8 +50,10 @@ jobs:
         if: ${{ failure() && github.event_name == 'pull_request' }}
         with:
           repo-token: ${{ secrets.HYDRABOT_GH_PAT }}
+          # Please don't break this workflow so Andrei Jiroh will not twist and stab you like an water-colling tube for Linus Sebastian in your nightmares.
+          # Possibly tag HydraCore team also.
           message: |
-            :warning: Looks like @ajhalili2006 just made chaos to the GitHub Actions workflow file, please see https://github.com/${{github.repository}}/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
+            :warning: Looks like @ajhalili2006 just made chaos to the GitHub Actions workflow file, please see https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
             
             ---
             
