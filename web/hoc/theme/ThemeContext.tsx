@@ -17,8 +17,13 @@ export const ThemeContextProvider = ({ children }) => {
 
   const [theme, setTheme] = useState<themeType>(userThemePreference || "dark");
 
+  function changeTheme(theme: themeType) {
+    localStorage.setItem("hlTheme", theme)
+    setTheme(theme)
+  }
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, changeTheme }}>
       {children}
     </ThemeContext.Provider>
   );
