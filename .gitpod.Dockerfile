@@ -1,6 +1,7 @@
 FROM golang:1.16 AS shfmt
 
-# Formatting shell scripts, especially our Docker image's entrypoint script
+# Formatting shell scripts, especially our Docker image's entrypoint script, as
+# ShellCheck's README recommends
 # https://github.com/mvdan/sh#shfmt
 RUN GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
 
@@ -83,23 +84,6 @@ RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]
 ### Redis ###
 # TODO
 
-### Docker ###
-RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
-    && sudo apt-key add /tmp/docker.gpg \
-    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
-    && sudo install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io \
-    # Don't forget to add Gitpod user to the docker Unix group
-    && sudo usermod -aG docker gitpod
-# slirp4netns for rootless containers
-RUN sudo curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.9/slirp4netns-$(uname -m) \
-    && sudo chmod +x /usr/bin/slirp4netns
-# Docker Compose
-RUN sudo curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64 \
-    && sudo chmod +x /usr/local/bin/docker-compose
-# https://github.com/wagoodman/dive
-RUN sudo curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb \
-    && sudo install-packages /tmp/dive.deb
-
 ### Flutter ###
 # Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
 # See Gitpod issue at https://github.com/gitpod-io/gitpod/issues/1273 and also in Google Issue Tracker in general at https://issuetracker.google.com/issues/110507927?pli=1
@@ -114,6 +98,23 @@ RUN set -ex; \
     flutter upgrade; \
     flutter precache --android --ios --universal -v
 
+### Docker ###
+RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    && sudo apt-key add /tmp/docker.gpg \
+    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+    && sudo install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io \
+    # Don't forget to add Gitpod user to the docker Unix group
+    && sudo usermod -aG docker gitpod
+# slirp4netns for rootless containers
+RUN sudo curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.9/slirp4netns-$(uname -m) \
+    && sudo chmod +x /usr/bin/slirp4netns
+# Docker Compose
+RUN sudo curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64 \
+    && sudo chmod +x /usr/local/bin/docker-compose
+# https://github.com/wagoodman/dive
+RUN curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb \
+    && sudo install-packages /tmp/dive.deb
+
 ### ShellCheck/Halolint and other linting tools ###
 # scversion can be also "v0.4.7", or "latest", which shuld be changed on build time via
 # --build-args flag.
@@ -126,9 +127,9 @@ RUN set -ex; \
 # Shell script linting / formatter from our golang build stage
 COPY --from=shfmt /go/bin/shfmt /usr/bin/shfmt
 # Hadolint is ShellCheck for Dockerfiles, we cannot use Homebrew here.
-ARG HADOLINT_VERSION="stable"
+ARG HADOLINT_VERSION="latest"
 RUN set -ex; \
-    wget -q "https://github.com/hadolint/hadolint/releases/download/${HALOLINT_VERSION?}/hadolint-Linux-x86_64" -O /tmp/hadolint; \
+    wget -q "https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION?}/hadolint-Linux-x86_64" -O /tmp/hadolint; \
     sudo mv /tmp/halolint /usr/local/bin/hadolint; sudo chmod +x /usr/bin/hadolint
 
 ### Cleanup ###
