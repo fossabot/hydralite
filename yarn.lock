@@ -167,15 +167,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/config-conventional@npm:12.1.4"
-  dependencies:
-    conventional-changelog-conventionalcommits: ^4.3.1
-  checksum: 3bcc963d88a130f50d3d2b12a29a11eff6c0a553ad945595fe1d9d36052be662a011c2a6784ce88ede8c91b5aaadf5517c3f533747e91c799e0fe3281338d98c
-  languageName: node
-  linkType: hard
-
 "@commitlint/ensure@npm:^12.1.4":
   version: 12.1.4
   resolution: "@commitlint/ensure@npm:12.1.4"
@@ -839,8 +830,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hydralite/cz-commitlint-config@workspace:cz-commitlint-config"
   dependencies:
-    commitizen: ^4.2.4
-    cz-conventional-changelog: ^3.3.0
+    "@commitlint/load": ">6.1.1"
+    chalk: ^2.4.1
+    commitizen: ^4.0.3
+    lodash.map: ^4.5.1
+    longest: ^2.0.1
+    word-wrap: ^1.0.3
+  dependenciesMeta:
+    "@commitlint/load":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -3641,17 +3639,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:^4.3.1":
-  version: 4.6.0
-  resolution: "conventional-changelog-conventionalcommits@npm:4.6.0"
-  dependencies:
-    compare-func: ^2.0.0
-    lodash: ^4.17.15
-    q: ^1.5.1
-  checksum: 60114ccba24cb59c0cd4afd4974998343f21313d447f854a2b9403396405b9cf539747b2aa4b4c8e3c6360fcfd5d00961d23d8e74306f0536afcfe165eaee54e
-  languageName: node
-  linkType: hard
-
 "conventional-commit-types@npm:^3.0.0":
   version: 3.0.0
   resolution: "conventional-commit-types@npm:3.0.0"
@@ -3950,7 +3937,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cz-conventional-changelog@npm:3.3.0, cz-conventional-changelog@npm:^3.3.0":
+"cz-conventional-changelog@npm:3.3.0":
   version: 3.3.0
   resolution: "cz-conventional-changelog@npm:3.3.0"
   dependencies:
@@ -5616,7 +5603,6 @@ __metadata:
   resolution: "hydralite@workspace:."
   dependencies:
     "@commitlint/cli": ^12.1.4
-    "@commitlint/config-conventional": ^12.1.4
     commitizen: ^4.2.4
     commitlint: ^12.1.4
     concurrently: ^6.2.0
