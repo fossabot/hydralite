@@ -13,8 +13,8 @@ export function init(bot: Bot) {
         const server = servers.find(v => v.id == interaction.raw.guild_id);
         if (!server) return;
     
-        if (interaction.raw.member == null) return;
-        if (interaction.raw.message == null) return;
+        if (interaction.raw.member === null) return;
+        if (interaction.raw.message === null) return;
         if (server.roles.find(v => v.id == interaction.customId)) toogleRole(interaction.customId, interaction.raw.member, await channel.messages.fetch(interaction.raw.message?.id))
         interaction.respond({
             type: 6,
@@ -118,10 +118,10 @@ function getButtons(guild: string) {
 export async function sendRoles(guild: string, channel: string) {
     try {
         const g = await client.guilds.fetch(guild);
-        if (g == null) return;
+        if (g === null) return;
 
         const c = g.channels.resolve(channel) as TextChannel;
-        if (c == null) return;
+        if (c === null) return;
 
         const m = await c.messages.fetch({ limit: 1 });
         if (m.size > 0) return;

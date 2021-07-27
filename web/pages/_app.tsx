@@ -1,8 +1,14 @@
+import { ThemeContextProvider } from "~/hoc/theme/ThemeContext";
 import "../styles/globals.css";
-// import "tailwindcss/tailwind.css"
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <ThemeContextProvider>
+        <Component {...pageProps} />
+      </ThemeContextProvider>
+    </>
+  );
 }
 
 export default MyApp;

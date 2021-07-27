@@ -15,10 +15,10 @@ if [[ $NODE_ENV == "production" ]] && [[ $1 == "server" ]]; then
   echo "warn: Hydralite isn't yet production ready, proceed at your own risk! Starting in 5 seconds..."
   sleep 5
   
-  exec yarn build
+  yarn build
   exec yarn start
 elif [[ $1 == "server" ]];then
-  exec yarn setup
+  yarn setup
   exec yarn dev
 elif [[ $1 == "shell" ]] || [[ $1 == "bash" ]]; then
   exec bash -l
