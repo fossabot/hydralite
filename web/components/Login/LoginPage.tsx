@@ -1,7 +1,7 @@
 import Meta from "partials/Meta";
 import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
 import React from "react";
-import { serverUrl } from "../../constants";
+import { serverUrl } from "../../constants/global";
 
 const NavLink = ({ href, active, children }) => {
   const style = ["font-bold"];

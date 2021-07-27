@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { serverUrl } from "../../../constantVars";
+import { serverUrl } from "../../../constants/global";
 
 async function get(provider: string, code: string) {
     const result = await fetch(`${serverUrl}/api/auth/${provider}?code=${code}`, { method: 'post' }).then(v => v.json()).catch(v => ({error: v}));
