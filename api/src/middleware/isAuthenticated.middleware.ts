@@ -5,33 +5,45 @@ import ContextType from "~/types/Context.type";
 export const IsAuthenticated = () =>
   createMethodDecorator<ContextType>(
     async ({ context: { req, prisma } }, next) => {
-      if (!req.isAuthenticated()) throw new ApolloError("Not Authenticated.");
+      const token = req.headers.authorization?.split(" ");
+      if (!token) throw new ApolloError("Not Authenticated.");
 
-      const userId = (req.user as any).id;
-      const user = await prisma.user.findUnique({
+      const accessTokenType = token[0];
+      const accessToken = token[1];
+
+      if (accessTokenType.toLowerCase() !== "bearer") throw new ApolloError("Not Authenticated.");
+      if (!accessToken) throw new ApolloError("Not Authenticated.");
+      
+      const tokenPair = await prisma.tokenPair.findUnique({
         where: {
-          id: userId,
+          accessToken,
         },
         include: {
-          ownedProjects: true,
-          allProjects: true,
-          likedProjects: true,
-          followedProjects: true,
-          followers: true,
-          following: true,
-          oauthConnections: true,
-          profile: true,
-          createdHashtags: true,
-          createdPostComments: true,
-          posts: true,
-          bugReports: true,
-          featureRequests: true,
-          likedPosts: true,
-          postLabels: true,
-        },
+          user: {
+            include: {
+              ownedProjects: true,
+              allProjects: true,
+              likedProjects: true,
+              followedProjects: true,
+              followers: true,
+              following: true,
+              oauthConnections: true,
+              profile: true,
+              createdHashtags: true,
+              createdPostComments: true,
+              posts: true,
+              bugReports: true,
+              featureRequests: true,
+              likedPosts: true,
+            },
+          }
+        }
       });
-      req.user = user as any;
-
+      
+      if (!tokenPair) throw new ApolloError("Not Authenticated.");
+      // TODO: check how old the token pair is, and if it is older than 30 days, then remove it and throw not authenticated
+      
+      req.user = tokenPair.user as any;
       return next();
     }
   );

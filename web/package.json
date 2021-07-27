@@ -18,10 +18,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.21",
     "@iconify/react": "alpha",
     "axios": "^0.21.1",
     "evernote": "^2.0.5",
     "googleapis": "^76.0.0",
+    "graphql": "^15.5.1",
     "heroku-client": "^3.1.0",
     "next": "10.2.3",
     "octokit": "^1.0.6",

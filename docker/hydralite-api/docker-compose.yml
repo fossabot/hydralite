@@ -4,39 +4,26 @@ services:
     build: "../../api"
     networks:
       - api
-    depends_on:
+    depends_on: 
       - postgresql
       - redis
     ports:
       - 8000:8000
     environment:
-      DATABASE_URL: "postgresql://postgres:80ccb4856afd53bc049e3dac9759090c3f3af163325149e8e51053ecc2155fce@postgres:5432"
+      DATABASE_URL: "postgresql://postgres:password@postgresql:5432"
       REDIS_HOST: "redis"
   postgresql:
     image: postgres
     networks:
       - api
-      - db
     environment:
       POSTGRES_PASSWORD: "password"
   redis:
     image: redis
     networks:
       - api
-      - db
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
-  redisinsight:
-    image: redislabs/redisinsight:latest
-    networks:
-      - api
-      - db
-    depends_on:
-      - redis
-    ports:
-      - "8001:8001"
 networks:
   api:
-    driver: bridge
-  db:
     driver: bridge
