@@ -5,8 +5,6 @@ import QueryString from "qs";
 import discordAvatarUrl from "../util/discordAvatarUrl";
 
 async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
-  console.log(code);
-
   const data = await axios({
     method: 'POST',
     url: 'https://discord.com/api/oauth2/token',
@@ -35,8 +33,6 @@ async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportG
       'Accept': 'application/json',
     }
   }).then(v => v.data);
-
-  console.log(json);
 
   return {
     email: json.email || "",
