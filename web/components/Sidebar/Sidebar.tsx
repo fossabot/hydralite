@@ -11,11 +11,10 @@ import MessagesIcon from "~/icons/line/MessagesIcon"
 import MessagesIconSolid from "~/icons/solid/MessagesIconSolid"
 
 interface SidebarProps {
-  projects: {}[];
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate"
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ projects, activeTab }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -37,28 +36,28 @@ const Sidebar: React.FC<SidebarProps> = ({ projects, activeTab }) => {
         activeIcon={<HistoryIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<HistoryIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         name="Activity"
-        link="/"
+        link="/activity"
       />
       <SidebarTab
         isActive={activeTab === "My Projects"}
         activeIcon={<ListUlIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<ListUlIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         name="My Projects"
-        link="/"
+        link="/projects"
       />
       <SidebarTab
         isActive={activeTab === "Discover"}
         activeIcon={<CompassIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<CompassIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         name="Discover"
-        link="/"
+        link="/discover"
       />
       <SidebarTab
         isActive={activeTab === "Communicate"}
         activeIcon={<MessagesIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<MessagesIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         name="Communicate"
-        link="/"
+        link="/communicate"
       />
     </div>
   );
