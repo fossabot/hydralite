@@ -10,7 +10,12 @@ import CompassIconSolid from "~/icons/solid/CompassIconSolid"
 import MessagesIcon from "~/icons/line/MessagesIcon"
 import MessagesIconSolid from "~/icons/solid/MessagesIconSolid"
 
-const Sidebar = ({ projects }: { projects: {}[] }) => {
+interface SidebarProps {
+  projects: {}[];
+  activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate"
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ projects, activeTab }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -21,38 +26,38 @@ const Sidebar = ({ projects }: { projects: {}[] }) => {
       `}
     >
       <SidebarTab
-        isActive={false}
+        isActive={activeTab === "Home"}
         activeIcon={<img src="/HydraliteLogoMonochrome.svg" className="select-none h-[2.2rem] w-[2.2rem]" draggable={false} />}
         icon={<img src="/HydraliteLogo.svg" className="select-none h-[2.2rem] w-[2.2rem]" draggable={false} />}
         name="Home"
         link="/"
       />
       <SidebarTab
-        isActive={false}
+        isActive={activeTab === "Activity"}
         activeIcon={<HistoryIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<HistoryIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
-        name="Home"
+        name="Activity"
         link="/"
       />
       <SidebarTab
-        isActive={false}
+        isActive={activeTab === "My Projects"}
         activeIcon={<ListUlIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<ListUlIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
-        name="Home"
+        name="My Projects"
         link="/"
       />
       <SidebarTab
-        isActive={false}
+        isActive={activeTab === "Discover"}
         activeIcon={<CompassIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<CompassIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
-        name="Home"
+        name="Discover"
         link="/"
       />
       <SidebarTab
-        isActive={false}
+        isActive={activeTab === "Communicate"}
         activeIcon={<MessagesIconSolid className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
         icon={<MessagesIcon className="h-[1.9rem] w-[1.9rem] fill-[#fff]" />}
-        name="Home"
+        name="Communicate"
         link="/"
       />
     </div>
