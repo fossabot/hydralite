@@ -5,8 +5,20 @@ module.exports = {
   theme: {
     colors: {
       transparent: "transparent",
-    }
-  },
-  variants: {},
-  plugins: [],
-};
+      dark: {
+        bg: "#242832",
+        fg: "#ffffff",
+        textMuted: "#E5E5E5",
+        bgMuted1: "#1C212D",
+        bgMuted2: "#1C212D75",
+        bgMuted3: "#292F40",
+        color: {
+          accent: "#695cff",
+          yellow: "#EFA119",
+        }
+      }
+    },
+    variants: {},
+    plugins: [],
+  }
+}

@@ -1,6 +1,4 @@
-import { themeNameType } from "~/types/Theme.type";
-
-export function fetchThemeColors(theme: themeNameType = "dark") {
+export function fetchThemeColors(theme = "dark") {
   switch (theme) {
     case "dark":
       return {
