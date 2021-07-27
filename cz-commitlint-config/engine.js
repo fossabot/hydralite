@@ -2,36 +2,39 @@
 // Original code licensed under MIT, while customizations are licensed in the same license as the Hydralite code itself.
 // See https://github.com/commitizen/cz-conventional-changelog/blob/v3.3.0/engine.js for the original code.
 
-'format cjs';
+"format cjs";
 
-var wrap = require('word-wrap');
-var map = require('lodash.map');
-var longest = require('longest');
-var chalk = require('chalk');
+var wrap = require("word-wrap");
+var map = require("lodash.map");
+var longest = require("longest");
+var chalk = require("chalk");
 
-var filter = function(array) {
-  return array.filter(function(x) {
+var filter = function (array) {
+  return array.filter(function (x) {
     return x;
   });
 };
 
-var headerLength = function(answers) {
+var headerLength = function (answers) {
   return (
     answers.type.length + 2 + (answers.scope ? answers.scope.length + 2 : 0)
   );
 };
 
-var maxSummaryLength = function(options, answers) {
+var maxSummaryLength = function (options, answers) {
   return options.maxHeaderWidth - headerLength(answers);
 };
 
-var filterSubject = function(subject, disableSubjectLowerCase) {
+var filterSubject = function (subject, disableSubjectLowerCase) {
   subject = subject.trim();
-  if (!disableSubjectLowerCase && subject.charAt(0).toLowerCase() !== subject.charAt(0)) {
+  if (
+    !disableSubjectLowerCase &&
+    subject.charAt(0).toLowerCase() !== subject.charAt(0)
+  ) {
     subject =
       subject.charAt(0).toLowerCase() + subject.slice(1, subject.length);
   }
-  while (subject.endsWith('.')) {
+  while (subject.endsWith(".")) {
     subject = subject.slice(0, subject.length - 1);
   }
   return subject;
@@ -40,21 +43,22 @@ var filterSubject = function(subject, disableSubjectLowerCase) {
 // This can be any kind of SystemJS compatible module.
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
-module.exports = function(options) {
+module.exports = function (options) {
   var types = options.types;
   var scopes = options.scopes;
 
   var length = longest(Object.keys(types)).length + 1;
-  var choicesTypes = map(types, function(type, key) {
+  var choicesTypes = map(types, function (type, key) {
     return {
-      name: (key + ':').padEnd(length) + ' ' + type.description,
-      value: key
+      name: (key + ":").padEnd(length) + " " + type.description,
+      value: key,
     };
   });
-  var choicesScopes = map(scopes, function(type, key) {
+  // The UI for choosing an scope is currently ugly, my apologies for that.
+  var choicesScopes = map(scopes, function (type, key) {
     return {
-      name: (key + ':').padEnd(length) + ' ' + type.description,
-      value: key
+      name: (key + ":").padEnd(length) + " " + type.description,
+      value: key,
     };
   });
 
@@ -70,7 +74,7 @@ module.exports = function(options) {
     //
     // By default, we'll de-indent your commit
     // template and will keep empty lines.
-    prompter: function(cz, commit) {
+    prompter: function (cz, commit) {
       // Let's ask some questions of the user
       // so that we can populate our commit
       // template.
@@ -80,150 +84,157 @@ module.exports = function(options) {
       // collection library if you prefer.
       cz.prompt([
         {
-          type: 'list',
-          name: 'type',
+          type: "list",
+          name: "type",
           message: "Select the type of change that you're committing:",
           choices: choicesTypes,
-          default: options.defaultType
+          default: options.defaultType,
         },
         {
           // instead of an input, we'll show an list for the user to choose.
-          // TODO: Support autocompletion and custom scopes, through we want not to fail the Commitlint CI
-          type: 'list',
-          name: 'scope',
-          message: 'Select an scope for this change',
+          // TODO: Support autocompletion, so user will not scroll through Mount Doom's map.
+          type: "list",
+          name: "scope",
+          message: "Select an scope for this change",
           choices: choicesScopes,
-          default: options.defaultScope
+          default: options.defaultScope,
         },
         {
-          type: 'input',
-          name: 'subject',
-          message: function(answers) {
+          type: "input",
+          name: "subject",
+          message: function (answers) {
             return (
-              'Write a short, imperative tense description of the change (max ' +
+              "Write a short, imperative tense description of the change (max " +
               maxSummaryLength(options, answers) +
-              ' chars):\n'
+              " chars):\n"
             );
           },
           default: options.defaultSubject,
-          validate: function(subject, answers) {
-            var filteredSubject = filterSubject(subject, options.disableSubjectLowerCase);
+          validate: function (subject, answers) {
+            var filteredSubject = filterSubject(
+              subject,
+              options.disableSubjectLowerCase
+            );
             return filteredSubject.length == 0
-              ? 'subject is required'
+              ? "subject is required"
               : filteredSubject.length <= maxSummaryLength(options, answers)
               ? true
-              : 'Subject length must be less than or equal to ' +
+              : "Subject length must be less than or equal to " +
                 maxSummaryLength(options, answers) +
-                ' characters. Current length is ' +
+                " characters. Current length is " +
                 filteredSubject.length +
-                ' characters.';
+                " characters.";
           },
-          transformer: function(subject, answers) {
-            var filteredSubject = filterSubject(subject, options.disableSubjectLowerCase);
+          transformer: function (subject, answers) {
+            var filteredSubject = filterSubject(
+              subject,
+              options.disableSubjectLowerCase
+            );
             var color =
               filteredSubject.length <= maxSummaryLength(options, answers)
                 ? chalk.green
                 : chalk.red;
-            return color('(' + filteredSubject.length + ') ' + subject);
+            return color("(" + filteredSubject.length + ") " + subject);
           },
-          filter: function(subject) {
+          filter: function (subject) {
             return filterSubject(subject, options.disableSubjectLowerCase);
-          }
+          },
         },
         {
-          type: 'input',
-          name: 'body',
+          type: "input",
+          name: "body",
           message:
-            'Provide a longer description of the change: (press enter to skip)\n',
-          default: options.defaultBody
+            "Provide a longer description of the change: (press enter to skip)\n",
+          default: options.defaultBody,
         },
         {
-          type: 'confirm',
-          name: 'isBreaking',
-          message: 'Are there any breaking changes?',
-          default: false
+          type: "confirm",
+          name: "isBreaking",
+          message: "Are there any breaking changes?",
+          default: false,
         },
         {
-          type: 'input',
-          name: 'breakingBody',
-          default: '-',
+          type: "input",
+          name: "breakingBody",
+          default: "-",
           message:
-            'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n',
-          when: function(answers) {
+            "A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n",
+          when: function (answers) {
             return answers.isBreaking && !answers.body;
           },
-          validate: function(breakingBody, answers) {
+          validate: function (breakingBody, answers) {
             return (
               breakingBody.trim().length > 0 ||
-              'Body is required for BREAKING CHANGE'
+              "Body is required for BREAKING CHANGE"
             );
-          }
+          },
         },
         {
-          type: 'input',
-          name: 'breaking',
-          message: 'Describe the breaking changes:\n',
-          when: function(answers) {
+          type: "input",
+          name: "breaking",
+          message: "Describe the breaking changes:\n",
+          when: function (answers) {
             return answers.isBreaking;
-          }
+          },
         },
 
         {
-          type: 'confirm',
-          name: 'isIssueAffected',
-          message: 'Does this change affect any open issues?',
-          default: options.defaultIssues ? true : false
+          type: "confirm",
+          name: "isIssueAffected",
+          message: "Does this change affect any open issues?",
+          default: options.defaultIssues ? true : false,
         },
         {
-          type: 'input',
-          name: 'issuesBody',
-          default: '-',
+          type: "input",
+          name: "issuesBody",
+          default: "-",
           message:
-            'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n',
-          when: function(answers) {
+            "If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n",
+          when: function (answers) {
             return (
               answers.isIssueAffected && !answers.body && !answers.breakingBody
             );
-          }
+          },
         },
         {
-          type: 'input',
-          name: 'issues',
-          message: 'Add issue references (e.g. "fix #123", "re #123", it\'s recommended to use the full issue link to avoid link breakage, especially on hard forks and repo mirrors):\n',
-          when: function(answers) {
+          type: "input",
+          name: "issues",
+          message:
+            'Add issue references (e.g. "fix #123", "re #123", it\'s recommended to use the full issue link to avoid link breakage, especially on hard forks and repo mirrors):\n',
+          when: function (answers) {
             return answers.isIssueAffected;
           },
-          default: options.defaultIssues ? options.defaultIssues : undefined
-        }
-      ]).then(function(answers) {
+          default: options.defaultIssues ? options.defaultIssues : undefined,
+        },
+      ]).then(function (answers) {
         var wrapOptions = {
           trim: true,
           cut: false,
-          newline: '\n',
-          indent: '',
-          width: options.maxLineWidth
+          newline: "\n",
+          indent: "",
+          width: options.maxLineWidth,
         };
 
         // parentheses are only needed when a scope is present
-        var scope = answers.scope ? '(' + answers.scope + ')' : '';
+        var scope = answers.scope ? "(" + answers.scope + ")" : "";
 
         // Hard limit this line in the validate
-        var head = answers.type + scope + ': ' + answers.subject;
+        var head = answers.type + scope + ": " + answers.subject;
 
         // Wrap these lines at options.maxLineWidth characters
         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
 
         // Apply breaking change prefix, removing it if already present
-        var breaking = answers.breaking ? answers.breaking.trim() : '';
+        var breaking = answers.breaking ? answers.breaking.trim() : "";
         breaking = breaking
-          ? 'BREAKING CHANGE: ' + breaking.replace(/^BREAKING CHANGE: /, '')
-          : '';
+          ? "BREAKING CHANGE: " + breaking.replace(/^BREAKING CHANGE: /, "")
+          : "";
         breaking = breaking ? wrap(breaking, wrapOptions) : false;
 
         var issues = answers.issues ? wrap(answers.issues, wrapOptions) : false;
 
-        commit(filter([head, body, breaking, issues]).join('\n\n'));
+        commit(filter([head, body, breaking, issues]).join("\n\n"));
       });
-    }
+    },
   };
 };

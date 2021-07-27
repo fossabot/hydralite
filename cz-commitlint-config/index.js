@@ -2,11 +2,11 @@
 // Original code licensed under MIT, while customizations are licensed in the same license as the Hydralite code itself.
 // See https://github.com/commitizen/cz-conventional-changelog/blob/v3.3.0/index.js for the original code.
 
-'format cjs';
+"format cjs";
 
-var engine = require('./engine');
-var customConfig = require('./customizations.json');
-var configLoader = require('commitizen').configLoader;
+var engine = require("./engine");
+var customConfig = require("./customizations.json");
+var configLoader = require("commitizen").configLoader;
 
 var config = configLoader.load() || {};
 var options = {
@@ -30,17 +30,17 @@ var options = {
     (process.env.CZ_MAX_LINE_WIDTH &&
       parseInt(process.env.CZ_MAX_LINE_WIDTH)) ||
     config.maxLineWidth ||
-    100
+    100,
 };
 
-(function(options) {
+(function (options) {
   try {
-    var commitlintLoad = require('@commitlint/load');
-    commitlintLoad().then(function(clConfig) {
+    var commitlintLoad = require("@commitlint/load");
+    commitlintLoad().then(function (clConfig) {
       if (clConfig.rules) {
-        var maxHeaderLengthRule = clConfig.rules['header-max-length'];
+        var maxHeaderLengthRule = clConfig.rules["header-max-length"];
         if (
-          typeof maxHeaderLengthRule === 'object' &&
+          typeof maxHeaderLengthRule === "object" &&
           maxHeaderLengthRule.length >= 3 &&
           !process.env.CZ_MAX_HEADER_WIDTH &&
           !config.maxHeaderWidth

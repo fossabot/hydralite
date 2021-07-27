@@ -22,19 +22,19 @@
       "required": ["description"]
     },
     "commitScope": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-            "description": {
-                "type": "string",
-                "description": "Description of an specific commit scope when prompted for which type to use in the Commitizen Inquirer.js screen. Try to keep it short as possible."
-            },
-            "title": {
-                "type": "string",
-                "description": "Human-friendly name of an specific commit scope. Even though it's not required by the schema, it's recommended to include one for documentation purposes."
-            }
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of an specific commit scope when prompted for which type to use in the Commitizen Inquirer.js screen. Try to keep it short as possible."
         },
-        "required": ["description"]
+        "title": {
+          "type": "string",
+          "description": "Human-friendly name of an specific commit scope. Even though it's not required by the schema, it's recommended to include one for documentation purposes."
+        }
+      },
+      "required": ["description"]
     }
   },
   "properties": {
@@ -43,8 +43,8 @@
       "additionalProperties": { "$ref": "#/definitions/commitType" }
     },
     "scopes": {
-        "type": "object",
-        "additionalProperties": { "$ref": "#/definitions/commitScope" }
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/commitScope" }
     }
   },
   "required": ["types", "scopes"]

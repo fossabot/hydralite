@@ -9,7 +9,7 @@ This is where our customized Commitizen adapter to [`cz-conventional-changelog`]
 > :warning: **This package isn't yet published on npm registry!** We just leave this in case we're published this in the future.
 
 1. Make your repository Commitizen-friendly first if not yet. If your repository is Commitizen-friendly and uses `cz-conventional-changelog` adapter,
-you can switch to this package without breaking anything.
+   you can switch to this package without breaking anything.
 
 ```sh
 # Install Commitizen globally first. If you get an EACCESS error, use Node Version manager instead or prefix sudo or run it as root.
@@ -27,13 +27,13 @@ commitizen init @hydralite/cz-commitlint-config --save-dev
 
 ```json5
 {
-    // your stuff above here
-    "scripts": {
-        // we added the signoff Git commit flag since we assume you
-        // need DCO compliance instead of having new contributors to sign CLAs
-        "commit": "cz --signoff"
-    }
-    // your stuff below here
+  // your stuff above here
+  scripts: {
+    // we added the signoff Git commit flag since we assume you
+    // need DCO compliance instead of having new contributors to sign CLAs
+    commit: "cz --signoff",
+  },
+  // your stuff below here
 }
 ```
 
@@ -46,11 +46,11 @@ commitizen init @hydralite/cz-commitlint-config --save-dev
 3. When you're ready, stage all and commit anyway with `yarn commit:stage-all` or pick which to stage first then run `yarn commit` (shortcut for the `commit:dco` script in the global `package.json` at project root) to call the custom adapter.
 4. Follow prompts, such as:
 
-  - selecting an type of commit and its scope (see below for supported types and scopes so Commitlint CI will go green when you push)
-  - typing the commit subject
-  - optionally input the commit body
-  - if yes, describe any breaking changes (ONLY DO THIS on new major versions, doing breaking changes at minor versions might cause downtime to users when deployed straight to production)
-  - if yes, pasting the GitHub/GitLab SaaS issue link (entering just the issue number may break on cross-platform basis)
+- selecting an type of commit and its scope (see below for supported types and scopes so Commitlint CI will go green when you push)
+- typing the commit subject
+- optionally input the commit body
+- if yes, describe any breaking changes (ONLY DO THIS on new major versions, doing breaking changes at minor versions might cause downtime to users when deployed straight to production)
+- if yes, pasting the GitHub/GitLab SaaS issue link (entering just the issue number may break on cross-platform basis)
 
 5. Push your commits to your branch/fork on GitHub/GitLab SaaS with `git push origin <branch-name-here>`. Remember to keep your branch up-to-date with the upstream with `git fetch --all && git pull upstream dev`.
 6. Repeat steps 2-5, until you're done with your work, in which you can now submit an pull request.
@@ -61,38 +61,38 @@ Like commitizen, you specify the configuration of @hydralite/cz-commitlint-confi
 
 ```json5
 {
-// ...  default values
-    "config": {
-        "commitizen": {
-            "path": "./node_modules/@hydralite/cz-commitlint-config",
-            "disableScopeLowerCase": false,
-            "disableSubjectLowerCase": false,
-            "maxHeaderWidth": 100,
-            "maxLineWidth": 100,
-            "defaultType": "",
-            "defaultScope": "",
-            "defaultSubject": "",
-            "defaultBody": "",
-            "defaultIssues": "",
-            "types": {
-              // Full JSON list at customizations.json file
-              "feat": {
-                "description": "A new feature",
-                "title": "Features"
-              },
-              // your config here...
-            },
-            "scopes": {
-                // Full JSON list at customizations.json file
-                "global": {
-                    "description": "Global project-level changes that affects all components",
-                    "title": "Global Changes"
-                }
-                // your config here...
-            }
-        }
-    }
-// ...
+  // ...  default values
+  config: {
+    commitizen: {
+      path: "./node_modules/@hydralite/cz-commitlint-config",
+      disableScopeLowerCase: false,
+      disableSubjectLowerCase: false,
+      maxHeaderWidth: 100,
+      maxLineWidth: 100,
+      defaultType: "",
+      defaultScope: "",
+      defaultSubject: "",
+      defaultBody: "",
+      defaultIssues: "",
+      types: {
+        // Full JSON list at customizations.json file
+        feat: {
+          description: "A new feature",
+          title: "Features",
+        },
+        // your config here...
+      },
+      scopes: {
+        // Full JSON list at customizations.json file
+        global: {
+          description: "Global project-level changes that affects all components",
+          title: "Global Changes",
+        },
+        // your config here...
+      },
+    },
+  },
+  // ...
 }
 ```
 
@@ -101,12 +101,12 @@ Like commitizen, you specify the configuration of @hydralite/cz-commitlint-confi
 The following environment varibles can be used to override any default configuration or package.json based configuration. Most of these are
 inherited from the upstream package.
 
-* CZ_TYPE = defaultType
-* CZ_SCOPE = defaultScope
-* CZ_SUBJECT = defaultSubject
-* CZ_BODY = defaultBody
-* CZ_MAX_HEADER_WIDTH = maxHeaderWidth
-* CZ_MAX_LINE_WIDTH = maxLineWidth
+- CZ_TYPE = defaultType
+- CZ_SCOPE = defaultScope
+- CZ_SUBJECT = defaultSubject
+- CZ_BODY = defaultBody
+- CZ_MAX_HEADER_WIDTH = maxHeaderWidth
+- CZ_MAX_LINE_WIDTH = maxLineWidth
 
 ### Commitlint
 
