@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "types": {
     "feat": {
       "description": "A new feature",
@@ -48,5 +49,52 @@
       "description": "Merge commits after either merging an branch or from the upstream",
       "title": "Merge Commits"
     }
+  },
+  "scopes": {
+        "global": {
+            "description": "Global project-level changes that affects all components",
+            "title": ""
+        }, 
+        "api": {
+            "description": "Backend code, such as GraphQL "
+        }, 
+        "landing": {
+            "description": "Landing page code changes"
+        }, 
+        "automation": {
+            "description": "Changes to scrapping and other sort of automation code",
+            "title": "Automation Scripts"
+        }, 
+        "mobile": {
+            "description": "Flutter mobile client app"
+        }, 
+        "prototype": {}, 
+        "web": {}, 
+        "hydrabot": {}, 
+        "docker": {}, 
+        "gitpod": {}, 
+        "devcontainer": {}, 
+        "docs": {}, 
+        "contributing-guide": {}, 
+        "meta": {}, 
+        "commitlint": {}, 
+        "commitizen": {}, 
+        "issue-templates": {}, 
+        "prettier": {}, 
+        "assets": {}, 
+        "github-actions": {},
+        "actions": {},
+        "gh-actions": {}, 
+        "gitlab-ci": {}, 
+        "deps-dev": {},
+        "deps-peer": {},
+        "deps-optional": {},
+        "deps": {}, 
+        "lockfiles": {}, 
+        "pr": {},
+        "mr": {},
+        "pull-request": {},
+        "merge-request": {}, 
+        "git-pull": {}
   }
 }

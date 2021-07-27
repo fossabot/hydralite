@@ -9,10 +9,12 @@
 
 const path = require("path");
 const bootstrap = require("commitizen/dist/cli/git-cz").bootstrap;
+const customizations = require("./customizations.json");
 
 bootstrap({
   cliPath: path.join(__dirname, "../node_modules/commitizen"),
   config: {
     path: "cz-conventional-changelog",
+    types: customizations.types
   },
 });

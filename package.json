@@ -11,7 +11,7 @@
   "scripts": {
     "commit": "yarn commit:stage-all",
     "commit:stage-all": "git add . && yarn commit:dco",
-    "commit:dco": "node ./cz-commitlint-config/adapter.js --signoff",
+    "commit:dco": "node ./cz-commitlint-config/cz.js --signoff",
     "commit:gpgsign": "yarn commit:dco -S",
     "commit:signed": "yarn commit:gpgsign",
     "docker:psql": "docker exec -it hydralite_db_1 psql -U hydralite",
