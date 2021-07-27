@@ -34,3 +34,10 @@ To start both the web and api servers -
 
 - Running Hydralite With Docker - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md#using-docker">Click Here</a>
 - Running Hydralite On Gitpod - <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md#using-gitpod">Click Here</a>
+
+
+# Sponsors
+
+Hydralite wouldn't be here if not for our amazing sponsors and [contributors](https://github.com/hydralite/hydralite/contributors)
+
+![YoMo.run](https://user-images.githubusercontent.com/63039748/127115006-f23e7e1f-78f3-472d-b35e-8d585dc61603.png)
