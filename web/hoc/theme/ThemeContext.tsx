@@ -19,9 +19,7 @@ export const ThemeContextProvider = ({ children }) => {
     userThemePreference = localStorage.getItem("hlTheme") as themeType;
   }, []);
 
-  const [theme, setTheme] = useState<themeType>(
-    userThemePreference ?? "dark"
-  );
+  const [theme, setTheme] = useState<themeType>(userThemePreference ?? "dark");
 
   function changeTheme(theme: themeType) {
     localStorage.setItem("hlTheme", theme);

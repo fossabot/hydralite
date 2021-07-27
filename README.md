@@ -38,4 +38,4 @@ To start both the web and api servers -
 
 ## Sponsors
 
-![YoMo.run](https://github.com/hydralite/hydralite/blob/dev/assets/sponsors/yomo.png?raw=true)
+<a href="https://yomo.run">![YoMo.run](https://github.com/hydralite/hydralite/blob/dev/assets/sponsors/yomo.png?raw=true)</a>
