@@ -51,50 +51,136 @@
     }
   },
   "scopes": {
-        "global": {
-            "description": "Global project-level changes that affects all components",
-            "title": ""
-        }, 
-        "api": {
-            "description": "Backend code, such as GraphQL "
-        }, 
-        "landing": {
-            "description": "Landing page code changes"
-        }, 
-        "automation": {
-            "description": "Changes to scrapping and other sort of automation code",
-            "title": "Automation Scripts"
-        }, 
-        "mobile": {
-            "description": "Flutter mobile client app"
-        }, 
-        "prototype": {}, 
-        "web": {}, 
-        "hydrabot": {}, 
-        "docker": {}, 
-        "gitpod": {}, 
-        "devcontainer": {}, 
-        "docs": {}, 
-        "contributing-guide": {}, 
-        "meta": {}, 
-        "commitlint": {}, 
-        "commitizen": {}, 
-        "issue-templates": {}, 
-        "prettier": {}, 
-        "assets": {}, 
-        "github-actions": {},
-        "actions": {},
-        "gh-actions": {}, 
-        "gitlab-ci": {}, 
-        "deps-dev": {},
-        "deps-peer": {},
-        "deps-optional": {},
-        "deps": {}, 
-        "lockfiles": {}, 
-        "pr": {},
-        "mr": {},
-        "pull-request": {},
-        "merge-request": {}, 
-        "git-pull": {}
+    "global": {
+      "description": "Global project-level changes that affects all components",
+      "title": "Global Changes"
+    },
+    "api": {
+      "description": "Backend code in GraphQL. Usually for adding new auth providers, reractoring schema for specific resource, etc.",
+      "title": "Backend"
+    },
+    "landing": {
+      "description": "Landing page code changes, like updating Hydracore team handbook and legal pages.",
+      "title": "Landing Page"
+    },
+    "automation": {
+      "description": "Changes to scrapping and other sort of automation code used by the CI/CD pipelines and others",
+      "title": "Automation Scripts"
+    },
+    "mobile": {
+      "description": "Flutter mobile client app, usually adding support to new GraphQL resolvers and types",
+      "title": "Mobile App"
+    },
+    "prototype": {
+      "description": "Deprecated, please move your prototypes to github:hydralite/prototypes repo.",
+      "title": "Prototypes"
+    },
+    "web": {
+      "description": "Frontend web app, powered by Next.js.",
+      "title": "Frontend"
+    },
+    "hydrabot": {
+      "description": "Hydrabot as Discord bot/GitHub app. For the bot account, see its docs on github:hydralitebt/hydralitebot.",
+      "title": "Discord bot/GitHub app"
+    },
+    "docker": {
+      "description": "All Docker and Docker Compose stuff. Please use Kubernetes instead if running in production.",
+      "title": "Docker-related stuff"
+    },
+    "gitpod": {
+      "description": "Custom Gitpod workspace image and its configuration",
+      "title": "Gitpod Workspace Configuration"
+    },
+    "devcontainer": {
+      "description": "Configurations for VSC's Dev Containers and GitHub Codespaces",
+      "title": "Remote Containers/Codespaces"
+    },
+    "docs": {
+      "description": "Documentation stuff, including user's guide and instance admin's handbook",
+      "title": "Documentation"
+    },
+    "contributing-guide": {
+      "description": "An special documentation on how to contribute.",
+      "title": "Contributing Guidelines/Docs"
+    },
+    "meta": {
+      "description": "Code of conduct and other sorts of meta stuff AKA about the project and its organization",
+      "title": "Meta Stack Exchange-like Corner"
+    },
+    "commitlint": {
+      "description": "Changes to Commitlint configuration and supported types/scopes for CI",
+      "title": "Commitlint"
+    },
+    "commitizen": {
+      "description": "Changes to the custom Commitizen adapter, based on cz-conventional-changelog npmjs package, and Commitizen configuration",
+      "title": "Commitizen"
+    },
+    "issue-templates": {
+      "description": "Issue templates in GitHub/GitLab",
+      "title": "Issue Templates"
+    },
+    "prettier": {
+      "description": "Prettier configuration and ignore files",
+      "title": "Prettier"
+    },
+    "assets": {
+      "description": "Static files and resources for the app and Markdown files when rendered",
+      "title": "Asset Files"
+    },
+    "github-actions": {
+      "description": "GitHub Actions workflow files",
+      "title": "GitHub Actions"
+    },
+    "actions": {
+      "description": "Alternative version of github-actions, ensuring Commitlint CI will pass.",
+      "title": "GitHub Actions"
+    },
+    "gh-actions": {
+      "description": "Alternative version of github-actions, ensuring Commitlint CI will pass.",
+      "title": "GitHub Actions"
+    },
+    "gitlab-ci": {
+      "description": "GitLab CI/CD configuration, reserved by Andrei Jiroh in case Hydralite goes #SwithingToGitLab.",
+      "title": "GitLab CI/CD configuration"
+    },
+    "deps-dev": {
+      "description": "Dependencies used in the development of Hydralite, which isn't needed when running in production"
+    },
+    "deps-peer": {
+      "description": "Usually fixes to unmet peer dependencies Yarn just detetced. IDK about pip or cargo.",
+      "title": "Peer Dependencies"
+    },
+    "deps-optional": {
+      "description": "Optional dependencies to run an Hydralite component in production, through its always included the ran 'yarn install'",
+      "title": "Optional Dependencies"
+    },
+    "deps": {
+      "description": "Dependencies required to run an Hydralite component in production",
+      "title": "Production Dependencies"
+    },
+    "lockfiles": {
+      "description": "An lockfile, like yarn.lock or Cargo.lock, is there to lock dependencies' and tooling's version, content hashes and even tarball URLs, to ensure stability.",
+      "title": "Lockfiles"
+    },
+    "pull-request": {
+      "description": "Merged code changes from GitHub, either through the web UI, API or the CLI.",
+      "title": "Merged from GitHub"
+    },
+    "pr": {
+      "description": "Shorter version of pull-request, just reserved for Commitlint CI to pass.",
+      "title": "Merged from GitHub"
+    },
+    "merge-request": {
+      "description": "Same as pull-request, just being reserved by Andrei Jiroh in case Hydralite goes #SwitchingToGitLab.",
+      "title": "Merged from GitLab"
+    },
+    "mr": {
+      "description": "Shorter version of merge-request, just reserved for Commitlint CI to pass.",
+      "title": "Merged from GitLab"
+    },
+    "git-pull": {
+      "description": "Only use this if you use the legendary 'git pull' command to merge changes from upstream",
+      "title": "Synchrized with Upstream"
+    }
   }
 }
