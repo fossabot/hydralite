@@ -1,26 +1,31 @@
 import React, { useState, useContext, useEffect } from "react";
+import { fetchThemeColors } from "util/fetchThemeColors";
+import { themeColorsType, themeNameType } from "~/types/Theme.type";
 
 /* Context for the application color theme */
 
-const x: "dark" | "light" = "" as any;
+interface ThemeContextType {
+  theme: themeColorsType;
+  changeTheme: (themeName: themeNameType) => void;
+}
+const ThemeContext = React.createContext<ThemeContextType>({} as ThemeContextType);
 
-const ThemeContext = React.createContext(null);
 export const useThemeContext = () => useContext(ThemeContext);
 
 export const ThemeContextProvider = ({ children }) => {
-  type themeType = typeof x;
-  let userThemePreference;
-
+  let userThemePreference
   useEffect(() => {
-    userThemePreference = localStorage.getItem("hlTheme") as themeType;
+    userThemePreference = localStorage.getItem("hlTheme") as themeNameType;
   }, []);
 
-  const [theme, setTheme] = useState<themeType>(userThemePreference || "dark");
-
-  function changeTheme(theme: themeType) {
-    localStorage.setItem("hlTheme", theme)
-    setTheme(theme)
+  const [themeName, setThemeName] = useState<themeNameType>(userThemePreference ?? "dark");
+  
+  function changeTheme(themeName: themeNameType) {
+    localStorage.setItem("hlTheme", themeName);
+    setThemeName(themeName);
   }
+
+  const theme = fetchThemeColors(themeName)
 
   return (
     <ThemeContext.Provider value={{ theme, changeTheme }}>
