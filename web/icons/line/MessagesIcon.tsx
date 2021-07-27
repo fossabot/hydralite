@@ -2,14 +2,9 @@ import * as React from "react"
 
 function SvgComponent(props) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      data-name="Layer 1"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
-        d="M17 21.63H5a3 3 0 01-3-3v-8a1 1 0 00-2 0v8a5 5 0 005 5h12a1 1 0 000-2zm4-18H7a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3v-10a3 3 0 00-3-3zm-.41 2l-5.88 5.88a1 1 0 01-1.42 0L7.41 5.63zm1.41 11a1 1 0 01-1 1H7a1 1 0 01-1-1V7l5.88 5.88a3 3 0 004.24 0L22 7z"
+        d="M18 2H6a3 3 0 00-3 3v11a3 3 0 003 3h2.59l2.7 2.71A1 1 0 0012 22a1 1 0 00.65-.24L15.87 19H18a3 3 0 003-3V5a3 3 0 00-3-3zm1 14a1 1 0 01-1 1h-2.5a1 1 0 00-.65.24l-2.8 2.4-2.34-2.35A1 1 0 009 17H6a1 1 0 01-1-1V5a1 1 0 011-1h12a1 1 0 011 1z"
       />
     </svg>
   )
