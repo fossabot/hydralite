@@ -11,28 +11,35 @@ Hydralite is an open-source, next-generation project marketing and management pl
 
 ## Project Components
 
-- [`web`](./web)</a> - frontend Next.js web app
+- [`web`](./web) - frontend Next.js web app
 - [`api`](./api) - GraphQL API/backend
 - [`cli`](./cli) - CLI
 - [`hydrabot`](./hydrabot) - Hydralite Discord Bot
 - [`landing`](./landing) - Landing Page
 - [`mobile`](./mobile) - Flutter mobile app
-- [`cz-commitlint-config`](./cz-commitlint-config) - custom types based on `@commitlint/conventional` NPM package and our custom Commitizen adapter based on `cz-conventional-changelog`
+- [`cz-commitlint-config`](./cz-commitlint-config) - custom types based on `@commitlint/config-conventional` NPM package and our custom Commitizen adapter based on `cz-conventional-changelog`
 - [`repo:prototypes`](https://github.com/hydralite/prototypes) - Prototypes
 
 ## Quick Start for Development
 
-Although we highly recommend reading <a href="https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md">the contributing guidelines/docs</a>, here's the fastest way to get started.
+Although we highly recommend reading [the contributing guidelines/docs](https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md), read on on how to get started contributing to HydraLite.
 
 Make sure you've installed Node.js (Web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (Mobile App) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server) in an PaaS where Dockerfiles are supported.
 
 To start both the frontend webapp and the GraphQL API backend servers:
 
 1. Navigate to the root directory and install dependencies with `yarn` (or `yarn install`)
-2. Then, run an intuitive setup procedure with `yarn setup`
-3. Once Setup is complete, run `yarn dev`
+2. Then, run an intuitive setup procedure with `yarn setup`. It'll ask you the following in order to generate an `.env` file:
+    - OAuth client IDs and secrets for: GitHub, Discord and Google (you can skip if you don't have these, but this might fire up some errors when you start it)
+    - Postgres database URL string for data storage and Prisma database migrations.
+    - Redis URL for data cache. Although you can use Redis as full-blown database replacement to Postgres, it is currently not supported.
+3. Once setup is complete, run `yarn dev` to start both the web app and API server in development mode.
 
 **Other Ways To Get Started:**
 
 - [With Docker](https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md#using-docker)
 - [On Gitpod](https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md#using-gitpod)
+
+## Sponsors
+
+![YoMo.run](https://github.com/hydralite/hydralite/blob/dev/assets/sponsors/yomo.png?raw=true)

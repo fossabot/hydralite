@@ -28,6 +28,12 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../archived/Theme.type.ts",
+    "../archived/fetchThemeColors.ts"
+  ],
   "exclude": ["node_modules"]
 }
