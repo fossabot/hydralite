@@ -9,7 +9,7 @@
     "cz-commitlint-config"
   ],
   "scripts": {
-    "commit": "yarn commit:stage-all",
+    "commit": "yarn commit:dco",
     "commit:stage-all": "git add . && yarn commit:dco",
     "commit:dco": "cz --signoff",
     "commit:gpgsign": "yarn commit:dco -S",
