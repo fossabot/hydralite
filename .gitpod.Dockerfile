@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM golang:1.16 AS shfmt
 
 # Formatting shell scripts, especially our Docker image's entrypoint script, as
@@ -93,7 +94,18 @@ ENV PATH="$PATH:$HOME/.pg_ctl/bin" DATABASE_URL="postgresql://gitpod@localhost" 
 RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
 
 ### Redis ###
-# TODO
+RUN set -ex; \
+    wget http://download.redis.io/redis-stable.tar.gz -O /tmp/redis-stable.tar.gz; \
+    tar xvzf /tmp/redis-stable.tar.gz -C /tmp; \
+    # using cd is a bad pratice, but we want to install Redis without adding more layers
+    cd /tmp/redis-stable && make && sudo make install; \
+    rm -rfv /tmp/*
+COPY docker/redis.conf /etc/redis/6379.conf
+COPY docker/bin/redis-init-script /usr/local/bin/
+RUN set -ex; \
+    sudo chmod +x /usr/local/bin/redis-init-script; \
+    sudo mkdir -p /workspace/.pgsql && sudo chown -R gitpod:gitpod /workspace; \
+    mkdir /workspace/.redis
 
 ### Docker ###
 RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \

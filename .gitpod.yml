@@ -1,5 +1,6 @@
 image:
   file: .gitpod.Dockerfile
+  context: .
 
 # init tasks are ran in prebuilds, command tasks are run when the user starts a new session.
 tasks:
@@ -7,6 +8,10 @@ tasks:
     init: yarn
     # Since we cannot call this command during the workspace creation process, we'll call sync-done after the workspace is ready.
     command: gp sync-done yarn-install
+
+  - name: Start Redis
+    before: redis-init-script start
+    command: exit 0
 
   - name: Setup Web/Api Server
     command: |
@@ -46,5 +51,9 @@ github:
 ports:
   # ignore when the Postgres server starts by either our bashrc hack or one of the before scripts.
   - port: 5432
+    onOpen: ignore
+    visibility: private
+  # repeat the same for Redis
+  - port: 6379
     onOpen: ignore
     visibility: private
