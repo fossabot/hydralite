@@ -3,14 +3,20 @@ import React from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 interface SidebarTabProps {
-    isActive?: boolean;
-    activeIcon?: any;
-    icon: any;
-    name: string;
-    link: string;
+  isActive?: boolean;
+  activeIcon?: any;
+  icon: any;
+  name: string;
+  link: string;
 }
 
-const SidebarTab: React.FC<SidebarTabProps> = ({ isActive, activeIcon, icon, name, link }) => {
+const SidebarTab: React.FC<SidebarTabProps> = ({
+  isActive,
+  activeIcon,
+  icon,
+  name,
+  link,
+}) => {
   const { theme } = useThemeContext();
 
   return (

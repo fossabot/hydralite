@@ -1,6 +1,4 @@
-import {
-  ThemeContextProvider,
-} from "~/hoc/theme/ThemeContext";
+import { ThemeContextProvider } from "~/hoc/theme/ThemeContext";
 import "../styles/globals.css";
 
 function App({ Component, pageProps }) {

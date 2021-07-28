@@ -40,7 +40,9 @@ const LoginButton = ({ icon, title, provider }) => {
     <button
       className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full"
       onClick={async () => {
-        const url = await fetch(`${serverUrl}/api/auth/${provider}`).then(v => v.json()).then(v => v.url);
+        const url = await fetch(`${serverUrl}/api/auth/${provider}`)
+          .then((v) => v.json())
+          .then((v) => v.url);
         window.location.href = url;
       }}
     >
