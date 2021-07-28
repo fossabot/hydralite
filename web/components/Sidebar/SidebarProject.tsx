@@ -36,7 +36,7 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
             src={logoUrl}
             alt={name}
             draggable={false}
-            className={`h-full w-full hover:rounded-2xl transition-all object-cover ${
+            className={`h-full w-full hover:rounded-2xl hover:opacity-[0.8] transition-all object-cover ${
               isActive ? "rounded-2xl" : "rounded-full"
             }`}
           />

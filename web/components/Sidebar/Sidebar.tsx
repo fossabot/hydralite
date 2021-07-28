@@ -17,7 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
         ${theme === "dark" && "bg-dark-bgMuted1"}
       `}
     >
-      <SidebarTabs />
+      <SidebarTabs activeTab={activeTab} />
       <SidebarProjects />
     </div>
   );

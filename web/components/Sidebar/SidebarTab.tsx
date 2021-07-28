@@ -20,23 +20,31 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
   const { theme } = useThemeContext();
 
   return (
-    <Link href={link}>
-      <a
-        className={`
-            h-[3.2rem] w-[3.2rem] grid place-items-center rounded-2xl transition-all
+    <>
+      {isActive && (
+        <span
+          className={`absolute left-0 w-1 h-12 rounded-full ${
+            theme === "dark" && "bg-[#fff]"
+          }`}
+        ></span>
+      )}
+      <Link href={link}>
+        <a
+          className={`
+            h-[3.2rem] w-[3.2rem] grid place-items-center rounded-2xl transition-all hover:opacity-[0.8]
             ${
               theme === "dark" &&
               `
                 ${isActive ? "bg-dark-color-accent" : "bg-dark-bgMuted4"}
-                hover:bg-dark-bgMuted2
               `
             }
         `}
-        title={name}
-      >
-        {isActive ? activeIcon : icon}
-      </a>
-    </Link>
+          title={name}
+        >
+          {isActive ? activeIcon : icon}
+        </a>
+      </Link>
+    </>
   );
 };
 
