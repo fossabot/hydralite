@@ -37,8 +37,6 @@ export const GithubOAuth = (passport: PassportStatic) => {
           },
         };
 
-        
-
         return done(null, genericUser);
       }
     )

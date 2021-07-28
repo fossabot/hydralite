@@ -11,9 +11,10 @@ export const IsAuthenticated = () =>
       const accessTokenType = token[0];
       const accessToken = token[1];
 
-      if (accessTokenType.toLowerCase() !== "bearer") throw new ApolloError("Not Authenticated.");
+      if (accessTokenType.toLowerCase() !== "bearer")
+        throw new ApolloError("Not Authenticated.");
       if (!accessToken) throw new ApolloError("Not Authenticated.");
-      
+
       const tokenPair = await prisma.tokenPair.findUnique({
         where: {
           accessToken,
@@ -36,13 +37,13 @@ export const IsAuthenticated = () =>
               featureRequests: true,
               likedPosts: true,
             },
-          }
-        }
+          },
+        },
       });
-      
+
       if (!tokenPair) throw new ApolloError("Not Authenticated.");
       // TODO: check how old the token pair is, and if it is older than 30 days, then remove it and throw not authenticated
-      
+
       req.user = tokenPair.user as any;
       return next();
     }

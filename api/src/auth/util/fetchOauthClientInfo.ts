@@ -1,6 +1,8 @@
 import { AuthProviderStandaloneType } from "~/types/AuthProvider.type";
 
-export default function fetchOauthClientInfo(provider: AuthProviderStandaloneType) {
+export default function fetchOauthClientInfo(
+  provider: AuthProviderStandaloneType
+) {
   let info: {
     clientId: string;
     clientSecret: string;
@@ -33,32 +35,53 @@ export default function fetchOauthClientInfo(provider: AuthProviderStandaloneTyp
       break;
     case "standalone/github":
       info = {
-        clientId: process.env.STANDALONE_GITHUB_CLIENT_ID ?? process.env.GITHUB_CLIENT_ID!,
-        clientSecret: process.env.STANDALONE_GITHUB_CLIENT_SECRET ?? process.env.GITHUB_CLIENT_SECRET!,
+        clientId:
+          process.env.STANDALONE_GITHUB_CLIENT_ID ??
+          process.env.GITHUB_CLIENT_ID!,
+        clientSecret:
+          process.env.STANDALONE_GITHUB_CLIENT_SECRET ??
+          process.env.GITHUB_CLIENT_SECRET!,
       };
       break;
     case "standalone/discord":
       info = {
-        clientId: process.env.STANDALONE_DISCORD_CLIENT_ID ?? process.env.DISCORD_CLIENT_ID!,
-        clientSecret: process.env.STANDALONE_DISCORD_CLIENT_SECRET ?? process.env.DISCORD_CLIENT_SECRET!,
+        clientId:
+          process.env.STANDALONE_DISCORD_CLIENT_ID ??
+          process.env.DISCORD_CLIENT_ID!,
+        clientSecret:
+          process.env.STANDALONE_DISCORD_CLIENT_SECRET ??
+          process.env.DISCORD_CLIENT_SECRET!,
       };
       break;
     case "standalone/google":
       info = {
-        clientId: process.env.STANDALONE_GOOGLE_CLIENT_ID ?? process.env.GOOGLE_CLIENT_ID!,
-        clientSecret: process.env.STANDALONE_GOOGLE_CLIENT_SECRET ?? process.env.GOOGLE_CLIENT_SECRET!,
+        clientId:
+          process.env.STANDALONE_GOOGLE_CLIENT_ID ??
+          process.env.GOOGLE_CLIENT_ID!,
+        clientSecret:
+          process.env.STANDALONE_GOOGLE_CLIENT_SECRET ??
+          process.env.GOOGLE_CLIENT_SECRET!,
       };
       break;
     case "standalone/twitter":
       info = {
-        clientId: process.env.STANDALONE_TWITTER_CLIENT_ID ?? process.env.TWITTER_CLIENT_ID!,
-        clientSecret: process.env.STANDALONE_TWITTER_CLIENT_SECRET ?? process.env.TWITTER_CLIENT_SECRET!,
+        clientId:
+          process.env.STANDALONE_TWITTER_CLIENT_ID ??
+          process.env.TWITTER_CLIENT_ID!,
+        clientSecret:
+          process.env.STANDALONE_TWITTER_CLIENT_SECRET ??
+          process.env.TWITTER_CLIENT_SECRET!,
       };
       break;
-    }
+  }
 
-  info.cbUrl = (process.env.WEB_URL ?? 'http://localhost:3000') + `/auth/providers/${provider}`;
-  if (provider.startsWith("standalone")) info.cbUrl = (process.env.API_URL ?? 'http://localhost:8000') + `/api/auth/${provider.substr('standalone/'.length)}/standalone/callback`;
+  info.cbUrl =
+    (process.env.WEB_URL ?? "http://localhost:3000") +
+    `/auth/providers/${provider}`;
+  if (provider.startsWith("standalone"))
+    info.cbUrl =
+      (process.env.API_URL ?? "http://localhost:8000") +
+      `/api/auth/${provider.substr("standalone/".length)}/standalone/callback`;
 
   return info;
 }

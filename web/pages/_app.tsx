@@ -1,14 +1,16 @@
 import { ThemeContextProvider } from "~/hoc/theme/ThemeContext";
 import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <ThemeContextProvider>
-        <Component {...pageProps} />
+        <div>
+          <Component {...pageProps} />
+        </div>
       </ThemeContextProvider>
     </>
   );
 }
 
-export default MyApp;
+export default App;
