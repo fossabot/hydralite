@@ -2,6 +2,8 @@
 
 This is where our customized Commitizen adapter to [`cz-conventional-changelog`](https://github.com/commitizen/cz-conventional-changelog) and also where our accepted types and scopes for Commitlint CI to pass.
 
+[See the changelog](https://github.com/hydralite/hydralite/blob/dev/cz-commitlint-config/CHANGELOG.md) on what's new in the package, among with historical context of changes.
+
 ## Usage
 
 ### As standalone package
@@ -148,6 +150,7 @@ module.exports = {
 ## TODO
 
 * [X] Implement fuzzy search and autocompletion when selecting an scope, as the list goes longer in the future.
+* [ ] Make this package also an Commitlint adapter.
 
 ## Reference
 
