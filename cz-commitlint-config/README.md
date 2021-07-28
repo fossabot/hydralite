@@ -147,7 +147,7 @@ module.exports = {
 
 ## TODO
 
-* [ ] Implement fuzzy search and autocompletion when selecting an scope, as the list goes longer in the future.
+* [X] Implement fuzzy search and autocompletion when selecting an scope, as the list goes longer in the future.
 
 ## Reference
 

@@ -2,12 +2,28 @@
   "name": "@hydralite/cz-commitlint-config",
   "version": "0.1.0",
   "description": "Customizations to cz-conventional-changelog and @commitlint/config-conventional for Hydralite",
+  "bugs": {
+    "url": "https://github.com/hydralite/hydralite/issues"
+  },
+  "homepage": "https://github.com/hydralite/hydralite/tree/dev/cz-commitlint-config",
+  "repository": {
+    "url": "https://github.com/hydralite/hydralite",
+    "type": "git+https",
+    "directory": "cz-commitlint-config"
+  },
   "main": "./index.js",
   "author": {
     "name": "Hydralite Contributors and Maintainers",
     "email": "hello@hydralite.io",
     "url": "https://github.com/hydralite/hydralite"
   },
+  "contributors": [
+    {
+      "name": "Andrei Jiroh Eugenio Halili",
+      "email": "andreijiroh@madebythepins.tk",
+      "url": "https://github.com/ajhalili2006"
+    }
+  ],
   "dependencies": {
     "chalk": "^2.4.1",
     "commitizen": "^4.0.3",

@@ -45,17 +45,10 @@ var filterSubject = function (subject, disableSubjectLowerCase) {
 // fine.
 module.exports = function (options) {
   var types = options.types;
-  var scopes = options.scopes;
+  var scopes = Object.keys(options.scopes);
 
   var length = longest(Object.keys(types)).length + 1;
   var choicesTypes = map(types, function (type, key) {
-    return {
-      name: (key + ":").padEnd(length) + " " + type.description,
-      value: key,
-    };
-  });
-  // The UI for choosing an scope is currently ugly, my apologies for that.
-  var choicesScopes = map(scopes, function (type, key) {
     return {
       name: (key + ":").padEnd(length) + " " + type.description,
       value: key,
@@ -82,6 +75,29 @@ module.exports = function (options) {
       // See inquirer.js docs for specifics.
       // You can also opt to use another input
       // collection library if you prefer.
+
+      // import lodash and fuzzy for our autocompletion and fuzzy search stuff
+      var _ = require('lodash');
+      var fuzzy = require('fuzzy');
+
+      // when using Inquirer.js, which is the default in Commitizen, change inquirer to cz
+      cz.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+
+      function searchScopes(answers, input) {
+        input = input || '';
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            var fuzzyResult = fuzzy.filter(input, scopes);
+            const results = fuzzyResult.map(function (el) {
+              return el.original;
+            });
+      
+            results.splice(5, 0, new cz.Separator());
+            results.push(new cz.Separator());
+            resolve(results);
+          }, _.random(30, 500));
+        });
+      }
       cz.prompt([
         {
           type: "list",
@@ -91,13 +107,15 @@ module.exports = function (options) {
           default: options.defaultType,
         },
         {
-          // instead of an input, we'll show an list for the user to choose.
-          // TODO: Support autocompletion, so user will not scroll through Mount Doom's map.
-          type: "list",
+          // instead of an input, we'll show an list of scopes in either Commitizen config or the adapter's defaults for the user to choose.
+          type: "autocomplete",
           name: "scope",
-          message: "Select an scope for this change",
-          choices: choicesScopes,
+          message: "Select the scope of change that you're commiting (check project's Commitizen configuration or this adapter's default ones on its package README for details):",
+          searchText: 'Looking up for supported scopes...',
+          emptyText: "Looks like that scope doesn't exist in either the Commitizen configuration or the adapter's defaults",
+          source: searchScopes,
           default: options.defaultScope,
+          pageSize: 6
         },
         {
           type: "input",
@@ -116,7 +134,7 @@ module.exports = function (options) {
               options.disableSubjectLowerCase
             );
             return filteredSubject.length == 0
-              ? "subject is required"
+              ? "Commit subject is required"
               : filteredSubject.length <= maxSummaryLength(options, answers)
               ? true
               : "Subject length must be less than or equal to " +
