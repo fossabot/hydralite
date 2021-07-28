@@ -27,7 +27,7 @@ export class TokenPairUtil {
       return Math.floor(Math.random() * 16).toString(16);
     });
 
-    return data.join('');
+    return data.join("");
   }
 
   generateTokenPair = async (userId: string) => {

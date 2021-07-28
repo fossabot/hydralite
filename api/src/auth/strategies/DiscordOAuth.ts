@@ -5,14 +5,12 @@ import QueryString from "qs";
 import discordAvatarUrl from "../util/discordAvatarUrl";
 
 async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
-  console.log(code);
-
   const data = await axios({
-    method: 'POST',
-    url: 'https://discord.com/api/oauth2/token',
+    method: "POST",
+    url: "https://discord.com/api/oauth2/token",
 
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",
     },
     data: QueryString.stringify({
@@ -21,22 +19,24 @@ async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportG
       redirect_uri: oauthInfo.cbUrl,
       grant_type: "authorization_code",
       code,
-    })
-  }).then(v => v.data).catch(e => console.log(e));
+    }),
+  })
+    .then((v) => v.data)
+    .catch((e) => console.log(e));
 
   if (!data) return null;
 
   const { access_token, token_type } = data;
   if (!access_token) return null;
 
-  const json = await axios.get('https://discord.com/api/users/@me', {
-    headers: {
-      'Authorization': `${token_type} ${access_token}`,
-      'Accept': 'application/json',
-    }
-  }).then(v => v.data);
-
-  console.log(json);
+  const json = await axios
+    .get("https://discord.com/api/users/@me", {
+      headers: {
+        Authorization: `${token_type} ${access_token}`,
+        Accept: "application/json",
+      },
+    })
+    .then((v) => v.data);
 
   return {
     email: json.email || "",
@@ -62,7 +62,9 @@ function getAuthUrl(oauthInfo: StrategyInfo) {
     scope: "identify email",
   };
 
-  return `https://discord.com/api/oauth2/authorize?${QueryString.stringify(data)}`;
+  return `https://discord.com/api/oauth2/authorize?${QueryString.stringify(
+    data
+  )}`;
 }
 
-export const DiscordOAuth = OAuthStrategy('discord', getAuthUrl, getUser);
+export const DiscordOAuth = OAuthStrategy("discord", getAuthUrl, getUser);

@@ -44,26 +44,30 @@ const Home = () => {
 
   if (conn) {
     // this is just an example on how to query data from the api
-    conn.query({
-      query: gql`
-        query ReadAllPostCommentsQuery($readAllPostCommentsArgs: ReadAllPostCommentsArgs!) {
-          readAllPostComments(args: $readAllPostCommentsArgs) {
-            id
-            body
-            creatorId
-            edited
-            createdAt
-            updatedAt
-            likes
+    conn
+      .query({
+        query: gql`
+          query ReadAllPostCommentsQuery(
+            $readAllPostCommentsArgs: ReadAllPostCommentsArgs!
+          ) {
+            readAllPostComments(args: $readAllPostCommentsArgs) {
+              id
+              body
+              creatorId
+              edited
+              createdAt
+              updatedAt
+              likes
+            }
           }
-        }
-      `,
-      variables: {
-        readAllPostCommentsArgs: {
-          postId: "ea356fb9-4643-4d47-8d46-8e121f7e01a0"
-        }
-      }
-    }).then(v => console.log(v));
+        `,
+        variables: {
+          readAllPostCommentsArgs: {
+            postId: "ea356fb9-4643-4d47-8d46-8e121f7e01a0",
+          },
+        },
+      })
+      .then((v) => console.log(v));
   }
 
   return (
@@ -83,8 +87,8 @@ const Home = () => {
           </span>
         </h2>
         <h3 className="text-xl font-semibold text mb-7 text-center">
-          Welcome to your shiny new project. Here’s <br /> some tips to get
-          you setup.
+          Welcome to your shiny new project. Here’s <br /> some tips to get you
+          setup.
         </h3>
         <WelcomeWidget
           color="#FFA2D4"

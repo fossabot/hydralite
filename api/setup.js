@@ -12,6 +12,8 @@ const prompt = async (args) =>
   if (
     process.env.GITHUB_CLIENT_ID ||
     process.env.GITHUB_CLIENT_SECRET ||
+    process.env.DISCORD_CLIENT_ID ||
+    process.env.DISCORD_CLIENT_SECRET ||
     process.env.DATABASE_URL
   )
     return console.log(
@@ -29,6 +31,14 @@ const prompt = async (args) =>
 
   env.GITHUB_CLIENT_SECRET = await prompt({
     message: `Please enter your GitHub Client Secret:`,
+  });
+  
+  env.DISCORD_CLIENT_ID = await prompt({
+    message: `Please enter your Discord Client ID:`,
+  });
+
+  env.DISCORD_CLIENT_SECRET = await prompt({
+    message: `Please enter your Discord Client Secret:`,
   });
 
   if (!process.env.IS_GITPOD) {

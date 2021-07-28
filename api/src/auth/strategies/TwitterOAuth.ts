@@ -1,7 +1,10 @@
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { OAuthStrategy, StrategyInfo } from "./Strategy";
 
-async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+async function getUser(
+  code: string,
+  oauthInfo: StrategyInfo
+): Promise<PassportGenericUser | null> {
   // TODO: get user data from twitter
   return {
     email: "",
@@ -21,7 +24,7 @@ async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportG
 
 function getAuthUrl(oauthInfo: StrategyInfo) {
   // TODO: return an redirect URI for twitter oauth
-  return '';
+  return "";
 }
 
-export const TwitterOAuth = OAuthStrategy('twitter', getAuthUrl, getUser);
+export const TwitterOAuth = OAuthStrategy("twitter", getAuthUrl, getUser);
