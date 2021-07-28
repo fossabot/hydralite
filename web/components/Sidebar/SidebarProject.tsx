@@ -24,8 +24,7 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
           className={`absolute left-0 w-1 h-12 rounded-full ${
             theme === "dark" && "bg-[#fff]"
           }`}
-        >
-        </span>
+        ></span>
       )}
       <Link
         href={`${
@@ -37,9 +36,9 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
             src={logoUrl}
             alt={name}
             draggable={false}
-            className={`${
-              isActive ? "w-full h-full rounded-2xl" : "rounded-full"
-            } hover:rounded-2xl transition-all object-cover`}
+            className={`h-full w-full hover:rounded-2xl transition-all object-cover ${
+              isActive ? "rounded-2xl" : "rounded-full"
+            }`}
           />
         </a>
       </Link>
