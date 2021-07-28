@@ -63,29 +63,8 @@ RUN cp /home/gitpod/.profile /home/gitpod/.profile_orig && \
 ENV PATH=$PATH:$HOME/.cargo/bin
 RUN bash -lc "cargo install cargo-watch cargo-edit cargo-tree"
 
-### PostgresSQL ###
-RUN sudo install-packages postgresql-12 postgresql-contrib-12
-ENV PATH="$PATH:/usr/lib/postgresql/12/bin"
-ENV PGDATA="/workspace/.pgsql/data"
-RUN mkdir -p ~/.pg_ctl/bin ~/.pg_ctl/sockets \
- && printf '#!/bin/bash\n[ ! -d $PGDATA ] && mkdir -p $PGDATA && initdb -D $PGDATA\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" start\n' > ~/.pg_ctl/bin/pg_start \
- && printf '#!/bin/bash\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" stop\n' > ~/.pg_ctl/bin/pg_stop \
- && chmod +x ~/.pg_ctl/bin/*
-ENV PATH="$PATH:$HOME/.pg_ctl/bin"
-ENV DATABASE_URL="postgresql://gitpod@localhost"
-ENV PGHOSTADDR="127.0.0.1"
-ENV PGDATABASE="postgres"
-# This is a bit of a hack. At the moment we have no means of starting background
-# tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
-# PostgreSQL server is running, and if not starts it. We can proably add this into
-# our tasks, probably on the before part for Postgres one.
-RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
-
-### Redis ###
-# TODO
-
 ### Flutter ###
-# Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
+# Note that you cannot emulate Android apps yet because of KVM requirement, but nested virtualization is unsupported in GKE currently
 # See Gitpod issue at https://github.com/gitpod-io/gitpod/issues/1273 and also in Google Issue Tracker in general at https://issuetracker.google.com/issues/110507927?pli=1
 RUN sudo install-packages libglu1-mesa
 RUN set -ex; \
@@ -97,6 +76,24 @@ RUN set -ex; \
     flutter channel stable; \
     flutter upgrade; \
     flutter precache --android --ios --universal -v
+
+### PostgresSQL ###
+RUN sudo install-packages postgresql-12 postgresql-contrib-12
+ENV PATH="$PATH:/usr/lib/postgresql/12/bin" PGDATA="/workspace/.pgsql/data"
+RUN mkdir -p ~/.pg_ctl/bin ~/.pg_ctl/sockets \
+ && printf '#!/bin/bash\n[ ! -d $PGDATA ] && mkdir -p $PGDATA && initdb -D $PGDATA\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" start\n' > ~/.pg_ctl/bin/pg_start \
+ && printf '#!/bin/bash\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" stop\n' > ~/.pg_ctl/bin/pg_stop \
+ && chmod +x ~/.pg_ctl/bin/*
+ENV PATH="$PATH:$HOME/.pg_ctl/bin" DATABASE_URL="postgresql://gitpod@localhost" \
+    PGHOSTADDR="127.0.0.1" PGDATABASE="postgres"
+# This is a bit of a hack. At the moment we have no means of starting background
+# tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
+# PostgreSQL server is running, and if not starts it. We can proably add this into
+# our tasks, probably on the before part for Postgres one.
+RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
+
+### Redis ###
+# TODO
 
 ### Docker ###
 RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
@@ -122,15 +119,15 @@ ARG scversion="stable"
 # ShellCheck for our Docker image's entrypoint script
 RUN set -ex; \
     wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv -C /tmp; \
-    sudo cp "/tmp/shellcheck-${scversion}/shellcheck" /usr/bin/; \
+    sudo cp "/tmp/shellcheck-${scversion}/shellcheck" /usr/local/bin/; \
     rm -rfv /tmp/shellcheck-*
 # Shell script linting / formatter from our golang build stage
-COPY --from=shfmt /go/bin/shfmt /usr/bin/shfmt
+COPY --from=shfmt /go/bin/shfmt /usr/local/bin/shfmt
 # Hadolint is ShellCheck for Dockerfiles, we cannot use Homebrew here.
-ARG HADOLINT_VERSION="latest"
+ARG HADOLINT_VERSION="v2.6.0"
 RUN set -ex; \
     wget -q "https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION?}/hadolint-Linux-x86_64" -O /tmp/hadolint; \
-    sudo mv /tmp/halolint /usr/local/bin/hadolint; sudo chmod +x /usr/bin/hadolint
+    sudo mv /tmp/hadolint /usr/local/bin/hadolint; sudo chmod +x /usr/local/bin/hadolint
 
 ### Cleanup ###
 RUN sudo apt-get clean -y \

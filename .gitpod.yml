@@ -5,8 +5,8 @@ image:
 tasks:
   - name: Install Packages (Global)
     init: yarn
-    # Since we cannot call this command during the workspace creation process, we'll call sync-done after the workspace is ready, and then exits the terminal gracefully
-    command: gp sync-done yarn-install && exit 0
+    # Since we cannot call this command during the workspace creation process, we'll call sync-done after the workspace is ready.
+    command: gp sync-done yarn-install
 
   - name: Setup Web/Api Server
     command: |
