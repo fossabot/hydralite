@@ -18,6 +18,7 @@
       "~/components/*": ["components/*"],
       "~/pages/*": ["pages/*"],
       "~/styles/*": ["styles/*"],
+      "~/icons/*": ["icons/*"],
       "~/public/*": ["public/*"],
       "~/types/*": ["types/*"],
       "~/logic/*": ["logic/*"],
