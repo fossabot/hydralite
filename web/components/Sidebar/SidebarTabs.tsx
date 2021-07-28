@@ -9,14 +9,17 @@ import CompassIcon from "~/icons/line/CompassIcon";
 import CompassIconSolid from "~/icons/solid/CompassIconSolid";
 import MessagesIcon from "~/icons/line/MessagesIcon";
 import MessagesIconSolid from "~/icons/solid/MessagesIconSolid";
+import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 const SidebarTabs = ({
   activeTab,
 }: {
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";
 }) => {
+  const { theme } = useThemeContext();
+
   return (
-    <>
+    <div className={`w-full flex flex-col items-center gap-2 pb-2 border-b-2 ${theme === "dark" && "border-dark-bgMuted2"}`}>
       <SidebarTab
         isActive={activeTab === "Home"}
         activeIcon={
@@ -72,7 +75,7 @@ const SidebarTabs = ({
         name="Communicate"
         link="/communicate"
       />
-    </>
+    </div>
   );
 };
 

@@ -20,15 +20,15 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
         process.env.CLIENT_URL || "http://localhost:3000"
       }/project/${id}`}
     >
-      <a className={`h-[3.3rem] w-full`} title={name}>
-        <img
-          src={logoUrl}
-          alt={name}
-          className={`w-full h-full ${
-            isActive ? "rounded-xl" : "rounded-full"
-          } hover:rounded-xl transition-all`}
-        />
-      </a>
+      <img
+        src={logoUrl}
+        alt={name}
+        className={`h-[3.4rem] w-[3.4rem] ${
+          isActive ? "rounded-2xl" : "rounded-full"
+        } hover:rounded-2xl transition-all object-cover cursor-pointer`}
+        title={name}
+        draggable={false}
+      />
     </Link>
   );
 };

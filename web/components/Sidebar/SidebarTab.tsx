@@ -23,7 +23,7 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
     <Link href={link}>
       <a
         className={`
-            h-[3.3rem] w-full rounded-xl grid place-items-center
+            h-[3.4rem] w-[3.4rem] rounded-xl grid place-items-center
             ${
               theme === "dark" &&
               `${isActive ? "bg-dark-color-accent" : "bg-dark-bgMuted2"}`
