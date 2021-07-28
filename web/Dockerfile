@@ -8,7 +8,6 @@ COPY tsconfig.json ./
 COPY postcss.config.js ./
 COPY tailwind.config.js ./
 
-COPY constants.ts ./
 COPY next-env.d.ts ./
 
 COPY components ./components

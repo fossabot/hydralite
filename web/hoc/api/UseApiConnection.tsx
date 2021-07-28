@@ -5,7 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
-import { serverUrl } from "constantVars";
+import { serverUrl } from "../../constants/global";
 import React, { useEffect, useMemo, useState } from "react";
 
 type V = ApolloClient<NormalizedCacheObject> | null;

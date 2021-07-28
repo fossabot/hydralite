@@ -1,4 +1,4 @@
-import { serverUrl } from "constantVars";
+import { serverUrl } from "../../constants/global";
 import { useEffect } from "react";
 
 async function get() {
