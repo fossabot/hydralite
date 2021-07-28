@@ -40,6 +40,15 @@ const prompt = async (args) =>
     env.DATABASE_URL = "postgresql://gitpod@localhost/postgres";
   }
 
+  if (!process.env.IS_GITPOD) {
+    env.REDIS_URL = await prompt({
+      message: `Please enter your Redis URL:`,
+      default: "redis://localhost",
+    });
+  } else {
+    env.REDIS_URL = "redis://hydralitedev:764e2f151a1cc2c04d3dd80d0430453b759f79bee75d74fa25f5c104152ba82b@localhost";
+  }
+
   console.log(
     chalk.green("*") + chalk.magenta.bold(" Writing configuration...")
   );
