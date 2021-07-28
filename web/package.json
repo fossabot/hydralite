@@ -19,28 +19,29 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
-    "@iconify/react": "alpha",
+    "@iconify/react": "^1.1.4",
     "axios": "^0.21.1",
     "evernote": "^2.0.5",
+    "googleapis": "^82.0.0",
     "glob": "^7.1.7",
-    "googleapis": "^76.0.0",
+    "googleapis": "^82.0.0",
     "graphql": "^15.5.1",
     "heroku-client": "^3.1.0",
-    "next": "10.2.3",
-    "octokit": "^1.0.6",
+    "next": "11.0.1",
+    "octokit": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "17.0.2",
     "react-google-calendar-api": "^1.4.0"
   },
   "devDependencies": {
     "@types/faker": "^5.5.7",
-    "@types/node": "^15.12.3",
-    "@types/react": "^17.0.11",
+    "@types/node": "^15.14.3",
+    "@types/react": "^17.0.15",
     "@types/react-slick": "^0.23.5",
-    "autoprefixer": "latest",
+    "autoprefixer": "^10.3.1",
     "faker": "^5.5.3",
-    "postcss": "latest",
-    "tailwindcss": "latest",
-    "typescript": "^4.3.2"
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7",
+    "typescript": "^4.3.5"
   }
 }
