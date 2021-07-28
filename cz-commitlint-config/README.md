@@ -62,31 +62,31 @@ Like commitizen, you specify the configuration of @hydralite/cz-commitlint-confi
 ```json5
 {
   // ...  default values
-  config: {
-    commitizen: {
-      path: "./node_modules/@hydralite/cz-commitlint-config",
-      disableScopeLowerCase: false,
-      disableSubjectLowerCase: false,
-      maxHeaderWidth: 100,
-      maxLineWidth: 100,
-      defaultType: "",
-      defaultScope: "",
-      defaultSubject: "",
-      defaultBody: "",
-      defaultIssues: "",
-      types: {
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@hydralite/cz-commitlint-config",
+      "disableScopeLowerCase": false,
+      "disableSubjectLowerCase": false,
+      "maxHeaderWidth": 100,
+      "maxLineWidth": 100,
+      "defaultType": "",
+      "defaultScope": "",
+      "defaultSubject": "",
+      "defaultBody": "",
+      "defaultIssues": "",
+      "types": {
         // Full JSON list at customizations.json file
-        feat: {
-          description: "A new feature",
-          title: "Features",
+        "feat": {
+          "description": "A new feature",
+          "title": "Features",
         },
         // your config here...
       },
-      scopes: {
+      "scopes": {
         // Full JSON list at customizations.json file
-        global: {
-          description: "Global project-level changes that affects all components",
-          title: "Global Changes",
+        "global": {
+          "description": "Global project-level changes that affects all components",
+          "title": "Global Changes",
         },
         // your config here...
       },
@@ -111,6 +111,43 @@ inherited from the upstream package.
 ### Commitlint
 
 If using [Commitlint](https://github.com/conventional-changelog/commitlint) in combination with Commitizen or as part of your CI, the "maxHeaderWidth" configuration property will default to the configuration of the "header-max-length" rule instead of the hard coded value of 100. This can be ovewritten by setting the 'maxHeaderWidth' configuration in package.json or the CZ_MAX_HEADER_WIDTH environment variable.
+
+You can also import our configuration as needed in your `commitlint.config.js`, through we recommend to copy it (including its schema)
+into your project and import your own copied instead.
+
+```sh
+# make an directory to store your customizations
+mkdir -p .config/cz-commitlint-config
+
+# download stuff with wget
+wget -O .config/cz-commitlint-config/customizations.json https://raw.githubusercontent.com/hydralite/hydralite/dev/cz-commitlint-config/customizations.json
+wget -O .config/cz-commitlint-config/schema.json https://raw.githubusercontent.com/hydralite/hydralite/dev/cz-commitlint-config/schema.json
+
+# Customize scopes and type abit
+$([ $VISUAL != "" ] && echo $VISUAL || echo $EDITOR) .config/cz-commitlint-config/customizations.json
+```
+
+Here's the example Commitlint configuration with our configurations that you can copy-and-paste along.
+
+```js
+// replace "@hydralite/cz-commitlint-config/customizations.json" to point into your own copy of
+// the customizations.json file, e.g. ".config/cz-commitlint-config/customizations.json"
+const conventionalCommit = require("@hydralite/cz-commitlint-config/customizations.json");
+const typesEnum = Object.keys(conventionalCommit.types);
+const scopesEnum = Object.keys(conventionalCommit.scopes);
+
+module.exports = {
+  extends: ["@commitlint/config-conventional"],
+  rules: {
+    "type-enum": [2, "always", typesEnum],
+    "scope-enum": [2, "always", scopesEnum],
+  },
+};
+```
+
+## TODO
+
+* [ ] Implement fuzzy search and autocompletion when selecting an scope, as the list goes longer in the future.
 
 ## Reference
 
