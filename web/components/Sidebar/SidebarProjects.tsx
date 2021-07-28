@@ -6,9 +6,9 @@ const SidebarProjects = () => {
     <div className={`w-full flex flex-col gap-2 items-center`}>
       <SidebarProject
         id="1"
-        logoUrl="https://www.gatsbyjs.com/static/d4ed2bdc92d5aa7991670a394c910cc8/a3df1/vertical-treatment.jpg"
+        logoUrl="https://i1.wp.com/blog.alexdevero.com/wp-content/uploads/2018/11/how-to-build-simple-website-with-gatsbyjs-postcss-pt1.jpg?fit=1024%2C635&ssl=1"
         name="React JS"
-        isActive={false}
+        isActive={true}
       />
     </div>
   );

@@ -13,7 +13,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
   return (
     <div
       className={`
-        h-full w-[4.3rem] flex flex-col items-center gap-3 pt-2
+        h-full w-[4.8rem] flex flex-col items-center gap-3 pt-2
         ${theme === "dark" && "bg-dark-bgMuted1"}
       `}
     >
