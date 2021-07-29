@@ -9,7 +9,7 @@ interface ProjectSidebarTabProps {
 }
 
 export const ProjectSidebarTab: React.FC<ProjectSidebarTabProps> = ({
-  isActive = false,
+  isActive,
   name,
   Icon,
   ActiveIcon,
@@ -17,7 +17,7 @@ export const ProjectSidebarTab: React.FC<ProjectSidebarTabProps> = ({
   const { theme } = useThemeContext();
   return (
     <div className="flex items-center gap-3 select-none cursor-pointer">
-      {isActive ? (
+      {isActive && ActiveIcon ? (
         <ActiveIcon
           className={`h-[1.2rem] w-[1.2rem] ${
             theme === "dark" && "text-dark-color-accent fill-current"

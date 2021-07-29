@@ -7,7 +7,7 @@ import {
   sidebarUpperLinks,
 } from "~/constants/projectSidebar";
 
-const ProjectSidebar = ({ activeLink }) => {
+const ProjectSidebar = ({ activeProjectSidebarLink }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -31,7 +31,7 @@ const ProjectSidebar = ({ activeLink }) => {
                 name={link.name}
                 Icon={link.icon}
                 ActiveIcon={link.activeIcon}
-                isActive={activeLink === link.name}
+                isActive={activeProjectSidebarLink === link.name}
               />
             );
           })}
@@ -43,7 +43,7 @@ const ProjectSidebar = ({ activeLink }) => {
                 name={link.name}
                 Icon={link.icon}
                 ActiveIcon={link.activeIcon}
-                isActive={activeLink === link.name}
+                isActive={activeProjectSidebarLink === link.name}
               />
             );
           })}
