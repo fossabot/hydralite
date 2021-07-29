@@ -31,7 +31,7 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
       <Link href={link}>
         <a
           className={`
-            h-[3.2rem] w-[3.2rem] grid place-items-center rounded-2xl transition-all hover:opacity-[0.8]
+            h-[3rem] w-[3rem] grid place-items-center rounded-2xl transition-all hover:opacity-[0.8]
             ${
               theme === "dark" &&
               `
