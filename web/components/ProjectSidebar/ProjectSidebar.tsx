@@ -20,7 +20,7 @@ const ProjectSidebar = ({ activeProjectSidebarLink }) => {
         className="flex flex-col w-full py-2 pl-4 h-[3.5rem]"
         style={{ boxShadow: "0px 4px 4px 0px #1F1F1F40" }}
       >
-        <h1 className="font-bold text-md">Project Hydralite</h1>
+        <h1 className="font-bold text-md">Gatsby JS</h1>
         <h3 className="font-medium text-xs">420 members</h3>
       </div>
       <div className="flex flex-col p-3 pl-4 mt-2 h-[calc(100%-3.5rem)]">
