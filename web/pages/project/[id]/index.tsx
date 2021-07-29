@@ -11,7 +11,7 @@ const Project = () => {
   if (id !== undefined && typeof window !== "undefined")
     router.replace(`./${id}/home`);
   // return <Home />;
-  return <></>
+  return <></>;
 };
 
 export default Project;

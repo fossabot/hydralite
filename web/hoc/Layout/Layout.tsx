@@ -10,7 +10,11 @@ interface LayoutProps {
   includeProjectSidebar?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, activeTab, includeProjectSidebar }) => {
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  activeTab,
+  includeProjectSidebar,
+}) => {
   const { theme } = useThemeContext();
 
   return (

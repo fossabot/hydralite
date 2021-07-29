@@ -4,7 +4,10 @@ import { OAuthStrategy, StrategyInfo } from "./Strategy";
 import QueryString from "qs";
 import discordAvatarUrl from "../util/discordAvatarUrl";
 
-async function getUser(code: string, oauthInfo: StrategyInfo): Promise<PassportGenericUser | null> {
+async function getUser(
+  code: string,
+  oauthInfo: StrategyInfo
+): Promise<PassportGenericUser | null> {
   const data = await axios({
     method: "POST",
     url: "https://discord.com/api/oauth2/token",

@@ -14,10 +14,10 @@ const ProjectFeed = () => {
         keywords="open source,hydralite,project management"
       />
       {/* <ProjectLayout selected="feed"> */}
-        {/* <div className="flex h-full"> */}
-          {/* <Feed /> */}
-          {/* <Sidebar /> */}
-        {/* </div> */}
+      {/* <div className="flex h-full"> */}
+      {/* <Feed /> */}
+      {/* <Sidebar /> */}
+      {/* </div> */}
       {/* </ProjectLayout> */}
     </>
   );

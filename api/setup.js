@@ -32,7 +32,7 @@ const prompt = async (args) =>
   env.GITHUB_CLIENT_SECRET = await prompt({
     message: `Please enter your GitHub Client Secret:`,
   });
-  
+
   env.DISCORD_CLIENT_ID = await prompt({
     message: `Please enter your Discord Client ID:`,
   });

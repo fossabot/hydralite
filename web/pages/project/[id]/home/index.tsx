@@ -126,9 +126,7 @@ const HomePage = () => {
         url="https://hydralite.io"
         keywords="open source,hydralite,project management"
       />
-      <UseApiConnection>
-        {/* <Home /> */}
-      </UseApiConnection>
+      <UseApiConnection>{/* <Home /> */}</UseApiConnection>
     </>
   );
 };

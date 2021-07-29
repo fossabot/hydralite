@@ -19,7 +19,11 @@ const SidebarTabs = ({
   const { theme } = useThemeContext();
 
   return (
-    <div className={`w-full flex flex-col items-center gap-[0.3rem] pb-2 border-b-2 ${theme === "dark" && "border-dark-bgMuted2"}`}>
+    <div
+      className={`w-full flex flex-col items-center gap-[0.3rem] pb-2 border-b-2 ${
+        theme === "dark" && "border-dark-bgMuted2"
+      }`}
+    >
       <SidebarTab
         isActive={activeTab === "Home"}
         activeIcon={
