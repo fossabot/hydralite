@@ -1,76 +1,66 @@
-import {
-  HomeIcon,
-  GroupIcon,
-  RoadIcon,
-  TaskIcon,
-  MeetingIcon,
-  OutSourceIcon,
-  DevelopIcon,
-  InsightsIcon,
-  MoreIcon,
-  HydraIcon,
-  SettingsIcon,
-  UseableIcon,
-} from "~/components/Icons";
-import { ProjectPageProps } from "~/types/ProjectPageProps";
+import HomeAltIcon from "~/icons/line/HomeAltIcon";
+import ShapesIcon from "~/icons/line/ShapesIcon";
+import SteeringIcon from "~/icons/line/SteeringIcon";
+import PresentationCheckIcon from "~/icons/line/PresentationCheckIcon";
+import MeetingBoardIcon from "~/icons/line/MeetingBoardIcon";
+import UsersAltIcon from "~/icons/line/UsersAltIcon";
+import CodeBranchIcon from "~/icons/line/CodeBranchIcon";
+import ChartIcon from "~/icons/line/ChartIcon";
+import TearIcon from "~/icons/line/TearIcon";
+import CogIcon from "~/icons/line/CogIcon";
 
-export const projectSidebarUpperLinks: ProjectPageProps[] = [
+export const sidebarUpperLinks = [
   {
-    name: "home",
-    title: "Home",
-    logo: HomeIcon,
+    name: "Home",
+    icon: HomeAltIcon,
+    activeIcon: "",
   },
   {
-    name: "feed",
-    title: "Feed",
-    logo: GroupIcon,
+    name: "Feed",
+    icon: ShapesIcon,
+    activeIcon: "",
   },
   {
-    name: "roadmap",
-    title: "Roadmap",
-    logo: RoadIcon,
+    name: "Roadmap",
+    icon: SteeringIcon,
+    activeIcon: "",
   },
   {
-    name: "tasks",
-    title: "Task Boards",
-    logo: TaskIcon,
+    name: "Task Boards",
+    icon: PresentationCheckIcon,
+    activeIcon: "",
   },
   {
-    name: "meetings",
-    title: "Meeting Rooms",
-    logo: MeetingIcon,
+    name: "Meeting Rooms",
+    icon: MeetingBoardIcon,
+    activeIcon: "",
   },
   {
-    name: "outsource",
-    title: "Outsource",
-    logo: OutSourceIcon,
+    name: "Outsource",
+    icon: UsersAltIcon,
+    activeIcon: "",
   },
   {
-    name: "develop",
-    title: "Develop",
-    logo: DevelopIcon,
+    name: "Develop",
+    icon: CodeBranchIcon,
+    activeIcon: "",
   },
   {
-    name: "insights",
-    title: "Insights",
-    logo: InsightsIcon,
-  },
-  {
-    name: "more",
-    title: "More",
-    logo: MoreIcon,
+    name: "Insights",
+    icon: ChartIcon,
+    activeIcon: "",
   },
 ];
 
-export const projectSidebarLowerLinks: ProjectPageProps[] = [
+export const sidebarLowerLinks = [
   {
-    name: "hydra",
-    title: "Hydra",
-    logo: HydraIcon,
+    name: "Hydra",
+    icon: TearIcon,
+    activeIcon: "",
   },
   {
-    name: "settings",
-    title: "Settings",
-    logo: SettingsIcon,
+    name: "Settings",
+    icon: CogIcon,
+    activeIcon: "",
   },
 ];

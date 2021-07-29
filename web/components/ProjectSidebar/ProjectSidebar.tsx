@@ -2,6 +2,10 @@ import React from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 import { ProjectSidebarTab } from "./ProjectSidebarTab";
 import HomeAltIcon from "~/icons/line/HomeAltIcon";
+import {
+  sidebarLowerLinks,
+  sidebarUpperLinks,
+} from "~/constants/projectSidebarLinks";
 
 const ProjectSidebar = () => {
   const { theme } = useThemeContext();
@@ -21,18 +25,26 @@ const ProjectSidebar = () => {
       </div>
       <div className="flex flex-col p-3 pl-4 mt-2 h-[calc(100%-3.5rem)]">
         <div className="flex flex-col gap-5 mb-auto">
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
+          {sidebarUpperLinks.map((link) => {
+            return (
+              <ProjectSidebarTab
+                name={link.name}
+                Icon={link.icon}
+                ActiveIcon={link.activeIcon}
+              />
+            );
+          })}
         </div>
         <div className="flex flex-col gap-5 mt-auto">
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
-          <ProjectSidebarTab name="Home" Icon={HomeAltIcon} />
+          {sidebarLowerLinks.map((link) => {
+            return (
+              <ProjectSidebarTab
+                name={link.name}
+                Icon={link.icon}
+                ActiveIcon={link.activeIcon}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
