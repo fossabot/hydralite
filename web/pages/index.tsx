@@ -7,7 +7,7 @@ const index = () => {
   const { theme } = useThemeContext();
 
   return (
-    <Layout activeTab="Home" includeProjectSidebar={true}>
+    <Layout activeTab="Home">
       <Meta
         title="Hydralite - Home"
         description="Hydralite is the new open source platform for project management and open source project discovery."

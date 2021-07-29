@@ -7,13 +7,17 @@ import { useThemeContext } from "../theme/ThemeContext";
 interface LayoutProps {
   children: any;
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";
+  activeProjectId?: string;
   includeProjectSidebar?: boolean;
+  activeProjectSidebarLink?: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({
   children,
   activeTab,
+  activeProjectId,
   includeProjectSidebar,
+  activeProjectSidebarLink
 }) => {
   const { theme } = useThemeContext();
 
@@ -21,8 +25,8 @@ const Layout: React.FC<LayoutProps> = ({
     <div
       className={`h-screen w-screen flex ${theme === "dark" && "bg-dark-bg"}`}
     >
-      <Sidebar activeTab={activeTab} />
-      {includeProjectSidebar && <ProjectSidebar />}
+      <Sidebar activeTab={activeTab} activeProjectId={activeProjectId} />
+      {includeProjectSidebar && <ProjectSidebar activeLink={activeProjectSidebarLink} />}
       <div className="h-screen w-[calc(100vw-4.8rem)] flex flex-col">
         <Navbar />
         {children}

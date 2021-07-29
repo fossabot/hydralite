@@ -1,13 +1,13 @@
 import React from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 import { ProjectSidebarTab } from "./ProjectSidebarTab";
-import HomeAltIcon from "~/icons/line/HomeAltIcon";
+
 import {
   sidebarLowerLinks,
   sidebarUpperLinks,
-} from "~/constants/projectSidebarLinks";
+} from "~/constants/projectSidebar";
 
-const ProjectSidebar = () => {
+const ProjectSidebar = ({activeLink}) => {
   const { theme } = useThemeContext();
 
   return (
