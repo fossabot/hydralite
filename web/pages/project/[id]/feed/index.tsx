@@ -13,12 +13,12 @@ const ProjectFeed = () => {
         url="https://hydralite.io"
         keywords="open source,hydralite,project management"
       />
-      <ProjectLayout selected="feed">
-        <div className="flex h-full">
-          <Feed />
-          <Sidebar />
-        </div>
-      </ProjectLayout>
+      {/* <ProjectLayout selected="feed"> */}
+        {/* <div className="flex h-full"> */}
+          {/* <Feed /> */}
+          {/* <Sidebar /> */}
+        {/* </div> */}
+      {/* </ProjectLayout> */}
     </>
   );
 };

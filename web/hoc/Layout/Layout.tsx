@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "~/components/Navbar/Navbar";
 import Sidebar from "~/components/Sidebar/Sidebar";
 import { useThemeContext } from "../theme/ThemeContext";
 
@@ -15,7 +16,10 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab }) => {
       className={`h-screen w-screen flex ${theme === "dark" && "bg-dark-bg"}`}
     >
       <Sidebar activeTab={activeTab} />
-      {children}
+      <div className="h-screen w-[calc(100vw-4.8rem)] flex flex-col">
+        <Navbar />
+        {children}
+      </div>
     </div>
   );
 };
