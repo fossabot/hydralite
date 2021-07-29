@@ -30,10 +30,10 @@ commitizen init @hydralite/cz-commitlint-config --save-dev
 ```json5
 {
   // your stuff above here
-  scripts: {
+  "scripts": {
     // we added the signoff Git commit flag since we assume you
     // need DCO compliance instead of having new contributors to sign CLAs
-    commit: "cz --signoff",
+    "commit": "cz --signoff",
   },
   // your stuff below here
 }
@@ -48,18 +48,18 @@ commitizen init @hydralite/cz-commitlint-config --save-dev
 3. When you're ready, stage all and commit anyway with `yarn commit:stage-all` or pick which to stage first then run `yarn commit` (shortcut for the `commit:dco` script in the global `package.json` at project root) to call the custom adapter.
 4. Follow prompts, such as:
 
-- selecting an type of commit and its scope (see below for supported types and scopes so Commitlint CI will go green when you push)
-- typing the commit subject
-- optionally input the commit body
-- if yes, describe any breaking changes (ONLY DO THIS on new major versions, doing breaking changes at minor versions might cause downtime to users when deployed straight to production)
-- if yes, pasting the GitHub/GitLab SaaS issue link (entering just the issue number may break on cross-platform basis)
+  - selecting an type of commit and its scope (see below for supported types and scopes so Commitlint CI will go green when you push)
+  - typing the commit subject
+  - optionally input the commit body
+  - if yes, describe any breaking changes (ONLY DO THIS on new major versions, doing breaking changes at minor versions might cause downtime to users when deployed straight to production)
+  - if yes, pasting the GitHub/GitLab SaaS issue link (entering just the issue number may break on cross-platform basis)
 
 5. Push your commits to your branch/fork on GitHub/GitLab SaaS with `git push origin <branch-name-here>`. Remember to keep your branch up-to-date with the upstream with `git fetch --all && git pull upstream dev`.
 6. Repeat steps 2-5, until you're done with your work, in which you can now submit an pull request.
 
 ## Configuration
 
-Like commitizen, you specify the configuration of @hydralite/cz-commitlint-config through the package.json's `config.commitizen` key.
+Like Commitizen, you specify the configuration of @hydralite/cz-commitlint-config through the package.json's `config.commitizen` key.
 
 ```json5
 {
@@ -194,7 +194,6 @@ module.exports = {
 - **github-actions**, **actions**, **gh-actions** - changes to GitHub Actions workflow files
 - **gitlab-ci** - changes to `.gitlab-ci.yml` and related files for GitLab CI/CD, currently reserved just in case Hydralite switch to GitLab in the future
 - **deps-dev**, **deps-peer**, **deps-optional**, **deps** - Mostly automated dependency upgrades by Dependabot for npmjs/Yarnpkg
-
-* **lockfiles** - changes to the lockfiles, such as [`yarn.lock`] and [`Cargo.lock` in Hydralite CLI](../cli/Cargo.lock)
-* **pr**, **mr**, **pull-request**, **merge-request** - GitHub / GitLab terms for pull requests when merged from the web UI/API, this may also applied if you used `git merge` way in command line.
-* **git-pull** - the legendary `git pull upstream dev` command
+- **lockfiles** - changes to the lockfiles, such as [`yarn.lock`] and [`Cargo.lock` in Hydralite CLI](../cli/Cargo.lock)
+- **pr**, **mr**, **pull-request**, **merge-request** - GitHub / GitLab terms for pull requests when merged from the web UI/API, this may also applied if you used `git merge` way in command line.
+- **git-pull** - the legendary `git pull upstream dev` command
