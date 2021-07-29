@@ -6,7 +6,8 @@
 
 **Release contributors**: No one, probably only Andrei Jiroh.
 
-Initial release of `@hydralite/cz-commitlint-config` as part of an future merge request in Hydralite's GitHub repository, based on [v3.3.0](https://github.com/commitizen/cz-conventional-changelog/tree/v3.3.0) of [the official Commitizen adapter following the conventional-changelog format](https://github.com/commitizen/cz-conventional-changelog).
+Initial release of `@hydralite/cz-commitlint-config` as [part of merge request #157 in Hydralite's GitHub repository](https://github.com/hydralite/hydralite/pull/157),
+based on [v3.3.0](https://github.com/commitizen/cz-conventional-changelog/tree/v3.3.0) of [the official Commitizen adapter following the conventional-changelog format](https://github.com/commitizen/cz-conventional-changelog).
 
 **Added features**:
 
