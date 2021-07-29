@@ -1,12 +1,13 @@
 import { Icon } from "@iconify/react";
 import React from "react";
+import NewPostCard from "~/components/NewPostCard";
 import { Post } from "~/components/Post/Post";
 
 export const Feed = () => {
   return (
     <div className="px-4 bg-white-secondBg h-full w-full overflow-y-auto">
-      <div className="mx-auto container mt-3 space-y-5">
-        {/* <NewPostCard avatarUrl="/avatar.png" name="fullstackslayer" /> */}
+      <div className="mx-auto container mt-3 space-y-3">
+        <NewPostCard />
         <Post
           creator={{
             name: "joe(who)mama",
