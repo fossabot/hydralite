@@ -30,7 +30,7 @@ export const Post: React.FC<PostProps> = (props) => {
   return (
     <div
       className={`
-        w-[35rem] rounded-xl p-5 
+        w-[38rem] rounded-xl p-5 
         ${theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"}
       `}
     >
@@ -46,6 +46,7 @@ export const Post: React.FC<PostProps> = (props) => {
         description={props.description}
         attachments={props.attachments}
       />
+      <Reactions reactions={props.reactions} />
     </div>
   );
 };
@@ -99,23 +100,30 @@ const PostBody = ({
 
   const [sliderPositon, setSliderPositon] = useState<number>(1);
 
-  function incrementSliderPosition () {
+  function incrementSliderPosition() {
     setSliderPositon((c) => (c !== attachments.length ? c + 1 : c));
   }
-  
+
   function decrementSliderPosition() {
     setSliderPositon((c) => (c !== 1 ? c - 1 : c));
   }
 
   return (
     <div className="mt-3">
-      <p className={`text-[0.7rem] ${theme === "dark" && "text-dark-textMuted"}`}>{description}</p>
+      <p
+        className={`text-[0.7rem] ${theme === "dark" && "text-dark-textMuted"}`}
+      >
+        {description}
+      </p>
       {attachments && (
         <div className="mt-3">
           <div className="w-full h-52 flex items-center gap-2">
             <span
               className="h-5 w-5 cursor-pointer"
-              onClick={decrementSliderPosition}>{"<"}</span>
+              onClick={decrementSliderPosition}
+            >
+              {"<"}
+            </span>
             <img
               src={attachments[sliderPositon - 1]}
               className={`rounded-10 w-[33rem] h-full object-cover select-none`}
@@ -123,7 +131,10 @@ const PostBody = ({
             />
             <span
               className="h-5 w-5 cursor-pointer"
-              onClick={incrementSliderPosition}>{">"}</span>
+              onClick={incrementSliderPosition}
+            >
+              {">"}
+            </span>
           </div>
         </div>
       )}
@@ -172,35 +183,39 @@ const PostBody = ({
 //   );
 // };
 
+const Reactions = ({
+  reactions,
+}: {
+  reactions: {
+    emoji: any;
+    count: string;
+    selected: boolean;
+  }[];
+}) => {
+  const { theme } = useThemeContext();
 
-// const Reactions = () => {
-//   const reactions = [
-//     { icon: "noto-v1:thumbs-up", count: "93k", chosen: true },
-//     {
-//       icon: "twemoji:smiling-face-with-sunglasses",
-//       count: "20k",
-//       chosen: true,
-//     },
-//     { icon: "fxemoji:bolt", count: "20k", chosen: false },
-//   ];
-
-//   return (
-//     <div className="flex items-center gap-1 mt-2">
-//       {reactions.map((r, i) => {
-//         return (
-//           <div
-//             className={`flex items-center gap-1 rounded-5 p-1 select-none cursor-pointer ${
-//               r.chosen
-//                 ? "border-accent border bg-[#E7E9FF]"
-//                 : "bg-white-secondBg"
-//             }`}
-//             key={i}
-//           >
-//             <Icon icon={r.icon} className="h-3 w-3" />
-//             <span className="font-bold text-[0.5rem] mt-[2px]">{r.count}</span>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// };
+  return (
+    <div className="flex items-center gap-1 mt-2">
+      {reactions.map((r, i) => {
+        return (
+          <div
+            className={`
+              flex items-center gap-1 rounded-[0.25rem] p-1 select-none cursor-pointer 
+              ${
+                theme === "dark" &&
+                `
+                bg-dark-bgMuted4 hover:opacity-[0.7]
+                  ${r.selected && "border-dark-color-accent border opacity-[0.7]"}
+                `
+              }
+            `}
+            key={i}
+          >
+            {r.emoji}
+            <span className="font-bold text-[0.6rem] mt-[2px]">{r.count}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
