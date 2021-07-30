@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
+import { PostActions } from "./PostActions";
 
 interface PostProps {
   project: {
@@ -30,10 +31,11 @@ export const Post: React.FC<PostProps> = (props) => {
   return (
     <div
       className={`
-        w-[38rem] rounded-xl p-5 
+        w-[38rem] rounded-xl p-5 relative
         ${theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"}
       `}
     >
+      <PostActions reposts="102" shares="22" hydra="2k" />
       <PostHeader
         creatorName={props.creator.name}
         isCreatorOwnerOfProject={props.creator.isProjectOwner}
@@ -142,47 +144,6 @@ const PostBody = ({
   );
 };
 
-// const PostActions = ({ likes, replies, shares, reposts, hydra }) => {
-//   return (
-//     <div className="border-t border-white-seperator mt-6 pt-4 flex justify-between">
-//       <div className="flex items-center gap-5">
-//         <PostAction
-//           icon={<Icon icon="fxemoji:fire" className="h-4 w-4" />}
-//           count={likes}
-//         />
-//         <PostAction
-//           icon={<Icon icon="akar-icons:comment" className="h-4 w-4" />}
-//           count={replies}
-//         />
-//         <PostAction
-//           icon={<Icon icon="bx-bx-share-alt" className="h-4 w-4" />}
-//           count={shares}
-//         />
-//         <PostAction
-//           icon={<Icon icon="ps:retweet-1" className="h-5 w-5" />}
-//           count={reposts}
-//         />
-//         <PostAction
-//           icon={<Icon icon="ion:rocket" className="h-4 w-4" />}
-//           count={hydra}
-//         />
-//       </div>
-//       <div>
-//         <Icon icon="bi:bookmark" className="h-4 w-4" />
-//       </div>
-//     </div>
-//   );
-// };
-
-// const PostAction = ({ icon, count }) => {
-//   return (
-//     <span className="flex items-center gap-2 font-bold text-sm">
-//       {icon}
-//       {count}
-//     </span>
-//   );
-// };
-
 const Reactions = ({
   reactions,
 }: {
@@ -195,7 +156,7 @@ const Reactions = ({
   const { theme } = useThemeContext();
 
   return (
-    <div className="flex items-center gap-1 mt-2">
+    <div className="flex items-center gap-1 mt-3">
       {reactions.map((r, i) => {
         return (
           <div
@@ -205,7 +166,10 @@ const Reactions = ({
                 theme === "dark" &&
                 `
                 bg-dark-bgMuted4 hover:opacity-[0.7]
-                  ${r.selected && "border-dark-color-accent border opacity-[0.7]"}
+                  ${
+                    r.selected &&
+                    "border-dark-color-accent border opacity-[0.7]"
+                  }
                 `
               }
             `}

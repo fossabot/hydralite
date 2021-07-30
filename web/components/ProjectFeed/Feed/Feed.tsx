@@ -6,7 +6,7 @@ import { Post } from "~/components/Post/Post";
 export const Feed = () => {
   return (
     <div className="px-4 bg-white-secondBg h-full w-full overflow-y-auto">
-      <div className="mx-auto container mt-3 space-y-3">
+      <div className="mx-auto container mt-3 space-y-7">
         <NewPostCard />
         <Post
           creator={{
@@ -41,12 +41,12 @@ export const Feed = () => {
           shares="0"
           title="We think we're better than next js, try changing our mind haters"
           description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen"
-          attachments={[
-            "https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/aoqLN7jxbVBuhPydFEe8FFmY/035575f2985fe451d86e717d73691e533a1a00545d7230900ed786341dc3c882",
-            "https://wtop.com/wp-content/uploads/2020/12/GettyImages-1193312195.jpg",
-            "https://images.idgesg.net/images/article/2017/07/sort_filter_separate_-process_packages-100728387-large.jpg",
-            "https://www.incimages.com/uploaded_files/image/1920x1080/parcels-packages-shipping_1940x900_33939.jpg",
-          ]}
+          // attachments={[
+          //   "https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/aoqLN7jxbVBuhPydFEe8FFmY/035575f2985fe451d86e717d73691e533a1a00545d7230900ed786341dc3c882",
+          //   "https://wtop.com/wp-content/uploads/2020/12/GettyImages-1193312195.jpg",
+          //   "https://images.idgesg.net/images/article/2017/07/sort_filter_separate_-process_packages-100728387-large.jpg",
+          //   "https://www.incimages.com/uploaded_files/image/1920x1080/parcels-packages-shipping_1940x900_33939.jpg",
+          // ]}
         />
       </div>
     </div>
