@@ -7,6 +7,10 @@ import EllipsisVIcon from "~/icons/line/EllipsisVIcon";
 import RocketIcon from "~/icons/line/RocketIcon";
 import CommentsIcon from "~/icons/line/CommentsIcon";
 
+import ShareAltIconSolid from "~/icons/solid/ShareAltIconSolid";
+import RocketIconSolid from "~/icons/solid/RocketIconSolid";
+import CommentsIconSolid from "~/icons/solid/CommentsIconSolid";
+
 export const PostActions = ({ replies, shares, reposts, hydra }) => {
   const { theme } = useThemeContext();
 
@@ -17,35 +21,36 @@ export const PostActions = ({ replies, shares, reposts, hydra }) => {
       }`}
     >
       <PostAction
-        icon={<CommentsIcon className={`h-4 w-4 fill-current`} />}
+        Icon={CommentsIcon}
+        HoverIcon={CommentsIconSolid}
         name="Replies"
         count={replies}
       />
+      <PostAction Icon={RedoIcon} HoverIcon={RedoIcon} name="Repost" count={reposts} />
       <PostAction
-        icon={<RedoIcon className={`h-4 w-4 fill-current`} />}
-        name="Repost"
-        count={reposts}
-      />
-      <PostAction
-        icon={<ShareAltIcon className={`h-4 w-4 fill-current`} />}
+        Icon={ShareAltIcon}
+        HoverIcon={ShareAltIconSolid}
         name="Share"
         count={shares}
       />
       <PostAction
-        icon={<RocketIcon className={`h-4 w-4 fill-current`} />}
+        Icon={RocketIcon}
+        HoverIcon={RocketIconSolid}
         name="Hydra Boosts"
         count={hydra}
       />
-      <PostAction
-        icon={<EllipsisVIcon className={`h-4 w-4 fill-current`} />}
-        name="More"
-      />
+      <PostAction Icon={EllipsisVIcon} HoverIcon={EllipsisVIcon} name="More" />
     </div>
   );
 };
 
-const PostAction = ({ name, count = "", icon }) => {
+const PostAction = ({ name, count = "", Icon, HoverIcon }) => {
   //   const { theme } = useThemeContext();
 
-  return <div className="cursor-pointer">{icon}</div>;
+  return (
+    <div className="group cursor-pointer">
+      {<Icon className={`group-hover:hidden h-4 w-4 fill-current`} />}
+      {<HoverIcon className={`hidden group-hover:block h-4 w-4 fill-current opacity-[0.7]`} />}
+    </div>
+  );
 };
