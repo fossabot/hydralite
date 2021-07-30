@@ -18,6 +18,7 @@ interface PostProps {
     selected: boolean;
   }[];
   title: string;
+  replies: string;
   shares: string;
   reposts: string;
   hydraAmount: string;
@@ -35,7 +36,7 @@ export const Post: React.FC<PostProps> = (props) => {
         ${theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"}
       `}
     >
-      <PostActions reposts="102" shares="22" hydra="2k" />
+      <PostActions reposts={props.reposts} shares={props.shares} hydra={props.hydraAmount} replies={props.replies} />
       <PostHeader
         creatorName={props.creator.name}
         isCreatorOwnerOfProject={props.creator.isProjectOwner}

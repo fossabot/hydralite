@@ -18,6 +18,7 @@ export const Feed = () => {
             name: "Gatsby JS",
             gradient: "",
           }}
+          replies="22k"
           // TASK: Replace iconify emojis with twemoji
           reactions={[
             {

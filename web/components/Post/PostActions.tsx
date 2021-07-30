@@ -5,8 +5,9 @@ import ShareAltIcon from "~/icons/line/ShareAltIcon";
 import RedoIcon from "~/icons/line/RedoIcon";
 import EllipsisVIcon from "~/icons/line/EllipsisVIcon";
 import RocketIcon from "~/icons/line/RocketIcon";
+import CommentsIcon from "~/icons/line/CommentsIcon";
 
-export const PostActions = ({ shares, reposts, hydra }) => {
+export const PostActions = ({ replies, shares, reposts, hydra }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -15,6 +16,11 @@ export const PostActions = ({ shares, reposts, hydra }) => {
         theme === "dark" && "bg-dark-bgMuted4 text-dark-fg"
       }`}
     >
+      <PostAction
+        icon={<CommentsIcon className={`h-4 w-4 fill-current`} />}
+        name="Replies"
+        count={replies}
+      />
       <PostAction
         icon={<RedoIcon className={`h-4 w-4 fill-current`} />}
         name="Repost"
