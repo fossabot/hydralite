@@ -126,7 +126,7 @@ const PostBody = ({
             </span>
             <img
               src={attachments[sliderPositon - 1]}
-              className={`rounded-10 w-[33rem] h-full object-cover select-none`}
+              className={`rounded-lg w-[34rem] h-full object-cover select-none`}
               draggable={false}
             />
             <span
