@@ -14,8 +14,12 @@ const ProjectFeed = () => {
         keywords="open source,hydralite,project management"
       />
       <UseApiConnection>
-        <Layout includeProjectSidebar={true} activeProjectId="1" activeProjectSidebarLink="Feed">
-<Feed />
+        <Layout
+          includeProjectSidebar={true}
+          activeProjectId="1"
+          activeProjectSidebarLink="Feed"
+        >
+          <Feed />
         </Layout>
       </UseApiConnection>
     </>

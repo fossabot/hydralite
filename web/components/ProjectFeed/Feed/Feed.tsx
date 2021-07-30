@@ -22,20 +22,26 @@ export const Feed = () => {
           // TASK: Replace iconify emojis with twemoji
           reactions={[
             {
-              emoji: <Icon icon="fxemoji-fire" className="h-[0.8rem] w-[0.8rem]" />,
+              emoji: (
+                <Icon icon="fxemoji-fire" className="h-[0.8rem] w-[0.8rem]" />
+              ),
               count: "304",
-              selected: false
+              selected: false,
             },
             {
-              emoji: <Icon icon="fxemoji-fire" className="h-[0.8rem] w-[0.8rem]" />,
+              emoji: (
+                <Icon icon="fxemoji-fire" className="h-[0.8rem] w-[0.8rem]" />
+              ),
               count: "144",
-              selected: false
+              selected: false,
             },
             {
-              emoji: <Icon icon="fxemoji-fire" className="h-[0.8rem] w-[0.8rem]" />,
+              emoji: (
+                <Icon icon="fxemoji-fire" className="h-[0.8rem] w-[0.8rem]" />
+              ),
               count: "10",
-              selected: true
-            }
+              selected: true,
+            },
           ]}
           hydraAmount="0"
           reposts="0"

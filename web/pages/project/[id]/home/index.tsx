@@ -46,9 +46,11 @@ const HomePage = () => {
         keywords="open source,hydralite,project management"
       />
       <UseApiConnection>
-        <Layout includeProjectSidebar={true} activeProjectId="1" activeProjectSidebarLink="Home">
-
-        </Layout>
+        <Layout
+          includeProjectSidebar={true}
+          activeProjectId="1"
+          activeProjectSidebarLink="Home"
+        ></Layout>
       </UseApiConnection>
     </>
   );

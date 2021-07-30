@@ -17,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({
   activeTab,
   activeProjectId,
   includeProjectSidebar,
-  activeProjectSidebarLink
+  activeProjectSidebarLink,
 }) => {
   const { theme } = useThemeContext();
 
@@ -26,7 +26,9 @@ const Layout: React.FC<LayoutProps> = ({
       className={`h-screen w-screen flex ${theme === "dark" && "bg-dark-bg"}`}
     >
       <Sidebar activeTab={activeTab} activeProjectId={activeProjectId} />
-      {includeProjectSidebar && <ProjectSidebar activeProjectSidebarLink={activeProjectSidebarLink} />}
+      {includeProjectSidebar && (
+        <ProjectSidebar activeProjectSidebarLink={activeProjectSidebarLink} />
+      )}
       <div className="h-screen w-[calc(100vw-4.8rem)] flex flex-col">
         <Navbar />
         {children}

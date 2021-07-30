@@ -3,7 +3,7 @@ import { useThemeContext } from "~/hoc/theme/ThemeContext";
 import SidebarProjects from "./SidebarProjects";
 import SidebarTabs from "./SidebarTabs";
 import PlusIconSolid from "~/icons/solid/PlusIconSolid";
-import projectList from "~/data/project/project.json"
+import projectList from "~/data/project/project.json";
 
 interface SidebarProps {
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";

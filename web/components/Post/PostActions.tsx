@@ -45,7 +45,7 @@ export const PostActions = ({ replies, shares, reposts, hydra }) => {
 };
 
 const PostAction = ({ name, count = "", icon }) => {
-//   const { theme } = useThemeContext();
+  //   const { theme } = useThemeContext();
 
   return <div className="cursor-pointer">{icon}</div>;
 };

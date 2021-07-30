@@ -36,7 +36,12 @@ export const Post: React.FC<PostProps> = (props) => {
         ${theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"}
       `}
     >
-      <PostActions reposts={props.reposts} shares={props.shares} hydra={props.hydraAmount} replies={props.replies} />
+      <PostActions
+        reposts={props.reposts}
+        shares={props.shares}
+        hydra={props.hydraAmount}
+        replies={props.replies}
+      />
       <PostHeader
         creatorName={props.creator.name}
         isCreatorOwnerOfProject={props.creator.isProjectOwner}
