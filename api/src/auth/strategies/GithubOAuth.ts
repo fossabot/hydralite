@@ -3,6 +3,23 @@ import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { OAuthStrategy, StrategyInfo } from "./Strategy";
 import QueryString from "qs";
 
+/**
+ * Returns user data from Github OAuth Provider.
+ *
+ * @remarks
+ * This method is part of the `GithubOAuth.ts` file.
+ *
+ * @param {string} code - OAuth code received from GitHub OAuth Provider.
+ * @param {StrategyInfo} oAuthInfo - `StrategyInfo` object with details required for getting a user.
+ *
+ * @returns {Promise<PassportGenericUser | null>} - Returns a `PassportGenericUser` object if the user is found.
+ *
+ * @example
+ * Get user info for a GitHub user with code `` and `StrategyInfo` object.
+ * ```ts
+ * getUser()
+ * ```
+ **/
 async function getUser(
   code: string,
   oauthInfo: StrategyInfo

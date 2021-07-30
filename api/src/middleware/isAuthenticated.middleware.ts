@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-express";
-import { MiddlewareFn, createMethodDecorator } from "type-graphql";
+import { createMethodDecorator } from "type-graphql";
 import ContextType from "~/types/Context.type";
 
 export const IsAuthenticated = () =>

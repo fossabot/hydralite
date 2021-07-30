@@ -5,7 +5,7 @@ import { ProjectRole } from "~/resolver-types/models";
 export class ProjectRoleRepo extends PrismaClient {
   findRoleById = async (
     roleId: string,
-    validate: boolean = true
+    validate = true
   ): Promise<ProjectRole | null> => {
     // find role
     const role = await this.projectRole.findUnique({

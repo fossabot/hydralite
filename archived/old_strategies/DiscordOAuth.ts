@@ -5,7 +5,6 @@ import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { PassportDiscordProfile } from "../types/PassportDiscordProfile.type";
 import discordAvatarUrl from "../util/discordAvatarUrl";
-import { Server } from "src/Server";
 
 export const DiscordOAuth = (passport: PassportStatic) => {
   const oauthInfo = fetchOauthClientInfo("discord");
