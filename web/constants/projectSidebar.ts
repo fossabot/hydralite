@@ -9,46 +9,55 @@ import ChartIcon from "~/icons/line/ChartIcon";
 import TearIcon from "~/icons/line/TearIcon";
 import CogIcon from "~/icons/line/CogIcon";
 
+import PresentationCheckIconSolid from "~/icons/solid/PresentationCheckIconSolid";
+import MeetingBoardIconSolid from "~/icons/solid/MeetingBoardIconSolid";
+import UsersAltIconSolid from "~/icons/solid/UsersAltIconSolid";
+import CodeBranchIconSolid from "~/icons/solid/CodeBranchIconSolid";
+import ChartIconSolid from "~/icons/solid/ChartIconSolid";
+import TearIconSolid from "~/icons/solid/TearIconSolid";
+import CogIconSolid from "~/icons/solid/CogIconSolid";
+import ShapesIconSolid from "~/icons/solid/ShapesIconSolid";
+
 export const sidebarUpperLinks = [
   {
     name: "Home",
     icon: HomeAltIcon,
-    activeIcon: "",
+    activeIcon: HomeAltIcon,
   },
   {
     name: "Feed",
     icon: ShapesIcon,
-    activeIcon: "",
+    activeIcon: ShapesIconSolid,
   },
   {
     name: "Roadmap",
     icon: SteeringIcon,
-    activeIcon: "",
+    activeIcon: SteeringIcon,
   },
   {
     name: "Task Boards",
     icon: PresentationCheckIcon,
-    activeIcon: "",
+    activeIcon: PresentationCheckIconSolid,
   },
   {
     name: "Meeting Rooms",
     icon: MeetingBoardIcon,
-    activeIcon: "",
+    activeIcon: MeetingBoardIconSolid,
   },
   {
     name: "Outsource",
     icon: UsersAltIcon,
-    activeIcon: "",
+    activeIcon: UsersAltIconSolid,
   },
   {
     name: "Develop",
     icon: CodeBranchIcon,
-    activeIcon: "",
+    activeIcon: CodeBranchIconSolid,
   },
   {
     name: "Insights",
     icon: ChartIcon,
-    activeIcon: "",
+    activeIcon: ChartIconSolid,
   },
 ];
 
@@ -56,11 +65,11 @@ export const sidebarLowerLinks = [
   {
     name: "Hydra",
     icon: TearIcon,
-    activeIcon: "",
+    activeIcon: TearIconSolid,
   },
   {
     name: "Settings",
     icon: CogIcon,
-    activeIcon: "",
+    activeIcon: CogIconSolid,
   },
 ];
