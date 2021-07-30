@@ -1,4 +1,4 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { UpdatePostCommentArgs } from "./args/UpdatePostCommentArgs";
 import ContextType from "~/types/Context.type";

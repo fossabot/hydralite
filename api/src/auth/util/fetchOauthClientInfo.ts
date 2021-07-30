@@ -1,5 +1,13 @@
 import { AuthProviderStandaloneType } from "~/types/AuthProvider.type";
 
+/**
+ * Returns the client ID, secret, and callback URL based on the input `provider`.
+ *
+ * @file This file contains the function that fetches the OAuth client info.
+ *
+ * @param {AuthProviderStandaloneType} authProvider - The AuthProvider object.
+ */
+
 export default function fetchOauthClientInfo(
   provider: AuthProviderStandaloneType
 ) {

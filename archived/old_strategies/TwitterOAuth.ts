@@ -4,7 +4,6 @@ import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { PassportTwitterProfile } from "../types/PassportTwitterProfile.type";
-import { Server } from "src/Server";
 
 export const TwitterOAuth = (passport: PassportStatic) => {
   const oauthInfo = fetchOauthClientInfo("twitter");
@@ -14,7 +13,7 @@ export const TwitterOAuth = (passport: PassportStatic) => {
       {
         consumerKey: oauthInfo.clientId,
         consumerSecret: oauthInfo.clientSecret,
-        callbackURL: oauthInfo.cbUrl!,
+        callbackURL: oauthInfo.cbUrl as string,
       },
       async (
         _: string,

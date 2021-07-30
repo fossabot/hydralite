@@ -1,4 +1,4 @@
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { ReadAllPostCommentsArgs } from "./args/ReadAllPostCommentsArgs";
 import ContextType from "~/types/Context.type";
