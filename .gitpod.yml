@@ -1,17 +1,21 @@
 image:
   file: .gitpod.Dockerfile
+  context: .
 
 # init tasks are ran in prebuilds, command tasks are run when the user starts a new session.
 tasks:
   - name: Install Packages (Global)
-    init: |
-      yarn
-      gp sync-done yarn-install
+    init: yarn
+    # Since we cannot call this command during the workspace creation process, we'll call sync-done after the workspace is ready.
+    command: gp sync-done yarn-install
+
+  - name: Start Redis
+    before: redis-init-script start
+    command: exit 0
 
   - name: Setup Web/Api Server
-    # TODO: Use Docker Compose instead for starting development servers
     command: |
-      gp sync-await yarn-install
+      gp sync-await yarn-install 
       yarn setup
       yarn dev
 
@@ -27,20 +31,29 @@ vscode:
     - eamodio.gitlens
     # Wait a sec, Docker stuff?
     - ms-azuretools.vscode-docker
+    # Rust Analyizer is configured in this repo's .vscode/settings.json, so we'll add it also
+    - matklad.rust-analyzer
+    # Don't forget the main one, but YOLO if you enabled both.
+    #- rust-lang.rust
+    # Requires the Hadolint binary on PATH or things will go into chaos.
+    - exiasr.hadolint
 
 github:
   prebuilds:
-    # enable for the default branch (defaults to true)
     master: true
-    # enable for all branches in this repo (defaults to false)
     branches: true
-    # enable for pull requests coming from this repo (defaults to true)
     pullRequests: true
-    # enable for pull requests coming from forks (defaults to false)
     pullRequestsFromForks: true
-    # add a check to pull requests (defaults to true)
     addCheck: true
-    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
     addComment: true
-    # add a "Review in Gitpod" button to the pull request's description (defaults to false)
     addBadge: false
+
+ports:
+  # ignore when the Postgres server starts by either our bashrc hack or one of the before scripts.
+  - port: 5432
+    onOpen: ignore
+    visibility: private
+  # repeat the same for Redis
+  - port: 6379
+    onOpen: ignore
+    visibility: private

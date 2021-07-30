@@ -5,4 +5,5 @@ for the Dev Container Remote VS Code extension in the future.
 
 ## Contents
 
-- `flutter.bashrc` - Basically custom bashrc file for Flutter inside Gitpod workspaces. Not necessarily used for the main VS Code Dev Container stuff.
+The contents are empty again, but Andrei Jiroh will probably add Codespaces/VSC Dev Containers
+support in the future.
