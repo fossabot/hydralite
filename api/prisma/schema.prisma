@@ -155,11 +155,10 @@ model ProjectMemberPermissions {
 }
 
 model ProjectRole {
-  id                   String          @id @default(uuid())
-  title                String          @unique
-  description          String
-  linkedOpenEndedTasks Task[]
-  assignedMembers      ProjectMember[]
+  id              String          @id @default(uuid())
+  title           String          @unique
+  description     String
+  assignedMembers ProjectMember[]
 
   permissions   ProjectMemberPermissions @relation(fields: [permissionsId], references: [id])
   permissionsId String
@@ -176,11 +175,6 @@ model ProjectMember {
   id               String        @id @default(uuid())
   roles            ProjectRole[]
   awaitingApproval Boolean
-
-  // Tasks
-  assignedTasks   Task[] @relation("MemberAssignedTasksRelation")
-  authoredTasks   Task[] @relation("MemberAuthoredTasksRelation")
-  coAuthoredTasks Task[] @relation("MemberCoauthoredTasksRelation")
 
   // Permissions - compiled array of permissions based off of all role permissions
   overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
@@ -217,148 +211,12 @@ model Project {
   // roles
   roles ProjectRole[]
 
-  // task-related fields
-  taskBoards     TaskBoard[]
-  taskCategories TaskCategory[]
-  taskLocations  TaskLocation[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   Post Post[]
 
   postLabels PostLabel[]
-}
-
-model TaskBoard {
-  id          String  @id @default(uuid())
-  title       String
-  description String?
-
-  tasks Task[]
-
-  project   Project? @relation(fields: [projectId], references: [id])
-  projectId String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TaskCategory {
-  id          String  @id @default(uuid())
-  name        String
-  description String?
-  color       String
-
-  linkedTasks Task[]
-
-  // project
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TaskLocation {
-  // task location specifies the directory for the task (e.g web, api, cli, bot, etc)
-  id          String @id @default(uuid())
-  name        String
-  linkedTasks Task[]
-
-  // project
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TaskChecklistItem {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  completed   Boolean?
-
-  checklist   TaskChecklist? @relation(fields: [checklistId], references: [id])
-  checklistId String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TaskChecklist {
-  id             String              @id @default(uuid())
-  name           String?
-  description    String?
-  items          TaskChecklistItem[]
-  completedItems Int
-  totalItems     Int
-
-  // task
-  task   Task?   @relation(fields: [taskId], references: [id])
-  taskId String?
-}
-
-model Task {
-  id String @id @default(uuid())
-
-  taskBoard   TaskBoard @relation(fields: [taskBoardId], references: [id])
-  taskBoardId String
-
-  name        String
-  description String?
-  deadline    DateTime?
-  priority    Int?
-  isCompleted Boolean
-  isOpen      Boolean
-
-  // checklist
-  checklists              TaskChecklist[]
-  taskCompletedPercentage Int // computed on a scale of 1 to 100 based on how many checklist items amongst all of the checklists have been completed 
-
-  // authors
-  author    ProjectMember   @relation("MemberAuthoredTasksRelation", fields: [authorId], references: [id])
-  authorId  String
-  coAuthors ProjectMember[] @relation("MemberCoauthoredTasksRelation")
-
-  // open ended tasks - allows members to get recommendations for tasks to take up
-  isOpenEndedTask               Boolean?
-  acceptingTaskRequiresApproval Boolean? // only applicable if isOpenEndedTask is set to true
-  rolesPermittedToAcceptTask    ProjectRole[] // only applicable if isOpenEndedTask is set to true
-
-  // assignees
-  assignees ProjectMember[] @relation("MemberAssignedTasksRelation")
-
-  // linked bugs reports and feature requests
-  linkedFeatureRequests FeatureRequest[]
-  linkedBugReports      BugReport[]
-
-  // linked tasks
-  waitlistedByTasks Task[] @relation("WaitlistingTaskRelation") // tasks that are waitlisting this task
-  waitlistingTasks  Task[] @relation("WaitlistingTaskRelation") // tasks that are waitlisted due to this task
-  duplicatedByTasks Task[] @relation("DuplicatingTaskRelation") // tasks that are duplicates of this task
-  duplicatingTasks  Task[] @relation("DuplicatingTaskRelation") // tasks that are duplicated due to this task
-
-  // complexity allows the ability to quantify the weight of a task
-  complexity Int
-
-  // Linked pull requests or commits
-  // TASK: replace with pr and commit id's once git integrations are implemented
-  linkedPrUrls     String[]
-  linkedCommitUrls String[]
-
-  // descriptive tags
-  taskCategories TaskCategory[]
-  taskLocations  TaskLocation[]
-
-  // attachements
-  attachements Attachment[]
-
-  // TASK: connect flights/features for this task to go under
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model FeatureRequest {
@@ -376,8 +234,6 @@ model FeatureRequest {
 
   // If this feature request results in the generation of a new feature, link it
   featureGeneratedFromRequest String // TASK: Replace with actual feature reference once built
-  // If the creation of a new feature is not required, and merely tasks will do, link them
-  linkedTasks                 Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -397,9 +253,6 @@ model BugReport {
 
   // TASK: Add comments
 
-  // linked tasks
-  linkedTasks Task[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -411,9 +264,6 @@ model Attachment {
 
   post   Post?   @relation(fields: [postId], references: [id])
   postId String?
-
-  task   Task?   @relation(fields: [taskId], references: [id])
-  taskId String?
 
   featureRequest   FeatureRequest @relation(fields: [featureRequestId], references: [id])
   featureRequestId String
