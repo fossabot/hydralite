@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class CreateProjectRoleArgs {
+export class CreateMemberRoleArgs {
   @Field()
   title: string;
 

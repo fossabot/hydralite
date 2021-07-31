@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { ProjectRole } from "~/resolver-types/models";
+import { MemberRole } from "~/resolver-types/models";
 
-export class ProjectRoleRepo extends PrismaClient {
+export class MemberRoleRepo extends PrismaClient {
   findRoleById = async (
     roleId: string,
     validate = true
-  ): Promise<ProjectRole | null> => {
+  ): Promise<MemberRole | null> => {
     // find role
-    const role = await this.projectRole.findUnique({
+    const role = await this.memberRole.findUnique({
       where: { id: roleId },
       include: { permissions: true },
     });

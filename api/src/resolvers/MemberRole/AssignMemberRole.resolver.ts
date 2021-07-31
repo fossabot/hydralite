@@ -2,20 +2,20 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { User } from "@prisma/client";
-import { AssignProjectRoleArgs } from "./args/AssignProjectRoleArgs";
+import { AssignMemberRoleArgs } from "./args/AssignMemberRoleArgs";
 import { ProjectMember } from "~/resolver-types/models";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
-import { ProjectRoleRepo } from "~/db/ProjectRoleRepo";
+import { MemberRoleRepo } from "~/db/MemberRoleRepo";
 import executeOrFail from "~/util/executeOrFail";
 
 const memberRepo = new ProjectMemberRepo();
-const roleRepo = new ProjectRoleRepo();
+const roleRepo = new MemberRoleRepo();
 @Resolver()
-export default class AssignProjectRoleResolver {
+export default class AssignMemberRoleResolver {
   @Mutation(() => ProjectMember)
   @IsAuthenticated()
-  async assignProjectRole(
-    @Arg("args") args: AssignProjectRoleArgs,
+  async assignMemberRole(
+    @Arg("args") args: AssignMemberRoleArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<ProjectMember | null> {
     return executeOrFail(async () => {

@@ -126,6 +126,11 @@ model UserProfile {
   bio       String
 }
 
+// model Interest {
+//   id String @id @default(uuid())
+//   name String
+// }
+
 model ProjectMemberPermissions {
   id                            String   @id @default(uuid())
   canAccessFeatureRequests      Boolean?
@@ -150,11 +155,11 @@ model ProjectMemberPermissions {
   canWriteDeveloperReviews      Boolean?
   canViewLogs                   Boolean?
 
-  projectRole   ProjectRole?
+  memberRole    MemberRole?
   projectMember ProjectMember?
 }
 
-model ProjectRole {
+model MemberRole {
   id              String          @id @default(uuid())
   title           String          @unique
   description     String
@@ -172,8 +177,8 @@ model ProjectRole {
 
 model ProjectMember {
   // explictly defines a many to many relation between Project and User
-  id               String        @id @default(uuid())
-  roles            ProjectRole[]
+  id               String       @id @default(uuid())
+  roles            MemberRole[]
   awaitingApproval Boolean
 
   // Permissions - compiled array of permissions based off of all role permissions
@@ -209,7 +214,7 @@ model Project {
   followers User[] @relation("UserFollowedProjectsRelation", references: [id])
 
   // roles
-  roles ProjectRole[]
+  roles MemberRole[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
