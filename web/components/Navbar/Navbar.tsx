@@ -8,7 +8,7 @@ const Navbar = () => {
   const { theme } = useThemeContext();
 
   return (
-    <div className="w-full flex items-center gap-3 justify-end pt-2 pr-2">
+    <div className={`w-full flex items-center gap-3 justify-end py-2 pr-2 ${theme === "dark" && "bg-dark-bgMuted1"}`}>
       <SearchIcon
         className={`w-[1.1rem] h-[1.1rem] ${theme === "dark" && "fill-[#fff]"}`}
       />
@@ -25,7 +25,7 @@ const ProfileWidget = () => {
   return (
     <div
       className={`flex items-center gap-2 p-2 rounded-lg ${
-        theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"
+        theme === "dark" && "bg-dark-bgMuted2 text-dark-fg"
       }`}
     >
       <img
