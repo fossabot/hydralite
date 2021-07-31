@@ -28,11 +28,11 @@ export const PostLabels: React.FC<PostLabelsProps> = ({ labels }) => {
 const PostLabel = ({ name, bgColor, fgColor }) => {
   return (
     <div
-      className="group rounded-full h-2 flex items-center gap-1"
+      className="group rounded-full flex items-center p-1 justify-center gap-1 select-none cursor-pointer"
       style={{ backgroundColor: bgColor }}
     >
-      <LabelIcon className="h-4 w-4" style={{ color: fgColor }} />
-      <span className="hidden group-hover:block text-md">{name}</span>
+      <LabelIcon className="h-3 w-3 fill-current" style={{ color: fgColor }} />
+      <span className="hidden group-hover:block text-xs">{name}</span>
     </div>
   );
 };
