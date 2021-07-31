@@ -19,6 +19,7 @@ export const Feed = () => {
           gradient: "",
         }}
         replies="22k"
+        labels={[{ bgColor: "#5C60D5", fgColor: "#fff", name: "okay" }]}
         // TASK: Replace iconify emojis with twemoji
         reactions={[
           {

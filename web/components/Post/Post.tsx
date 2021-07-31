@@ -21,6 +21,11 @@ interface PostProps {
     count: string;
     selected: boolean;
   }[];
+  labels: {
+    name: string;
+    bgColor: string;
+    fgColor: string;
+  }[];
   title: string;
   replies: string;
   shares: string;
