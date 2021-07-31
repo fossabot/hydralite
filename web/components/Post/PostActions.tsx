@@ -26,7 +26,12 @@ export const PostActions = ({ replies, shares, reposts, hydra }) => {
         name="Replies"
         count={replies}
       />
-      <PostAction Icon={RedoIcon} HoverIcon={RedoIcon} name="Repost" count={reposts} />
+      <PostAction
+        Icon={RedoIcon}
+        HoverIcon={RedoIcon}
+        name="Repost"
+        count={reposts}
+      />
       <PostAction
         Icon={ShareAltIcon}
         HoverIcon={ShareAltIconSolid}
@@ -50,7 +55,11 @@ const PostAction = ({ name, count = "", Icon, HoverIcon }) => {
   return (
     <div className="group cursor-pointer">
       {<Icon className={`group-hover:hidden h-4 w-4 fill-current`} />}
-      {<HoverIcon className={`hidden group-hover:block h-4 w-4 fill-current opacity-[0.7]`} />}
+      {
+        <HoverIcon
+          className={`hidden group-hover:block h-4 w-4 fill-current opacity-[0.7]`}
+        />
+      }
     </div>
   );
 };
