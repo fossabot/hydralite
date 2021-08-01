@@ -15,7 +15,7 @@ export interface User {
   likedPosts: number;
 }
 
-export function getData(username: string): User {
+export function getData(): User {
   return {
     createdAt: new Date(),
     hydra: 150,

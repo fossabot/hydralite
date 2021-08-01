@@ -1,7 +1,14 @@
-FROM gitpod/workspace-base:latest
+# syntax=docker/dockerfile:1
+FROM golang:1.16 AS shfmt
+
+# Formatting shell scripts, especially our Docker image's entrypoint script, as
+# ShellCheck's README recommends
+# https://github.com/mvdan/sh#shfmt
+RUN GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+
+FROM gitpod/workspace-base:latest AS base
 
 USER gitpod
-RUN sudo apt update
 ENV IS_GITPOD=true
 
 ### Node.js ###
@@ -57,48 +64,10 @@ RUN cp /home/gitpod/.profile /home/gitpod/.profile_orig && \
 ENV PATH=$PATH:$HOME/.cargo/bin
 RUN bash -lc "cargo install cargo-watch cargo-edit cargo-tree"
 
-### PostgresSQL ###
-RUN sudo install-packages postgresql-12 postgresql-contrib-12
-ENV PATH="$PATH:/usr/lib/postgresql/12/bin"
-ENV PGDATA="/workspace/.pgsql/data"
-RUN mkdir -p ~/.pg_ctl/bin ~/.pg_ctl/sockets \
- && printf '#!/bin/bash\n[ ! -d $PGDATA ] && mkdir -p $PGDATA && initdb -D $PGDATA\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" start\n' > ~/.pg_ctl/bin/pg_start \
- && printf '#!/bin/bash\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" stop\n' > ~/.pg_ctl/bin/pg_stop \
- && chmod +x ~/.pg_ctl/bin/*
-ENV PATH="$PATH:$HOME/.pg_ctl/bin"
-ENV DATABASE_URL="postgresql://gitpod@localhost"
-ENV PGHOSTADDR="127.0.0.1"
-ENV PGDATABASE="postgres"
-# This is a bit of a hack. At the moment we have no means of starting background
-# tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
-# PostgreSQL server is running, and if not starts it.
-RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
-
-### Docker ###
-RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
-    && sudo apt-key add /tmp/docker.gpg \
-    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
-    && sudo /usr/bin/install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io \
-    && rm /tmp/docker.gpg
-# slirp4netns for rootless containers
-RUN sudo curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.9/slirp4netns-$(uname -m) \
-    && sudo chmod +x /usr/bin/slirp4netns
-# Docker Compose
-RUN sudo curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64 \
-    && sudo chmod +x /usr/local/bin/docker-compose
-# https://github.com/wagoodman/dive
-RUN sudo curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb \
-    && sudo apt install /tmp/dive.deb \
-    && sudo rm /tmp/dive.deb
-
 ### Flutter ###
-# Note that you cannot emulate Android apps yet because of KVM requirement, but nested birtualization is unsupported in GKE currently
+# Note that you cannot emulate Android apps yet because of KVM requirement, but nested virtualization is unsupported in GKE currently
 # See Gitpod issue at https://github.com/gitpod-io/gitpod/issues/1273 and also in Google Issue Tracker in general at https://issuetracker.google.com/issues/110507927?pli=1
-RUN set -ex; \
-    sudo apt-get update; \
-    sudo apt-get install -y libglu1-mesa; \
-    sudo rm -rf /var/lib/apt/lists/*
-
+RUN sudo install-packages libglu1-mesa
 RUN set -ex; \
     mkdir ~/development; \
     cd ~/development; \
@@ -109,9 +78,69 @@ RUN set -ex; \
     flutter upgrade; \
     flutter precache --android --ios --universal -v
 
+### PostgresSQL ###
+RUN sudo install-packages postgresql-12 postgresql-contrib-12
+ENV PATH="$PATH:/usr/lib/postgresql/12/bin" PGDATA="/workspace/.pgsql/data"
+RUN mkdir -p ~/.pg_ctl/bin ~/.pg_ctl/sockets \
+ && printf '#!/bin/bash\n[ ! -d $PGDATA ] && mkdir -p $PGDATA && initdb -D $PGDATA\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" start\n' > ~/.pg_ctl/bin/pg_start \
+ && printf '#!/bin/bash\npg_ctl -D $PGDATA -l ~/.pg_ctl/log -o "-k ~/.pg_ctl/sockets" stop\n' > ~/.pg_ctl/bin/pg_stop \
+ && chmod +x ~/.pg_ctl/bin/*
+ENV PATH="$PATH:$HOME/.pg_ctl/bin" DATABASE_URL="postgresql://gitpod@localhost" \
+    PGHOSTADDR="127.0.0.1" PGDATABASE="postgres"
+# This is a bit of a hack. At the moment we have no means of starting background
+# tasks from a Dockerfile. This workaround checks, on each bashrc eval, if the
+# PostgreSQL server is running, and if not starts it. We can proably add this into
+# our tasks, probably on the before part for Postgres one.
+RUN printf "\n# Auto-start PostgreSQL server.\n[[ \$(pg_ctl status | grep PID) ]] || pg_start > /dev/null\n" >> ~/.bashrc
+
+### Redis ###
+RUN set -ex; \
+    wget http://download.redis.io/redis-stable.tar.gz -O /tmp/redis-stable.tar.gz; \
+    tar xvzf /tmp/redis-stable.tar.gz -C /tmp; \
+    # using cd is a bad pratice, but we want to install Redis without adding more layers
+    cd /tmp/redis-stable && make && sudo make install; \
+    rm -rfv /tmp/*
+COPY docker/redis.conf /etc/redis/6379.conf
+COPY docker/bin/redis-init-script /usr/local/bin/
+RUN set -ex; \
+    sudo chmod +x /usr/local/bin/redis-init-script; \
+    sudo mkdir -p /workspace/.pgsql && sudo chown -R gitpod:gitpod /workspace; \
+    mkdir /workspace/.redis
+
+### Docker ###
+RUN curl -o /tmp/docker.gpg -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    && sudo apt-key add /tmp/docker.gpg \
+    && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+    && sudo install-packages docker-ce=5:19.03.15~3-0~ubuntu-focal docker-ce-cli=5:19.03.15~3-0~ubuntu-focal containerd.io \
+    # Don't forget to add Gitpod user to the docker Unix group
+    && sudo usermod -aG docker gitpod
+# slirp4netns for rootless containers
+RUN sudo curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.9/slirp4netns-$(uname -m) \
+    && sudo chmod +x /usr/bin/slirp4netns
+# Docker Compose
+RUN sudo curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64 \
+    && sudo chmod +x /usr/local/bin/docker-compose
+# https://github.com/wagoodman/dive
+RUN curl -o /tmp/dive.deb -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb \
+    && sudo install-packages /tmp/dive.deb
+
+### ShellCheck/Halolint and other linting tools ###
+# scversion can be also "v0.4.7", or "latest", which shuld be changed on build time via
+# --build-args flag.
+ARG scversion="stable"
+# ShellCheck for our Docker image's entrypoint script
+RUN set -ex; \
+    wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv -C /tmp; \
+    sudo cp "/tmp/shellcheck-${scversion}/shellcheck" /usr/local/bin/; \
+    rm -rfv /tmp/shellcheck-*
+# Shell script linting / formatter from our golang build stage
+COPY --from=shfmt /go/bin/shfmt /usr/local/bin/shfmt
+# Hadolint is ShellCheck for Dockerfiles, we cannot use Homebrew here.
+ARG HADOLINT_VERSION="v2.6.0"
+RUN set -ex; \
+    wget -q "https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION?}/hadolint-Linux-x86_64" -O /tmp/hadolint; \
+    sudo mv /tmp/hadolint /usr/local/bin/hadolint; sudo chmod +x /usr/local/bin/hadolint
+
 ### Cleanup ###
-RUN sudo apt-get clean -y && \
-   sudo rm -rfv /var/cache/debconf/* \
-   /var/lib/apt/lists/* \
-   /tmp/* \
-   /var/tmp/*
+RUN sudo apt-get clean -y \
+    && sudo rm -rfv /var/cache/debconf/* /var/lib/apt/lists/* /tmp/* /var/tmp/*

@@ -75,7 +75,7 @@ export default class GithubApiManager {
     await octokit.request("PATCH /repos/{owner}/{repo}", {
       owner: owner,
       repo: repo,
-      private: !visible!,
+      private: Boolean(!visible),
     });
   };
 

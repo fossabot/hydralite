@@ -1,9 +1,16 @@
 import { AuthProviderType } from "~/types/AuthProvider.type";
 
+/**
+ * A generic user which is based off the Passport Authentication System.
+ */
 export interface PassportGenericUser {
+  /**User Email ID*/
   email?: string;
+  /**User Profile*/
   profile: Profile;
+  /**User Name*/
   username: string;
+  /**Primary OAuth Connection*/
   primaryOauthConnection: PrimaryOauthConnection;
 }
 

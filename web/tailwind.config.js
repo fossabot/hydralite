@@ -1,6 +1,10 @@
 module.exports = {
   mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./hoc/**/*.{js,ts,jsx,tsx}"],
+  purge: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./hoc/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: false,
   theme: {
     colors: {
@@ -14,12 +18,12 @@ module.exports = {
         bgMuted3: "#1C212D75",
         bgMuted4: "#292F40",
         color: {
-          accent: "#695cff",
+          accent: "#5D6BFF",
           yellow: "#EFA119",
-        }
-      }
+        },
+      },
     },
     variants: {},
     plugins: [],
-  }
-}
+  },
+};

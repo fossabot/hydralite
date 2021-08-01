@@ -5,7 +5,7 @@ import { ProjectMember } from "~/resolver-types/models";
 export class ProjectMemberRepo extends PrismaClient {
   findMemberById = async (
     memberId: string,
-    validate: boolean = true
+    validate = true
   ): Promise<ProjectMember | null> => {
     // retrieve member
     const member = this.projectMember.findUnique({ where: { id: memberId } });
@@ -20,7 +20,7 @@ export class ProjectMemberRepo extends PrismaClient {
   findMemberByUserAndProjectId = async (
     userId: string,
     projectId: string,
-    validate: boolean = true
+    validate = true
   ): Promise<ProjectMember | null> => {
     // retrieve member
     const member = await this.projectMember.findFirst({
@@ -38,7 +38,7 @@ export class ProjectMemberRepo extends PrismaClient {
   memberHasPermission = (
     member: ProjectMember,
     permissionName: string,
-    validate: boolean = true
+    validate = true
   ): boolean => {
     const memberHasPerm = !!(member.overallPermissions as any)?.[
       permissionName

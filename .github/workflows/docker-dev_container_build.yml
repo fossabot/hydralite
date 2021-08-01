@@ -1,0 +1,158 @@
+# This is the workflow file for both Gitpod and Dev Container/Codespace Dockerfile stuff.
+name: docker:dev_container_build
+
+on:
+  push:
+  pull_request:
+    paths:
+      - ".gitpod.Dockerfile"
+      - ".gitpod.yml"
+      - ".devcontainer/**"
+      - ".dockerignore"
+
+jobs:
+  changes:
+    name: Detect changes for conditional CI
+    runs-on: ubuntu-latest
+    outputs:
+      # These outputs are boolean, so we can check them later.
+      workflowFile: ${{steps.changes.outputs.workflowFile}}
+      gitpod: ${{steps.changes.outputs.gitpod}}
+      codespaces: ${{steps.changes.outputs.codespaces}}
+      manual: ${{steps.changes.outputs.manualTrigger}}
+    steps:
+      # The CI failed, probably blame the action below.
+      - uses: actions/checkout@v2
+      
+      # No need to checkout the code since we'll use GitHub APIs for that.
+      # We'll do the checks here if Gitpod workspace file is changed OR it has been manually triggered for PRs/pushes.
+      - name: "Check what's changed"
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          base: 'dev' # Use the dev branch as our base, through this will probably ignored in pull_request events
+          list-files: json
+          # Use HydraliteBot's PAT instead of github.token. Note that this will fail on most forks, but we'll document it in the future.
+          token: ${{ secrets.HYDRABOT_GH_PAT }}
+          filters: |
+            manualTrigger:
+              - ".trigger-ci"
+            workflowFile:
+              - ".github/workflows/docker-dev_container_build.yml"
+            gitpod:
+              - ".gitpod.Dockerfile"
+              - ".gitpod.yml"
+            # This is currently TODO/WIP for now
+            codespaces:
+              - ".devcontainer/Dockerfile"
+      - name: Comment PR when failed (ping Andrei)
+        uses: github-actions-up-and-running/pr-comment@v1.0.0
+        if: ${{ failure() && github.event_name == 'pull_request' }}
+        with:
+          repo-token: ${{ secrets.HYDRABOT_GH_PAT }}
+          # Please don't break this workflow so Andrei Jiroh will not twist and stab you like an water-colling tube for Linus Sebastian in your nightmares.
+          # Possibly tag HydraCore team also.
+          message: |
+            :warning: Looks like @ajhalili2006 just made chaos to the GitHub Actions workflow file, please see https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
+            
+            ---
+            
+            _This message is sent through [this GitHub Actions workflow](https://github.com/hydralite/hydralite/blob/dev/.github/workflows/docker-dev_container_build.yml). Feedback is welcome to improve this message._
+  gitpod-ws-image:
+    name: Build Gitpod workspace image
+    runs-on: ubuntu-latest
+    needs: changes
+    if: ${{ needs.changes.outputs.gitpod == 'true' || needs.changes.outputs.manual == 'true' || needs.changes.outputs.workflowFile == 'true' }}
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup QEMU for multiarch builds, blame Buildx.
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      # and of course, we need to setup Buildx, but since we're using the
+      # development images, this might cause chaos.
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: "image=moby/buildkit:master,network=host"
+
+      - name: Build image
+        id: image-build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          context: .
+          file: .gitpod.Dockerfile
+          platforms: linux/amd64
+
+      - name: Comment PR when failed
+        uses: github-actions-up-and-running/pr-comment@v1.0.0
+        if: ${{ failure() && github.event_name == 'pull_request' }}
+        with:
+          repo-token: ${{ secrets.HYDRABOT_GH_PAT }}
+          message: |
+            :warning: The Gitpod workspace image failed to build for commit ID ${{github.sha}}. See https://github.com/${{github.repository}}/pull/${{github.event.pull_request.number}}/checks?check_run_id=${{github.run_id}} for the build log on why it's failed.
+
+            ## Next Steps
+
+            * If you just `git pull` from the upstream (AKA this repo), ping [Andrei Jiroh](https://github.com/ajhalili2006) or if the response went too longer, please help us fix it.
+            * If you edited the `.gitpod.Dockerfile` file as part of your PR, please fix the build errors ASAP.
+            
+            ---
+            
+            _This message is sent through [this GitHub Actions workflow](https://github.com/hydralite/hydralite/blob/dev/.github/workflows/docker-dev_container_build.yml). Feedback is welcome to improve this message._
+      - name: Comment PR when successful
+        uses: github-actions-up-and-running/pr-comment@v1.0.0
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        with:
+          repo-token: ${{ secrets.HYDRABOT_GH_PAT }}
+          message: |
+            :white_check_mark: The Gitpod workspace image successfully built for commit ID ${{github.sha}}. See https://github.com/${{github.repository}}/pull/${{github.event.pull_request.number}}/checks?check_run_id=${{github.run_id}} for the full build log.
+
+            ## Next steps
+
+            Your PR will be then reviewed by humans here with write access or from other contributors like you for feedback.
+            
+            ---
+            
+            _This message is sent through [this GitHub Actions workflow](https://github.com/hydralite/hydralite/blob/dev/.github/workflows/docker-dev_container_build.yml). Feedback is welcome to improve this message._
+      - name: Comment on commit when failed (tag BOTH the commiter and Andrei)
+        uses: peter-evans/commit-comment@v1.3.2
+        if:  ${{ failure() && github.event_name == 'push' && github.actor != 'ajhalili2006' }}
+        with:
+          token: ${{ secrets.HYDRABOT_GH_PAT }}
+          sha: ${{github.sha}}
+          # when failed, this will tag BOTH the commiter and Andrei Jiroh, so please don't make chaos in .gitpod.Dockerfile.
+          body: |
+            :warning: The Gitpod workspace image failed to build for this commit, please see https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
+            
+            ${{github.actor}} @ajhalili2006
+            
+            ---
+            
+            _This message is sent through [this GitHub Actions workflow](https://github.com/hydralite/hydralite/blob/dev/.github/workflows/docker-dev_container_build.yml). Feedback is welcome to improve this message._
+      - name: Comment on commit when failed (only tag Andrei Jiroh)
+        uses: peter-evans/commit-comment@v1.3.2
+        if:  ${{ failure() && github.event_name == 'push' && github.actor == 'ajhalili2006' }}
+        with:
+          token: ${{ secrets.HYDRABOT_GH_PAT }}
+          sha: ${{github.sha}}
+          # if Andrei made chaos directly once he has push access to the repo, DON'T TAG ANYONE.
+          body: |
+            :warning: Looks like @ajhalili2006 just made chaos to the custom Gitpod workspace Dockerfile or to the Docker Buildx configuration, please see https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the build log on why it's failed and fix it ASAP so prebuilds will not fail.
+            
+            ---
+            
+            _This message is sent through [this GitHub Actions workflow](https://github.com/hydralite/hydralite/blob/dev/.github/workflows/docker-dev_container_build.yml). Feedback is welcome to improve this message._
+      - name: Comment on commit when successful
+        uses: peter-evans/commit-comment@v1.3.2
+        if:  ${{ success() && github.event_name == 'push' }}
+        with:
+          token: ${{ secrets.HYDRABOT_GH_PAT }}
+          sha: ${{github.sha}}
+          body: |
+            :white_check_mark: The Gitpod workspace image successfully built for this commit, though any tasks configured in the `.gitpod.yml` file should be manually tested. See https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} for the full build log.
+            
+            ---
+            
+            _This message is sent through [this GitHub Actions workflow](https://github.com/hydralite/hydralite/blob/dev/.github/workflows/docker-dev_container_build.yml). Feedback is welcome to improve this message._

@@ -6,7 +6,7 @@ export class TaskRepo extends PrismaClient {
   findTaskLocationByNameAndProjectId = async (
     locationName: string,
     projectId: string,
-    validate: boolean = true
+    validate = true
   ): Promise<TaskLocation | null> => {
     const taskLocation = await this.taskLocation.findFirst({
       where: { projectId, name: locationName },
@@ -21,7 +21,7 @@ export class TaskRepo extends PrismaClient {
   findTaskCategoryByNameAndProjectId = async (
     categoryName: string,
     projectId: string,
-    validate: boolean = true
+    validate = true
   ): Promise<TaskLocation | null> => {
     const taskCategory = await this.taskCategory.findFirst({
       where: { projectId, name: categoryName },
