@@ -71,10 +71,11 @@ model TokenPair {
 }
 
 model User {
-  id       String @id @default(uuid())
-  username String @unique
-  email    String @unique
-  hydra    Int
+  id          String  @id @default(uuid())
+  username    String  @unique
+  email       String  @unique
+  hydra       Int
+  isSiteAdmin Boolean @default(false)
 
   // Profile
   profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])

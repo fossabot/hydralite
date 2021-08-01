@@ -83,4 +83,18 @@ export default class UserRepo extends PrismaClient {
 
     return isPostViewable;
   }
+
+  async userIsSiteAdmin(userId: string, validate = true) {
+    const user = await executeOrFail(
+      async () => await this.user.findUnique({ where: { id: userId } })
+    );
+    if (!user) throw new ApolloError("Invalid user id.", "invalid_id");
+    if (validate && !user.isSiteAdmin)
+      throw new ApolloError(
+        "This action requires elevation",
+        "perms_insufficient"
+      );
+
+    return user.isSiteAdmin;
+  }
 }
