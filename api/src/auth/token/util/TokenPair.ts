@@ -23,10 +23,10 @@ export class TokenPairUtil {
   /**
    * Generate a unique access token (UUID).
    *
-   * @returns {String} uuid - The generated access token.
+   * @returns {string} uuid - The generated access token.
    *
    * **/
-  static generateUniqueToken(): String {
+  static generateUniqueToken(): string {
     // return uuid();
 
     const data = new Array(64).fill(0).map((_, __) => {
