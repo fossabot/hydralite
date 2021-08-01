@@ -167,15 +167,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^12.1.4":
-  version: 12.1.4
-  resolution: "@commitlint/config-conventional@npm:12.1.4"
-  dependencies:
-    conventional-changelog-conventionalcommits: ^4.3.1
-  checksum: 3bcc963d88a130f50d3d2b12a29a11eff6c0a553ad945595fe1d9d36052be662a011c2a6784ce88ede8c91b5aaadf5517c3f533747e91c799e0fe3281338d98c
-  languageName: node
-  linkType: hard
-
 "@commitlint/ensure@npm:^12.1.4":
   version: 12.1.4
   resolution: "@commitlint/ensure@npm:12.1.4"
@@ -835,6 +826,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@hydralite/cz-commitlint-config@workspace:cz-commitlint-config":
+  version: 0.0.0-use.local
+  resolution: "@hydralite/cz-commitlint-config@workspace:cz-commitlint-config"
+  dependencies:
+    "@commitlint/load": ">6.1.1"
+    chalk: ^2.4.1
+    commitizen: ^4.0.3
+    fuzzy: ^0.1.3
+    inquirer-autocomplete-prompt: ^1.4.0
+    lodash: ^4.17.21
+    lodash.map: ^4.5.1
+    longest: ^2.0.1
+    word-wrap: ^1.0.3
+  dependenciesMeta:
+    "@commitlint/load":
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@hydralite/docker@workspace:docker":
   version: 0.0.0-use.local
   resolution: "@hydralite/docker@workspace:docker"
@@ -875,6 +885,7 @@ __metadata:
     axios: ^0.21.1
     evernote: ^2.0.5
     faker: ^5.5.3
+    glob: ^7.1.7
     googleapis: ^76.0.0
     graphql: ^15.5.1
     heroku-client: ^3.1.0
@@ -2245,7 +2256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-escapes@npm:^4.2.1":
+"ansi-escapes@npm:^4.2.1, ansi-escapes@npm:^4.3.1":
   version: 4.3.2
   resolution: "ansi-escapes@npm:4.3.2"
   dependencies:
@@ -3632,17 +3643,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:^4.3.1":
-  version: 4.6.0
-  resolution: "conventional-changelog-conventionalcommits@npm:4.6.0"
-  dependencies:
-    compare-func: ^2.0.0
-    lodash: ^4.17.15
-    q: ^1.5.1
-  checksum: 60114ccba24cb59c0cd4afd4974998343f21313d447f854a2b9403396405b9cf539747b2aa4b4c8e3c6360fcfd5d00961d23d8e74306f0536afcfe165eaee54e
-  languageName: node
-  linkType: hard
-
 "conventional-commit-types@npm:^3.0.0":
   version: 3.0.0
   resolution: "conventional-commit-types@npm:3.0.0"
@@ -4655,7 +4655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"figures@npm:^3.0.0":
+"figures@npm:^3.0.0, figures@npm:^3.2.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
   dependencies:
@@ -4931,6 +4931,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fuzzy@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "fuzzy@npm:0.1.3"
+  checksum: 666efc71de37d8f84c500c5e9315a5c8e683b94c7dfdfb9fb26ab658f86d0fe20ef9ed86ffc4e3c253685284e639edc8b7f82c3e1dc1e3868022da4a4df6c491
+  languageName: node
+  linkType: hard
+
 "gauge@npm:~2.7.3":
   version: 2.7.4
   resolution: "gauge@npm:2.7.4"
@@ -5065,7 +5072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
+"glob@npm:^7.0.0, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6, glob@npm:^7.1.7":
   version: 7.1.7
   resolution: "glob@npm:7.1.7"
   dependencies:
@@ -5607,7 +5614,6 @@ __metadata:
   resolution: "hydralite@workspace:."
   dependencies:
     "@commitlint/cli": ^12.1.4
-    "@commitlint/config-conventional": ^12.1.4
     commitizen: ^4.2.4
     commitlint: ^12.1.4
     concurrently: ^6.2.0
@@ -5755,6 +5761,21 @@ __metadata:
   version: 1.3.8
   resolution: "ini@npm:1.3.8"
   checksum: 62189ce7ea44c5778e757e4232c581212e838f3c39e79d931bb9152fd4b9275f09fb20b96afdd60ba9f5d7996b92486cad6cc617fcb84ff4beedd1b33b86221e
+  languageName: node
+  linkType: hard
+
+"inquirer-autocomplete-prompt@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "inquirer-autocomplete-prompt@npm:1.4.0"
+  dependencies:
+    ansi-escapes: ^4.3.1
+    chalk: ^4.0.0
+    figures: ^3.2.0
+    run-async: ^2.4.0
+    rxjs: ^6.6.2
+  peerDependencies:
+    inquirer: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+  checksum: e41cabc10c27e91385d330a5199364a1f4888e9a62b836f01f9dcdf0fe1712e4b0ad5c7bf58f45b68e7975c79350f24e52ce35057ee487ca204e51443bd76f65
   languageName: node
   linkType: hard
 
@@ -8718,7 +8739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^6.4.0, rxjs@npm:^6.6.3":
+"rxjs@npm:^6.4.0, rxjs@npm:^6.6.2, rxjs@npm:^6.6.3":
   version: 6.6.7
   resolution: "rxjs@npm:6.6.7"
   dependencies:

@@ -9,11 +9,11 @@ interface UserProps {
 }
 
 const User: React.FC<UserProps> = ({
-  hasAvatar = true,
+  // hasAvatar = true,
   avatar,
   name,
   status,
-  showCrown,
+  // showCrown,
 }) => {
   return (
     <div className="flex items-center my-1.5">

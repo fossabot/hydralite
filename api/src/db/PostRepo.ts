@@ -3,10 +3,7 @@ import { ApolloError } from "apollo-server-express";
 import { Post } from "~/resolver-types/models";
 
 export class PostRepo extends PrismaClient {
-  async findPostById(
-    id: string,
-    validate: boolean = true
-  ): Promise<Post | null> {
+  async findPostById(id: string, validate = true): Promise<Post | null> {
     const post = await this.post.findUnique({
       where: { id },
       include: { visibleTo: true },
@@ -17,11 +14,7 @@ export class PostRepo extends PrismaClient {
     return post;
   }
 
-  async userIsCreatorOfPost(
-    userId: string,
-    postId: string,
-    validate: boolean = true
-  ) {
+  async userIsCreatorOfPost(userId: string, postId: string, validate = true) {
     const userInPost = !!(await this.post.findFirst({
       where: { id: postId, creatorId: userId },
     }));

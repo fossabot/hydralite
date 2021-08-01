@@ -66,7 +66,7 @@ export default class UserRepo extends PrismaClient {
   async userCanViewPrivatePost(
     userId: string,
     postId: string,
-    validate: boolean = true
+    validate = true
   ) {
     const isPostViewable = !!(await this.user.findFirst({
       where: {

@@ -4,7 +4,6 @@ import { PassportStatic } from "passport";
 import fetchOauthClientInfo from "~/auth/util/fetchOauthClientInfo";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { PassportGoogleProfile } from "../types/PassportGoogleProfile.type";
-import { Server } from "src/Server";
 
 export const GoogleOAuth = (passport: PassportStatic) => {
   const oauthInfo = fetchOauthClientInfo("google");

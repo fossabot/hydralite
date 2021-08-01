@@ -1,0 +1,51 @@
+{
+  "$id": "https://docs.hydralite.io/maintainers/meta/commitizen-commitlint-schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Conventional Changelog Types and Scopes Data Schema for HydraLite",
+  "description": "Schema was adapted from conventional-changelog-types npmjs package, extended by Andrei Jiroh to include commit scopes as part of schema.",
+  "additionalProperties": true,
+  "definitions": {
+    "commitType": {
+      "type": "object",
+      "description": "Commit types to be shown on the Commitizen wizard and also used for linting commit messages in Commitlint CI.",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of an specific commit type when prompted for which type to use in the Commitizen Inquirer.js screen. Try to keep it short as possible."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-friendly name of an specific commit type. Even though it's not required by the schema, it's recommended to include one for documentation purposes."
+        }
+      },
+      "required": ["description"]
+    },
+    "commitScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of an specific commit scope when prompted for which type to use in the Commitizen Inquirer.js screen. Try to keep it short as possible."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-friendly name of an specific commit scope. Even though it's not required by the schema, it's recommended to include one for documentation purposes."
+        }
+      },
+      "required": ["description"]
+    }
+  },
+  "properties": {
+    "types": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/commitType" }
+    },
+    "scopes": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/commitScope" }
+    }
+  },
+  "required": ["types", "scopes"]
+}

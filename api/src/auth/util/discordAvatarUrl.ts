@@ -1,3 +1,6 @@
+/**
+ * Gets the Discord avatar URL for the given user avatar hash.
+ */
 export default function discordAvatarUrl(
   id: string,
   discrim: number,

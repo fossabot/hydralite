@@ -12,6 +12,8 @@ const prompt = async (args) =>
   if (
     process.env.GITHUB_CLIENT_ID ||
     process.env.GITHUB_CLIENT_SECRET ||
+    process.env.DISCORD_CLIENT_ID ||
+    process.env.DISCORD_CLIENT_SECRET ||
     process.env.DATABASE_URL
   )
     return console.log(
@@ -31,6 +33,14 @@ const prompt = async (args) =>
     message: `Please enter your GitHub Client Secret:`,
   });
 
+  env.DISCORD_CLIENT_ID = await prompt({
+    message: `Please enter your Discord Client ID:`,
+  });
+
+  env.DISCORD_CLIENT_SECRET = await prompt({
+    message: `Please enter your Discord Client Secret:`,
+  });
+
   if (!process.env.IS_GITPOD) {
     env.DATABASE_URL = await prompt({
       message: `Please enter your PostgresSQL Database URL:`,
@@ -38,6 +48,15 @@ const prompt = async (args) =>
     });
   } else {
     env.DATABASE_URL = "postgresql://gitpod@localhost/postgres";
+  }
+
+  if (!process.env.IS_GITPOD) {
+    env.REDIS_URL = await prompt({
+      message: `Please enter your Redis URL:`,
+      default: "redis://localhost",
+    });
+  } else {
+    env.REDIS_URL = "redis://hydralitedev:764e2f151a1cc2c04d3dd80d0430453b759f79bee75d74fa25f5c104152ba82b@localhost";
   }
 
   console.log(
