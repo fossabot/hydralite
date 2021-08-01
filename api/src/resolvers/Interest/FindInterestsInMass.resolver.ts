@@ -16,8 +16,13 @@ export class FindInterestsInMassResolver {
     const returnedInterests = await executeOrFail(
       async () =>
         await prisma.$queryRaw(
-          "SELECT * FROM Interest WHERE to_tsvector(name) @@ to_tsquery($1)",
-          queryString
+          `SELECT * FROM Interest
+            WHERE to_tsvector(name) @@ to_tsquery($1)
+            OFFSET $2
+            LIMIT $3`,
+          queryString,
+          skip ?? 0,
+          limit && limit < 100 && limit > 0 ? limit : 20
         )
     );
 
