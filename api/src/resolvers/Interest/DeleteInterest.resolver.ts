@@ -1,30 +1,32 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import UserRepo from "~/db/UserRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { Interest, User } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
-import { CreateInterestArgs } from "./args/CreateInterestArgs";
+import { DeleteInterestArgs } from "./args/DeleteInterestArgs";
+
+const userRepo = new UserRepo();
 
 @Resolver()
-export class CreateInterestResolver {
+export class DeleteInterestResolver {
   @Mutation(() => Interest)
   @IsAuthenticated()
-  createInterest(
-    @Arg("args") { name }: CreateInterestArgs,
+  async deleteInterest(
+    @Arg("args") { id }: DeleteInterestArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<Interest | null> {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
+    // ensure user has tier 1 auth
+    await userRepo.userIsSiteAdmin(user.id);
+
     return executeOrFail(async () => {
-      const createdInterest = await prisma.interest.create({
-        data: {
-          name,
-          creator: { connect: { id: user.id } },
-          uses: 0,
-        },
+      const deletedInterest = await prisma.interest.delete({
+        where: { id },
       });
-      return createdInterest;
+      return deletedInterest;
     });
   }
 }
