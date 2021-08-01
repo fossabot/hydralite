@@ -102,6 +102,9 @@ model User {
   likedComments PostComment[] @relation("UserLikedCommentsRelation")
   viewablePosts Post[]        @relation("PostVisibleToRelation") // private posts that are visible to this user
 
+  // Created Interests
+  createdInterests Interest[]
+
   // Post Comments
   createdPostComments PostComment[]
 
@@ -129,9 +132,11 @@ model UserProfile {
 }
 
 model Interest {
-  id   String @id @default(uuid())
-  name String
-  uses Int // increments when a project or profile is linked. decides the ranking of interest
+  id        String @id @default(uuid())
+  name      String
+  uses      Int    @default(0) // increments when a project or profile is linked. decides the ranking of interest
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 
   linkedProjects Project[]
   linkedProfiles UserProfile[]
