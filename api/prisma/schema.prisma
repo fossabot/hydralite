@@ -141,8 +141,9 @@ model InterestOrSkill {
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
 
-  linkedProjects Project[]
-  linkedProfiles UserProfile[]
+  linkedProjects      Project[]
+  linkedProfiles      UserProfile[]
+  linkedOpportunities Opportunity[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -392,7 +393,8 @@ model Opportunity {
   id          String @id @default(uuid())
   title       String
   description String
-  // TASK: Add skills
+
+  requiredSkills InterestOrSkill[]
 
   isPaid           Boolean
   paymentFrequency PaymentFrequency
