@@ -11,7 +11,6 @@ const userRepo = new UserRepo();
 @Resolver()
 export default class DeleteHashtagResolver {
   @Mutation(() => Hashtag)
-  // TASK: Only site admins should be able to delete hashtags
   @IsAuthenticated()
   async deleteHashtag(
     @Arg("args") args: DeleteHashtagArgs,

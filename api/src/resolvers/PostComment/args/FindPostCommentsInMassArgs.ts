@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class ReadAllPostCommentsArgs {
+export class FindPostCommentsInMassArgs {
   @Field(() => String, {
     nullable: false,
   })

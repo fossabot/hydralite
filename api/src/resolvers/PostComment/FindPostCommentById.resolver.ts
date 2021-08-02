@@ -1,15 +1,15 @@
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { ReadPostCommentArgs } from "./args/ReadPostCommentArgs";
+import { FindPostCommentByIdArgs } from "./args/FindPostCommentByIdArgs";
 import ContextType from "~/types/Context.type";
 import { PostComment } from "~/resolver-types/models";
 
 @Resolver()
-export class ReadPostCommentResolver {
+export class FindPostCommentByIdResolver {
   @Query(() => PostComment)
   @IsAuthenticated()
-  async readPostComment(
-    @Arg("args") args: ReadPostCommentArgs,
+  async findPostCommentById(
+    @Arg("args") args: FindPostCommentByIdArgs,
     @Ctx() { prisma }: ContextType
   ) {
     return await prisma.postComment.findUnique({
