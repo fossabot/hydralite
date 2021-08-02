@@ -134,7 +134,7 @@ model UserProfile {
 
 model Interest {
   id        String @id @default(uuid())
-  name      String
+  name      String @unique
   uses      Int    @default(0) // increments when a project or profile is linked. decides the ranking of interest
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
