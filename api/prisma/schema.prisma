@@ -104,8 +104,8 @@ model User {
   likedComments PostComment[] @relation("UserLikedCommentsRelation")
   viewablePosts Post[]        @relation("PostVisibleToRelation") // private posts that are visible to this user
 
-  // Created Interests
-  createdInterests Interest[]
+  // Created InterestOrSkills
+  createdInterestOrSkills InterestOrSkill[]
 
   // Post Comments
   createdPostComments PostComment[]
@@ -130,13 +130,14 @@ model UserProfile {
   avatarURL String
   bio       String
 
-  interests Interest[]
+  interestOrSkills InterestOrSkill[]
 }
 
-model Interest {
-  id        String @id @default(uuid())
-  name      String @unique
-  uses      Int    @default(0) // increments when a project or profile is linked. decides the ranking of interest
+model InterestOrSkill {
+  id   String @id @default(uuid())
+  name String @unique
+  uses Int    @default(0) // increments when a project or profile is linked. decides the ranking of interest
+
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
 
@@ -234,7 +235,7 @@ model Project {
   post       Post[]
   postLabels PostLabel[]
 
-  interests Interest[]
+  interestOrSkills InterestOrSkill[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -370,11 +371,34 @@ model PostComment {
   post   Post   @relation(fields: [postId], references: [id])
   postId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   edited Boolean @default(false)
 
   likers User[] @relation("UserLikedCommentsRelation")
   likes  Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PaymentFrequency {
+  hourly
+  daily
+  weekly
+  monthly
+  yearly
+}
+
+model Opportunity {
+  id          String @id @default(uuid())
+  title       String
+  description String
+  // TASK: Add skills
+
+  isPaid           Boolean
+  paymentFrequency PaymentFrequency
+
+  minimumCapacity Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
