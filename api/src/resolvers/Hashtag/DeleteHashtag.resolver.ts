@@ -4,38 +4,29 @@ import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { DeleteHashtagArgs } from "./args/DeleteHashtagArgs";
+import UserRepo from "~/db/UserRepo";
+import { Hashtag } from "~/resolver-types/models";
 
+const userRepo = new UserRepo();
 @Resolver()
 export default class DeleteHashtagResolver {
-  @Mutation(() => Boolean)
+  @Mutation(() => Hashtag)
   // TASK: Only site admins should be able to delete hashtags
   @IsAuthenticated()
   async deleteHashtag(
     @Arg("args") args: DeleteHashtagArgs,
     @Ctx() { req, prisma }: ContextType
-  ): Promise<boolean> {
+  ): Promise<Hashtag | null> {
     // retrieve the currently logged in user
     const user: User = (req as any).user;
 
-    return executeOrFail(async () => {
-      const hashtag = await prisma.hashtag.findFirst({
-        where: {
-          id: args.hashtag_id,
-          creatorId: user.id,
-        },
-      });
-      try {
-        if (!hashtag) return false;
-        await prisma.hashtag.delete({
-          where: {
-            id: hashtag.id,
-          },
-        });
+    // ensure user has perms
+    await userRepo.userIsSiteAdmin(user.id);
 
-        return true;
-      } catch (err) {
-        return false;
-      }
-    });
+    const deletedHashtag = await executeOrFail(() =>
+      prisma.hashtag.delete({ where: { id: args.hashtag_id } })
+    );
+
+    return deletedHashtag;
   }
 }
