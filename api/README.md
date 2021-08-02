@@ -16,7 +16,7 @@ If you also want to setup redis insight, run the `yarn dbg:start` command to get
 3. Run `yarn setup` to simulate an intuitive environment setup procedure.
 4. Run `yarn dev` to start the development server on the port you specified (fallback is 8000)
 
-## How does authentication work?
+## Authentication
 
 We use a custom authentication solution to authorize users. We use four OAuth providers, namely Github, Discord, Google, and Twitter.
 
@@ -42,3 +42,9 @@ Standalone mode was built for easily authenticating without needing to running t
 3. **Your auth providers auth page will show up.** Fill in any details it asks for.
 
 4. **You will be redirected to a callback route.** The JSON response you recieve from this route will consist of a refresh and access token. Make a note of these and pass the access token in the Authorization header whenever making a request to the API. (e.g `Authorization: Bearer {ACCESS_TOKEN}`)
+
+### Authorization Terms
+
+- **Tier 1 Auth** - Site Admins
+- **Tier 2 Auth** - Normally Authenticated Users
+- **No Auth** - Users that are not logged in
