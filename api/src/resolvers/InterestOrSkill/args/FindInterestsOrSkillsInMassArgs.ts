@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class FindInterestsInMassArgs {
+export class FindInterestsOrSkillsInMassArgs {
   @Field({ nullable: true })
   queryString?: string;
 
