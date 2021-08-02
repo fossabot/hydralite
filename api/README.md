@@ -12,6 +12,6 @@ If you also want to setup redis insight, run the `yarn dbg:start` command to get
 ### Normally
 
 1. From the root directory, cd into `api/`
-2. First, Run `yarn` to install all dependencies.
-3. Then, Run `yarn setup` to simulate an intuitive environment setup procedure.
-4. Finally, run `yarn dev` to start the development server on the port you specified (fallback is 8000)
+2. Run `yarn` to install all dependencies.
+3. Run `yarn setup` to simulate an intuitive environment setup procedure.
+4. Run `yarn dev` to start the development server on the port you specified (fallback is 8000)
