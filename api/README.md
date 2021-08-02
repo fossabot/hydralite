@@ -26,10 +26,18 @@ We provide users with an access token and refresh token. The access token is use
 
 Standalone mode was built for easily authenticating without needing to running the web server
 
-1. **Register an OAuth App on the provider of your choice.**
-   Don't forget to set the callback URL as `http://{SERVER_URL}/api/auth/{AUTH_PROVIDER}/standalone/callback`.
+#### Variables
 
-2. **Navigate to `http://{SERVER_URL}/api/auth/{AUTH_PROVIDER}/standalone`.**
+- **SERVER_URL** - The URL you are locally running the API on. (e.g http://localhost:8000)
+- **AUTH_PROVIDER** - The authentication provider you will be authenticating with (in lowercase). (e.g "github", "google")
+- **ACCESS_TOKEN** - The access token you get after authenticating.
+
+#### Procedure
+
+1. **Register an OAuth App on the provider of your choice.**
+   Don't forget to set the callback URL as `{SERVER_URL}/api/auth/{AUTH_PROVIDER}/standalone/callback`.
+
+2. **Navigate to `{SERVER_URL}/api/auth/{AUTH_PROVIDER}/standalone`.**
 
 3. **Your auth providers auth page will show up.** Fill in any details it asks for.
 
