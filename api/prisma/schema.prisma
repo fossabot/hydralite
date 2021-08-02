@@ -381,7 +381,7 @@ model PostComment {
   updatedAt DateTime @updatedAt
 }
 
-enum PaymentFrequency {
+enum TimeFrequency {
   hourly
   daily
   weekly
@@ -397,9 +397,11 @@ model Opportunity {
   requiredSkills InterestOrSkill[]
 
   isPaid           Boolean
-  paymentFrequency PaymentFrequency
+  paymentAmount    Int // TASK: elaborate on this with currency type, etc.?
+  timeFrequency    TimeFrequency // frequency of the capacity and payment
+  requiredCapacity Int // number of hours a user must dedicate to this project based on a particular timeFrequency; only applicable if Opportunity is paid
 
-  minimumCapacity Int
+  // TASK: link project
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
