@@ -2,12 +2,12 @@ import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class FindInterestsInMassArgs {
-  @Field()
+  @Field({ nullable: true })
   queryString?: string;
 
-  @Field()
+  @Field({ nullable: true })
   limit?: number;
 
-  @Field()
+  @Field({ nullable: true })
   skip?: number;
 }

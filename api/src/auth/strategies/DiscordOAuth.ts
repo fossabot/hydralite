@@ -29,7 +29,6 @@ async function getUser(
   const data = await axios({
     method: "POST",
     url: "https://discord.com/api/oauth2/token",
-
     headers: {
       Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",

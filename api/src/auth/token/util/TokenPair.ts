@@ -21,14 +21,12 @@ export class TokenPairUtil {
   }
 
   /**
-   * Generate a unique access token (UUID).
+   * Generate a unique access token.
    *
-   * @returns {string} uuid - The generated access token.
+   * @returns {string} The generated access token.
    *
    * **/
   static generateUniqueToken(): string {
-    // return uuid();
-
     const data = new Array(64).fill(0).map((_, __) => {
       return Math.floor(Math.random() * 16).toString(16);
     });

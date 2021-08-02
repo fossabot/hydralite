@@ -26,7 +26,7 @@ export default class CreateMemberRoleResolver {
     // ensure loggedInMember has required permissions
     await memberRepo.memberHasPermission(loggedInMember!, "canManageRoles");
 
-    const createdRole = await prisma.MemberRole.create({
+    const createdRole = await prisma.memberRole.create({
       data: {
         title: args.title,
         description: args.description || "",
