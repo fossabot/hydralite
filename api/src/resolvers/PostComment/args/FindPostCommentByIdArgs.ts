@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class ReadPostCommentArgs {
+export class FindPostCommentByIdArgs {
   @Field(() => String, {
     nullable: false,
   })

@@ -1,15 +1,15 @@
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { ReadAllPostCommentsArgs } from "./args/ReadAllPostCommentsArgs";
+import { FindPostCommentsInMassArgs } from "./args/FindPostCommentsInMassArgs";
 import ContextType from "~/types/Context.type";
 import { PostComment } from "~/resolver-types/models";
 
 @Resolver()
-export class ReadAllPostCommentsResolver {
+export class FindPostCommentsInMassResolver {
   @Query(() => [PostComment])
   @IsAuthenticated()
-  async readAllPostComments(
-    @Arg("args") args: ReadAllPostCommentsArgs,
+  async findPostCommentsInMass(
+    @Arg("args") args: FindPostCommentsInMassArgs,
     @Ctx() { prisma }: ContextType
   ) {
     const comments = await prisma.postComment.findMany({
