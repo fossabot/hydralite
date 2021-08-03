@@ -813,7 +813,7 @@ __metadata:
     passport-google-oauth20: ^2.0.0
     passport-twitter: ^1.0.4
     pg: ^8.6.0
-    prisma: ^2.25.0
+    prisma: ^2.28.0
     redis: ^3.1.2
     reflect-metadata: ^0.1.13
     ts-node-dev: ^1.1.6
@@ -1369,6 +1369,13 @@ __metadata:
   version: 2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922
   resolution: "@prisma/engines@npm:2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922"
   checksum: 715ac5b3e1e1b489704f8b5acd1a483af1f159bb1e298a68955cc9a8d84af169b62a25f6c1fa28765f002274717aa7417b63d937c43d858c46eba57b29313488
+  languageName: node
+  linkType: hard
+
+"@prisma/engines@npm:2.28.0-17.89facabd0366f63911d089156a7a70125bfbcd27":
+  version: 2.28.0-17.89facabd0366f63911d089156a7a70125bfbcd27
+  resolution: "@prisma/engines@npm:2.28.0-17.89facabd0366f63911d089156a7a70125bfbcd27"
+  checksum: ddc754c6c2c60f976c070a75e9d74a72ff5053ff57abc118dad3cb0175a643ca86249e72dccce99e4d0b17c6fac2e2af5f0f8dcfd756d8c0f9e1d049e47e4211
   languageName: node
   linkType: hard
 
@@ -8012,15 +8019,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^2.25.0":
-  version: 2.25.0
-  resolution: "prisma@npm:2.25.0"
+"prisma@npm:^2.28.0":
+  version: 2.28.0
+  resolution: "prisma@npm:2.28.0"
   dependencies:
-    "@prisma/engines": 2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922
+    "@prisma/engines": 2.28.0-17.89facabd0366f63911d089156a7a70125bfbcd27
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: 7b8b1adc3b64711926665221aaa8bcdca76969ee4e7cd549160614bb868742f0e8c8df6f16e83637363008fe99e926da11bd73f33a173fadb5302c66d2daffc5
+  checksum: f4683599bb9c3bd53eb8e4de94d980cbcd43ec2ae630b1271f73b2775a1f808c64ffdd7d7e3e21c40f9cde4d8cdc7abef4277a2934f1c73db08e6f2581840df1
   languageName: node
   linkType: hard
 

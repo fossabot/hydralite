@@ -1,6 +1,6 @@
 import { Field, InputType } from "type-graphql";
+import { TimeFrequency } from "../types";
 
-type TimeFrequency = "hourly" | "daily" | "weekly" | "monthly" | "yearly";
 @InputType()
 export class CreateOpportunityArgs {
   @Field()
@@ -13,7 +13,7 @@ export class CreateOpportunityArgs {
   description: string;
 
   @Field(() => [String])
-  requiredSkillIds: String[];
+  requiredSkillIds: string[];
 
   @Field({ nullable: true })
   isPaid?: string;
