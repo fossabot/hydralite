@@ -401,7 +401,7 @@ model Opportunity {
 
   isPaid           Boolean
   paymentAmount    Int // TASK: elaborate on this with currency type, etc.?
-  timeFrequency    TimeFrequency // frequency of the capacity and payment
+  timeFrequency    TimeFrequency // frequency of the capacity and payment; only applicable if Opportunity is paid
   requiredCapacity Int // number of hours a user must dedicate to this project based on a particular timeFrequency; only applicable if Opportunity is paid
 
   project   Project @relation(fields: [projectId], references: [id])
