@@ -150,28 +150,15 @@ model InterestOrSkill {
 }
 
 model ProjectMemberPermissions {
-  id                            String   @id @default(uuid())
-  canAccessFeatureRequests      Boolean?
-  canAccessBugReports           Boolean?
-  canManageUsers                Boolean?
-  canManageRoles                Boolean?
-  canManageTasks                Boolean?
-  canCreateProjectAnnouncements Boolean?
-  canManagePosts                Boolean?
-  canManageProjectGroups        Boolean?
-  canGenerateProjectInvites     Boolean?
-  canViewRoadmap                Boolean?
-  canManageRoadmap              Boolean? // cant be turned on unless canViewRoadmap is on
-  canScheduleRooms              Boolean?
-  canManageFundraisers          Boolean?
-  canManageThirdPartyApps       Boolean?
-  canManageProjectSurveys       Boolean?
-  canViewProjectInsights        Boolean?
-  canViewDeveloperInsights      Boolean?
-  canManageProjectWaitlists     Boolean?
-  canManageTesterOutsourcing    Boolean?
-  canWriteDeveloperReviews      Boolean?
-  canViewLogs                   Boolean?
+  id                       String   @id @default(uuid())
+  canManageFeatureRequests Boolean?
+  canManageBugReports      Boolean?
+  canManageMembers         Boolean?
+  canManageRoles           Boolean?
+  canManagePosts           Boolean?
+  canManageFundraisers     Boolean?
+  canManageWaitlists       Boolean?
+  canCreateUserReviews     Boolean?
 
   memberRole    MemberRole?
   projectMember ProjectMember?
