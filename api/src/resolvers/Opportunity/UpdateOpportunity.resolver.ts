@@ -9,7 +9,6 @@ import executeOrFail from "~/util/executeOrFail";
 import { UpdateOpportunityArgs } from "./args/UpdateOpportunityArgs";
 
 const memberRepo = new ProjectMemberRepo();
-
 @Resolver()
 export class UpdateOpportunityResolver {
   @Mutation()
@@ -35,7 +34,7 @@ export class UpdateOpportunityResolver {
       opportunity.projectId
     );
 
-    // ensure this user has perms in the specified project
+    // ensure this user has perms in the project
     memberRepo.memberHasPermission(
       loggedInMember!,
       "canManageContributorOutsourcing"
@@ -64,8 +63,8 @@ export class UpdateOpportunityResolver {
     const updatedOpportunity = await executeOrFail(
       async () =>
         await prisma.opportunity.update({
-          data: opportunityData,
           where: { id: opportunity.id },
+          data: opportunityData,
         })
     );
 
