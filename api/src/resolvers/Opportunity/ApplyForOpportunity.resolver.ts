@@ -32,6 +32,8 @@ export class ApplyForOpportunityResolver {
         })
     );
 
+    // TASK: Send email to people with perms to manage outsourcing
+
     return createdApplicant;
   }
 }
