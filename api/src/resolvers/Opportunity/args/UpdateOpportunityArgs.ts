@@ -16,7 +16,7 @@ export class UpdateOpportunityArgs {
   requiredSkillIds: string[];
 
   @Field({ nullable: true })
-  isPaid?: string;
+  isPaid?: boolean;
 
   // TASK: Figure out payment amount stuff
 
