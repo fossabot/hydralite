@@ -1,21 +1,21 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import UserRepo from "~/db/UserRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Interest, User } from "~/resolver-types/models";
+import { InterestOrSkill, User } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
-import { DeleteInterestArgs } from "./args/DeleteInterestArgs";
+import { DeleteInterestOrSkillArgs } from "./args/DeleteInterestOrSkillArgs";
 
 const userRepo = new UserRepo();
 
 @Resolver()
-export class DeleteInterestResolver {
-  @Mutation(() => Interest)
+export class DeleteInterestOrSkillResolver {
+  @Mutation(() => InterestOrSkill)
   @IsAuthenticated()
-  async deleteInterest(
-    @Arg("args") { id }: DeleteInterestArgs,
+  async deleteInterestOrSkill(
+    @Arg("args") { id }: DeleteInterestOrSkillArgs,
     @Ctx() { req, prisma }: ContextType
-  ): Promise<Interest | null> {
+  ): Promise<InterestOrSkill | null> {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
@@ -23,10 +23,10 @@ export class DeleteInterestResolver {
     await userRepo.userIsSiteAdmin(user.id);
 
     return executeOrFail(async () => {
-      const deletedInterest = await prisma.interest.delete({
+      const deletedInterestOrSkill = await prisma.interestOrSkill.delete({
         where: { id },
       });
-      return deletedInterest;
+      return deletedInterestOrSkill;
     });
   }
 }

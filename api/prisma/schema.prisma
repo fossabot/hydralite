@@ -104,8 +104,8 @@ model User {
   likedComments PostComment[] @relation("UserLikedCommentsRelation")
   viewablePosts Post[]        @relation("PostVisibleToRelation") // private posts that are visible to this user
 
-  // Created Interests
-  createdInterests Interest[]
+  // Created InterestOrSkills
+  createdInterestOrSkills InterestOrSkill[]
 
   // Post Comments
   createdPostComments PostComment[]
@@ -130,46 +130,36 @@ model UserProfile {
   avatarURL String
   bio       String
 
-  interests Interest[]
+  interestOrSkills InterestOrSkill[]
 }
 
-model Interest {
-  id        String @id @default(uuid())
-  name      String @unique
-  uses      Int    @default(0) // increments when a project or profile is linked. decides the ranking of interest
+model InterestOrSkill {
+  id   String @id @default(uuid())
+  name String @unique
+  uses Int    @default(0) // increments when a project or profile is linked. decides the ranking of interestOrSkill
+
   creator   User   @relation(fields: [creatorId], references: [id])
   creatorId String
 
-  linkedProjects Project[]
-  linkedProfiles UserProfile[]
+  linkedProjects      Project[]
+  linkedProfiles      UserProfile[]
+  linkedOpportunities Opportunity[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model ProjectMemberPermissions {
-  id                            String   @id @default(uuid())
-  canAccessFeatureRequests      Boolean?
-  canAccessBugReports           Boolean?
-  canManageUsers                Boolean?
-  canManageRoles                Boolean?
-  canManageTasks                Boolean?
-  canCreateProjectAnnouncements Boolean?
-  canManagePosts                Boolean?
-  canManageProjectGroups        Boolean?
-  canGenerateProjectInvites     Boolean?
-  canViewRoadmap                Boolean?
-  canManageRoadmap              Boolean? // cant be turned on unless canViewRoadmap is on
-  canScheduleRooms              Boolean?
-  canManageFundraisers          Boolean?
-  canManageThirdPartyApps       Boolean?
-  canManageProjectSurveys       Boolean?
-  canViewProjectInsights        Boolean?
-  canViewDeveloperInsights      Boolean?
-  canManageProjectWaitlists     Boolean?
-  canManageTesterOutsourcing    Boolean?
-  canWriteDeveloperReviews      Boolean?
-  canViewLogs                   Boolean?
+  id                              String   @id @default(uuid())
+  canManageFeatureRequests        Boolean?
+  canManageBugReports             Boolean?
+  canManageMembers                Boolean?
+  canManageRoles                  Boolean?
+  canManagePosts                  Boolean?
+  canManageFundraisers            Boolean?
+  canManageWaitlists              Boolean?
+  canCreateUserReviews            Boolean?
+  canManageContributorOutsourcing Boolean?
 
   memberRole    MemberRole?
   projectMember ProjectMember?
@@ -227,6 +217,9 @@ model Project {
   likers    User[] @relation("UserLikedProjectsRelation", references: [id])
   followers User[] @relation("UserFollowedProjectsRelation", references: [id])
 
+  // opportunities
+  opportunities Opportunity[]
+
   // roles
   roles MemberRole[]
 
@@ -234,7 +227,7 @@ model Project {
   post       Post[]
   postLabels PostLabel[]
 
-  interests Interest[]
+  interestOrSkills InterestOrSkill[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -370,11 +363,38 @@ model PostComment {
   post   Post   @relation(fields: [postId], references: [id])
   postId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   edited Boolean @default(false)
 
   likers User[] @relation("UserLikedCommentsRelation")
   likes  Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TimeFrequency {
+  hourly
+  daily
+  weekly
+  monthly
+  yearly
+}
+
+model Opportunity {
+  id          String @id @default(uuid())
+  title       String
+  description String
+
+  requiredSkills InterestOrSkill[]
+
+  isPaid           Boolean
+  paymentAmount    Int? // TASK: elaborate on this with currency type, etc.?
+  timeFrequency    TimeFrequency? // frequency of the capacity and payment; only applicable if Opportunity is paid
+  requiredCapacity Int? // number of hours a user must dedicate to this project based on a particular timeFrequency; only applicable if Opportunity is paid
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

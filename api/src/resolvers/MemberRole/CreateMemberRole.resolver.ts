@@ -11,7 +11,7 @@ export default class CreateMemberRoleResolver {
   @Mutation(() => MemberRole)
   @IsAuthenticated()
   async createMemberRole(
-    @Arg("args") args: CreateMemberRoleArgs,
+    @Arg("args") { projectId, title, description, perms }: CreateMemberRoleArgs,
     @Ctx() { req, prisma }: ContextType
   ): Promise<MemberRole | null> {
     // retrieve the currently logged in user
@@ -20,7 +20,7 @@ export default class CreateMemberRoleResolver {
     // retrieve and confirm loggedInMember exists
     const loggedInMember = await memberRepo.findMemberByUserAndProjectId(
       user.id,
-      args.projectId
+      projectId
     );
 
     // ensure loggedInMember has required permissions
@@ -28,37 +28,27 @@ export default class CreateMemberRoleResolver {
 
     const createdRole = await prisma.memberRole.create({
       data: {
-        title: args.title,
-        description: args.description || "",
+        title: title,
+        description: description || "",
         permissions: {
           create: {
-            canAccessBugReports: !!args.canAccessBugReports,
-            canAccessFeatureRequests: !!args.canAccessFeatureRequests,
-            canCreateProjectAnnouncements: !!args.canCreateProjectAnnouncements,
-            canGenerateProjectInvites: !!args.canGenerateProjectInvites,
-            canManageFundraisers: !!args.canManageFundraisers,
-            canManageProjectGroups: !!args.canManageProjectGroups,
-            canManageProjectSurveys: !!args.canManageProjectSurveys,
-            canManageProjectWaitlists: !!args.canManageProjectWaitlists,
-            canManageRoadmap: !!args.canManageRoadmap,
-            canManageRoles: !!args.canManageRoles,
-            canManageTasks: !!args.canManageTasks,
-            canManageTesterOutsourcing: !!args.canManageTesterOutsourcing,
-            canManageThirdPartyApps: !!args.canManageThirdPartyApps,
-            canManageUsers: !!args.canManageUsers,
-            canManagePosts: !!args.canManagePosts,
-            canScheduleRooms: !!args.canScheduleRooms,
-            canViewDeveloperInsights: !!args.canViewDeveloperInsights,
-            canViewLogs: !!args.canViewLogs,
-            canViewProjectInsights: !!args.canViewProjectInsights,
-            canViewRoadmap: !!args.canViewRoadmap,
-            canWriteDeveloperReviews: !!args.canWriteDeveloperReviews,
+            canCreateUserReviews: perms?.includes("canCreateUserReviews"),
+            canManageBugReports: perms?.includes("canManageBugReports"),
+            canManageFeatureRequests: perms?.includes(
+              "canManageFeatureRequests"
+            ),
+            canManageFundraisers: perms?.includes("canManageFundraisers"),
+            canManageWaitlists: perms?.includes("canManageWaitlists"),
+            canManageMembers: perms?.includes("canManageMembers"),
+            canManagePosts: perms?.includes("canManagePosts"),
+            canManageRoles: perms?.includes("canManageRoles"),
+            canManageContributorOutsourcing: perms?.includes(
+              "canManageContributorOutsourcing"
+            ),
           },
         },
         project: {
-          connect: {
-            id: args.projectId,
-          },
+          connect: { id: projectId },
         },
         assignedMembers: {}, // TASK: Allow the ability to specify member id's that can get this role
       },

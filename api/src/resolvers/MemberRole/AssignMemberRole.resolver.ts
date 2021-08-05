@@ -40,7 +40,7 @@ export default class AssignMemberRoleResolver {
 
       /* Assigning the Role */
 
-      // validate the member to assign the role to exists
+      // ensure the member getting the role exists
       await memberRepo.findMemberById(args.memberId);
 
       // add role to member

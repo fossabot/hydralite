@@ -1,13 +1,13 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class FindInterestsInMassArgs {
-  @Field({ nullable: true })
-  queryString?: string;
-
+export class FindOpportunitiesByProjectInMassArgs {
   @Field({ nullable: true })
   limit?: number;
 
   @Field({ nullable: true })
   skip?: number;
+
+  @Field()
+  projectId: string;
 }

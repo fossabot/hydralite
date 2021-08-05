@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class CreateInterestArgs {
+export class DeleteOpportunityArgs {
   @Field()
-  name: string;
+  opportunityId: string;
 }

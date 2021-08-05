@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
 import { ProjectMember } from "~/resolver-types/models";
+import { MemberPerms } from "~/types/MemberPerms.type";
 
 export class ProjectMemberRepo extends PrismaClient {
   findMemberById = async (
@@ -37,7 +38,7 @@ export class ProjectMemberRepo extends PrismaClient {
 
   memberHasPermission = (
     member: ProjectMember,
-    permissionName: string,
+    permissionName: MemberPerms,
     validate = true
   ): boolean => {
     const memberHasPerm = !!(member.overallPermissions as any)?.[
