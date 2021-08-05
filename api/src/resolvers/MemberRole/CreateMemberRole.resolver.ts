@@ -42,6 +42,9 @@ export default class CreateMemberRoleResolver {
             canManageMembers: perms?.includes("canManageMembers"),
             canManagePosts: perms?.includes("canManagePosts"),
             canManageRoles: perms?.includes("canManageRoles"),
+            canManageContributorOutsourcing: perms?.includes(
+              "canManageContributorOutsourcing"
+            ),
           },
         },
         project: {

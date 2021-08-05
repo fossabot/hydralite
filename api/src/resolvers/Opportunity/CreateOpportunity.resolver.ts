@@ -27,7 +27,10 @@ export class CreateOpportunityResolver {
     );
 
     // ensure this user has perms in the specified project
-    // memberRepo.memberHasPermission(loggedInMember!, "") // TASK: re add this after refining permission stuff
+    memberRepo.memberHasPermission(
+      loggedInMember!,
+      "canManageContributorOutsourcing"
+    );
 
     type opportunityType = Parameters<
       typeof prisma.opportunity.create

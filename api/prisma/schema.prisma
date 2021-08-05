@@ -150,15 +150,16 @@ model InterestOrSkill {
 }
 
 model ProjectMemberPermissions {
-  id                       String   @id @default(uuid())
-  canManageFeatureRequests Boolean?
-  canManageBugReports      Boolean?
-  canManageMembers         Boolean?
-  canManageRoles           Boolean?
-  canManagePosts           Boolean?
-  canManageFundraisers     Boolean?
-  canManageWaitlists       Boolean?
-  canCreateUserReviews     Boolean?
+  id                              String   @id @default(uuid())
+  canManageFeatureRequests        Boolean?
+  canManageBugReports             Boolean?
+  canManageMembers                Boolean?
+  canManageRoles                  Boolean?
+  canManagePosts                  Boolean?
+  canManageFundraisers            Boolean?
+  canManageWaitlists              Boolean?
+  canCreateUserReviews            Boolean?
+  canManageContributorOutsourcing Boolean?
 
   memberRole    MemberRole?
   projectMember ProjectMember?

@@ -6,4 +6,5 @@ export type MemberPerms =
   | "canManagePosts"
   | "canManageFundraisers"
   | "canManageWaitlists"
-  | "canCreateUserReviews";
+  | "canCreateUserReviews"
+  | "canManageContributorOutsourcing";
