@@ -17,7 +17,7 @@ export class DeleteOpportunityResolver {
   async deleteOpportunity(
     @Arg("args") { opportunityId }: DeleteOpportunityArgs,
     @Ctx() { req, prisma }: ContextType
-  ) {
+  ): Promise<Opportunity | null> {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 

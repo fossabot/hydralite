@@ -3,6 +3,7 @@ import { ApolloError } from "apollo-server-express";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Opportunity } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
 import { connectIdArray } from "~/util/connectIdArray";
 import executeOrFail from "~/util/executeOrFail";
@@ -11,12 +12,12 @@ import { UpdateOpportunityArgs } from "./args/UpdateOpportunityArgs";
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class UpdateOpportunityResolver {
-  @Mutation()
+  @Mutation(() => Opportunity)
   @IsAuthenticated()
   async updateOpportunity(
     @Arg("args") args: UpdateOpportunityArgs,
     @Ctx() { prisma, req }: ContextType
-  ) {
+  ): Promise<Opportunity | null> {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 

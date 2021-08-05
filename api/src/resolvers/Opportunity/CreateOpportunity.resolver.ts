@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
+import { Opportunity } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
 import { connectIdArray } from "~/util/connectIdArray";
 import executeOrFail from "~/util/executeOrFail";
@@ -10,12 +11,12 @@ import { CreateOpportunityArgs } from "./args/CreateOpportunityArgs";
 const memberRepo = new ProjectMemberRepo();
 @Resolver()
 export class CreateOpportunityResolver {
-  @Mutation()
+  @Mutation(() => Opportunity)
   @IsAuthenticated()
   async createOpportunity(
     @Arg("args") args: CreateOpportunityArgs,
     @Ctx() { prisma, req }: ContextType
-  ) {
+  ): Promise<Opportunity | null> {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
