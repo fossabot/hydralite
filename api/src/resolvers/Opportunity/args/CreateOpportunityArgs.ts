@@ -1,5 +1,5 @@
 import { Field, InputType } from "type-graphql";
-import { TimeFrequency } from "../types";
+import { TimeFrequency } from "../types/types";
 
 @InputType()
 export class CreateOpportunityArgs {
