@@ -22,7 +22,7 @@ Hydralite is an open-source, next-generation project marketing and management pl
 
 ## Quick Start for Development
 
-Although we highly recommend reading [the contributing guidelines/docs](https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md), read on on how to get started contributing to HydraLite.
+Although we highly recommend reading [the contributing guidelines/docs](https://github.com/hydralite/hydralite/blob/dev/CONTRIBUTING.md), here's the fastest way to get started.
 
 Make sure you've installed Node.js (Web, API, landing, Discord bot), Python (automation), Rust (CLI) and/or Flutter + Dart (Mobile App) before start hacking/contributing within your local machine, especially if you use [code-server](https://github.com/cdr/code-server) in an PaaS where Dockerfiles are supported.
 
@@ -32,7 +32,7 @@ To start both the frontend webapp and the GraphQL API backend servers:
 2. Then, run an intuitive setup procedure with `yarn setup`. It'll ask you what you need to enter below in order to generate an `.env` file. You can also create that file manually from `.env.example` in the API directory and edit manually if you want.
     - OAuth client IDs and secrets for: GitHub, Discord and Google (you can skip if you don't have these, but this might fire up some errors when you start it)
     - Postgres database URL string for data storage and Prisma database migrations.
-    - Redis URL for data cache. Although you can use Redis as full-blown database replacement to Postgres, it is currently not supported.
+    - Redis URL for data cache.
 3. Once setup is complete, run `yarn dev` to start both the web app and API server in development mode.
 
 **Other Ways To Get Started:**
