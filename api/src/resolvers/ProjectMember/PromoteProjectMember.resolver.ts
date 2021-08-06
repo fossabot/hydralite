@@ -22,11 +22,14 @@ export class PromoteProjectMember {
       where: { id: memberId },
     })) as ProjectMember;
 
-    const promoter = (await prisma.projectMember.findFirst({
-      where: { userId: user.id, projectId: memberToPromote!.projectId },
+    const loggedInMember = (await prisma.projectMember.findFirst({
+      where: {
+        userId: user.id,
+        projectId: memberToPromote!.projectId,
+      },
     })) as ProjectMember;
 
-    memberRepo.memberHasPermission(promoter, "canManageUsers");
+    memberRepo.memberHasPermission(loggedInMember, "canManageUsers");
 
     // finally, update the member with the new role
     return prisma.projectMember.update({
