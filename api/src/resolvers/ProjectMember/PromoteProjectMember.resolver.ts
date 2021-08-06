@@ -9,10 +9,10 @@ import { PromoteArgs } from "./args/PromoteArgs";
 const memberRepo = new ProjectMemberRepo();
 
 @Resolver()
-export class Promote {
+export class PromoteProjectMember {
   @IsAuthenticated()
   @Mutation(() => ProjectMember)
-  async promote(
+  async promoteProjectMember(
     @Ctx() { req: { user: _ }, prisma }: ContextType,
     @Arg("args") { memberId, newRole }: PromoteArgs
   ): Promise<ProjectMember> {
