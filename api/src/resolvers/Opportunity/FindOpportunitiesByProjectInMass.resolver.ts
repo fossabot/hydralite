@@ -1,11 +1,11 @@
-import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { Opportunity } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
 import { FindOpportunitiesByProjectInMassArgs } from "./args/FindOpportunitiesByProjectInMassArgs";
 
 @Resolver()
 export class FindOpportunitiesByProjectInMassResolver {
-  @Mutation(() => [Opportunity])
+  @Query(() => [Opportunity])
   async findOpportunitiesByProjectInMass(
     @Arg("args")
     { limit, skip, projectId }: FindOpportunitiesByProjectInMassArgs,
