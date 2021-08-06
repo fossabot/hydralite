@@ -2,7 +2,7 @@ import { ProjectMemberType } from "@prisma/client";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class PromoteArgs {
+export class PromoteProjectMemberArgs {
   @Field()
   memberId: string;
 

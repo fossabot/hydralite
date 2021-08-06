@@ -4,7 +4,7 @@ import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { ProjectMember, User } from "~/resolver-types/models";
 import ContextType from "~/types/Context.type";
-import { PromoteArgs } from "./args/PromoteArgs";
+import { PromoteProjectMemberArgs } from "./args/PromoteProjectMemberArgs";
 
 const memberRepo = new ProjectMemberRepo();
 
@@ -14,7 +14,7 @@ export class PromoteProjectMember {
   @Mutation(() => ProjectMember)
   async promoteProjectMember(
     @Ctx() { req: { user: _ }, prisma }: ContextType,
-    @Arg("args") { memberId, newRole }: PromoteArgs
+    @Arg("args") { memberId, newRole }: PromoteProjectMemberArgs
   ): Promise<ProjectMember> {
     const user: User = _ as any;
 
