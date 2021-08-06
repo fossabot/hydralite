@@ -24,6 +24,7 @@ export class ApplyForOpportunityResolver {
             user: { connect: { id: user.id } },
             opportunity: { connect: { id: opportunityId } },
             isAccepted: false,
+            // TASK: also make users write a short description of why they think they should be selected for this job
           },
         })
     );
