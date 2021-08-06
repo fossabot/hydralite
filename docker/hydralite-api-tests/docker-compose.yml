@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:13
     restart: always
-    container_name: hydralite-api-tests
+    container_name: hydralite-tests-db
     ports:
       - "5432:5432"
     environment:

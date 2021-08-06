@@ -28,3 +28,6 @@ data/
 # vim programmers can rest now
 
 Session.vim
+
+api/.env.test
+api/.env.dev

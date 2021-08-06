@@ -10,7 +10,6 @@ import cors from "cors";
 import { projectName } from "./constants";
 import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
-import dotenv from "dotenv";
 import { apolloPlugins } from "./util/apolloPlugins";
 import { TwitterOAuth } from "./auth/strategies/TwitterOAuth";
 import { GoogleOAuth } from "./auth/strategies/GoogleOAuth";
@@ -30,9 +29,6 @@ export class Server {
   public tokens: TokenPairUtil;
 
   public constructor() {
-    // initialize dontenv
-    dotenv.config();
-
     // set app
     this.app = express();
 
