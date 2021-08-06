@@ -4,7 +4,7 @@ import ContextType from "~/types/Context.type";
 import { FindUsersInMassArgs } from "./args/FindUsersInMassArgs";
 
 @Resolver()
-export default class FindUserByIdResolver {
+export default class FindUsersInMassResolver {
   @Query(() => [User])
   findUsersInMass(
     @Arg("args") { skip, limit }: FindUsersInMassArgs,
