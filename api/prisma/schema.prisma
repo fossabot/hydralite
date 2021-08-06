@@ -294,7 +294,7 @@ model Attachment {
 
 model Hashtag {
   id         String @id @default(uuid())
-  name       String
+  name       String @unique
   numOfPosts BigInt
 
   creator   User   @relation(fields: [creatorId], references: [id])
