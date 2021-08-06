@@ -1195,6 +1195,7 @@ __metadata:
     graphql-type-json: ^0.3.2
     inquirer: ^8.1.2
     jest: ^27.0.6
+    jest-mock-extended: ^2.0.1
     passport: ^0.4.1
     passport-discord: ^0.1.4
     passport-github2: ^0.1.12
@@ -7719,6 +7720,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-mock-extended@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "jest-mock-extended@npm:2.0.1"
+  dependencies:
+    ts-essentials: ^7.0.3
+  peerDependencies:
+    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0
+    typescript: ^3.0.0 || ^4.0.0
+  checksum: 04eb13da0553cabaac68c08d98e8abd28b0ae1935c712927d890746a3580a676fee0c9f545633799a7e6862c1e853b2463300bc9431fe69b59d02d31c338695d
+  languageName: node
+  linkType: hard
+
 "jest-mock@npm:^27.0.6":
   version: 27.0.6
   resolution: "jest-mock@npm:27.0.6"
@@ -11850,6 +11863,15 @@ __metadata:
   version: 1.0.1
   resolution: "trim-off-newlines@npm:1.0.1"
   checksum: c590b9e8c1d91ac1b57b65f8ed7cc7837e702d86f47c725462cc7e03f3850dfa92a32f956d350632208aa78e9be03917a21d9ef5d139c30be13bb51bf576209f
+  languageName: node
+  linkType: hard
+
+"ts-essentials@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "ts-essentials@npm:7.0.3"
+  peerDependencies:
+    typescript: ">=3.7.0"
+  checksum: 59d99e418e316365c8e63bcb257ba416c6d36a0555d438571a2d6fdab9ebcac020b4861c3f7510e124ef84b3bd51ebcdc8f2a591c2cd9604be74f5a5366c3e88
   languageName: node
   linkType: hard
 
