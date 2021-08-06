@@ -42,6 +42,12 @@ enum PostType {
   appreciation
 }
 
+enum ProjectMemberType {
+  projectTeam
+  moderator
+  communityMember
+}
+
 model OauthConnection {
   id                 String                 @id @default(uuid())
   oauthService       OauthConnectionService

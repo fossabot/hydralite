@@ -3,7 +3,7 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { JoinProjectArgs } from "./args/JoinProjectArgs";
-import { Project } from "~/resolver-types/models";
+import { Project } from "~/resolver-types/models/Project";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { ApolloError } from "apollo-server-express";
 
