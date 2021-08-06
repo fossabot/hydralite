@@ -3,11 +3,11 @@ import { Field, InputType, Int } from "type-graphql";
 
 @InputType()
 export class FindUsersInMassArgs {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @Min(0)
-  skip: number;
+  skip?: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @Min(0)
-  limit: number;
+  limit?: number;
 }
