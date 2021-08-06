@@ -1,4 +1,3 @@
-import { ProjectMemberType } from "~/resolver-types/enums/ProjectMemberType";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
