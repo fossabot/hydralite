@@ -30,4 +30,4 @@ data/
 Session.vim
 
 api/.env.test
-api/.env.dev
+api/.env

@@ -1,4 +1,3 @@
-import { ApolloError } from "apollo-server-express";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
@@ -13,10 +12,10 @@ export class PromoteProjectMember {
   @IsAuthenticated()
   @Mutation(() => ProjectMember)
   async promoteProjectMember(
-    @Ctx() { req: { user: _ }, prisma }: ContextType,
+    @Ctx() { req, prisma }: ContextType,
     @Arg("args") { memberId, newRole }: PromoteProjectMemberArgs
   ): Promise<ProjectMember> {
-    const user: User = _ as any;
+    const user: User = req.user as User;
 
     const memberToPromote = (await prisma.projectMember.findUnique({
       where: { id: memberId },

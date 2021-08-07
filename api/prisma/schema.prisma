@@ -192,9 +192,10 @@ model MemberRole {
 
 model ProjectMember {
   // explictly defines a many to many relation between Project and User
-  id               String       @id @default(uuid())
+  id               String            @id @default(uuid())
   roles            MemberRole[]
   awaitingApproval Boolean
+  type             ProjectMemberType @default(communityMember)
 
   // Permissions - compiled array of permissions based off of all role permissions
   overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
