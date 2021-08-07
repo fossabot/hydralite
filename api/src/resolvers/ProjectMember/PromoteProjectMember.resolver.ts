@@ -31,9 +31,7 @@ export class PromoteProjectMember {
     // finally, update the member with the new role
     return prisma.projectMember.update({
       where: { id: memberToPromote.id },
-      data: {
-        type: newRole,
-      },
+      data: { type: newRole },
     });
   }
 }

@@ -2,7 +2,7 @@ import connectRedis from "connect-redis";
 import { createClient, RedisClient } from "redis";
 import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-express";
-import createSchema from "./util/CreateSchema";
+import { createSchema } from "./util/createSchema";
 import ContextType from "./types/Context.type";
 import { GraphQLSchema } from "graphql";
 import express, { Application } from "express";

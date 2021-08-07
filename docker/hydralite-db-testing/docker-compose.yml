@@ -2,10 +2,10 @@ services:
   db:
     image: postgres:13
     restart: always
-    container_name: hydralite-tests-db
+    container_name: hydralite-pg-testing
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: hydralite
       POSTGRES_PASSWORD: hydralite
-      POSTGRES_DB: hydralite-tests-db
+      POSTGRES_DB: hydralite-pg-testing
