@@ -7,6 +7,7 @@ import ContextType from "./types/Context.type";
 import { GraphQLSchema } from "graphql";
 import express, { Application } from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import { projectName } from "./constants";
 import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
@@ -29,6 +30,9 @@ export class Server {
   public tokens: TokenPairUtil;
 
   public constructor() {
+    // load env vars
+    dotenv.config();
+
     // set app
     this.app = express();
 
