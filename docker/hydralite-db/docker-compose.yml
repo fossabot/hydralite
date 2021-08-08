@@ -1,9 +1,14 @@
-version: "3.9" # optional since v1.27.0
 services:
   postgresql:
     image: postgres:13
+    restart: always
+    container_name: hydralite-db
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: hydralite
+      POSTGRES_PASSWORD: hydralite
+      POSTGRES_DB: hydralite-db
   redis:
     image: redis
     environment:
