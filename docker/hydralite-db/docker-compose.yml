@@ -1,11 +1,9 @@
 version: "3.9" # optional since v1.27.0
 services:
   postgresql:
-    image: postgres
+    image: postgres:13
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: "password"
   redis:
     image: redis
     environment:

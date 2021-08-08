@@ -2,15 +2,15 @@ import connectRedis from "connect-redis";
 import { createClient, RedisClient } from "redis";
 import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-express";
-import createSchema from "./util/CreateSchema";
+import { createSchema } from "./util/createSchema";
 import ContextType from "./types/Context.type";
 import { GraphQLSchema } from "graphql";
 import express, { Application } from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import { projectName } from "./constants";
 import { GithubOAuth } from "./auth/strategies/GithubOAuth";
 import { DiscordOAuth } from "./auth/strategies/DiscordOAuth";
-import dotenv from "dotenv";
 import { apolloPlugins } from "./util/apolloPlugins";
 import { TwitterOAuth } from "./auth/strategies/TwitterOAuth";
 import { GoogleOAuth } from "./auth/strategies/GoogleOAuth";
@@ -30,7 +30,7 @@ export class Server {
   public tokens: TokenPairUtil;
 
   public constructor() {
-    // initialize dontenv
+    // load env vars
     dotenv.config();
 
     // set app

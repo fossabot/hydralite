@@ -1,5 +1,5 @@
-import { ProjectMemberType } from "@prisma/client";
 import { Field, InputType } from "type-graphql";
+import { ProjectMemberType } from "~/resolver-types/enums";
 
 @InputType()
 export class PromoteProjectMemberArgs {
