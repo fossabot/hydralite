@@ -1,11 +1,28 @@
 version: "3.9"
 services:
   postgresql:
-    image: postgres
+    image: postgres:13
+    restart: always
+    networks:
+      - pg
+    container_name: hydralite-db
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: hydralite
+      POSTGRES_PASSWORD: hydralite
+      POSTGRES_DB: hydralite-db
+
+  # prisma-studio:
+  #   image: codejamninja/prisma-studio
+  #   restart: unless-stopped
+  #   networks:
+  #     - pg
+  #   ports:
+  #     - "5555:5555"
+  #   environment:
+  #     POSTGRES_URL: "postgresql://hydralite:hydralite@localhost:5432/hydralite-db"
+
   redis:
     image: redis
     networks:
@@ -14,12 +31,16 @@ services:
       - "6379:6379"
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
+
   redisinsight:
     image: redislabs/redisinsight:latest
     networks:
       - redis
     ports:
       - "8001:8001"
+
 networks:
   redis:
+    driver: bridge
+  pg:
     driver: bridge
