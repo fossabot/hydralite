@@ -5,6 +5,11 @@ import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { FindInterestsOrSkillsInMassArgs } from "./args/FindInterestsOrSkillsInMassArgs";
 
+/* 
+TASK:
+fix error "Unable to serialize value '2021-08-12T14:55:49.471+00:00' as it's not an instance of 'Date'"
+*/
+
 @Resolver()
 export class FindInterestsOrSkillsInMassResolver {
   @Query(() => [InterestOrSkill])
