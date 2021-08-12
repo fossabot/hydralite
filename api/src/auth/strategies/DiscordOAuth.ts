@@ -3,6 +3,7 @@ import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { OAuthStrategy, StrategyInfo } from "./Strategy";
 import QueryString from "qs";
 import discordAvatarUrl from "../util/discordAvatarUrl";
+import generateUsername from "~/util/generateUsername";
 
 /**
  * Returns user data from Discord OAuth Provider.
@@ -60,7 +61,7 @@ async function getUser(
 
   return {
     email: json.email || "",
-    username: json.username,
+    username: generateUsername({ length: 40, type: "url-safe" }),
     profile: {
       avatarUrl: discordAvatarUrl(json.id, json.discriminator, json.avatar),
       bio: json.bio || "",

@@ -2,6 +2,7 @@ import axios from "axios";
 import { PassportGenericUser } from "../types/PassportGenericUser.type";
 import { OAuthStrategy, StrategyInfo } from "./Strategy";
 import QueryString from "qs";
+import generateUsername from "~/util/generateUsername";
 
 /**
  * Returns user data from Github OAuth Provider.
@@ -53,7 +54,7 @@ async function getUser(
 
   return {
     email: json.email || "",
-    username: json.login,
+    username: generateUsername({ length: 40, type: "url-safe" }),
     profile: {
       avatarUrl: json.avatar_url,
       bio: json.bio || "",
