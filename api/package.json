@@ -59,6 +59,7 @@
     "faker": "^5.5.3",
     "inquirer": "^8.1.2",
     "prisma": "v2.27.0",
+    "prismix": "^1.0.15",
     "reflect-metadata": "^0.1.13",
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",
