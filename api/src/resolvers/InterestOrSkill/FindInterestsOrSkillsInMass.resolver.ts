@@ -22,7 +22,7 @@ export class FindInterestsOrSkillsInMassResolver {
       async () =>
         await prisma.$queryRaw(
           `SELECT * FROM "InterestOrSkill"
-           WHERE name LIKE '%${queryString}%'
+           ${queryString && "WHERE name LIKE '%${queryString}%'"}
            OFFSET ${skip ?? 0}
            LIMIT ${limit && limit < 100 && limit > 0 ? limit : 20}`
         )
