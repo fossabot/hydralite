@@ -18,6 +18,8 @@ services:
       - 5432:5432
     networks:
       - api
+    environment:
+      POSTGRES_PASSWORD: "password"
   redis:
     image: redis
     networks:
