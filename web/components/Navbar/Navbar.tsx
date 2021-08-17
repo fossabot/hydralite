@@ -15,8 +15,9 @@ const Navbar = () => {
     <>
       <div
         className={`w-full flex items-center gap-3 justify-end py-2 pr-2 ${
-          theme === "dark" && "bg-dark-bgMuted1"
+          theme === "dark" && "bg-dark-bgMuted3"
         }`}
+        style={{ boxShadow: "0px 4px 4px 0px #1F1F1F40" }}
       >
         <SearchIcon
           className={`w-[1.1rem] h-[1.1rem] cursor-pointer ${
