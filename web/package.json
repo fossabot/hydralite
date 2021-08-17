@@ -19,9 +19,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
+    "@headlessui/react": "^1.4.0",
     "@iconify/react": "alpha",
     "axios": "^0.21.1",
     "evernote": "^2.0.5",
+    "framer-motion": "^4.1.17",
     "glob": "^7.1.7",
     "googleapis": "^76.0.0",
     "graphql": "^15.5.1",
