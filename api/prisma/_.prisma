@@ -1,0 +1,426 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../src/resolver-types"
+}
+
+enum OauthConnectionService {
+  github
+  google
+  discord
+  twitter
+}
+
+enum AttachmentType {
+  image
+  video
+  other
+}
+
+enum BugReportSeverity {
+  catastrophic
+  critical
+  high
+  medium
+  low
+}
+
+enum PostType {
+  post
+  article
+  question
+  feedback
+  suggestion
+  appreciation
+}
+
+enum ProjectMemberType {
+  projectTeam
+  moderator
+  communityMember
+}
+
+model OauthConnection {
+  id                 String                 @id @default(uuid())
+  oauthService       OauthConnectionService
+  email              String
+  username           String
+  oauthServiceUserId String
+  isPrimary          Boolean
+
+  // Connection Owner
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TokenPair {
+  id           String @id @default(uuid())
+  accessToken  String @unique
+  refreshToken String @unique
+
+  // Connection Owner
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id          String  @id @default(uuid())
+  username    String  @unique
+  email       String
+  hydra       Int
+  isSiteAdmin Boolean @default(false)
+
+  // Profile
+  profile   UserProfile @relation("UserProfileRelation", fields: [profileId], references: [id])
+  profileId String
+
+  // Projects
+  ownedProjects Project[]
+  allProjects   ProjectMember[]
+
+  // Appreciated Projects
+  likedProjects    Project[] @relation("UserLikedProjectsRelation")
+  followedProjects Project[] @relation("UserFollowedProjectsRelation")
+
+  // Oauth Connections
+  oauthConnections OauthConnection[]
+  tokens           TokenPair[]
+
+  // followers
+  following User[] @relation("UserFollowRelation", references: [id])
+  followers User[] @relation("UserFollowRelation", references: [id])
+
+  // Posts
+  posts         Post[]        @relation("UserOwnedPostsRelation")
+  likedPosts    Post[]        @relation("UserLikedPostsRelation")
+  likedComments PostComment[] @relation("UserLikedCommentsRelation")
+  viewablePosts Post[]        @relation("PostVisibleToRelation") // private posts that are visible to this user
+
+  // Created InterestOrSkills
+  createdInterestOrSkills InterestOrSkill[]
+
+  // Post Comments
+  createdPostComments PostComment[]
+
+  // Post hashtags
+  createdHashtags Hashtag[]
+
+  // Post Labels
+  postLabels PostLabel[]
+
+  // Bug reports and feature requests
+  bugReports      BugReport[]
+  featureRequests FeatureRequest[]
+
+  // Opportunites
+  appliedOpportunities OpportunityApplicant[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserProfile {
+  id        String @id @default(uuid())
+  user      User?  @relation("UserProfileRelation")
+  avatarURL String
+  bio       String
+
+  interestOrSkills InterestOrSkill[]
+}
+
+model InterestOrSkill {
+  id   String @id @default(uuid())
+  name String @unique
+  uses Int    @default(0) // increments when a project or profile is linked. decides the ranking of interestOrSkill
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  linkedProjects      Project[]
+  linkedProfiles      UserProfile[]
+  linkedOpportunities Opportunity[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectMemberPermissions {
+  id                              String   @id @default(uuid())
+  canManageFeatureRequests        Boolean?
+  canManageBugReports             Boolean?
+  canManageMembers                Boolean?
+  canManageRoles                  Boolean?
+  canManagePosts                  Boolean?
+  canManageFundraisers            Boolean?
+  canManageWaitlists              Boolean?
+  canCreateUserReviews            Boolean?
+  canManageContributorOutsourcing Boolean?
+
+  memberRole    MemberRole?
+  projectMember ProjectMember?
+}
+
+model MemberRole {
+  id              String          @id @default(uuid())
+  title           String          @unique
+  description     String
+  assignedMembers ProjectMember[]
+
+  permissions   ProjectMemberPermissions @relation(fields: [permissionsId], references: [id])
+  permissionsId String
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectMember {
+  // explictly defines a many to many relation between Project and User
+  id               String            @id @default(uuid())
+  roles            MemberRole[]
+  awaitingApproval Boolean
+  type             ProjectMemberType @default(communityMember)
+
+  // Permissions - compiled array of permissions based off of all role permissions
+  overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
+  projectMemberPermissionsId String?
+
+  // forge many to many relation
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          String @id @default(uuid())
+  title       String
+  description String
+  logoUrl     String
+  bannerUrl   String
+
+  newJoineesRequireApproval Boolean @default(true)
+
+  owner   User            @relation(fields: [ownerId], references: [id])
+  ownerId String
+  members ProjectMember[]
+
+  likers    User[] @relation("UserLikedProjectsRelation", references: [id])
+  followers User[] @relation("UserFollowedProjectsRelation", references: [id])
+
+  // opportunities
+  opportunities Opportunity[]
+
+  // roles
+  roles MemberRole[]
+
+  // posts
+  post       Post[]
+  postLabels PostLabel[]
+
+  interestOrSkills InterestOrSkill[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FeatureRequest {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+
+  creator                  User    @relation(fields: [creatorId], references: [id])
+  creatorId                String
+  isCreatedByProjectMember Boolean
+
+  attachments Attachment[]
+
+  // TASK: Add comments
+
+  // If this feature request results in the generation of a new feature, link it
+  featureGeneratedFromRequest String // TASK: Replace with actual feature reference once built
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BugReport {
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+  severity    BugReportSeverity
+
+  creator                  User    @relation(fields: [creatorId], references: [id])
+  creatorId                String
+  isCreatedByProjectMember Boolean
+
+  attachments Attachment[]
+
+  // TASK: Add comments
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attachment {
+  id            String         @id @default(uuid())
+  attachmentURL String
+  type          AttachmentType
+
+  post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+
+  featureRequest   FeatureRequest @relation(fields: [featureRequestId], references: [id])
+  featureRequestId String
+
+  BugReport   BugReport @relation(fields: [bugReportId], references: [id])
+  bugReportId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Hashtag {
+  id         String @id @default(uuid())
+  name       String @unique
+  numOfPosts BigInt
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostLabel {
+  id          String  @id @default(uuid())
+  title       String
+  color       String
+  description String?
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  posts Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id             String   @id @default(uuid())
+  title          String
+  description    String?
+  isAnnouncement Boolean
+  type           PostType
+
+  labels PostLabel[]
+
+  isPublic  Boolean
+  visibleTo User[]  @relation("PostVisibleToRelation") // only applicable if isPublic is set to false
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  // TASK: Add Custom Like Emojis
+
+  likers   User[]        @relation("UserLikedPostsRelation")
+  comments PostComment[]
+
+  // TASK: Add promotion ability
+
+  attachments Attachment[]
+  hashtags    Hashtag[]
+
+  creator   User   @relation("UserOwnedPostsRelation", fields: [creatorId], references: [id])
+  creatorId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostComment {
+  id   String @id @default(uuid())
+  body String
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  edited Boolean @default(false)
+
+  likers User[] @relation("UserLikedCommentsRelation")
+  likes  Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TimeFrequency {
+  hourly
+  daily
+  weekly
+  monthly
+  yearly
+}
+
+model OpportunityApplicant {
+  id         String  @id @default(uuid())
+  isAccepted Boolean
+
+  // forge many to many relation
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id])
+  opportunityId String
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Opportunity {
+  id          String @id @default(uuid())
+  title       String
+  description String
+
+  requiredSkills InterestOrSkill[]
+
+  isPaid           Boolean
+  paymentAmount    Int? // TASK: elaborate on this with currency type, etc.?
+  timeFrequency    TimeFrequency? // frequency of the capacity and payment; only applicable if Opportunity is paid
+  requiredCapacity Int? // number of hours a user must dedicate to this project based on a particular timeFrequency; only applicable if Opportunity is paid
+
+  applicants OpportunityApplicant[]
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
