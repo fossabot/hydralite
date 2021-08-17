@@ -5,7 +5,6 @@ import CogIcon from "~/icons/line/CogIcon";
 import SearchIcon from "~/icons/line/SearchIcon";
 import PlusIconSolid from "~/icons/solid/PlusIconSolid";
 import { CreateRippleModal } from "../CreateRippleModal/CreateRippleModal";
-import { Modal } from "../Modal/Modal";
 
 const Navbar = () => {
   const { theme } = useThemeContext();
@@ -37,12 +36,10 @@ const Navbar = () => {
         />
         <ProfileWidget />
       </div>
-      <Modal
+      <CreateRippleModal
         isOpen={isCreateRippleModalOpen}
         setIsOpen={setIsCreateRippleModalOpen}
-      >
-        <button>dis shit focusable lol</button>
-      </Modal>
+      />
     </>
   );
 };

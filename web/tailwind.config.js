@@ -17,6 +17,7 @@ module.exports = {
         bgMuted2: "#272D3D",
         bgMuted3: "#1C212D75",
         bgMuted4: "#292F40",
+        border1: "#2B2F39",
         color: {
           accent: "#5D6BFF",
           yellow: "#EFA119",

@@ -25,9 +25,9 @@ export const Modal: React.FC<ModalProps> = ({
     <Transition show={isOpen} as={Fragment}>
       <Dialog
         className={`
-        fixed inset-0 z-10 bg-opacity-90 overflow-y-auto
-        ${theme === "dark" && "bg-dark-bg"}
-      `}
+          fixed inset-0 z-10 bg-opacity-90 overflow-y-auto
+          ${theme === "dark" && "bg-dark-bg"}
+        `}
         open={isOpen}
         onClose={closeModal}
       >
@@ -65,13 +65,13 @@ export const Modal: React.FC<ModalProps> = ({
           >
             <div
               className={`
-            rounded-lg inline-flex p-6 my-8 overflow-hidden text-left align-middle transition-all transform 
-            ${height || "h-[50vh]"}
-            ${width || "w-[50vw]"}
-            ${theme === "dark" && "bg-dark-fg"}
-          `}
+                rounded-lg inline-flex p-6 my-8 overflow-hidden align-middle transition-all transform text-left
+                ${height || "h-auto"}
+                ${width || "w-[50vw]"}
+                ${theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"}
+              `}
             >
-              {children}
+              <div className="w-full">{children}</div>
             </div>
           </Transition.Child>
         </div>
