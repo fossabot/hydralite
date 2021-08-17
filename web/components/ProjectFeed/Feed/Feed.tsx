@@ -1,14 +1,14 @@
 import { Icon } from "@iconify/react";
 import React from "react";
-import NewPostCard from "~/components/NewPostCard";
-import { Post } from "~/components/Post/Post";
+import { NewRippleCard } from "~/components/NewRippleCard";
+import { Ripple } from "~/components/Ripple/Ripple";
 
 export const Feed = () => {
   const elems = [];
 
   for (let i = 0; i < 10; i++) {
     elems.push(
-      <Post
+      <Ripple
         creator={{
           name: "gatsbyfanboy6969",
           isProjectOwner: true,
@@ -61,7 +61,7 @@ export const Feed = () => {
   return (
     <div className="px-4 bg-white-secondBg h-full w-full overflow-y-auto">
       <div className="mx-auto container mt-3 space-y-7">
-        <NewPostCard />
+        <NewRippleCard />
         {elems.map((elem) => elem)}
       </div>
     </div>

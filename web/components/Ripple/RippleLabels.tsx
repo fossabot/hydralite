@@ -1,7 +1,7 @@
 import React from "react";
 import LabelIcon from "~/icons/line/LabelIcon";
 
-interface PostLabelsProps {
+interface RippleLabelsProps {
   labels: {
     name: string;
     bgColor: string;
@@ -9,12 +9,12 @@ interface PostLabelsProps {
   }[];
 }
 
-export const PostLabels: React.FC<PostLabelsProps> = ({ labels }) => {
+export const RippleLabels: React.FC<RippleLabelsProps> = ({ labels }) => {
   return (
     <div className="flex items-center">
       {labels.map((label) => {
         return (
-          <PostLabel
+          <RippleLabel
             name={label.name}
             bgColor={label.bgColor}
             fgColor={label.fgColor}
@@ -25,7 +25,7 @@ export const PostLabels: React.FC<PostLabelsProps> = ({ labels }) => {
   );
 };
 
-const PostLabel = ({ name, bgColor, fgColor }) => {
+const RippleLabel = ({ name, bgColor, fgColor }) => {
   return (
     <div
       className="group rounded-full flex items-center p-1 justify-center gap-1 select-none cursor-pointer"

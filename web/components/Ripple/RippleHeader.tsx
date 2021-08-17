@@ -1,12 +1,12 @@
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
-export const PostHeader = ({
+export const RippleHeader = ({
     creatorName,
     isCreatorOwnerOfProject,
     creatorPfp,
     projectName,
     projectGradient,
-    postTitle,
+    rippleTitle,
   }) => {
     const { theme } = useThemeContext();
   
@@ -32,7 +32,7 @@ export const PostHeader = ({
               {projectName}
             </span>
           </h3>
-          <h1 className="text-md font-bold">{postTitle}</h1>
+          <h1 className="text-md font-bold">{rippleTitle}</h1>
         </div>
       </div>
     );

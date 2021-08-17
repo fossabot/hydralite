@@ -1,6 +1,6 @@
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
-export const PostReactions = ({
+export const RippleReactions = ({
     reactions,
   }: {
     reactions: {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
-export const PostBody = ({
+export const RippleBody = ({
     description,
     attachments,
   }: {

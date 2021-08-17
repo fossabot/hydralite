@@ -11,7 +11,7 @@ import ShareAltIconSolid from "~/icons/solid/ShareAltIconSolid";
 import RocketIconSolid from "~/icons/solid/RocketIconSolid";
 import CommentsIconSolid from "~/icons/solid/CommentsIconSolid";
 
-export const PostActions = ({ replies, shares, reposts, hydra }) => {
+export const RippleActions = ({ replies, shares, reposts, hydra }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -20,36 +20,36 @@ export const PostActions = ({ replies, shares, reposts, hydra }) => {
         theme === "dark" && "bg-dark-bgMuted4 text-dark-fg"
       }`}
     >
-      <PostAction
+      <RippleAction
         Icon={CommentsIcon}
         HoverIcon={CommentsIconSolid}
         name="Replies"
         count={replies}
       />
-      <PostAction
+      <RippleAction
         Icon={RedoIcon}
         HoverIcon={RedoIcon}
         name="Repost"
         count={reposts}
       />
-      <PostAction
+      <RippleAction
         Icon={ShareAltIcon}
         HoverIcon={ShareAltIconSolid}
         name="Share"
         count={shares}
       />
-      <PostAction
+      <RippleAction
         Icon={RocketIcon}
         HoverIcon={RocketIconSolid}
         name="Hydra Boosts"
         count={hydra}
       />
-      <PostAction Icon={EllipsisVIcon} HoverIcon={EllipsisVIcon} name="More" />
+      <RippleAction Icon={EllipsisVIcon} HoverIcon={EllipsisVIcon} name="More" />
     </div>
   );
 };
 
-const PostAction = ({ name, count = "", Icon, HoverIcon }) => {
+const RippleAction = ({ name, count = "", Icon, HoverIcon }) => {
   //   const { theme } = useThemeContext();
 
   return (
