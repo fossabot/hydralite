@@ -41,7 +41,7 @@ const Navbar = () => {
         isOpen={isCreateRippleModalOpen}
         setIsOpen={setIsCreateRippleModalOpen}
       >
-        
+        <button>dis shit focusable lol</button>
       </Modal>
     </>
   );
