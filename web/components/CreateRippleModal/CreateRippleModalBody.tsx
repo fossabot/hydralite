@@ -1,6 +1,10 @@
 import React from "react";
+import { useThemeContext } from "~/hoc/theme/ThemeContext";
+import styles from "./CreateRippleModal.module.css";
 
 export const CreateRippleModalBody = () => {
+  const { theme } = useThemeContext();
+
   return (
     <div className="w-full flex items-start gap-4">
       <img
@@ -8,11 +12,11 @@ export const CreateRippleModalBody = () => {
         alt=""
         className="h-12 w-12 rounded-full"
       />
-      <div className="w-full h-40 pt-3 outline-none" contentEditable>
-        <h3 className="font-bold opacity-75">
-          What's up, <span className="font-extrabold">fullstackslayer</span>?
-        </h3>
-      </div>
+      <div
+        className={`w-full h-40 pt-3 outline-none ${styles.newRippleContentBox}`}
+        placeholder="What's up, fullstackslayer"
+        contentEditable
+      ></div>
     </div>
   );
 };
