@@ -37,6 +37,7 @@ export class PostComment {
 
   @Field(() => Int)
   @Property(() => Int)
+  @Default("0")
   likes: number;
 
   @Field()

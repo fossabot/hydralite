@@ -3,10 +3,7 @@ import { ApolloError } from "apollo-server-express";
 // import { MemberRole } from "~/models/MemberRole";
 
 export class MemberRoleRepo extends PrismaClient {
-  findRoleById = async (
-    roleId: string,
-    validate = true
-  ): Promise<MemberRole | null> => {
+  findRoleById = async (roleId: string, validate = true) => {
     // find role
     const role = await this.memberRole.findUnique({
       where: { id: roleId },

@@ -20,9 +20,9 @@ export class Post {
   @Property()
   title: string;
 
-  @Field({ nullable: true })
-  @Property({ nullable: true })
-  description?: string;
+  @Field(() => String, { nullable: true })
+  @Property(() => String, { nullable: true })
+  description?: string | null;
 
   @Field()
   @Property()
@@ -30,7 +30,13 @@ export class Post {
 
   @Field(() => PostType)
   @Property(() => PostType)
-  type: PostType;
+  type:
+    | "post"
+    | "article"
+    | "question"
+    | "feedback"
+    | "suggestion"
+    | "appreciation";
 
   @Field(() => [PostLabel])
   @Property(() => [PostLabel])

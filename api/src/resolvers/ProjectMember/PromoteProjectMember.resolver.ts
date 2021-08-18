@@ -19,12 +19,12 @@ export class PromoteProjectMember {
 
     const memberToPromote = (await prisma.projectMember.findUnique({
       where: { id: memberId },
-    })) as ProjectMember;
+    }))!;
 
     const loggedInMember = (await memberRepo.findMemberByUserAndProjectId(
       user.id,
       memberToPromote.projectId
-    )) as ProjectMember;
+    ))!;
 
     memberRepo.memberHasPermission(loggedInMember, "canManageMembers");
 

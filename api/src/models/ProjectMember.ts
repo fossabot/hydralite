@@ -25,7 +25,7 @@ export class ProjectMember {
   @Field(() => ProjectMemberType)
   @Property(() => ProjectMemberType)
   @Default(ProjectMemberType.communityMember)
-  type: ProjectMemberType;
+  type?: "projectTeam" | "moderator" | "communityMember" | null;
 
   @Field(() => ProjectMemberPermissions, { nullable: true })
   @Relation({

@@ -20,9 +20,9 @@ export class PostLabel {
   @Property()
   color: string;
 
-  @Field({ nullable: true })
-  @Property({ nullable: true })
-  description?: string;
+  @Field(() => String, { nullable: true })
+  @Property(() => String, { nullable: true })
+  description?: string | null;
 
   @Field(() => Project)
   @Property(() => Project)

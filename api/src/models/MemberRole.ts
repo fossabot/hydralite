@@ -41,7 +41,7 @@ export class MemberRole {
   @Relation()
   @Field(() => Project)
   @Property(() => Project)
-  project: Project;
+  project?: Project;
 
   @Field()
   @Property()

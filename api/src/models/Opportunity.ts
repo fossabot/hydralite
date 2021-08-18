@@ -31,15 +31,15 @@ export class Opportunity {
 
   @Field(() => Int, { nullable: true })
   @Property(() => Int, { nullable: true })
-  paymentAmount?: number;
+  paymentAmount?: number | null;
 
   @Field(() => TimeFrequency, { nullable: true })
   @Property(() => TimeFrequency, { nullable: true })
-  timeFrequency?: TimeFrequency;
+  timeFrequency?: "hourly" | "daily" | "weekly" | "monthly" | "yearly" | null;
 
   @Field(() => Int, { nullable: true })
   @Property(() => Int, { nullable: true })
-  requiredCapacity?: number;
+  requiredCapacity?: number | null;
 
   @Field(() => [OpportunityApplicant])
   @Property(() => [OpportunityApplicant])

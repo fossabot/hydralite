@@ -1,5 +1,5 @@
 import { Field, InputType } from "type-graphql";
-import { ProjectMemberType } from "~/enums/index"";
+import { ProjectMemberType } from "~/enums/index";
 
 @InputType()
 export class PromoteProjectMemberArgs {

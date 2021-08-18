@@ -12,7 +12,7 @@ export class FindManyPostLabelsResolver {
   async findManyPostLabels(
     @Arg("args") args: FindManyPostLabelsArgs,
     @Ctx() { prisma }: ContextType
-  ): Promise<PostLabel[] | null> {
+  ) {
     return await executeOrFail(async () => {
       return await prisma.postLabel.findMany({
         where: { projectId: args.projectId },

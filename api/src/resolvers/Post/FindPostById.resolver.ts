@@ -1,5 +1,4 @@
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
-import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { Post, User } from "~/models/index";
 import { FindPostByIdArgs } from "./args/FindPostByIdArgs";
 import ContextType from "~/types/Context.type";

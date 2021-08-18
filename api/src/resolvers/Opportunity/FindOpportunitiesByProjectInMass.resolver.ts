@@ -10,7 +10,7 @@ export class FindOpportunitiesByProjectInMassResolver {
     @Arg("args")
     { limit, skip, projectId }: FindOpportunitiesByProjectInMassArgs,
     @Ctx() { prisma }: ContextType
-  ): Promise<Opportunity[] | null> {
+  ) {
     return await prisma.opportunity.findMany({
       skip,
       take: limit,

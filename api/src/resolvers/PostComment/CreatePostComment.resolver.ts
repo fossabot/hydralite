@@ -15,17 +15,17 @@ export class CreatePostCommentResolver {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
-    type postCommentType = Parameters<
-      typeof prisma.postComment.create
-    >[0]["data"];
-    const postComment: postCommentType = {
-      body: args.body,
-      creator: { connect: { id: user.id } },
-      post: { connect: { id: args.postId } },
-    };
+    // type postCommentType = Parameters<
+    //   typeof prisma.postComment.create
+    // >[0]["data"];
+    // const postComment: postCommentType = ;
 
     const createdPostComment = await prisma.postComment.create({
-      data: postComment,
+      data: {
+        body: args.body,
+        creator: { connect: { id: user.id } },
+        post: { connect: { id: args.postId } },
+      },
     });
     return createdPostComment;
   }

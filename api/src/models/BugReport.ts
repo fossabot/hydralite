@@ -34,7 +34,7 @@ export class BugReport {
   isCreatedByProjectMember: boolean;
 
   @Field(() => [Attachment])
-  @Property()
+  @Property(() => [Attachment])
   attachments?: Attachment[];
 
   @Field()

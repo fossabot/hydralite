@@ -16,7 +16,7 @@ export class CreateOpportunityResolver {
   async createOpportunity(
     @Arg("args") args: CreateOpportunityArgs,
     @Ctx() { prisma, req }: ContextType
-  ): Promise<Opportunity | null> {
+  ) {
     // retrieve the currently logged in user
     const user: User = req.user as User;
 
