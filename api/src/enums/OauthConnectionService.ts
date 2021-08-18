@@ -2,10 +2,10 @@ import { registerEnums } from "decotix";
 import { registerEnumType } from "type-graphql";
 
 export enum OauthConnectionService {
-  github,
-  google,
-  discord,
-  twitter,
+  github = "github",
+  google = "google",
+  discord = "discord",
+  twitter = "twitter",
 }
 
 registerEnums({ OauthConnectionService });

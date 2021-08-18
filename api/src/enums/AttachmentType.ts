@@ -2,9 +2,9 @@ import { registerEnums } from "decotix";
 import { registerEnumType } from "type-graphql";
 
 export enum AttachmentType {
-  image,
-  video,
-  other,
+  image = "image",
+  video = "video",
+  other = "other",
 }
 
 registerEnums({ AttachmentType });

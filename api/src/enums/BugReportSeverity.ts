@@ -2,11 +2,11 @@ import { registerEnums } from "decotix";
 import { registerEnumType } from "type-graphql";
 
 export enum BugReportSeverity {
-  catastrophic,
-  critical,
-  high,
-  medium,
-  low,
+  catastrophic = "catastrophic",
+  critical = "critical",
+  high = "high",
+  medium = "medium",
+  low = "low",
 }
 
 registerEnums({ BugReportSeverity });
