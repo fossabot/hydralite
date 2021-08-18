@@ -38,15 +38,15 @@ export class InterestOrSkill {
 
   @Field(() => [Project])
   @Property(() => [Project])
-  linkedProjects: Project[];
+  linkedProjects?: Project[];
 
   @Field(() => [UserProfile])
   @Property(() => [UserProfile])
-  linkedProfiles: UserProfile[];
+  linkedProfiles?: UserProfile[];
 
   @Field(() => [Opportunity])
   @Property(() => [Opportunity])
-  linkedOpportunities: Opportunity[];
+  linkedOpportunities?: Opportunity[];
 
   @Field()
   @Property()

@@ -40,41 +40,41 @@ export class Project {
   @Field(() => User)
   @Relation()
   @Property(() => User)
-  owner: User;
+  owner?: User;
 
   @Field(() => [ProjectMember])
   @Property(() => [ProjectMember])
-  members: ProjectMember[];
+  members?: ProjectMember[];
 
   @Field(() => [User])
   @Relation("UserLikedProjectsRelation", { references: ["id"] })
   @Property(() => [User])
-  likers: User[];
+  likers?: User[];
 
   @Field(() => [User])
   @Relation("UserFollowedProjectsRelation", { references: ["id"] })
   @Property(() => [User])
-  followers: User[];
+  followers?: User[];
 
   @Field(() => [Opportunity])
   @Property(() => [Opportunity])
-  opportunities: Opportunity[];
+  opportunities?: Opportunity[];
 
   @Field(() => [MemberRole])
   @Property(() => [MemberRole])
-  roles: MemberRole[];
+  roles?: MemberRole[];
 
   @Field(() => [Post])
   @Property(() => [Post])
-  posts: Post[];
+  posts?: Post[];
 
   @Field(() => [PostLabel])
   @Property(() => [PostLabel])
-  postLabels: PostLabel[];
+  postLabels?: PostLabel[];
 
   @Field(() => [InterestOrSkill])
   @Property(() => [InterestOrSkill])
-  interestOrSkills: InterestOrSkill[];
+  interestOrSkills?: InterestOrSkill[];
 
   @Field()
   @Property()

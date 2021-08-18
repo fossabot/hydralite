@@ -19,7 +19,7 @@ export class Attachment {
 
   @Field(() => AttachmentType)
   @Property(() => AttachmentType)
-  type: AttachmentType;
+  type?: AttachmentType;
 
   @Relation()
   @Field(() => Post, { nullable: true })
@@ -29,12 +29,12 @@ export class Attachment {
   @Field(() => FeatureRequest)
   @Property(() => FeatureRequest)
   @Relation()
-  featureRequest: FeatureRequest;
+  featureRequest?: FeatureRequest;
 
   @Field(() => BugReport)
   @Property(() => BugReport)
   @Relation()
-  bugReport: BugReport;
+  bugReport?: BugReport;
 
   @Field()
   @Property()

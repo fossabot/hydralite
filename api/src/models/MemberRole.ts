@@ -29,15 +29,14 @@ export class MemberRole {
   @Property()
   description: string;
 
-  // TODO: assignedMembers
   @Field(() => [ProjectMember])
   @Property(() => [ProjectMember])
-  assignedMembers: ProjectMember[];
+  assignedMembers?: ProjectMember[];
 
   @Relation()
   @Field(() => ProjectMemberPermissions)
   @Property(() => ProjectMemberPermissions)
-  permissions: ProjectMemberPermissions;
+  permissions?: ProjectMemberPermissions;
 
   @Relation()
   @Field(() => Project)

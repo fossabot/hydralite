@@ -31,7 +31,7 @@ export class TokenPair {
   @Field(() => User)
   @Property(() => User)
   @Relation()
-  user: User;
+  user?: User;
 
   @Field()
   @Property()

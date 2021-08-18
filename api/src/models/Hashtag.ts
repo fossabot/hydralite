@@ -32,11 +32,11 @@ export class Hashtag {
   @Field(() => User)
   @Property(() => User)
   @Relation()
-  creator: User;
+  creator?: User;
 
   @Field(() => [Post])
   @Property(() => [Post])
-  posts: Post[];
+  posts?: Post[];
 
   @Field()
   @Property()

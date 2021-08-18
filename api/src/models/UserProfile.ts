@@ -26,5 +26,5 @@ export class UserProfile {
 
   @Field(() => [InterestOrSkill])
   @Property(() => [InterestOrSkill])
-  interestOrSkills: InterestOrSkill[];
+  interestOrSkills?: InterestOrSkill[];
 }

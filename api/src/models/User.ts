@@ -54,95 +54,95 @@ export class User {
     fields: ["profileId"],
     references: ["id"],
   })
-  profile: UserProfile;
+  profile?: UserProfile;
 
   @Field(() => [Project])
   @Property(() => [Project])
-  ownedProjects: Project[];
+  ownedProjects?: Project[];
 
   @Field(() => [ProjectMember])
   @Property(() => [ProjectMember])
-  allProjects: ProjectMember[];
+  allProjects?: ProjectMember[];
 
   // TODO: Add Liked Projects relation
   @Field(() => [Project])
   @Property(() => [Project])
   @Relation("UserLikedProjectsRelation")
-  likedProjects: Project[];
+  likedProjects?: Project[];
 
   // TODO: Add Followed Projects relation
   @Field(() => [Project])
   @Property(() => [Project])
   @Relation("UserFollowedProjectsRelation")
-  followedProjects: Project[];
+  followedProjects?: Project[];
 
   @Field(() => [OauthConnection])
   @Property(() => [OauthConnection])
-  oauthConnections: OauthConnection[];
+  oauthConnections?: OauthConnection[];
 
   @Field(() => [TokenPair])
   @Property(() => [TokenPair])
-  tokens: TokenPair[];
+  tokens?: TokenPair[];
 
   @Field(() => [User])
   @Relation("UserFollowRelation", { references: ["id"] })
   @Property(() => [User])
-  following: User[];
+  following?: User[];
 
   @Field(() => [User])
   @Relation("UserFollowRelation", { references: ["id"] })
   @Property(() => [User])
-  followers: User[];
+  followers?: User[];
 
   // TODO: Add Post relationships
 
   @Field(() => [Post])
   @Relation("UserOwnedPostsRelation")
   @Property(() => [Post])
-  posts: Post[];
+  posts?: Post[];
 
   @Field(() => [Post])
   @Relation("UserLikedPostsRelation")
   @Property(() => [Post])
-  likedPosts: Post[];
+  likedPosts?: Post[];
 
   @Field(() => [PostComment])
   @Relation("UserLikedCommentsRelation")
   @Property(() => [PostComment])
-  likedComments: PostComment[];
+  likedComments?: PostComment[];
 
   @Field(() => [Post])
   @Relation("PostVisibleToRelation")
   @Property(() => [Post])
-  viewablePosts: Post[];
+  viewablePosts?: Post[];
 
   @Field(() => [InterestOrSkill])
   @Property(() => [InterestOrSkill])
-  createdInterestOrSkills: InterestOrSkill[];
+  createdInterestOrSkills?: InterestOrSkill[];
 
   @Field(() => [PostComment])
   @Property(() => [PostComment])
-  createdPostComments: PostComment[];
+  createdPostComments?: PostComment[];
 
   @Field(() => [Hashtag])
   @Property(() => [Hashtag])
-  createdHashtags: Hashtag[];
+  createdHashtags?: Hashtag[];
 
   @Field(() => [PostLabel])
   @Property(() => [PostLabel])
-  postLabels: PostLabel[];
+  postLabels?: PostLabel[];
 
   @Field(() => [BugReport])
   @Property(() => [BugReport])
-  bugReports: BugReport[];
+  bugReports?: BugReport[];
 
   @Field(() => [FeatureRequest])
   @Property(() => [FeatureRequest])
-  featureRequests: FeatureRequest[];
+  featureRequests?: FeatureRequest[];
 
   @Field(() => [OpportunityApplicant])
   @Property(() => [OpportunityApplicant])
-  appliedOpportunities: OpportunityApplicant[];
+  appliedOpportunities?: OpportunityApplicant[];
 
   @Field()
   @Property()

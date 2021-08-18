@@ -18,7 +18,7 @@ export class PostComment {
   @Field(() => User)
   @Property(() => User)
   @Relation()
-  creator: User;
+  creator?: User;
 
   @Field(() => Post)
   @Property(() => Post)
@@ -33,7 +33,7 @@ export class PostComment {
   @Field(() => [User])
   @Property(() => [User])
   @Relation("UserLikedCommentsRelation")
-  likers: User[];
+  likers?: User[];
 
   @Field(() => Int)
   @Property(() => Int)

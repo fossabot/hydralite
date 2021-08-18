@@ -27,16 +27,16 @@ export class PostLabel {
   @Field(() => Project)
   @Property(() => Project)
   @Relation()
-  project: Project;
+  project?: Project;
 
   @Field(() => User)
   @Relation()
   @Property(() => User)
-  creator: User;
+  creator?: User;
 
   @Field(() => [Post])
   @Property(() => [Post])
-  posts: Post[];
+  posts?: Post[];
 
   @Property()
   @Default("now")

@@ -21,7 +21,7 @@ export class FeatureRequest {
   @Field(() => User)
   @Relation()
   @Property(() => User)
-  creator: User;
+  creator?: User;
 
   @Field()
   @Property()

@@ -18,12 +18,12 @@ export class OpportunityApplicant {
   @Relation()
   @Field(() => Opportunity)
   @Property(() => Opportunity)
-  opportunity: Opportunity;
+  opportunity?: Opportunity;
 
   @Field(() => User)
   @Property(() => User)
   @Relation()
-  user: User;
+  user?: User;
 
   @Field()
   @Property()

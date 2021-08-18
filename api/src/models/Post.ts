@@ -34,43 +34,43 @@ export class Post {
 
   @Field(() => [PostLabel])
   @Property(() => [PostLabel])
-  labels: PostLabel[];
+  labels?: PostLabel[];
 
   @Field()
   @Property()
-  isPublic: boolean;
+  isPublic?: boolean;
 
   @Field(() => [User])
   @Property(() => [User])
   @Relation("PostVisibleToRelation")
-  visibleTo: User[];
+  visibleTo?: User[];
 
   @Field(() => Project)
   @Property(() => Project)
   @Relation()
-  project: Project;
+  project?: Project;
 
   @Field(() => [User])
   @Property(() => [User])
   @Relation("UserLikedPostsRelation")
-  likers: User[];
+  likers?: User[];
 
   @Field(() => [PostComment])
   @Property(() => [PostComment])
-  comments: PostComment[];
+  comments?: PostComment[];
 
   @Field(() => [Attachment])
   @Property(() => [Attachment])
-  attachments: Attachment[];
+  attachments?: Attachment[];
 
   @Field(() => [Hashtag])
   @Property(() => [Hashtag])
-  hashtags: Hashtag[];
+  hashtags?: Hashtag[];
 
   @Field(() => User)
   @Relation("UserOwnedPostsRelation", true)
   @Property(() => User)
-  creator: User;
+  creator?: User;
 
   @Field()
   @Property()

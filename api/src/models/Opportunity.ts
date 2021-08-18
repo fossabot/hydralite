@@ -23,7 +23,7 @@ export class Opportunity {
 
   @Field(() => [InterestOrSkill])
   @Property(() => [InterestOrSkill])
-  requiredSkills: InterestOrSkill[];
+  requiredSkills?: InterestOrSkill[];
 
   @Field()
   @Property()
@@ -43,12 +43,12 @@ export class Opportunity {
 
   @Field(() => [OpportunityApplicant])
   @Property(() => [OpportunityApplicant])
-  applicants: OpportunityApplicant[];
+  applicants?: OpportunityApplicant[];
 
   @Field(() => Project)
   @Property(() => Project)
   @Relation()
-  project: Project;
+  project?: Project;
 
   @Field()
   @Property()

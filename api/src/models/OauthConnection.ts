@@ -33,7 +33,7 @@ export class OauthConnection {
 
   @Relation()
   @Property(() => User)
-  user: User;
+  user?: User;
 
   @Field()
   @Property()

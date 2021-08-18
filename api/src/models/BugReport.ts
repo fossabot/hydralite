@@ -1,6 +1,7 @@
 import { Default, Id, Model, Property, Relation, UpdatedAt } from "decotix";
 import { Field, ID, ObjectType } from "type-graphql";
 import { BugReportSeverity } from "~/enums/BugReportSeverity";
+import { Attachment } from "./Attachment";
 import { User } from "./User";
 
 @Model()
@@ -21,18 +22,20 @@ export class BugReport {
 
   @Field(() => BugReportSeverity)
   @Property(() => BugReportSeverity)
-  severity: BugReportSeverity;
+  severity?: BugReportSeverity;
 
   @Field(() => User)
   @Relation()
   @Property(() => User)
-  creator: User;
+  creator?: User;
 
   @Field()
   @Property()
   isCreatedByProjectMember: boolean;
 
-  // TODO: attachments
+  @Field(() => [Attachment])
+  @Property()
+  attachments?: Attachment[];
 
   @Field()
   @Property()

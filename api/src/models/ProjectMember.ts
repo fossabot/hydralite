@@ -16,7 +16,7 @@ export class ProjectMember {
 
   @Field(() => [MemberRole])
   @Property(() => [MemberRole])
-  roles: MemberRole[];
+  roles?: MemberRole[];
 
   @Field()
   @Property()
@@ -39,12 +39,12 @@ export class ProjectMember {
   @Relation()
   @Field(() => Project)
   @Property(() => Project)
-  project: Project;
+  project?: Project;
 
   @Relation()
   @Field(() => User)
   @Property(() => User)
-  user: User;
+  user?: User;
 
   @Field()
   @Property()
