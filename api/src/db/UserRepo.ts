@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { PassportGenericUser } from "~/auth/types/PassportGenericUser.type";
 import executeOrFail from "~/util/executeOrFail";
-import { User } from "~/resolver-types/models";
 import { ApolloError } from "apollo-server-express";
 import { AuthProviderType } from "~/types/AuthProvider.type";
 

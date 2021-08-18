@@ -3,7 +3,7 @@ import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import { CreateTaskBoardArgs } from "./args/CreateTaskBoardArgs";
 import executeOrFail from "~/util/executeOrFail";
-import { TaskBoard } from "~/resolver-types/models";
+import { TaskBoard } from "~/models/index";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 
 const memberRepo = new ProjectMemberRepo();

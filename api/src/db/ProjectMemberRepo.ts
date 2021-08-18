@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ProjectMember } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { ProjectMember } from "~/resolver-types/models";
 import { MemberPerms } from "~/types/MemberPerms.type";
 
 export class ProjectMemberRepo extends PrismaClient {

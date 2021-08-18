@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
-import { PostLabel, User } from "~/resolver-types/models";
+import { PostLabel, User } from "~/models/index";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { CreatePostLabelArgs } from "./args/CreatePostLabelArgs";
 

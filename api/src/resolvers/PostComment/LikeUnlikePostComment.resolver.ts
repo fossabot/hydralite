@@ -1,6 +1,6 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { PostComment, User } from "~/resolver-types/models";
+import { PostComment, User } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import { LikeUnlikePostCommentArgs } from "./args/LikeUnlikePostCommentArgs";
 

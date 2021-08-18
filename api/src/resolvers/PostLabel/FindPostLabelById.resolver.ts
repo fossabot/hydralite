@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
-import { PostLabel } from "~/resolver-types/models";
+import { PostLabel } from "~/models/index";
 import executeOrFail from "~/util/executeOrFail";
 import { FindPostLabelByIdArgs } from "./args/FindPostLabelByIdArgs";
 

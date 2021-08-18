@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, MemberRole } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { MemberRole } from "~/resolver-types/models";
+// import { MemberRole } from "~/models/MemberRole";
 
 export class MemberRoleRepo extends PrismaClient {
   findRoleById = async (

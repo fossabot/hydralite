@@ -1,6 +1,6 @@
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Post, User } from "~/resolver-types/models";
+import { Post, User } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { FindPostsInMassArgs } from "./args/FindPostsInMassArgs";

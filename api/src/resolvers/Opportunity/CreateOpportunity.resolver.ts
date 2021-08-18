@@ -2,7 +2,7 @@ import { User } from "@prisma/client";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Opportunity } from "~/resolver-types/models";
+import { Opportunity } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import { connectIdArray } from "~/util/connectIdArray";
 import executeOrFail from "~/util/executeOrFail";

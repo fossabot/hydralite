@@ -2,7 +2,7 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import ContextType from "~/types/Context.type";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreateMemberRoleArgs } from "./args/CreateMemberRoleArgs";
-import { MemberRole, User } from "~/resolver-types/models";
+import { MemberRole, User } from "~/models/index";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 
 const memberRepo = new ProjectMemberRepo();

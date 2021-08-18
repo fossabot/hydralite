@@ -3,7 +3,7 @@ import { ApolloError } from "apollo-server-express";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { Opportunity } from "~/resolver-types/models";
+import { Opportunity } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { DeleteOpportunityArgs } from "./args/DeleteOpportunityArgs";
