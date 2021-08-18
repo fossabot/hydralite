@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Post } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { Post } from "~/resolver-types/models";
 
 export class PostRepo extends PrismaClient {
   async findPostById(id: string, validate = true): Promise<Post | null> {
