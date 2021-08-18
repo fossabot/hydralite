@@ -812,7 +812,7 @@ __metadata:
     class-validator: ^0.13.1
     connect-redis: ^6.0.0
     cors: ^2.8.5
-    decotix: ^1.0.5
+    decotix: ^1.0.8
     dotenv: ^10.0.0
     express: ^4.17.1
     express-session: ^1.17.2
@@ -4446,15 +4446,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"decotix@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "decotix@npm:1.0.5"
+"decotix@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "decotix@npm:1.0.8"
   dependencies:
     "@prisma/sdk": ^2.27.0
     glob: ^7.1.7
     is-glob: ^4.0.1
     reflect-metadata: ^0.1.13
-  checksum: 7b67a643b5ca18d5a7f89234c092006a4d2a2a03757136f6934011eaeb50ab2f63427da3e083718be17017d5f8be9c7094a434a21b2dfaffa645dad1b82f1a79
+  checksum: 3ae98cf799e861fce36c75cb987c968d278c600897e86d4f5a13aaa7b444bc679d7708b6826dbef45b7c27fc422d2fa8ec89a953e13bcaa57d06c4102e3590f2
   languageName: node
   linkType: hard
 
