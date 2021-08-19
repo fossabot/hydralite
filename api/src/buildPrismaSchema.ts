@@ -1,9 +1,6 @@
 import { buildSchema } from "decotix";
-import { applySignature } from "decotix/dist/lib/signatures";
+import "decotix/dist/mixins/typegraphql";
 import { join } from "path";
-import { Int } from "type-graphql";
-
-applySignature(Int, "Int", { name: "Int" });
 
 buildSchema({
   input: [

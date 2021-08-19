@@ -56,7 +56,7 @@ model Attachment {
   attachmentURL    String
   type             AttachmentType
   post             Post?          @relation(fields: [postId], references: [id])
-  postId           String
+  postId           String?
   featureRequest   FeatureRequest @relation(fields: [featureRequestId], references: [id])
   featureRequestId String
   bugReport        BugReport      @relation(fields: [bugReportId], references: [id])
@@ -244,7 +244,7 @@ model ProjectMember {
   awaitingApproval           Boolean
   type                       ProjectMemberType         @default(communityMember)
   overallPermissions         ProjectMemberPermissions? @relation(fields: [projectMemberPermissionsId], references: [id])
-  projectMemberPermissionsId String
+  projectMemberPermissionsId String?
   project                    Project                   @relation(fields: [projectId], references: [id])
   projectId                  String
   user                       User                      @relation(fields: [userId], references: [id])
