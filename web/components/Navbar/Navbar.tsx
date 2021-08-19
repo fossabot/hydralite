@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 import AngleDownIcon from "~/icons/line/AngleDownIcon";
 import CogIcon from "~/icons/line/CogIcon";
 import SearchIcon from "~/icons/line/SearchIcon";
+import PlusIconSolid from "~/icons/solid/PlusIconSolid";
+import { CreateRippleModal } from "../CreateRippleModal/CreateRippleModal";
 
 const Navbar = () => {
   const { theme } = useThemeContext();
+  const [isCreateRippleModalOpen, setIsCreateRippleModalOpen] =
+    useState<boolean>(false);
 
   return (
-    <div className={`w-full flex items-center gap-3 justify-end py-2 pr-2 ${theme === "dark" && "bg-dark-bgMuted1"}`}>
-      <SearchIcon
-        className={`w-[1.1rem] h-[1.1rem] ${theme === "dark" && "fill-[#fff]"}`}
+    <>
+      <div
+        className={`w-full flex items-center gap-3 justify-end py-2 pr-2 ${
+          theme === "dark" && "bg-dark-bgMuted3"
+        }`}
+        style={{ boxShadow: "0px 4px 4px 0px #1F1F1F40" }}
+      >
+        <SearchIcon
+          className={`w-[1.1rem] h-[1.1rem] cursor-pointer ${
+            theme === "dark" && "fill-[#fff]"
+          }`}
+        />
+        <CogIcon
+          className={`w-[1.1rem] h-[1.1rem] cursor-pointer ${
+            theme === "dark" && "fill-[#fff]"
+          }`}
+        />
+        <PlusIconSolid
+          className={`w-[1.1rem] h-[1.1rem] cursor-pointer ${
+            theme === "dark" && "fill-[#fff]"
+          }`}
+          onClick={() => setIsCreateRippleModalOpen(true)}
+        />
+        <ProfileWidget />
+      </div>
+      <CreateRippleModal
+        isOpen={isCreateRippleModalOpen}
+        setIsOpen={setIsCreateRippleModalOpen}
       />
-      <CogIcon
-        className={`w-[1.1rem] h-[1.1rem] ${theme === "dark" && "fill-[#fff]"}`}
-      />
-      <ProfileWidget />
-    </div>
+    </>
   );
 };
 
