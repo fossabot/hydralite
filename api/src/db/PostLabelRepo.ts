@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, PostLabel } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { PostLabel } from "~/resolver-types/models";
 
 export class PostLabelRepo extends PrismaClient {
   async findPostLabelById(

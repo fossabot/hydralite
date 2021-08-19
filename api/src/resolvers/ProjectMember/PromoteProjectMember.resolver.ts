@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { ProjectMember, User } from "~/resolver-types/models";
+import { ProjectMember, User } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import { PromoteProjectMemberArgs } from "./args/PromoteProjectMemberArgs";
 
@@ -19,12 +19,12 @@ export class PromoteProjectMember {
 
     const memberToPromote = (await prisma.projectMember.findUnique({
       where: { id: memberId },
-    })) as ProjectMember;
+    }))!;
 
     const loggedInMember = (await memberRepo.findMemberByUserAndProjectId(
       user.id,
       memberToPromote.projectId
-    )) as ProjectMember;
+    ))!;
 
     memberRepo.memberHasPermission(loggedInMember, "canManageMembers");
 

@@ -4,7 +4,7 @@ import executeOrFail from "~/util/executeOrFail";
 import { User } from "@prisma/client";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreateProjectArgs } from "./args/CreateProjectArgs";
-import { Project } from "~/resolver-types/models";
+import { Project } from "~/models/index";
 
 @Resolver()
 export default class CreateProjectResolver {

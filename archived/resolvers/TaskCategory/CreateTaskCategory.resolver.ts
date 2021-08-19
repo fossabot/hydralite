@@ -4,7 +4,7 @@ import { User } from "@prisma/client";
 import executeOrFail from "~/util/executeOrFail";
 import { CreateTaskCategoryArgs } from "./args/CreateTaskCategoryArgs";
 import { connectIdArray } from "~/util/connectIdArray";
-import { TaskCategory } from "~/resolver-types/models";
+import { TaskCategory } from "~/models/index";
 import { TaskRepo } from "~/db/TaskRepo";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 

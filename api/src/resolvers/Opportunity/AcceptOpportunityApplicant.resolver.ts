@@ -1,4 +1,4 @@
-import { OpportunityApplicant, User } from "~/resolver-types/models";
+import { OpportunityApplicant, User } from "~/models/index";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";

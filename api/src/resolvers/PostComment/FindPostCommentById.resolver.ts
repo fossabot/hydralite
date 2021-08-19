@@ -2,7 +2,7 @@ import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { FindPostCommentByIdArgs } from "./args/FindPostCommentByIdArgs";
 import ContextType from "~/types/Context.type";
-import { PostComment } from "~/resolver-types/models";
+import { PostComment } from "~/models/index";
 
 @Resolver()
 export class FindPostCommentByIdResolver {

@@ -29,7 +29,9 @@
       "~/config/*": ["./src/config/*"],
       "~/resolver-types/*": ["./src/resolver-types/*"],
       "~/db/*": ["./src/db/*"],
-      "~/middleware/*": ["./src/middleware/*"]
+      "~/middleware/*": ["./src/middleware/*"],
+      "~/enums/*": ["./src/enums/*"],
+      "~/models/*": ["./src/models/*"]
     }
   },
   "exclude": ["node_modules"],

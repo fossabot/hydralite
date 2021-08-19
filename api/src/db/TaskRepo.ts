@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { TaskLocation } from "~/resolver-types/models";
+import { TaskLocation } from "~/models/index";
 
 export class TaskRepo extends PrismaClient {
   findTaskLocationByNameAndProjectId = async (

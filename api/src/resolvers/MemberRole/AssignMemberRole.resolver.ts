@@ -3,7 +3,7 @@ import ContextType from "~/types/Context.type";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { User } from "@prisma/client";
 import { AssignMemberRoleArgs } from "./args/AssignMemberRoleArgs";
-import { ProjectMember } from "~/resolver-types/models";
+import { ProjectMember } from "~/models/index";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { MemberRoleRepo } from "~/db/MemberRoleRepo";
 import executeOrFail from "~/util/executeOrFail";

@@ -1,6 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import {
+  PrismaClient,
+  ProjectMember,
+  ProjectMemberPermissions,
+} from "@prisma/client";
 import { ApolloError } from "apollo-server-express";
-import { ProjectMember } from "~/resolver-types/models";
 import { MemberPerms } from "~/types/MemberPerms.type";
 
 export class ProjectMemberRepo extends PrismaClient {
@@ -22,7 +25,7 @@ export class ProjectMemberRepo extends PrismaClient {
     userId: string,
     projectId: string,
     validate = true
-  ): Promise<ProjectMember | null> => {
+  ) => {
     // retrieve member
     const member = await this.projectMember.findFirst({
       where: { userId, projectId },
@@ -37,7 +40,9 @@ export class ProjectMemberRepo extends PrismaClient {
   };
 
   memberHasPermission = (
-    member: ProjectMember,
+    member: ProjectMember & {
+      overallPermissions: ProjectMemberPermissions | null;
+    },
     permissionName: MemberPerms,
     validate = true
   ): boolean => {

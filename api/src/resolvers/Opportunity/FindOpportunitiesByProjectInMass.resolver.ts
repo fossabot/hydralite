@@ -1,5 +1,5 @@
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
-import { Opportunity } from "~/resolver-types/models";
+import { Opportunity } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import { FindOpportunitiesByProjectInMassArgs } from "./args/FindOpportunitiesByProjectInMassArgs";
 
@@ -10,7 +10,7 @@ export class FindOpportunitiesByProjectInMassResolver {
     @Arg("args")
     { limit, skip, projectId }: FindOpportunitiesByProjectInMassArgs,
     @Ctx() { prisma }: ContextType
-  ): Promise<Opportunity[] | null> {
+  ) {
     return await prisma.opportunity.findMany({
       skip,
       take: limit,

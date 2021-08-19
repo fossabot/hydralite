@@ -5,7 +5,7 @@ import { User } from "@prisma/client";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { DeleteHashtagArgs } from "./args/DeleteHashtagArgs";
 import UserRepo from "~/db/UserRepo";
-import { Hashtag } from "~/resolver-types/models";
+import { Hashtag } from "~/models/index";
 
 const userRepo = new UserRepo();
 @Resolver()

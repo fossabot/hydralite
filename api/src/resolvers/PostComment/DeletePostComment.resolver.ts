@@ -2,7 +2,7 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { DeletePostCommentArgs } from "./args/DeletePostCommentArgs";
 import ContextType from "~/types/Context.type";
-import { User } from "~/resolver-types/models";
+import { User } from "~/models/index";
 import executeOrFail from "~/util/executeOrFail";
 import { ApolloError } from "apollo-server-express";
 

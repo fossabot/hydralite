@@ -1,5 +1,5 @@
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
-import { User } from "~/resolver-types/models";
+import { User } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import { FindUsersInMassArgs } from "./args/FindUsersInMassArgs";
 

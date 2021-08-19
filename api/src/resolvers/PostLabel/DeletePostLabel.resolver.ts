@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
-import { User } from "~/resolver-types/models";
+import { User } from "~/models/index";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { DeletePostLabelArgs } from "./args/DeletePostLabelArgs";
 import executeOrFail from "~/util/executeOrFail";

@@ -2,7 +2,7 @@ import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import { CreatePostArgs } from "./args/CreatePostArgs";
 import ContextType from "~/types/Context.type";
-import { Post, User } from "~/resolver-types/models";
+import { Post, User } from "~/models/index";
 import { connectIdArray } from "~/util/connectIdArray";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 

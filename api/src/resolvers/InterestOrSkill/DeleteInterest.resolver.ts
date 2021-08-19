@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import UserRepo from "~/db/UserRepo";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
-import { InterestOrSkill, User } from "~/resolver-types/models";
+import { InterestOrSkill, User } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { DeleteInterestOrSkillArgs } from "./args/DeleteInterestOrSkillArgs";

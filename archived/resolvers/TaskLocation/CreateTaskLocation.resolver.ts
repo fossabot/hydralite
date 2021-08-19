@@ -3,7 +3,7 @@ import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
 import executeOrFail from "~/util/executeOrFail";
 import { CreateTaskLocationArgs } from "./args/CreateTaskLocationArgs";
-import { TaskLocation } from "~/resolver-types/models";
+import { TaskLocation } from "~/models/index";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
 import { TaskRepo } from "~/db/TaskRepo";
 

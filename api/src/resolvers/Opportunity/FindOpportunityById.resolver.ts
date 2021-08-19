@@ -1,5 +1,5 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { Opportunity } from "~/resolver-types/models";
+import { Opportunity } from "~/models/index";
 import ContextType from "~/types/Context.type";
 import { FindOpportunityByIdArgs } from "./args/FindOpportunityByIdArgs";
 
