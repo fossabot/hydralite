@@ -72,7 +72,7 @@ export default function Example() {
                                     </Dialog.Title>
                                 </div>
                             </div>
-                            <div className="mt-5 sm:mt-3 sm:grid sm:grid-cols-2 sm:grid-rows-2 sm:gap-3 sm:grid-flow-row-dense">
+                            <div className="mt-5 sm:mt-2 sm:grid sm:grid-cols-2 sm:grid-rows-2 sm:gap-2 sm:grid-flow-row-dense">
                                 <LoginButton icon={GoogleIcon} title="Google" provider="google" />
                                 <LoginButton icon={GithubIcon} title="Github" provider="github" />
                                 <LoginButton icon={TwitterIcon} title="Twitter" provider="twitter" />
