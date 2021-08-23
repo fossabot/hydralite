@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarTab from "./SidebarTab";
+import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 import HistoryIcon from "~/icons/line/HistoryIcon";
 import HistoryIconSolid from "~/icons/solid/HistoryIconSolid";
@@ -9,7 +10,6 @@ import CompassIcon from "~/icons/line/CompassIcon";
 import CompassIconSolid from "~/icons/solid/CompassIconSolid";
 import MessagesIcon from "~/icons/line/MessagesIcon";
 import MessagesIconSolid from "~/icons/solid/MessagesIconSolid";
-import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 const SidebarTabs = ({
   activeTab,

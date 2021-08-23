@@ -1,7 +1,10 @@
 import Meta from "partials/Meta";
-import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
+import DiscordIcon from "~/icons/solid/DiscordIconSolid";
+import GitHubIcon from "~/icons/solid/GitHubIconSolid";
+import GoogleIcon from "~/icons/solid/GoogleIconSolid";
+import TwitterIcon from "~/icons/solid/TwitterIconSolid";
 import React from "react";
-import { serverUrl } from "../../constants/global";
+import { serverUrl } from "~/constants/global";
 
 const NavLink = ({ href, active, children }) => {
   const style = ["font-bold"];
@@ -66,7 +69,7 @@ const LoginContent = () => {
       </div>
       <div className="flex flex-col items-center self-stretch mx-16">
         <LoginButton icon={GoogleIcon} title="Google" provider="google" />
-        <LoginButton icon={GithubIcon} title="Github" provider="github" />
+        <LoginButton icon={GitHubIcon} title="Github" provider="github" />
         <LoginButton icon={TwitterIcon} title="Twitter" provider="twitter" />
         <LoginButton icon={DiscordIcon} title="Discord" provider="discord" />
       </div>
@@ -96,7 +99,7 @@ const Login = () => {
       />
       <main className="w-screen h-screen flex items-center justify-between overflow-hidden">
         <div className="w-full self-stretch bg-secondary">
-          <img src="/login_background.svg" className="w-full" />
+          <img src="~/public/login_background.svg" className="w-full" />
         </div>
         <section
           style={{ width: "40%" }}

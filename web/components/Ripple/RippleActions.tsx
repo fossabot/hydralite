@@ -44,21 +44,21 @@ export const RippleActions = ({ replies, shares, reposts, hydra }) => {
         name="Hydra Boosts"
         count={hydra}
       />
-      <RippleAction Icon={EllipsisVIcon} HoverIcon={EllipsisVIcon} name="More" />
+      <RippleAction
+        Icon={EllipsisVIcon}
+        HoverIcon={EllipsisVIcon}
+        name="More"
+      />
     </div>
   );
 };
 
 const RippleAction = ({ name, count = "", Icon, HoverIcon }) => {
-  //   const { theme } = useThemeContext();
-
   return (
     <div className="group cursor-pointer">
-      {<Icon className={`group-hover:hidden h-4 w-4 fill-current`} />}
+      {<Icon className="group-hover:hidden h-4 w-4 fill-current" />}
       {
-        <HoverIcon
-          className={`hidden group-hover:block h-4 w-4 fill-current opacity-[0.7]`}
-        />
+        <HoverIcon className="hidden group-hover:block h-4 w-4 fill-current opacity-[0.7]" />
       }
     </div>
   );

@@ -31,7 +31,7 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
           process.env.CLIENT_URL || "http://localhost:3000"
         }/project/${id}`}
       >
-        <a className={`h-[3rem] w-[3rem] cursor-pointer`} title={name}>
+        <a className="h-[3rem] w-[3rem] cursor-pointer" title={name}>
           <img
             src={logoUrl}
             alt={name}

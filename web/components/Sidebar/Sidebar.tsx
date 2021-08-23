@@ -3,7 +3,9 @@ import { useThemeContext } from "~/hoc/theme/ThemeContext";
 import SidebarProjects from "./SidebarProjects";
 import SidebarTabs from "./SidebarTabs";
 import PlusIconSolid from "~/icons/solid/PlusIconSolid";
-import projectList from "~/data/project/project.json";
+// TODO: Properly mock out project list
+// import projectList from "~/data/project/project.json";
+const projectList = [];
 
 interface SidebarProps {
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";

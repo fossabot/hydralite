@@ -3,7 +3,7 @@ import SidebarProject from "./SidebarProject";
 
 const SidebarProjects = ({ projects, activeProjectId = "0" }) => {
   return (
-    <div className={`w-full flex flex-col gap-2 items-center`}>
+    <div className="w-full flex flex-col gap-2 items-center">
       {projects.map((project, i) => {
         return (
           <SidebarProject

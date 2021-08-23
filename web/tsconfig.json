@@ -15,17 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "~/components/*": ["components/*"],
-      "~/pages/*": ["pages/*"],
-      "~/styles/*": ["styles/*"],
-      "~/icons/*": ["icons/*"],
-      "~/public/*": ["public/*"],
-      "~/types/*": ["types/*"],
-      "~/logic/*": ["logic/*"],
-      "~/constants/*": ["constants/*"],
-      "~/hoc/*": ["hoc/*"],
-      "~/partials/*": ["partials/*"],
-      "~/data/*": ["data/*"]
+      "~/*": ["./*"]
     },
     "allowSyntheticDefaultImports": true
   },
