@@ -53,9 +53,19 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
     "commitizen": "^4.2.4",
     "commitlint": "^12.1.4",
     "cz-conventional-changelog": "3.3.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "latest",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4",
     "prettier": "^2.3.2"
   },
   "dependencies": {
