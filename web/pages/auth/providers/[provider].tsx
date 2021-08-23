@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { serverUrl } from "../../../constants/global";
+import { serverUrl } from "~/constants/global";
 
 async function get(provider: string, code: string) {
   const result = await fetch(`${serverUrl}/api/auth/${provider}/callback?code=${code}`, {

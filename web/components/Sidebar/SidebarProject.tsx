@@ -24,14 +24,14 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
           className={`absolute left-0 w-1 h-12 rounded-full ${
             theme === "dark" && "bg-[#fff]"
           }`}
-        ></span>
+        />
       )}
       <Link
         href={`${
           process.env.CLIENT_URL || "http://localhost:3000"
         }/project/${id}`}
       >
-        <a className={`h-[3rem] w-[3rem] cursor-pointer`} title={name}>
+        <a className="h-[3rem] w-[3rem] cursor-pointer" title={name}>
           <img
             src={logoUrl}
             alt={name}

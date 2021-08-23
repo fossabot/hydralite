@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarTab from "./SidebarTab";
+import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 import HistoryIcon from "~/icons/line/HistoryIcon";
 import HistoryIconSolid from "~/icons/solid/HistoryIconSolid";
@@ -9,13 +10,10 @@ import CompassIcon from "~/icons/line/CompassIcon";
 import CompassIconSolid from "~/icons/solid/CompassIconSolid";
 import MessagesIcon from "~/icons/line/MessagesIcon";
 import MessagesIconSolid from "~/icons/solid/MessagesIconSolid";
-import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
-const SidebarTabs = ({
-  activeTab,
-}: {
+const SidebarTabs: React.FC<{
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";
-}) => {
+}> = ({ activeTab }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -28,6 +26,7 @@ const SidebarTabs = ({
         isActive={activeTab === "Home"}
         activeIcon={
           <img
+            alt="Hydralite Logo"
             src="/HydraliteLogoMonochrome.svg"
             className="select-none h-[2rem] w-[2rem]"
             draggable={false}
@@ -35,6 +34,7 @@ const SidebarTabs = ({
         }
         icon={
           <img
+            alt="Hydralite Logo"
             src="/HydraliteLogo.svg"
             className="select-none h-[2rem] w-[2rem]"
             draggable={false}

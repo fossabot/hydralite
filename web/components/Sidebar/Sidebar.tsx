@@ -1,8 +1,9 @@
 import React from "react";
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
-import SidebarProjects from "./SidebarProjects";
+// import SidebarProjects from "./SidebarProjects";
 import SidebarTabs from "./SidebarTabs";
 import PlusIconSolid from "~/icons/solid/PlusIconSolid";
+// TODO: Properly mock out project list
 // import projectList from "~/data/project/project.json";
 
 interface SidebarProps {
@@ -10,6 +11,23 @@ interface SidebarProps {
   activeProjectId?: string;
 }
 
+const CreateProjectButton = () => {
+  const { theme } = useThemeContext();
+
+  return (
+    <div
+      className={`h-[3.2rem] w-[3.2rem] cursor-pointer grid place-items-center rounded-2xl transition-all hover:opacity-[0.8] ${
+        theme === "dark" && "bg-dark-bgMuted4"
+      }`}
+    >
+      <PlusIconSolid
+        className={`${theme === "dark" && "fill-[#fff]"} h-[1.7rem] w-[1.7rem]`}
+      />
+    </div>
+  );
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, activeProjectId }) => {
   const { theme } = useThemeContext();
 
@@ -26,22 +44,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, activeProjectId }) => {
         activeProjectId={activeProjectId}
       /> */}
       <CreateProjectButton />
-    </div>
-  );
-};
-
-const CreateProjectButton = () => {
-  const { theme } = useThemeContext();
-
-  return (
-    <div
-      className={`h-[3.2rem] w-[3.2rem] cursor-pointer grid place-items-center rounded-2xl transition-all hover:opacity-[0.8] ${
-        theme === "dark" && "bg-dark-bgMuted4"
-      }`}
-    >
-      <PlusIconSolid
-        className={`${theme === "dark" && "fill-[#fff]"} h-[1.7rem] w-[1.7rem]`}
-      />
     </div>
   );
 };

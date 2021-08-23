@@ -5,7 +5,6 @@ import Sidebar from "~/components/Sidebar/Sidebar";
 import { useThemeContext } from "../theme/ThemeContext";
 
 interface LayoutProps {
-  children: any;
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";
   activeProjectId?: string;
   includeProjectSidebar?: boolean;

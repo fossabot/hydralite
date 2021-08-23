@@ -8,37 +8,32 @@ interface UserType {
   status?: string;
 }
 
-export const Members = ({
-  members,
-}: {
+const Section = ({ a }: { a: UserType[] }) => (
+  <div>
+    {a?.map((m, i) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <User key={i} avatar={m.avatar} name={m.name} status={m.status} />
+    ))}
+  </div>
+);
+
+export const Members: React.FC<{
   members: {
     team: UserType[];
     mods: UserType[];
     community: UserType[];
   };
-}) => {
-  return (
-    <div className="w-full p-6 overflow-y-auto">
-      <div className="flex justify-between items-center w-full">
-        <h1 className="font-extrabold text-lg">Members</h1>
-        <Icon icon="bi-plus-lg" className="text-text text-md" />
-      </div>
-      <div className="mt-3 flex flex-col">
-        {/* TASK: Implement infinity scroll/lazy load */}
-        <Section a={members.team} />
-        <Section a={members.mods} />
-        <Section a={members.community} />
-      </div>
+}> = ({ members }) => (
+  <div className="w-full p-6 overflow-y-auto">
+    <div className="flex justify-between items-center w-full">
+      <h1 className="font-extrabold text-lg">Members</h1>
+      <Icon icon="bi-plus-lg" className="text-text text-md" />
     </div>
-  );
-};
-
-const Section = ({ a }: { a: UserType[] }) => {
-  return (
-    <div>
-      {a?.map((m, i) => (
-        <User key={i} avatar={m.avatar} name={m.name} status={m.status} />
-      ))}
+    <div className="mt-3 flex flex-col">
+      {/* TASK: Implement infinity scroll/lazy load */}
+      <Section a={members.team} />
+      <Section a={members.mods} />
+      <Section a={members.community} />
     </div>
-  );
-};
+  </div>
+);
