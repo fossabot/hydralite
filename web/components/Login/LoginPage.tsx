@@ -1,5 +1,5 @@
 import Meta from "partials/Meta";
-import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icons";
+import { DiscordIcon, GithubIcon, GoogleIcon, TwitterIcon } from "../Icon";
 import React from "react";
 import { serverUrl } from "../../constants/global";
 
@@ -35,10 +35,9 @@ const Navbar = () => {
 
 const LoginButton = ({ icon, title, provider }) => {
   const wrapper = { icon };
-
   return (
     <button
-      className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full"
+      className="flex items-center justify-center px-12 py-5 md:text-sm md:w-80 md:h-14 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full bg-dark-grey hover:bg-dark-textMuted duration-300"
       onClick={async () => {
         const url = await fetch(`${serverUrl}/api/auth/${provider}`)
           .then((v) => v.json())
@@ -46,25 +45,25 @@ const LoginButton = ({ icon, title, provider }) => {
         window.location.href = url;
       }}
     >
-      <div style={{ width: 50, height: 50, marginRight: 60 }}>
+      <div style={{ width: 30, height: 30, marginRight: 60 }}>
         <wrapper.icon />
       </div>
-      <div>Continue with {title}</div>
+      <div className="text-xs">Continue with {title}</div>
     </button>
   );
 };
 const LoginContent = () => {
   return (
     <div className="flex flex-col items-center w-full h-full">
-      <div className="flex flex-col items-center mt-8 mb-24">
+      <div className="flex flex-col items-center mt-8 mb-36">
         <h1 className="text-text mt-6 mb-1 font-extrabold text-5xl">
-          Login to <span className="text-accent">Hydralite</span>
+          Login to <span style={{color: "var(--accent)"}}>Hydralite</span>
         </h1>
-        <h4 className="text-text m-2 font-extrabold text-2xl">
+        <h4 className="text-text m-1 font-extrabold text-2xl">
           Discover. Develop. Deploy
         </h4>
       </div>
-      <div className="flex flex-col items-center self-stretch mx-16">
+      <div className="flex flex-col items-center self-stretch mx-21 ">
         <LoginButton icon={GoogleIcon} title="Google" provider="google" />
         <LoginButton icon={GithubIcon} title="Github" provider="github" />
         <LoginButton icon={TwitterIcon} title="Twitter" provider="twitter" />
@@ -76,7 +75,7 @@ const LoginContent = () => {
 
 const Terms = () => {
   return (
-    <p className="text-xl font-semibold text-gray_light mb-10">
+    <p className="text-xl md:text-base font-semibold text-gray_light mb-10">
       By continuing you, you agree to the{" "}
       <a href="#" className="text-accent font-extrabold">
         Terms of Service
@@ -110,5 +109,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;

@@ -29,7 +29,6 @@ BREAKPOINTS:
   --accent: #4649de;
   --accent-inverted: #ffffff;
 }
-
 * {
   margin: 0;
   padding: 0;
@@ -40,5 +39,7 @@ html,
 body {
   scroll-behavior: smooth;
 }
-
+.text-accent{
+  color: var(--accent)
+}
 @tailwind utilities;
