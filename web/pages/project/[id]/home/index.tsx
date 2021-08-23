@@ -36,24 +36,22 @@ import Layout from "~/hoc/Layout/Layout";
 //   );
 // };
 
-const HomePage = () => {
-  return (
-    <>
-      <Meta
-        title={`My Cool Project - Hydralite`}
-        description="This is a description for my cool project."
-        url="https://hydralite.io"
-        keywords="open source,hydralite,project management"
+const HomePage: React.FC = () => (
+  <>
+    <Meta
+      title="My Cool Project - Hydralite"
+      description="This is a description for my cool project."
+      url="https://hydralite.io"
+      keywords="open source,hydralite,project management"
+    />
+    <UseApiConnection>
+      <Layout
+        includeProjectSidebar
+        activeProjectId="1"
+        activeProjectSidebarLink="Home"
       />
-      <UseApiConnection>
-        <Layout
-          includeProjectSidebar={true}
-          activeProjectId="1"
-          activeProjectSidebarLink="Home"
-        ></Layout>
-      </UseApiConnection>
-    </>
-  );
-};
+    </UseApiConnection>
+  </>
+);
 
 export default HomePage;

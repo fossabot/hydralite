@@ -3,9 +3,9 @@ import { useThemeContext } from "~/hoc/theme/ThemeContext";
 import TimesIcon from "~/icons/line/TimesIcon";
 
 interface CreateRippleModalHeaderProps {
-  rippleType: string;
+  rippleType?: string;
   projectName: string;
-  closeModal: (...args) => any;
+  closeModal: (...args: unknown[]) => unknown;
 }
 
 export const CreateRippleModalHeader: React.FC<CreateRippleModalHeaderProps> =
