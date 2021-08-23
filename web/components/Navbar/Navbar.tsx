@@ -6,7 +6,28 @@ import SearchIcon from "~/icons/line/SearchIcon";
 import PlusIconSolid from "~/icons/solid/PlusIconSolid";
 import { CreateRippleModal } from "../CreateRippleModal/CreateRippleModal";
 
-const Navbar = () => {
+const ProfileWidget = () => {
+  const { theme } = useThemeContext();
+  return (
+    <div
+      className={`flex items-center gap-2 p-2 rounded-lg ${
+        theme === "dark" && "bg-dark-bgMuted2 text-dark-fg"
+      }`}
+    >
+      <img
+        alt="Avatar"
+        className="h-6 w-6 rounded-full"
+        src="https://avatars.githubusercontent.com/u/67153585?v=4"
+      />
+      <span className="font-semibold text-md">fullstackslayer</span>
+      <AngleDownIcon
+        className={`w-5 h-5 ${theme === "dark" && "fill-[#fff]"}`}
+      />
+    </div>
+  );
+};
+
+const Navbar: React.FC = () => {
   const { theme } = useThemeContext();
   const [isCreateRippleModalOpen, setIsCreateRippleModalOpen] =
     useState<boolean>(false);
@@ -42,26 +63,6 @@ const Navbar = () => {
         setIsOpen={setIsCreateRippleModalOpen}
       />
     </>
-  );
-};
-
-const ProfileWidget = () => {
-  const { theme } = useThemeContext();
-  return (
-    <div
-      className={`flex items-center gap-2 p-2 rounded-lg ${
-        theme === "dark" && "bg-dark-bgMuted2 text-dark-fg"
-      }`}
-    >
-      <img
-        className="h-6 w-6 rounded-full"
-        src="https://avatars.githubusercontent.com/u/67153585?v=4"
-      />
-      <span className="font-semibold text-md">fullstackslayer</span>
-      <AngleDownIcon
-        className={`w-5 h-5 ${theme === "dark" && "fill-[#fff]"}`}
-      />
-    </div>
   );
 };
 

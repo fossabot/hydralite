@@ -3,7 +3,7 @@ import { Labels } from "./Labels";
 import { Members } from "./Members";
 import members from "~/data/project/members.json";
 
-export const Sidebar = () => {
+export const Sidebar: React.FC = () => (
   // const members = {
   //   team: [],
   //   mods: [],
@@ -24,11 +24,9 @@ export const Sidebar = () => {
 
   // console.log(JSON.stringify(members))
 
-  return (
-    <div className="w-80 h-full border-l border-white-seperator">
-      <Labels />
-      <div className="border-b border-white-seperator"></div>
-      <Members members={members} />
-    </div>
-  );
-};
+  <div className="w-80 h-full border-l border-white-seperator">
+    <Labels />
+    <div className="border-b border-white-seperator" />
+    <Members members={members} />
+  </div>
+);

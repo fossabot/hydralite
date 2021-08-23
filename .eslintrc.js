@@ -12,6 +12,8 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "airbnb",
     "prettier",
@@ -38,6 +40,8 @@ module.exports = {
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
     ],
     "react/prop-types": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -50,5 +54,8 @@ module.exports = {
     ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };

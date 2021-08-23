@@ -4,7 +4,7 @@ import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 interface ModalProps {
   isOpen: boolean;
-  setIsOpen: (boolean) => void;
+  setIsOpen: (value: boolean) => void;
   width?: string;
   height?: string;
   children: any;
