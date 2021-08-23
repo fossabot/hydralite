@@ -11,11 +11,9 @@ import CompassIconSolid from "~/icons/solid/CompassIconSolid";
 import MessagesIcon from "~/icons/line/MessagesIcon";
 import MessagesIconSolid from "~/icons/solid/MessagesIconSolid";
 
-const SidebarTabs = ({
-  activeTab,
-}: {
+const SidebarTabs: React.FC<{
   activeTab?: "Home" | "Activity" | "My Projects" | "Discover" | "Communicate";
-}) => {
+}> = ({ activeTab }) => {
   const { theme } = useThemeContext();
 
   return (
@@ -28,6 +26,7 @@ const SidebarTabs = ({
         isActive={activeTab === "Home"}
         activeIcon={
           <img
+            alt="Hydralite Logo"
             src="/HydraliteLogoMonochrome.svg"
             className="select-none h-[2rem] w-[2rem]"
             draggable={false}
@@ -35,6 +34,7 @@ const SidebarTabs = ({
         }
         icon={
           <img
+            alt="Hydralite Logo"
             src="/HydraliteLogo.svg"
             className="select-none h-[2rem] w-[2rem]"
             draggable={false}

@@ -4,8 +4,8 @@ import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 interface SidebarTabProps {
   isActive?: boolean;
-  activeIcon?: any;
-  icon: any;
+  activeIcon?: unknown;
+  icon: unknown;
   name: string;
   link: string;
 }
@@ -26,7 +26,7 @@ const SidebarTab: React.FC<SidebarTabProps> = ({
           className={`absolute left-0 w-1 h-12 rounded-full ${
             theme === "dark" && "bg-[#fff]"
           }`}
-        ></span>
+        />
       )}
       <Link href={link}>
         <a

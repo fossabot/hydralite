@@ -24,7 +24,7 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
           className={`absolute left-0 w-1 h-12 rounded-full ${
             theme === "dark" && "bg-[#fff]"
           }`}
-        ></span>
+        />
       )}
       <Link
         href={`${
