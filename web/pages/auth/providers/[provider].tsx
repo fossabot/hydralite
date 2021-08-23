@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { serverUrl } from "~/constants/global";
 
 async function get(provider: string, code: string) {
-  const result = await fetch(`${serverUrl}/api/auth/${provider}?code=${code}`, {
-    method: "post",
+  const result = await fetch(`${serverUrl}/api/auth/${provider}/callback?code=${code}`, {
+    method: "get",
   })
     .then((v) => v.json())
     .catch((v) => ({ error: v }));
