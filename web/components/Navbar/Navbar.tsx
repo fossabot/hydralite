@@ -55,9 +55,9 @@ const ProfileWidget = () => {
     >
       <img
         className="h-6 w-6 rounded-full"
-        src="https://avatars.githubusercontent.com/u/67153585?v=4"
+        src="https://avatars.githubusercontent.com/u/77481923?v=4"
       />
-      <span className="font-semibold text-md">fullstackslayer</span>
+      <span className="font-semibold text-md">VarunPotti</span>
       <AngleDownIcon
         className={`w-5 h-5 ${theme === "dark" && "fill-[#fff]"}`}
       />

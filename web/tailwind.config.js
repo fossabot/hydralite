@@ -1,3 +1,4 @@
+
 module.exports = {
   mode: "jit",
   purge: [
@@ -8,11 +9,15 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['BR Firma', 'sans-serif'],
+      },
       colors: {
         /* BEGIN legacy colors */
         // TODO: replace all instances of these with iris/acrylic
         transparent: "transparent",
         dark: {
+          grey: "#F5F5F5",
           bg: "#242832",
           fg: "#ffffff",
           textMuted: "#E5E5E5",
