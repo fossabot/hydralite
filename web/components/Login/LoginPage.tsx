@@ -36,21 +36,20 @@ const Navbar = () => (
 
 const LoginButton = ({ icon, title, provider }) => {
   const wrapper = { icon };
-
   return (
     <button
-      type="submit"
-      className="flex items-center px-12 py-5 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full"
+      type="button"
+      className="flex items-center justify-center px-12 py-5 md:text-sm md:w-80 md:h-14 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text w-full bg-dark-grey hover:bg-dark-textMuted duration-300"
       onClick={async () => {
         window.location.href = await fetch(`${serverUrl}/api/auth/${provider}`)
           .then((v) => v.json())
           .then((v) => v.url);
       }}
     >
-      <div style={{ width: 50, height: 50, marginRight: 60 }}>
+      <div style={{ width: 30, height: 30, marginRight: 60 }}>
         <wrapper.icon />
       </div>
-      <div>Continue with {title}</div>
+      <div className="text-xs">Continue with {title}</div>
     </button>
   );
 };

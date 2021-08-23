@@ -23,10 +23,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, activeProjectId }) => {
       `}
     >
       <SidebarTabs activeTab={activeTab} />
-      <SidebarProjects
+      {/* <SidebarProjects
         projects={projectList}
         activeProjectId={activeProjectId}
-      />
+      /> */}
       <CreateProjectButton />
     </div>
   );
