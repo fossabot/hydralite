@@ -8,7 +8,7 @@ const LoginButton = ({ icon, title, provider }) => {
     const wrapper = { icon };
     return (
         <button
-            className="flex items-center justify-center px-4 py-4 rounded-2xl hover:bg-white-selected bg-white-hover my-2 font-bold text-3xl text-text bg-dark-grey hover:bg-dark-textMuted duration-300 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:to-dark-color-accent"
+            className="flex items-center justify-center px-4 py-4 rounded-2xl hover:bg-white-selected bg-white-hover my-1 font-bold text-3xl text-text bg-dark-grey hover:bg-dark-textMuted duration-300 focus:ring-2 focus:ring-offset-5 focus:outline-none focus:from-dark-color-accent"
             onClick={async () => {
                 const url = await fetch(`${serverUrl}/api/auth/${provider}`)
                     .then((v) => v.json())
@@ -66,8 +66,8 @@ export default function Example() {
                     >
                         <div className="inline-block align-bottom bg-white rounded-2xl px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <div>
-                                <div className="mt-3 text-center sm:mt-5">
-                                    <Dialog.Title as="h3" className="text-3xl leading-6 text-gray-900 font-extrabold">
+                                <div className="mt-3 text-center sm:my-5">
+                                    <Dialog.Title as="h3" className="text-3xl leading-6 text-gray-900 font-bold">
                                         Join <span className="text-dark-color-accent">Hydralite</span> with...
                                     </Dialog.Title>
                                 </div>
