@@ -4,9 +4,7 @@ const inquirer = require("inquirer");
 const chalk = require("chalk");
 
 const prompt = async (args) =>
-  await inquirer.prompt([{ type: "input", ...args, name: "cmd" }]).then((a) => {
-    return args.parse ? args.parse(a.cmd) : a.cmd;
-  });
+  await inquirer.prompt([{ type: "input", ...args, name: "cmd" }]).then((a) => args.parse ? args.parse(a.cmd) : a.cmd);
 
 (async () => {
   if (
@@ -23,7 +21,7 @@ const prompt = async (args) =>
   console.clear();
   console.log(chalk.green("!") + chalk.blue.bold(" API .env Configurator\n"));
 
-  let env = {};
+  const env = {};
 
   env.GITHUB_CLIENT_ID = await prompt({
     message: `Please enter your GitHub Client ID:`,

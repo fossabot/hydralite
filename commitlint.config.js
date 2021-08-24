@@ -2,6 +2,7 @@
  * our Commitlint CI doesn't complain about "merge(pr|git-pull): ..." in the future
  */
 const conventionalCommit = require("./cz-commitlint-config/customizations.json");
+
 const typesEnum = Object.keys(conventionalCommit.types);
 const scopesEnum = Object.keys(conventionalCommit.scopes);
 
