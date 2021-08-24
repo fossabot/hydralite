@@ -1,22 +1,22 @@
 import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 export const RippleReactions = ({
-    reactions,
-  }: {
-    reactions: {
-      emoji: any;
-      count: string;
-      selected: boolean;
-    }[];
-  }) => {
-    const { theme } = useThemeContext();
-  
-    return (
-      <div className="flex items-center gap-1">
-        {reactions.map((r, i) => {
-          return (
-            <div
-              className={`
+  reactions,
+}: {
+  reactions: {
+    emoji: any;
+    count: string;
+    selected: boolean;
+  }[];
+}) => {
+  const { theme } = useThemeContext();
+
+  return (
+    <div className="flex items-center gap-1">
+      {reactions.map((r, i) => {
+        return (
+          <div
+            className={`
                 flex items-center gap-1 rounded-[0.25rem] p-1 select-none cursor-pointer 
                 ${
                   theme === "dark" &&
@@ -29,14 +29,13 @@ export const RippleReactions = ({
                   `
                 }
               `}
-              key={i}
-            >
-              {r.emoji}
-              <span className="font-bold text-[0.6rem] mt-[2px]">{r.count}</span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-  
+            key={i}
+          >
+            {r.emoji}
+            <span className="font-bold text-[0.6rem] mt-[2px]">{r.count}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};

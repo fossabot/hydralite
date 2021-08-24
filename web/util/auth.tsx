@@ -10,7 +10,9 @@ export const AuthContext = createContext({
 });
 async function getData(id: string): Promise<any> {
   let resp = axios
-    .get(`${serverUrl}/api/auth/getUser`, { headers: {"authorization": `bearer ${id}`}},)
+    .get(`${serverUrl}/api/auth/getUser`, {
+      headers: { authorization: `bearer ${id}` },
+    })
     .then(async (res) => {
       res.data;
     })
@@ -26,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(null);
   const [serverPresent, setserverPresent] = useState(null);
   useEffect(() => {
-    let id = localStorage.getItem("accessToken")
+    let id = localStorage.getItem("accessToken");
     if (id !== null) {
       setUserId(id);
       getData(id)

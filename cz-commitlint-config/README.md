@@ -30,10 +30,10 @@ commitizen init @hydralite/cz-commitlint-config --save-dev
 ```json5
 {
   // your stuff above here
-  "scripts": {
+  scripts: {
     // we added the signoff Git commit flag since we assume you
     // need DCO compliance instead of having new contributors to sign CLAs
-    "commit": "cz --signoff",
+    commit: "cz --signoff",
   },
   // your stuff below here
 }
@@ -48,11 +48,11 @@ commitizen init @hydralite/cz-commitlint-config --save-dev
 3. When you're ready, stage all and commit anyway with `yarn commit:stage-all` or pick which to stage first then run `yarn commit` (shortcut for the `commit:dco` script in the global `package.json` at project root) to call the custom adapter.
 4. Follow prompts, such as:
 
-  - selecting an type of commit and its scope (see below for supported types and scopes so Commitlint CI will go green when you push)
-  - typing the commit subject
-  - optionally input the commit body
-  - if yes, describe any breaking changes (ONLY DO THIS on new major versions, doing breaking changes at minor versions might cause downtime to users when deployed straight to production)
-  - if yes, pasting the GitHub/GitLab SaaS issue link (entering just the issue number may break on cross-platform basis)
+- selecting an type of commit and its scope (see below for supported types and scopes so Commitlint CI will go green when you push)
+- typing the commit subject
+- optionally input the commit body
+- if yes, describe any breaking changes (ONLY DO THIS on new major versions, doing breaking changes at minor versions might cause downtime to users when deployed straight to production)
+- if yes, pasting the GitHub/GitLab SaaS issue link (entering just the issue number may break on cross-platform basis)
 
 5. Push your commits to your branch/fork on GitHub/GitLab SaaS with `git push origin <branch-name-here>`. Remember to keep your branch up-to-date with the upstream with `git fetch --all && git pull upstream dev`.
 6. Repeat steps 2-5, until you're done with your work, in which you can now submit an pull request.
@@ -64,31 +64,31 @@ Like Commitizen, you specify the configuration of @hydralite/cz-commitlint-confi
 ```json5
 {
   // ...  default values
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/@hydralite/cz-commitlint-config",
-      "disableScopeLowerCase": false,
-      "disableSubjectLowerCase": false,
-      "maxHeaderWidth": 100,
-      "maxLineWidth": 100,
-      "defaultType": "",
-      "defaultScope": "",
-      "defaultSubject": "",
-      "defaultBody": "",
-      "defaultIssues": "",
-      "types": {
+  config: {
+    commitizen: {
+      path: "./node_modules/@hydralite/cz-commitlint-config",
+      disableScopeLowerCase: false,
+      disableSubjectLowerCase: false,
+      maxHeaderWidth: 100,
+      maxLineWidth: 100,
+      defaultType: "",
+      defaultScope: "",
+      defaultSubject: "",
+      defaultBody: "",
+      defaultIssues: "",
+      types: {
         // Full JSON list at customizations.json file
-        "feat": {
-          "description": "A new feature",
-          "title": "Features",
+        feat: {
+          description: "A new feature",
+          title: "Features",
         },
         // your config here...
       },
-      "scopes": {
+      scopes: {
         // Full JSON list at customizations.json file
-        "global": {
-          "description": "Global project-level changes that affects all components",
-          "title": "Global Changes",
+        global: {
+          description: "Global project-level changes that affects all components",
+          title: "Global Changes",
         },
         // your config here...
       },
@@ -149,8 +149,8 @@ module.exports = {
 
 ## TODO
 
-* [X] Implement fuzzy search and autocompletion when selecting an scope, as the list goes longer in the future.
-* [ ] Make this package also an Commitlint adapter.
+- [x] Implement fuzzy search and autocompletion when selecting an scope, as the list goes longer in the future.
+- [ ] Make this package also an Commitlint adapter.
 
 ## Reference
 

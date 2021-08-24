@@ -11,6 +11,6 @@ based on [v3.3.0](https://github.com/commitizen/cz-conventional-changelog/tree/v
 
 **Added features**:
 
-* Added support to customize the default scopes included in the adapter
-* Add autocompletion and fuzzy search to the scope chooser
-* Add Hydralite's commit types and scopes currently using to the package as its defaults.
+- Added support to customize the default scopes included in the adapter
+- Add autocompletion and fuzzy search to the scope chooser
+- Add Hydralite's commit types and scopes currently using to the package as its defaults.

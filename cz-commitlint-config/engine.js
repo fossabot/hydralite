@@ -42,14 +42,14 @@ const filterSubject = function (subject, disableSubjectLowerCase) {
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
 module.exports = function (options) {
-  const {types} = options;
+  const { types } = options;
   const scopes = Object.keys(options.scopes);
 
   const length = longest(Object.keys(types)).length + 1;
   const choicesTypes = map(types, (type, key) => ({
-      name: `${(`${key  }:`).padEnd(length)  } ${  type.description}`,
-      value: key,
-    }));
+    name: `${`${key}:`.padEnd(length)} ${type.description}`,
+    value: key,
+  }));
 
   return {
     // When a user runs `git cz`, prompter will
@@ -63,7 +63,7 @@ module.exports = function (options) {
     //
     // By default, we'll de-indent your commit
     // template and will keep empty lines.
-    prompter (cz, commit) {
+    prompter(cz, commit) {
       // Let's ask some questions of the user
       // so that we can populate our commit
       // template.
@@ -73,19 +73,22 @@ module.exports = function (options) {
       // collection library if you prefer.
 
       // import lodash and fuzzy for our autocompletion and fuzzy search stuff
-      const _ = require('lodash');
-      const fuzzy = require('fuzzy');
+      const _ = require("lodash");
+      const fuzzy = require("fuzzy");
 
       // when using Inquirer.js, which is the default in Commitizen, change inquirer to cz
-      cz.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+      cz.registerPrompt(
+        "autocomplete",
+        require("inquirer-autocomplete-prompt")
+      );
 
       function searchScopes(answers, input) {
-        input = input || '';
+        input = input || "";
         return new Promise((resolve) => {
           setTimeout(() => {
             const fuzzyResult = fuzzy.filter(input, scopes);
             const results = fuzzyResult.map((el) => el.original);
-      
+
             results.splice(5, 0, new cz.Separator());
             results.push(new cz.Separator());
             resolve(results);
@@ -104,25 +107,26 @@ module.exports = function (options) {
           // instead of an input, we'll show an list of scopes in either Commitizen config or the adapter's defaults for the user to choose.
           type: "autocomplete",
           name: "scope",
-          message: "Select the scope of change that you're commiting (check project's Commitizen configuration or this adapter's default ones on its package README for details):",
-          searchText: 'Looking up for supported scopes...',
-          emptyText: "Looks like that scope doesn't exist in either the Commitizen configuration or the adapter's defaults",
+          message:
+            "Select the scope of change that you're commiting (check project's Commitizen configuration or this adapter's default ones on its package README for details):",
+          searchText: "Looking up for supported scopes...",
+          emptyText:
+            "Looks like that scope doesn't exist in either the Commitizen configuration or the adapter's defaults",
           source: searchScopes,
           default: options.defaultScope,
-          pageSize: 6
+          pageSize: 6,
         },
         {
           type: "input",
           name: "subject",
-          message (answers) {
-            return (
-              `Write a short, imperative tense description of the change (max ${ 
-              maxSummaryLength(options, answers) 
-              } chars):\n`
-            );
+          message(answers) {
+            return `Write a short, imperative tense description of the change (max ${maxSummaryLength(
+              options,
+              answers
+            )} chars):\n`;
           },
           default: options.defaultSubject,
-          validate (subject, answers) {
+          validate(subject, answers) {
             const filteredSubject = filterSubject(
               subject,
               options.disableSubjectLowerCase
@@ -131,13 +135,14 @@ module.exports = function (options) {
               ? "Commit subject is required"
               : filteredSubject.length <= maxSummaryLength(options, answers)
               ? true
-              : `Subject length must be less than or equal to ${ 
-                maxSummaryLength(options, answers) 
-                } characters. Current length is ${ 
-                filteredSubject.length 
+              : `Subject length must be less than or equal to ${maxSummaryLength(
+                  options,
+                  answers
+                )} characters. Current length is ${
+                  filteredSubject.length
                 } characters.`;
           },
-          transformer (subject, answers) {
+          transformer(subject, answers) {
             const filteredSubject = filterSubject(
               subject,
               options.disableSubjectLowerCase
@@ -146,9 +151,9 @@ module.exports = function (options) {
               filteredSubject.length <= maxSummaryLength(options, answers)
                 ? chalk.green
                 : chalk.red;
-            return color(`(${  filteredSubject.length  }) ${  subject}`);
+            return color(`(${filteredSubject.length}) ${subject}`);
           },
-          filter (subject) {
+          filter(subject) {
             return filterSubject(subject, options.disableSubjectLowerCase);
           },
         },
@@ -171,10 +176,10 @@ module.exports = function (options) {
           default: "-",
           message:
             "A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n",
-          when (answers) {
+          when(answers) {
             return answers.isBreaking && !answers.body;
           },
-          validate (breakingBody, answers) {
+          validate(breakingBody, answers) {
             return (
               breakingBody.trim().length > 0 ||
               "Body is required for BREAKING CHANGE"
@@ -185,7 +190,7 @@ module.exports = function (options) {
           type: "input",
           name: "breaking",
           message: "Describe the breaking changes:\n",
-          when (answers) {
+          when(answers) {
             return answers.isBreaking;
           },
         },
@@ -202,7 +207,7 @@ module.exports = function (options) {
           default: "-",
           message:
             "If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n",
-          when (answers) {
+          when(answers) {
             return (
               answers.isIssueAffected && !answers.body && !answers.breakingBody
             );
@@ -213,7 +218,7 @@ module.exports = function (options) {
           name: "issues",
           message:
             'Add issue references (e.g. "fix #123", "re #123", it\'s recommended to use the full issue link to avoid link breakage, especially on hard forks and repo mirrors):\n',
-          when (answers) {
+          when(answers) {
             return answers.isIssueAffected;
           },
           default: options.defaultIssues ? options.defaultIssues : undefined,
@@ -228,10 +233,10 @@ module.exports = function (options) {
         };
 
         // parentheses are only needed when a scope is present
-        const scope = answers.scope ? `(${  answers.scope  })` : "";
+        const scope = answers.scope ? `(${answers.scope})` : "";
 
         // Hard limit this line in the validate
-        const head = `${answers.type + scope  }: ${  answers.subject}`;
+        const head = `${answers.type + scope}: ${answers.subject}`;
 
         // Wrap these lines at options.maxLineWidth characters
         const body = answers.body ? wrap(answers.body, wrapOptions) : false;
@@ -239,11 +244,13 @@ module.exports = function (options) {
         // Apply breaking change prefix, removing it if already present
         let breaking = answers.breaking ? answers.breaking.trim() : "";
         breaking = breaking
-          ? `BREAKING CHANGE: ${  breaking.replace(/^BREAKING CHANGE: /, "")}`
+          ? `BREAKING CHANGE: ${breaking.replace(/^BREAKING CHANGE: /, "")}`
           : "";
         breaking = breaking ? wrap(breaking, wrapOptions) : false;
 
-        const issues = answers.issues ? wrap(answers.issues, wrapOptions) : false;
+        const issues = answers.issues
+          ? wrap(answers.issues, wrapOptions)
+          : false;
 
         commit(filter([head, body, breaking, issues]).join("\n\n"));
       });

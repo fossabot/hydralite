@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import { serverUrl } from "~/constants/global";
 
 async function get(code: string) {
-  const result = await fetch(`${serverUrl}/api/auth/github/callback?code=${code}`, {
-    method: "get",
-  }).then((v) => v.json());
+  const result = await fetch(
+    `${serverUrl}/api/auth/github/callback?code=${code}`,
+    {
+      method: "get",
+    }
+  ).then((v) => v.json());
   if (result.error) return;
 
   if (result.accessToken)

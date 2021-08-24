@@ -15,7 +15,6 @@ Make sure you've installed Node.js (Web, API, landing, Discord bot), Python (aut
 
 ### Quick Setup for frontend/backend development
 
-
 To start both the frontend and backend servers:
 
 1. Navigate to the root directory and install dependencies with `yarn` (or `yarn install`)

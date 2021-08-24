@@ -39,7 +39,7 @@ html,
 body {
   scroll-behavior: smooth;
 }
-.text-accent{
-  color: var(--accent)
+.text-accent {
+  color: var(--accent);
 }
 @tailwind utilities;

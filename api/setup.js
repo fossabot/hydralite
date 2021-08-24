@@ -4,7 +4,9 @@ const inquirer = require("inquirer");
 const chalk = require("chalk");
 
 const prompt = async (args) =>
-  await inquirer.prompt([{ type: "input", ...args, name: "cmd" }]).then((a) => args.parse ? args.parse(a.cmd) : a.cmd);
+  await inquirer
+    .prompt([{ type: "input", ...args, name: "cmd" }])
+    .then((a) => (args.parse ? args.parse(a.cmd) : a.cmd));
 
 (async () => {
   if (
@@ -54,7 +56,8 @@ const prompt = async (args) =>
       default: "redis://localhost",
     });
   } else {
-    env.REDIS_URL = "redis://hydralitedev:764e2f151a1cc2c04d3dd80d0430453b759f79bee75d74fa25f5c104152ba82b@localhost";
+    env.REDIS_URL =
+      "redis://hydralitedev:764e2f151a1cc2c04d3dd80d0430453b759f79bee75d74fa25f5c104152ba82b@localhost";
   }
 
   console.log(

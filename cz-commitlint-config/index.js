@@ -4,7 +4,7 @@
 
 "format cjs";
 
-const {configLoader} = require("commitizen");
+const { configLoader } = require("commitizen");
 const engine = require("./engine");
 const customConfig = require("./customizations.json");
 

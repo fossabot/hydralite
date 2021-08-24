@@ -1,4 +1,3 @@
-
 module.exports = {
   mode: "jit",
   purge: [
@@ -10,10 +9,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['BR Firma', 'sans-serif'],
+        sans: ["BR Firma", "sans-serif"],
       },
       outline: {
-        blue: ['2px solid #0000ff', '1px'],
+        blue: ["2px solid #0000ff", "1px"],
       },
       colors: {
         /* BEGIN legacy colors */
@@ -43,7 +42,7 @@ module.exports = {
           DEFAULT: "#5261FF",
           50: "#424FD6",
           60: "#2E39AD",
-          70: "#1C2582"
+          70: "#1C2582",
         },
         acrylic: {
           10: "#F7F7F8",
@@ -53,13 +52,11 @@ module.exports = {
           50: "#76788F",
           60: "#5E6073",
           70: "#22232A",
-          80: "#0B0C0E"
-        }
+          80: "#0B0C0E",
+        },
       },
     },
     variants: {},
-    plugins: [
-      require("@tailwindcss/forms")
-    ],
+    plugins: [require("@tailwindcss/forms")],
   },
 };
