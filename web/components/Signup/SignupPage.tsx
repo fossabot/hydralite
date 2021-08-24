@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { serverUrl } from '~/constants/global';
@@ -8,7 +7,7 @@ const LoginButton = ({ icon, title, provider }) => {
     const wrapper = { icon };
     return (
         <button
-            className="flex items-center justify-center px-4 py-4 rounded-2xl hover:bg-white-selected bg-white-hover my-1 font-bold text-3xl text-text bg-dark-grey hover:bg-dark-textMuted duration-300 focus:ring-2 focus:ring-offset-5 focus:outline-none focus:from-dark-color-accent"
+            className="flex items-center justify-center px-4 py-3 rounded-2xl hover:bg-white-selected bg-white-hover my-1 font-bold text-3xl text-text bg-dark-grey hover:bg-dark-textMuted duration-300 focus:ring-2 focus:ring-offset-5 focus:outline-none focus:from-dark-color-accent"
             onClick={async () => {
                 const url = await fetch(`${serverUrl}/api/auth/${provider}`)
                     .then((v) => v.json())
@@ -24,7 +23,7 @@ const LoginButton = ({ icon, title, provider }) => {
     );
 };
 
-export default function Example() {
+export default function Signup() {
     const [open, setOpen] = useState(true)
 
     const cancelButtonRef = useRef(null)

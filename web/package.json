@@ -21,6 +21,7 @@
     "@apollo/client": "^3.3.21",
     "@headlessui/react": "^1.4.0",
     "@iconify/react": "alpha",
+    "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.1",
     "evernote": "^2.0.5",
     "framer-motion": "^4.1.17",
@@ -32,7 +33,8 @@
     "octokit": "^1.0.6",
     "react": "^17.0.2",
     "react-dom": "17.0.2",
-    "react-google-calendar-api": "^1.4.0"
+    "react-google-calendar-api": "^1.4.0",
+    "react-hot-toast": "^2.1.1"
   },
   "devDependencies": {
     "@types/faker": "^5.5.7",

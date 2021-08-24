@@ -12,6 +12,9 @@ module.exports = {
       fontFamily: {
         sans: ['BR Firma', 'sans-serif'],
       },
+      outline: {
+        blue: ['2px solid #0000ff', '1px'],
+      },
       colors: {
         /* BEGIN legacy colors */
         // TODO: replace all instances of these with iris/acrylic
@@ -55,6 +58,8 @@ module.exports = {
       },
     },
     variants: {},
-    plugins: [],
+    plugins: [
+      require("@tailwindcss/forms")
+    ],
   },
 };

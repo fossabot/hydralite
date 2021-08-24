@@ -1000,6 +1000,7 @@ __metadata:
     "@apollo/client": ^3.3.21
     "@headlessui/react": ^1.4.0
     "@iconify/react": alpha
+    "@tailwindcss/forms": ^0.3.3
     "@types/faker": ^5.5.7
     "@types/node": ^15.12.3
     "@types/react": ^17.0.11
@@ -1019,6 +1020,7 @@ __metadata:
     react: ^17.0.2
     react-dom: 17.0.2
     react-google-calendar-api: ^1.4.0
+    react-hot-toast: ^2.1.1
     tailwindcss: latest
     typescript: ^4.3.2
   languageName: unknown
@@ -1775,6 +1777,17 @@ __metadata:
   version: 1.1.0
   resolution: "@protobufjs/utf8@npm:1.1.0"
   checksum: 5b3fa7425fe2852f6e5643d9a53c6cfb4491630667176c0fc35ddb7a71101559241bafb6b80486144ed75da3d3624095d037c802b578dbdb4cce131cf1bcb7cf
+  languageName: node
+  linkType: hard
+
+"@tailwindcss/forms@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "@tailwindcss/forms@npm:0.3.3"
+  dependencies:
+    mini-svg-data-uri: ^1.2.3
+  peerDependencies:
+    tailwindcss: ">=2.0.0"
+  checksum: 75637650c5a528ec577f26d6bd043bb9295c2fa443fe943b7391914b0ecd0570624be18bb69da8ca460743538d27b46a18d80936efb6806df991cce2face40d7
   languageName: node
   linkType: hard
 
@@ -8109,6 +8122,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mini-svg-data-uri@npm:^1.2.3":
+  version: 1.3.3
+  resolution: "mini-svg-data-uri@npm:1.3.3"
+  bin:
+    mini-svg-data-uri: cli.js
+  checksum: a2d84ab31e0b980d50fb92bea18a3b7a4c1634de4a046ce19b80c762ecd03acd02fb41cb36d4bf56da482acf28850bb656f72165712326a3ceaf57cea204647a
+  languageName: node
+  linkType: hard
+
 "minimalistic-assert@npm:^1.0.0, minimalistic-assert@npm:^1.0.1":
   version: 1.0.1
   resolution: "minimalistic-assert@npm:1.0.1"
@@ -9879,6 +9901,18 @@ __metadata:
     react: ">=16"
     react-dom: ">=16"
   checksum: 986f67f45ffc088b81c291a2fb669666a118a987632ba7a5465c4eeecce943a6b248d7f5121f89d5ae8c2b82a723e559e0baa77a12cfeecb55b82b0c133ded34
+  languageName: node
+  linkType: hard
+
+"react-hot-toast@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "react-hot-toast@npm:2.1.1"
+  dependencies:
+    goober: ^2.0.35
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 2a547831862cdf38e3f94452cdc4708a61a1228fac17a395f2ae9134b4c5bcc3e5cb2f0fec4d9066c602a2ba45965a937950d61a62532ef5a965f1bd8ab335c1
   languageName: node
   linkType: hard
 
