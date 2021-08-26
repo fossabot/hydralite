@@ -11,7 +11,9 @@ export const AuthContext = createContext({
 async function getData(id: string): Promise<any> {
   let resp;
   await axios
-    .get(`${serverUrl}/api/auth/getUser`, { headers: {authorization: `bearer ${id}`} })
+    .get(`${serverUrl}/api/auth/getUser`, {
+      headers: { authorization: `bearer ${id}` },
+    })
     .then(async (res) => {
       resp = await res.data;
     })
@@ -21,7 +23,6 @@ async function getData(id: string): Promise<any> {
 
   return resp;
 }
-
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -35,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
       setUserId(id);
       getData(id)
         .then((resp) => {
-          console.log(resp)
+          console.log(resp);
           setUser(resp);
           setLoggedIn(true);
           setserverPresent(true);
