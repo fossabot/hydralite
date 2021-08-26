@@ -66,11 +66,7 @@ const Signup: React.FC = () => (
             title="BitBucket"
             provider="bitbucket"
           />
-          <LoginButton
-            icon={<GitLabIcon />}
-            title="GitLab"
-            provider="gitlab"
-          />
+          <LoginButton icon={<GitLabIcon />} title="GitLab" provider="gitlab" />
         </div>
       </div>
       <div className="w-full flex justify-center">
