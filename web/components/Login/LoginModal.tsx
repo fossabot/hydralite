@@ -1,10 +1,10 @@
 import React from "react";
 import { Dialog } from "@headlessui/react";
 import { serverUrl } from "~/constants/global";
-import DiscordIcon from "~/icons/solid/DiscordIconSolid";
+import GitLabIcon from "~/icons/solid/GitLabIcon";
 import GitHubIcon from "~/icons/solid/GitHubIconSolid";
 import GoogleIcon from "~/icons/solid/GoogleIconSolid";
-import TwitterIcon from "~/icons/solid/TwitterIconSolid";
+import BitbucketIcon from "~/icons/solid/BitbucketIcon";
 import Modal from "~/components/Modal/Modal";
 
 interface LoginButtonProps {
@@ -62,14 +62,14 @@ const Signup: React.FC = () => (
           <LoginButton icon={<GoogleIcon />} title="Google" provider="google" />
           <LoginButton icon={<GitHubIcon />} title="GitHub" provider="github" />
           <LoginButton
-            icon={<TwitterIcon />}
-            title="Twitter"
-            provider="twitter"
+            icon={<BitbucketIcon />}
+            title="BitBucket"
+            provider="bitbucket"
           />
           <LoginButton
-            icon={<DiscordIcon />}
-            title="Discord"
-            provider="discord"
+            icon={<GitLabIcon />}
+            title="GitLab"
+            provider="gitlab"
           />
         </div>
       </div>
