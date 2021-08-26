@@ -1,11 +1,12 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { serverUrl } from "~/constants/global";
 
-const error = (txt: string) => toast.error(txt);
+// const error = (txt: string) => toast.error(txt);
 const success = (txt: string) => toast.success(txt);
+
 function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
   return (
     <div className="w-full">
@@ -22,7 +23,7 @@ function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
             {thumbTxt}
           </span>
         ) : (
-          <span></span>
+          <span />
         )}
         <input
           type="text"
@@ -36,37 +37,38 @@ function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
     </div>
   );
 }
-export default function Example() {
+
+const NewProject: React.FC = () => {
   const [open, setOpen] = useState(true);
-  const [name, SetName] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [github, setGithub] = useState("");
-  const setTxt = (name: string, text: string) => {
-    if (name === "name") {
-      SetName(text);
-    } else if (name === "description") {
+  const setText = (newName: string, text: string) => {
+    if (newName === "name") {
+      setName(text);
+    } else if (newName === "description") {
       setDescription(text);
-    } else if (name === "github") {
+    } else if (newName === "github") {
       setGithub(text);
     }
   };
-  const submit = (e) => {
-    e.preventDefault();
-    let accessToken = localStorage.getItem("accessToken");
-    const a = axios
+  const submit = (event) => {
+    event.preventDefault();
+    const accessToken = localStorage.getItem("accessToken");
+    axios
       .post(
         `${serverUrl}/api/projects/createProject`,
         {
-          name: name,
-          description: description,
+          name,
+          description,
           githubRepo: `github.com/${github}`,
         },
         {
           headers: { authorization: `bearer ${accessToken}` },
         }
       )
-      .then((e) => {
-        const { error } = e.data;
+      .then((res) => {
+        const { error } = res.data;
         if (error) {
           error(error);
         } else {
@@ -126,29 +128,29 @@ export default function Example() {
                   <div className="py-4 flex align-middle justify-start  w-full flex-col">
                     <TextField
                       name="Import repo"
-                      optional={true}
+                      optional
                       placeholder="voltpkg/volt"
                       thumbTxt="github.com/"
                       title="github"
-                      setTxt={setTxt}
+                      setTxt={setText}
                     />
-                    <div className="mt-1"></div>
+                    <div className="mt-1" />
                     <TextField
                       name="Name"
                       optional={false}
                       placeholder="volt"
                       thumbTxt=""
                       title="name"
-                      setTxt={setTxt}
+                      setTxt={setText}
                     />
-                    <div className="mt-1"></div>
+                    <div className="mt-1" />
                     <TextField
                       name="Description"
-                      optional={true}
+                      optional
                       placeholder="Volt is a fast NodeJS Package Manager"
                       thumbTxt=""
                       title="description"
-                      setTxt={setTxt}
+                      setTxt={setText}
                     />
                   </div>
                 </div>
@@ -168,4 +170,6 @@ export default function Example() {
       </Dialog>
     </Transition.Root>
   );
-}
+};
+
+export default NewProject;
