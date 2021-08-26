@@ -1,17 +1,18 @@
-import { ThemeContextProvider } from "~/hoc/theme/ThemeContext";
+import React from "react";
+import type { AppProps } from "next/app";
+import { ThemeProvider } from "next-themes";
 import { AuthContextProvider } from "~/util/auth";
+
 import "../styles/globals.css";
 
-function App({ Component, pageProps }) {
-  return (
-    <AuthContextProvider>
-      <ThemeContextProvider>
-        <div>
-          <Component {...pageProps} />
-        </div>
-      </ThemeContextProvider>
-    </AuthContextProvider>
-  );
-}
+const App = ({ Component, pageProps }: AppProps): React.ReactNode => (
+  <AuthContextProvider>
+    <ThemeProvider storageKey="hlTheme" attribute="class">
+      <div>
+        <Component {...pageProps} />
+      </div>
+    </ThemeProvider>
+  </AuthContextProvider>
+);
 
 export default App;

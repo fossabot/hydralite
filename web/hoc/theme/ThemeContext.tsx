@@ -1,29 +1,44 @@
 import React, { useState, useContext, useEffect } from "react";
-import { themeType } from "~/types/Theme.type";
 
 /* Context for the application color theme */
+/* LEGACY - should use next-themes wherever possible */
+
+export type Theme = "dark" | "light";
 
 interface ThemeContextType {
-  theme: themeType;
-  changeTheme: (theme: themeType) => void;
+  theme: Theme;
+  changeTheme: (theme: Theme) => void;
 }
+
 const ThemeContext = React.createContext<ThemeContextType>(
   {} as ThemeContextType
 );
 
-export const useThemeContext = () => useContext(ThemeContext);
+export const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
 
-export const ThemeContextProvider = ({ children }) => {
-  let userThemePreference;
+export const ThemeContextProvider: React.FC = ({ children }) => {
+  let userThemePreference: Theme;
+
+  // Set theme based on stored value
   useEffect(() => {
-    userThemePreference = localStorage.getItem("hlTheme") as themeType;
+    userThemePreference = localStorage.getItem("hlTheme") as Theme;
   }, []);
 
-  const [theme, setTheme] = useState<themeType>(userThemePreference ?? "dark");
+  // Fallback to prefers-color-scheme
+  if (!userThemePreference) {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      userThemePreference = "dark";
+    } else userThemePreference = "light";
+  }
 
-  function changeTheme(theme: themeType) {
-    localStorage.setItem("hlTheme", theme);
-    setTheme(theme);
+  const [theme, setTheme] = useState<Theme>(userThemePreference);
+
+  function changeTheme(newTheme: Theme) {
+    localStorage.setItem("hlTheme", newTheme);
+    setTheme(newTheme);
   }
 
   return (

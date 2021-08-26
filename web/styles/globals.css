@@ -1,8 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 
-/* 
+@layer base {
+  a {
+    @apply text-iris-40 dark:text-iris-30;
+  }
+  a:visited {
+    @apply text-iris-50 dark:text-iris-40;
+  }
+  a:hover {
+    @apply underline
+  }
+}
+
+/*
 BREAKPOINTS:
   mobile - 500px
   tablet - 768px

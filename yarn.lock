@@ -1015,6 +1015,7 @@ __metadata:
     graphql: ^15.5.1
     heroku-client: ^3.1.0
     next: 11.1.0
+    next-themes: ^0.0.15
     octokit: ^1.0.6
     postcss: latest
     react: ^17.0.2
@@ -1022,6 +1023,7 @@ __metadata:
     react-google-calendar-api: ^1.4.0
     react-hot-toast: ^2.1.1
     tailwindcss: latest
+    tailwindcss-interaction-variants: ^5.0.0
     typescript: ^4.3.2
   languageName: unknown
   linkType: soft
@@ -8346,6 +8348,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-themes@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "next-themes@npm:0.0.15"
+  peerDependencies:
+    next: "*"
+    react: "*"
+    react-dom: "*"
+  checksum: 492fa22e854a497c385a51bdcbd012f2758cfd1a2502f0b5e2654a445b17a42adc4728ba6f9ffa234776ec1e09cac069ea5b5875369423edd1a6b5536abeff86
+  languageName: node
+  linkType: hard
+
 "next@npm:11.1.0":
   version: 11.1.0
   resolution: "next@npm:11.1.0"
@@ -11188,6 +11201,16 @@ resolve@^2.0.0-next.3:
     string-width: ^4.2.0
     strip-ansi: ^6.0.0
   checksum: 66107046b7226051552d53c1260facfed03f4050373d3888620af7b1353f6a5429d9a4a5fb796c56c29b9dd5ffca7b661a815f42ec392cb5956432585578772a
+  languageName: node
+  linkType: hard
+
+"tailwindcss-interaction-variants@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "tailwindcss-interaction-variants@npm:5.0.0"
+  dependencies:
+    lodash: ^4.17.19
+    postcss-selector-parser: ^6.0.2
+  checksum: 75fb306aa07e451a6df259fa068ca53e2c94a5f3ed2165ab62ce354cbb7c902beda06c470938ce3a110fe5a668abc1c48ed9fab029b52b2245ebd681518d7fbf
   languageName: node
   linkType: hard
 

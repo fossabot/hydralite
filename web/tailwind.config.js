@@ -5,7 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./hoc/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: false,
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -56,7 +56,15 @@ module.exports = {
         },
       },
     },
-    variants: {},
-    plugins: [require("@tailwindcss/forms")],
   },
+  variants: {
+    extend: {
+      ringColor: ["active"],
+      ringWidth: ["active"],
+    },
+  },
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwindcss-interaction-variants"),
+  ],
 };
