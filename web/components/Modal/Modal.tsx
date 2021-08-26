@@ -5,7 +5,7 @@ interface ModalProps {
   children: React.ReactNode;
   isOpen?: any;
   setIsOpen?: any;
-  width?: any
+  width?: any;
 }
 
 export const Modal: React.FC<ModalProps> = ({ children }) => {
