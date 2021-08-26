@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const ProjectSidebar = ({ activeProjectSidebarLink }) => {
   const { theme } = useThemeContext();
-  const [project, SetProject] = useState({});
+  const [project, SetProject] = useState(null);
   useEffect(() => {
     const id = router.asPath.split("/")[2];
     const accessToken = localStorage.getItem("accessToken");
