@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
+import { AuthContext } from "~/util/auth";
 import Meta from "~/partials/Meta";
 import Layout from "~/hoc/Layout/Layout";
 import NewProject from "~/components/Projects/NewProjectModal";
-import router from "next/router";
-import { AuthContext } from "~/util/auth";
-import Signup from "~/components/Signup/SignupPage";
+import LoginModal from "~/components/Login/LoginModal";
 
 export default function Home() {
-  const { loggedIn, serverPresent, user } = useContext(AuthContext);
+  const { loggedIn } = useContext(AuthContext);
   if (loggedIn !== null) {
     if (loggedIn) {
       return (
@@ -21,10 +20,8 @@ export default function Home() {
           />
         </Layout>
       );
-    } else {
-      return <Signup />;
     }
-  } else {
-    return <h1>Loading</h1>;
+    return <LoginModal />;
   }
+  return <h1>Loading</h1>;
 }

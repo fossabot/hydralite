@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { serverUrl } from "~/constants/global";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { serverUrl } from "~/constants/global";
 
 const error = (txt: string) => toast.error(txt);
 const success = (txt: string) => toast.success(txt);
