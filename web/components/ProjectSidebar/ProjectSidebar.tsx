@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const ProjectSidebar = ({ activeProjectSidebarLink }) => {
   const { theme } = useThemeContext();
-  const [project, SetProject] = useState(null);
+  const [project, SetProject] = useState();
   useEffect(() => {
     const id = router.asPath.split("/")[2];
     const accessToken = localStorage.getItem("accessToken");
@@ -35,7 +35,12 @@ const ProjectSidebar = ({ activeProjectSidebarLink }) => {
         className="flex flex-col w-full py-2 pl-4 h-[3.5rem]"
         style={{ boxShadow: "0px 4px 4px 0px #1F1F1F40" }}
       >
-        <h1 className="font-bold text-3xl">{project.title}</h1>
+        {project ? (
+          // @ts-expect-error
+          <h1 className="font-bold text-3xl">{project!.title}</h1>
+        ) : (
+          "loading"
+        )}
         {/* <h3 className="font-medium text-xs">420 members</h3> */}
       </div>
       <div className="flex flex-col p-3 pl-4 mt-2 h-[calc(100%-3.5rem)]">
