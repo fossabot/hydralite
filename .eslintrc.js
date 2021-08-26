@@ -39,6 +39,7 @@ module.exports = {
       1,
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
     ],
+    "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "import/prefer-default-export": "off",
@@ -57,4 +58,12 @@ module.exports = {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "no-undef": "off",
+      },
+    },
+  ],
 };
