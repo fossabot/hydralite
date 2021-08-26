@@ -1,8 +1,6 @@
 import React from "react";
-import LoginPage from "~/components/Login/LoginPage";
+import LoginModal from "~/components/Login/LoginModal";
 
-const Login = () => {
-  return <LoginPage />;
-};
+const Login: React.FC = () => <LoginModal />;
 
 export default Login;

@@ -5,8 +5,8 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
-import { serverUrl } from "../../constants/global";
 import React, { useEffect, useMemo, useState } from "react";
+import { serverUrl } from "~/constants/global";
 
 type V = ApolloClient<NormalizedCacheObject> | null;
 export const UseApiConnectionContext = React.createContext<{
@@ -14,7 +14,7 @@ export const UseApiConnectionContext = React.createContext<{
   setConn: (u: V) => void;
 }>({
   conn: null,
-  setConn: () => {},
+  setConn: () => undefined,
 });
 
 function getAuthToken() {

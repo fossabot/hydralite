@@ -1,38 +1,23 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useThemeContext } from "~/hoc/theme/ThemeContext";
 
 interface ModalProps {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-  width?: string;
-  height?: string;
-  children: any;
+  children: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  setIsOpen,
-  width,
-  height,
-  children,
-}) => {
-  const { theme } = useThemeContext();
-
-  const closeModal = () => setIsOpen(false);
+const Modal: React.FC<ModalProps> = ({ children }) => {
+  const [isOpen, setOpen] = useState(true);
+  const closeModal = () => setOpen(false);
 
   return (
-    <Transition show={isOpen} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
-        className={`
-          fixed inset-0 z-10 bg-opacity-90 overflow-y-auto
-          ${theme === "dark" && "bg-dark-bg"}
-        `}
-        open={isOpen}
+        as="div"
+        auto-reopen="true"
+        className="fixed z-10 inset-0 overflow-y-auto"
         onClose={closeModal}
       >
-        <div className="px-4 text-center">
-          {/* Closes the modal when clicked outside of */}
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -42,40 +27,33 @@ export const Modal: React.FC<ModalProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          {/* Centers the Modal */}
+          {/* This element is to trick the browser into centering the modal contents. */}
           <span
-            className="inline-block h-screen align-middle"
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
             aria-hidden="true"
           >
             &#8203;
           </span>
-
-          {/* Modal */}
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
             leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div
-              className={`
-                rounded-lg inline-flex p-6 my-8 overflow-hidden align-middle transition-all transform text-left
-                ${height || "h-auto"}
-                ${width || "w-[50vw]"}
-                ${theme === "dark" && "bg-dark-bgMuted1 text-dark-fg"}
-              `}
-            >
-              <div className="w-full">{children}</div>
+            <div className="bg-white dark:bg-acrylic-80 inline-block align-bottom rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full sm:p-6">
+              {children}
             </div>
           </Transition.Child>
         </div>
       </Dialog>
-    </Transition>
+    </Transition.Root>
   );
 };
+
+export default Modal;
