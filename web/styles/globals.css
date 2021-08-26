@@ -11,7 +11,7 @@
     @apply text-iris-50 dark:text-iris-40;
   }
   a:hover {
-    @apply underline
+    @apply underline;
   }
 }
 
