@@ -5,7 +5,7 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ children }) => {
+export const Modal: React.FC<ModalProps> = ({ children }) => {
   const [isOpen, setOpen] = useState(true);
   const closeModal = () => setOpen(false);
 

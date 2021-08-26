@@ -9,7 +9,7 @@ const SidebarProjects = ({ projects, activeProjectId = "0" }) => (
         key={i}
         id={project.id}
         logoUrl={project.logoUrl}
-        name={project.name}
+        name={project.title}
         isActive={activeProjectId === project.id}
       />
     ))}

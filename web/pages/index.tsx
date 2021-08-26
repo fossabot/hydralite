@@ -11,7 +11,7 @@ export default function Home() {
     if (loggedIn) {
       return (
         <Layout activeTab="Home">
-          <NewProject />
+          {/* <NewProject /> */}
           <Meta
             title="Hydralite - Home"
             description="Hydralite is the new open source platform for project management and open source project discovery."

@@ -32,14 +32,13 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
         }/project/${id}`}
       >
         <a className="h-[3rem] w-[3rem] cursor-pointer" title={name}>
-          <img
-            src={logoUrl}
-            alt={name}
-            draggable={false}
-            className={`select-none h-full w-full hover:rounded-2xl hover:opacity-[0.8] transition-all object-cover ${
+          <div
+            className={`select-none h-full w-full hover:rounded-2xl hover:opacity-[0.8] transition-all object-cover flex align-middle justify-center ${
               isActive ? "rounded-2xl" : "rounded-full"
             }`}
-          />
+          >
+            <p className="text-2xl">{name[0]}</p>
+          </div>
         </a>
       </Link>
     </>

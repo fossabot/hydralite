@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
-    "@headlessui/react": "^1.4.0",
+    "@headlessui/react": "dev",
     "@iconify/react": "alpha",
     "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.1",

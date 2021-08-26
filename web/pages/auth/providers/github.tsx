@@ -27,7 +27,11 @@ const GithubAuth: React.FC = () => {
     get(query.get("code"));
   }, [query]);
 
-  return <div>Loading...</div>;
+  return (
+    <div className="w-screen h-screen flex justify-center items-center">
+      Loading...
+    </div>
+  );
 };
 
 export default GithubAuth;

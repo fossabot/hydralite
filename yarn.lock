@@ -863,13 +863,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@headlessui/react@npm:1.4.0"
+"@headlessui/react@npm:dev":
+  version: 0.0.0-b59c091
+  resolution: "@headlessui/react@npm:0.0.0-b59c091"
   peerDependencies:
     react: ^16 || ^17 || ^18
     react-dom: ^16 || ^17 || ^18
-  checksum: c29e4ec4879de113a71478ab58f53817fd8cadd16bd57d1531a58e5787b4339600020c66cad9285fa84ae983af1406b9a1976ab7089980f7850b948e0e75de41
+  checksum: 5831223d108709b2590818e1066e9cbcdf7b5cd39d983c811c669331260175edcd8499c8be45da0f47727786003f5e410b3d22e17bc69ac958bc6c9e730cf711
   languageName: node
   linkType: hard
 
@@ -998,7 +998,7 @@ __metadata:
   resolution: "@hydralite/web@workspace:web"
   dependencies:
     "@apollo/client": ^3.3.21
-    "@headlessui/react": ^1.4.0
+    "@headlessui/react": dev
     "@iconify/react": alpha
     "@tailwindcss/forms": ^0.3.3
     "@types/faker": ^5.5.7

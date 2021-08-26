@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { serverUrl } from "~/constants/global";
+import router from "next/router";
 
 // const error = (txt: string) => toast.error(txt);
 const success = (txt: string) => toast.success(txt);
@@ -12,14 +13,14 @@ function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
     <div className="w-full">
       <label
         htmlFor={name}
-        className="block text-sm font-medium text-gray-700 text-left"
+        className="block text-sm font-medium text-white text-left"
       >
         {name}{" "}
         <span className="to-acrylic-30">{optional ? " (optional) " : ""}</span>
       </label>
       <div className="mt-1 flex rounded-md shadow-sm">
         {thumbTxt !== "" ? (
-          <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+          <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 text-white sm:text-sm">
             {thumbTxt}
           </span>
         ) : (
@@ -30,7 +31,8 @@ function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
           name={name}
           onInput={(e) => setTxt(title, e.currentTarget.value)}
           id={name}
-          className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 sm:text-sm focus:outline-none focus:ring focus:border-blue-300"
+          className="flex-1   min-w-0 block w-full px-3 py-2 bg-acrylic-80 rounded-none rounded-r-md "
+          //focus:ring-indigo-500 sm:text-sm focus:outline-none focus:ring focus:border-blue-300
           placeholder={placeholder}
         />
       </div>
@@ -38,9 +40,11 @@ function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
   );
 }
 
-const NewProject: React.FC = () => {
-  const [open, setOpen] = useState(true);
+const NewProject= ({ isOpen, setIsOpen }) => {
+  const [open, setOpen] = useState(isOpen);
   const [name, setName] = useState("");
+  const closeModal = () => setOpen(false);
+
   const [description, setDescription] = useState("");
   const [github, setGithub] = useState("");
   const setText = (newName: string, text: string) => {
@@ -73,17 +77,18 @@ const NewProject: React.FC = () => {
           error(error);
         } else {
           success(`Successfully created ${name}`);
+          router.reload()
         }
       })
       .catch((e) => console.log(e));
   };
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         auto-reopen="true"
         className="fixed z-10 inset-0 overflow-y-auto"
-        onClose={setOpen}
+        onClose={() => setIsOpen(false)}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Toaster />
@@ -115,12 +120,12 @@ const NewProject: React.FC = () => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-md px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <div className="inline-block align-bottom dark:bg-acrylic-80 rounded-md px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
               <div>
                 <div className="mt-1 text-center sm:mt-5">
                   <Dialog.Title
                     as="h3"
-                    className="text-4xl leading-3 font-light text-gray-900"
+                    className="text-4xl leading-3 font-light text-white"
                   >
                     Create a new{" "}
                     <span className="text-accent font-semibold">Project</span>

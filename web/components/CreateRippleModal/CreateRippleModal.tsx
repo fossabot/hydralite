@@ -9,7 +9,7 @@ export const CreateRippleModal = ({ isOpen, setIsOpen }) => {
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} width="w-[35rem]">
         <CreateRippleModalHeader
           projectName="hydralite"
-          closeModal={() => setIsOpen(false)}
+          closeModal={() => setIsOpen(true)}
         />
         <CreateRippleModalBody />
       </Modal>
