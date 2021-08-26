@@ -28,9 +28,7 @@ const CreateProjectButton = () => {
       }`}
     >
       <NewProject isOpen={clicked} setIsOpen={SetClicked}></NewProject>
-      <PlusIconSolid
-        className={`fill-[#fff] h-[1.7rem] w-[1.7rem]`}
-      />
+      <PlusIconSolid className={`fill-[#fff] h-[1.7rem] w-[1.7rem]`} />
     </div>
   );
 };
@@ -48,12 +46,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, activeProjectId }) => {
       `}
       >
         <SidebarTabs activeTab={activeTab} />
-        <SidebarProjects projects={user.Project} activeProjectId={activeProjectId} />
+        <SidebarProjects
+          projects={user.Project}
+          activeProjectId={activeProjectId}
+        />
         <CreateProjectButton />
       </div>
     );
-  }else{
-    return <Signup />
+  } else {
+    return <Signup />;
   }
 };
 

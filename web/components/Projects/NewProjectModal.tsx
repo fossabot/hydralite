@@ -40,7 +40,7 @@ function TextField({ name, optional, placeholder, thumbTxt, title, setTxt }) {
   );
 }
 
-const NewProject= ({ isOpen, setIsOpen }) => {
+const NewProject = ({ isOpen, setIsOpen }) => {
   const [open, setOpen] = useState(isOpen);
   const [name, setName] = useState("");
   const closeModal = () => setOpen(false);
@@ -77,7 +77,7 @@ const NewProject= ({ isOpen, setIsOpen }) => {
           error(error);
         } else {
           success(`Successfully created ${name}`);
-          router.reload()
+          router.reload();
         }
       })
       .catch((e) => console.log(e));

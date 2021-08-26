@@ -30,8 +30,8 @@ const ProfileWidget = () => {
         />
       </div>
     );
-  }else{
-    return <Login />
+  } else {
+    return <Login />;
   }
 };
 

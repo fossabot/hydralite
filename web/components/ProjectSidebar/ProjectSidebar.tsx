@@ -14,13 +14,17 @@ import { useState } from "react";
 
 const ProjectSidebar = ({ activeProjectSidebarLink }) => {
   const { theme } = useThemeContext();
-  const [project, SetProject] = useState({})
+  const [project, SetProject] = useState({});
   useEffect(() => {
-    const id = router.asPath.split("/")[2]
-    const accessToken = localStorage.getItem("accessToken")
-    axios.get(`${serverUrl}/api/projects/getProject?id=${id}`,{headers: {"authorization": `bearer ${accessToken}`}}).then((e) => SetProject(e.data))
-  }, [])
-  
+    const id = router.asPath.split("/")[2];
+    const accessToken = localStorage.getItem("accessToken");
+    axios
+      .get(`${serverUrl}/api/projects/getProject?id=${id}`, {
+        headers: { authorization: `bearer ${accessToken}` },
+      })
+      .then((e) => SetProject(e.data));
+  }, []);
+
   return (
     <div
       className={`h-screen w-[14rem] flex flex-col ${
