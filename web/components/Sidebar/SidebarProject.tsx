@@ -28,7 +28,7 @@ const SidebarProject: React.FC<SidebarProjectProps> = ({
       )}
       <Link
         href={`${
-          process.env.CLIENT_URL || "http://localhost:3000"
+          process.env.CLIENT_URL || "https://alpha.hydralite.io"
         }/project/${id}`}
       >
         <a className="h-[3rem] w-[3rem] cursor-pointer" title={name}>
