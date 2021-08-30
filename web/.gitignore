@@ -1,18 +1,34 @@
-# next.js build output
-.next
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dotenv environment variables file
-.env
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Dependency directories
-node_modules/
+# testing
+/coverage
 
-# Logs
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
-.pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Non-Yarn lockfiles
-pnpm-lock.*
-package-lock.json
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel

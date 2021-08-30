@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["BR Firma", "sans-serif"],
+        montserrat: 'Montserrat, sans-serif',
+        nunito: 'Nunito Sans, sans-serif'
       },
       outline: {
         blue: ["2px solid #0000ff", "1px"],
@@ -65,6 +66,6 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/forms"),
-    require("tailwindcss-interaction-variants"),
+    // require("tailwindcss-interaction-variants"),
   ],
 };

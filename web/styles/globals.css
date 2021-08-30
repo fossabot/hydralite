@@ -1,58 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif !important;
+  background-color: white;
+}
+
+.rounded-2-5xl {
+  border-radius: 1.6rem /* idk */;
+}
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+.tooltip {
+    @apply invisible absolute;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50
+  }
+  
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
-
-@layer base {
-  a {
-    @apply text-iris-40 dark:text-iris-30;
-  }
-  a:visited {
-    @apply text-iris-50 dark:text-iris-40;
-  }
-  a:hover {
-    @apply underline;
-  }
-}
-
-/*
-BREAKPOINTS:
-  mobile - 500px
-  tablet - 768px
-  small laptop - 1024px
-  large laptops to desktops - 1280px
-  extra large - 1536px
-*/
-
-:root {
-  --bg: #f9f8fe;
-  --bg-inverted: #23272a;
-
-  --primary: #23272a;
-  --primary-inverted: #f9f8fe;
-
-  --muted: #8d8d8d;
-  --muted-inverted: var(--primary);
-
-  --muted-2: #e5e5e5;
-  --muted-2-inverted: var(--primary);
-
-  --muted-3: #8098b4;
-
-  --accent: #4649de;
-  --accent-inverted: #ffffff;
-}
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Nunito Sans", sans-serif;
-}
-
-html,
-body {
-  scroll-behavior: smooth;
-}
-.text-accent {
-  color: var(--accent);
-}
 @tailwind utilities;

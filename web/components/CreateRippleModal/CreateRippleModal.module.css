@@ -1,4 +1,0 @@
-.newRippleContentBox[placeholder]:empty:before {
-  content: attr(placeholder);
-  opacity: 0.8;
-}
