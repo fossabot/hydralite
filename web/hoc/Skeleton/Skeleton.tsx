@@ -5,7 +5,7 @@ import Sidebar from "../../components/Auth/Sidebar/Sidebar";
 export default function Home({ children }) {
   return (
     // <UnauthLanding />
-    <div className={`h-screen w-screen flex bg-dark-bg relative`}>
+    <div className={`h-screen w-screen flex bg-white dark:bg-dark-bg relative`}>
       <div className="absolute">
         <Sidebar />
       </div>

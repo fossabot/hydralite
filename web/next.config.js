@@ -3,7 +3,7 @@ const withImages = require('next-images')
 
 const nextConfig = {
   images: {
-    domains: ['github.com', 'cdn.discordapp.com']
+    domains: ['github.com', 'cdn.discordapp.com', 'avatars.githubusercontent.com']
   }
 }
 
