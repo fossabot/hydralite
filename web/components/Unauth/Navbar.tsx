@@ -49,7 +49,7 @@ const NavBar = () => {
                 href="#"
                 className="whitespace-nowrap mx-4 text-base font-medium hover:shadow-md text-gray-500 hover:text-gray-900 duration-200 border px-9 py-2 rounded-xl hover:border-gray-600"
               >
-                Login 
+                Login
               </a>
             </div>
           </div>

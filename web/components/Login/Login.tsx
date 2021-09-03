@@ -17,9 +17,9 @@ const Button: React.FC<LoginButtonProps> = ({
   title,
   provider,
 }: LoginButtonProps) => {
-  let styles = ""
-  if (provider === "google"){
-    styles = `${styles} mr-4`
+  let styles = "";
+  if (provider === "google") {
+    styles = `${styles} mr-4`;
   }
   return (
     <div className="w-full montserrat  sm:my-1 align-middle justify-center">
@@ -30,7 +30,9 @@ const Button: React.FC<LoginButtonProps> = ({
     "
         onClick={async () => {}}
       >
-        <div className={`w-5 mr-3 h-5  fill-current text-acrylic-70 group-active:text-iris-40 group-focus:text-iris-40 dark:group-active:text-iris-30 dark:group-focus:text-iris-30 ${styles}`}>
+        <div
+          className={`w-5 mr-3 h-5  fill-current text-acrylic-70 group-active:text-iris-40 group-focus:text-iris-40 dark:group-active:text-iris-30 dark:group-focus:text-iris-30 ${styles}`}
+        >
           {icon}
         </div>
         <span className="text-base font-bold text-acrylic-70">{title}</span>
