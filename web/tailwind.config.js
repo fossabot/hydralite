@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        nunito: 'Nunito Sans, sans-serif'
+        nunito: "Nunito Sans, sans-serif",
       },
       outline: {
         blue: ["2px solid #0000ff", "1px"],

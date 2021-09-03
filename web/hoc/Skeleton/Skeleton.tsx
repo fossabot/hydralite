@@ -11,9 +11,7 @@ export default function Home({ children }) {
       </div>
       <div className="h-screen w-[calc(100vw-1rem)] flex flex-col">
         <Navbar />
-        <div className="pl-[5rem]">
-            {children}
-        </div>
+        <div className="pl-[5rem]">{children}</div>
       </div>
     </div>
   );

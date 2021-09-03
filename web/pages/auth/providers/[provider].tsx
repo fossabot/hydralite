@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-
 const Auth: React.FC = () => {
   const loading = (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -18,7 +17,7 @@ const Auth: React.FC = () => {
   useEffect(() => {
     if (!query || !query.has("code")) return;
     if (!provider) return;
-}, [query, provider]);
+  }, [query, provider]);
 
   return loading;
 };
