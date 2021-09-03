@@ -11,7 +11,7 @@ body {
   font-family: "Montserrat", sans-serif !important;
 }
 .rounded_box{
-  transition: all 10s;
+  transition: all 0.3s;
 
   border-radius: 100%;
 }
