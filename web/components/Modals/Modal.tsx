@@ -3,22 +3,19 @@ import { Dialog, Transition } from "@headlessui/react";
 
 interface ModalProps {
   children: React.ReactNode;
-  isOpen?: any;
+  isOpen?: boolean;
   setIsOpen?: any;
   width?: any;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children }) => {
-  const [isOpen, setOpen] = useState(true);
-  const closeModal = () => setOpen(false);
-
+export const Modal: React.FC<ModalProps> = ({ children, isOpen, setIsOpen }) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         auto-reopen="true"
         className="fixed z-10 inset-0 overflow-y-auto"
-        onClose={closeModal}
+        onClose={setIsOpen}
       >
         <div className="flex items-end justify-center min-h-screen pt-20 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child

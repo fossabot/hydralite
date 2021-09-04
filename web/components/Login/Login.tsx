@@ -5,6 +5,7 @@ import GitLabIcon from "../../icons/solid/GitLabIcon";
 import GoogleIcon from "../../icons/solid/GoogleIconSolid";
 import BitBucketIcon from "../../icons/solid/BitbucketIcon";
 import Modal from "../Modals/Modal";
+import axios from "axios";
 
 interface LoginButtonProps {
   icon: React.ReactNode;
@@ -28,7 +29,9 @@ const Button: React.FC<LoginButtonProps> = ({
         className="
     w-full inline-flex sm:py-3 monteserrat h-full justify-center rounded-lg border  shadow-sm px-1 py-2 bg-acrylic-10 text-base font-medium text-gray-700 hover:shadow-md duration-200 hover:bg-gray-50  focus:outline-none  sm:text-sm
     "
-        onClick={async () => {}}
+        onClick={async () => {
+          axios.get(`http://localhost:8000/api/auth/${provider}`).then((e) => window.location = e.data as any)
+        }}
       >
         <div
           className={`w-5 mr-3 h-5  fill-current text-acrylic-70 group-active:text-iris-40 group-focus:text-iris-40 dark:group-active:text-iris-30 dark:group-focus:text-iris-30 ${styles}`}
@@ -41,13 +44,12 @@ const Button: React.FC<LoginButtonProps> = ({
   );
 };
 
-export default function Example() {
-  const [open, setOpen] = useState(true);
-  useEffect(() => {}, []);
-  const cancelButtonRef = useRef(null);
+export default function Example({isopen, setIsOpen}) {
+  const closeModal = () => setIsOpen(false);
+
 
   return (
-    <Modal>
+    <Modal isOpen={isopen} setIsOpen={closeModal}>
       <div>
         <div className="mt-1 text-center sm:mt-5">
           <Dialog.Title

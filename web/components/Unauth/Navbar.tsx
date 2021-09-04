@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import Login from "../Login/Login";
 
 const NavBar = () => {
+  const [open, SetIsOpen] = useState(false);
+
   return (
     <>
       <div className="relative bg-white">
@@ -45,14 +48,17 @@ const NavBar = () => {
               >
                 Github
               </a>
-              <a
-                href="#"
-                className="whitespace-nowrap mx-4 text-base font-medium hover:shadow-md text-gray-500 hover:text-gray-900 duration-200 border px-9 py-2 rounded-xl hover:border-gray-600"
+              <div
+                onClick={() => {
+                  SetIsOpen(true);
+                }}
+                className="whitespace-nowrap mx-4 text-base font-medium hover:shadow-md text-gray-500 hover:text-gray-900 duration-200 border px-9 py-2 rounded-xl hover:border-gray-600 cursor-pointer select-none"
               >
                 Login
-              </a>
+              </div>
             </div>
           </div>
+          <Login isopen={open} setIsOpen={SetIsOpen} />
         </div>
       </div>
     </>
