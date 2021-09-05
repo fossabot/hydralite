@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Skeleton from "../../hoc/Skeleton/Skeleton";
 
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import Image from "next/image";
+import NewWindow from "react-new-window";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -17,7 +18,6 @@ function RepoDropDown() {
     {
       name: "joule.rs",
     },
-
   ];
   return (
     <Menu as="div" className="relative inline-block text-left mt-7 ml-5">
@@ -62,6 +62,10 @@ function RepoDropDown() {
     </Menu>
   );
 }
+
+const Window = () => {
+  return <NewWindow><h1>asdsad</h1></NewWindow>;
+};
 
 function OrgDropDown() {
   let user = {
@@ -197,7 +201,9 @@ const Provider = ({ setTab }) => {
           <div className="flex items-center pt-10 justify-between gap-2">
             {/* Style all of these components */}
             <div className="gap-2 flex">
-              <button>Github</button>
+              <NewWindow><h1>asdsad</h1></NewWindow>
+              {/* <button onClick={() => (
+              )}>Github</button> */}
               <button>GitLab</button>
               <button>BitBucket</button>
             </div>
