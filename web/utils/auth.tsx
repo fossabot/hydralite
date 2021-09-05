@@ -10,16 +10,12 @@ export const AuthContext = createContext({
 });
 async function getData(id: string): Promise<any> {
   let resp;
-  await axios
-    .get(`http://localhost:8000/api/auth/getUser`, {
-      headers: { authorization: `bearer ${id}` },
-    })
-    .then(async (res) => {
-      resp = await res.data;
-    })
-    .catch((reason) => {
-      throw new Error(reason);
-    });
+  await fetch("http://localhost:8000/api/auth/getUser", {
+    headers: {
+      "Authorization": `bearer ${id}`,
+      "Access-Control-Allow-Origin": "http://localhost:8000"
+    },
+  }).then(async (e) => {resp = await e.text()})
 
   return resp;
 }
@@ -32,11 +28,11 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     let id = localStorage.getItem("accessToken");
+    console.log(id)
     if (id !== null) {
       setUserId(id);
       getData(id)
         .then((resp) => {
-          console.log(resp);
           setUser(resp);
           setLoggedIn(true);
           setserverPresent(true);
