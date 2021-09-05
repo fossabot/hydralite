@@ -20,7 +20,9 @@ export default function Skeleton(props: ISkeletonData) {
       )}
       <div className="h-screen w-[calc(100vw-1rem)] flex flex-col">
         <Navbar />
-        <div className={props.sidebar ? `pl-[5rem]` : `pl-0`}>{props.children}</div>
+        <div className={props.sidebar ? `pl-[5rem]` : `pl-0`}>
+          {props.children}
+        </div>
       </div>
     </div>
   );

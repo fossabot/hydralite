@@ -12,10 +12,12 @@ async function getData(id: string): Promise<any> {
   let resp;
   await fetch("http://localhost:8000/api/auth/getUser", {
     headers: {
-      "Authorization": `bearer ${id}`,
-      "Access-Control-Allow-Origin": "http://localhost:8000"
+      Authorization: `bearer ${id}`,
+      "Access-Control-Allow-Origin": "http://localhost:8000",
     },
-  }).then(async (e) => {resp = await e.text()})
+  }).then(async (e) => {
+    resp = await e.text();
+  });
 
   return resp;
 }
@@ -28,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     let id = localStorage.getItem("accessToken");
-    console.log(id)
+    console.log(id);
     if (id !== null) {
       setUserId(id);
       getData(id)

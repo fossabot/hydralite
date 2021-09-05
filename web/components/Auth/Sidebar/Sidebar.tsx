@@ -31,12 +31,12 @@ export default function Sidebar() {
         img="https://cdn.discordapp.com/icons/810571477316403233/874696134fd345707cc17d29266a1d49.png?size=128"
       />
       <Link href="/projects/createProject">
-      <div className="md:w-10 md:h-10 md:ml-0 lg:w-12 lg:h-12 ml-5 my-2 flex items-center justify-center bg-iris-10 dark:bg-dark-bgMuted1 has-tooltip cursor-pointer rounded_box" >
-        <PlusIconSolid className="w-[60%] fill-current" />
-        <span className="tooltip absolute w-auto py-2 p-1 pr-2 truncate shadow-xl bg-iris-10 dark:bg-dark-bgMuted2 text-black dark:text-white font-montserrat ml-44">
-          New Project
-        </span>
-      </div>
+        <div className="md:w-10 md:h-10 md:ml-0 lg:w-12 lg:h-12 ml-5 my-2 flex items-center justify-center bg-iris-10 dark:bg-dark-bgMuted1 has-tooltip cursor-pointer rounded_box">
+          <PlusIconSolid className="w-[60%] fill-current" />
+          <span className="tooltip absolute w-auto py-2 p-1 pr-2 truncate shadow-xl bg-iris-10 dark:bg-dark-bgMuted2 text-black dark:text-white font-montserrat ml-44">
+            New Project
+          </span>
+        </div>
       </Link>
     </div>
   );

@@ -64,7 +64,11 @@ function RepoDropDown() {
 }
 
 const Window = () => {
-  return <NewWindow><h1>asdsad</h1></NewWindow>;
+  return (
+    <NewWindow>
+      <h1>asdsad</h1>
+    </NewWindow>
+  );
 };
 
 function OrgDropDown() {
@@ -201,7 +205,9 @@ const Provider = ({ setTab }) => {
           <div className="flex items-center pt-10 justify-between gap-2">
             {/* Style all of these components */}
             <div className="gap-2 flex">
-              <NewWindow><h1>asdsad</h1></NewWindow>
+              <NewWindow>
+                <h1>asdsad</h1>
+              </NewWindow>
               {/* <button onClick={() => (
               )}>Github</button> */}
               <button>GitLab</button>
