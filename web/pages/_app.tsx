@@ -1,7 +1,7 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import { AuthContextProvider } from "~/util/auth";
+import { AuthContextProvider } from "../utils/auth";
 
 import "../styles/globals.css";
 

@@ -12,13 +12,13 @@ Hydralite is an open-source, next-generation project marketing and management pl
 ## Project Components
 
 - [`web`](./web) - frontend Next.js web app
-- [`api`](./api) - GraphQL API/backend
 - [`cli`](./cli) - CLI
 - [`hydrabot`](./hydrabot) - Hydralite Discord Bot
 - [`landing`](./landing) - Landing Page
 - [`mobile`](./mobile) - Flutter mobile app
 - [`cz-commitlint-config`](./cz-commitlint-config) - custom types based on `@commitlint/config-conventional` NPM package and our custom Commitizen adapter based on `cz-conventional-changelog`
 - [`repo:prototypes`](https://github.com/hydralite/prototypes) - Prototypes
+- [`repo:api`](https://github.com/hydralite/Go-API) - API (closed source)
 
 ## Quick Start for Development
 
