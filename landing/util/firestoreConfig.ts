@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyDa9IbVWm_pCXObKsoasEtaGXhSvy0mmSg",
-  authDomain: "hydralite-8af6b.firebaseapp.com",
-  projectId: "hydralite-8af6b",
-  storageBucket: "hydralite-8af6b.appspot.com",
-  messagingSenderId: "57381956278",
-  appId: "1:57381956278:web:82803e3da39ce44e259417",
-  measurementId: "G-S5D220RZYE",
+  apiKey: "AIzaSyCp1s9A0OghuHrZ9nE2CDyEisA5Wx3c1G0",
+  authDomain: "hydraliteio.firebaseapp.com",
+  projectId: "hydraliteio",
+  storageBucket: "hydraliteio.appspot.com",
+  messagingSenderId: "461061257841",
+  appId: "1:461061257841:web:91348cd76181ae9ab7f9d0",
+  measurementId: "G-N4QBP0HYVV"
 };
