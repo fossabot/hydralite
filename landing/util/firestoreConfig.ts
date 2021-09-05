@@ -5,5 +5,5 @@ export const firebaseConfig = {
   storageBucket: "hydraliteio.appspot.com",
   messagingSenderId: "461061257841",
   appId: "1:461061257841:web:91348cd76181ae9ab7f9d0",
-  measurementId: "G-N4QBP0HYVV"
+  measurementId: "G-N4QBP0HYVV",
 };
