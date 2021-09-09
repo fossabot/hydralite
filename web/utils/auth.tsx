@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { serverUrl } from "./constants";
 // import { serverUrl } from "~/constants/global";
 
 export const AuthContext = createContext({
@@ -10,12 +11,12 @@ export const AuthContext = createContext({
 });
 async function getData(id: string): Promise<any> {
   let resp;
-  await fetch("http://localhost:8000/api/auth/getUser", {
+  await axios.get(`${serverUrl}/api/auth/getUser`, {
     headers: {
       "Authorization": `bearer ${id}`,
       "Access-Control-Allow-Origin": "http://localhost:8000"
     },
-  }).then(async (e) => {resp = await e.text()})
+  }).then(async (e) => {resp = await e.data})
 
   return resp;
 }
@@ -35,6 +36,7 @@ export const AuthContextProvider = ({ children }) => {
         .then((resp) => {
           setUser(resp);
           setLoggedIn(true);
+          console.log(resp)
           setserverPresent(true);
         })
         .catch((e) => {

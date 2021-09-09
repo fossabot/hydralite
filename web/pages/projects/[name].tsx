@@ -3,6 +3,7 @@ import Skeleton from "../../hoc/Skeleton/Skeleton";
 
 export default function Project() {
   return (
+    // @ts-expect-error
     <Skeleton>
       <div className="w-[calc(100vw-6.5rem)] ml-6 flex">
         <div className="w-[200px] h-[calc(100vh-4rem)] ">

@@ -5,87 +5,75 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import Image from "next/image";
-import NewWindow from "react-new-window";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { serverUrl } from "../../utils/constants";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
-function RepoDropDown() {
-  let repo = [
-    {
-      name: "hydralite",
-    },
-    {
-      name: "joule.rs",
-    },
-  ];
-  return (
-    <Menu as="div" className="relative inline-block text-left mt-7 ml-5">
-      <div>
-        <Menu.Button className="inline-flex justify-between w-full bg-[#2E374A] rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-          <div>{repo[0].name}</div>
-          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-        </Menu.Button>
-      </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="origin-top-right absolute overflow right-0 mt-2 w-full rounded-md shadow-lg bg-[#2E374A] ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            {repo.map((val) => {
-              return (
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-black" : "text-white",
-                        "flex items-center gap-2 px-4 py-2 text-sm "
-                      )}
-                    >
-                      {val.name}
-                    </a>
-                  )}
-                </Menu.Item>
-              );
-            })}
+interface IRepoData {
+  repo: [];
+  setGitRepo: any;
+}
+function RepoDropDown(props: IRepoData) {
+  if (props.repo !== null) {
+    if (props.repo.length != 0 && props.repo !== undefined) {
+      return (
+        <Menu as="div" className="relative inline-block text-left mt-7 ml-5">
+          <div>
+            <Menu.Button className="inline-flex justify-between w-full bg-[#2E374A] rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+              <div>{props.repo[0].name}</div>
+              <ChevronDownIcon
+                className="-mr-1 ml-2 h-5 w-5"
+                aria-hidden="true"
+              />
+            </Menu.Button>
           </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
-  );
+
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="origin-top-right absolute overflow right-0 mt-2 w-full rounded-md shadow-lg bg-[#2E374A] ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="py-1">
+                {props.repo.map((val) => {
+                  return (
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          onClick={()=>props.setGitRepo(val.name)}
+                          href="#"
+                          className={classNames(
+                            active ? "bg-gray-100 text-black" : "text-white",
+                            "flex items-center gap-2 px-4 py-2 text-sm "
+                          )}
+                        >
+                          {val.name}
+                        </a>
+                      )}
+                    </Menu.Item>
+                  );
+                })}
+              </div>
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      );
+    }else{
+      return <>No repositories found</>
+    }
+  } else {
+    return <>No repositories found</>;
+  }
 }
 
-const Window = () => {
-  return <NewWindow><h1>asdsad</h1></NewWindow>;
-};
-
-function OrgDropDown() {
-  let user = {
-    name: "VarunPotti",
-    avatarUrl: "https://avatars.githubusercontent.com/u/77481923?v=4",
-  };
-  let orgs = [
-    {
-      name: "hydralite",
-      avatarUrl: "https://avatars.githubusercontent.com/u/81620813?v=4",
-    },
-    {
-      name: "zetalang",
-      avatarUrl: "https://avatars.githubusercontent.com/u/85721934?v=4",
-    },
-    {
-      name: "jsx-one",
-      avatarUrl: "https://avatars.githubusercontent.com/u/86122399?v=4",
-    },
-  ];
+function OrgDropDown({ orgs, user, setGitUser }) {
   return (
     <Menu as="div" className="relative inline-block text-left mt-7">
       <div>
@@ -124,6 +112,7 @@ function OrgDropDown() {
                         active ? "bg-gray-100 text-black" : "text-white",
                         "flex items-center gap-2 px-4 py-2 text-sm "
                       )}
+                      onClick={()=>setGitUser(val.name)}
                     >
                       <Image
                         src={val.avatarUrl}
@@ -201,9 +190,13 @@ const Provider = ({ setTab }) => {
           <div className="flex items-center pt-10 justify-between gap-2">
             {/* Style all of these components */}
             <div className="gap-2 flex">
-              <NewWindow><h1>asdsad</h1></NewWindow>
-              {/* <button onClick={() => (
-              )}>Github</button> */}
+              <button
+                onClick={() => {
+                  GetGHToken("github");
+                }}
+              >
+                Github
+              </button>
               <button>GitLab</button>
               <button>BitBucket</button>
             </div>
@@ -217,7 +210,30 @@ const Provider = ({ setTab }) => {
   );
 };
 
-const Repository = ({ setTab }) => {
+const Repository = ({ setTab, accessToken, setGitUser, setGitRepo  }) => {
+  const [orgs, SetOrgs] = useState(null);
+  const [repo, SetRepo] = useState(null);
+  useEffect(() => {
+    axios
+      .post(`${serverUrl}/api/auth/github/callback/project/getOrgs`, {
+        accessToken: accessToken,
+      })
+      .then((resp) => {
+        console.log(resp.data);
+        SetOrgs(resp.data);
+      })
+      .catch((e) => console.log(e));
+    axios
+      .post(`${serverUrl}/api/auth/github/callback/project/getRepo`, {
+        accessToken: accessToken,
+      })
+      .then((resp) => {
+        console.log(resp.data);
+        SetRepo(resp.data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <div className="w-full h-auto flex items-center justify-center p-24 font-montserrat">
       <div className="bg-[#282E3B] w-full h-full drop-shadow-md rounded-md">
@@ -236,8 +252,12 @@ const Repository = ({ setTab }) => {
             </span>
           </h5>
           <div className="grid grid-cols-2">
-            <OrgDropDown />
-            <RepoDropDown />
+            {orgs != null ? (
+              <OrgDropDown user={orgs[0]} orgs={orgs} setGitUser={setGitUser} />
+            ) : (
+              <div></div>
+            )}
+            <RepoDropDown repo={repo} setGitRepo={setGitRepo} />
           </div>
         </div>
       </div>
@@ -245,8 +265,44 @@ const Repository = ({ setTab }) => {
   );
 };
 
+const Details = ({gitUser, gitRepo, setGitUser, setGitRepo}) => {
+  return (
+    <h1>{gitUser}/{gitRepo}</h1>
+  )
+}
+
+const GetGHToken = (name: string) => {
+  axios
+    .get(`${serverUrl}/api/auth/import/${name}`)
+    .then((resp) => (window.location = resp.data as any));
+};
 export default function CreateProject() {
+  const [GitUser, SetGitUser] = useState("")
+  const [GitRepo, SetGitRepo] = useState("")
   const [tab, setTab] = useState("provider");
+  const [accessToken, setAccessToken] = useState("");
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if (
+      !query ||
+      !query.has("code") ||
+      !query.has("state") ||
+      !query.has("provider")
+    ) {
+      setTab("provider");
+    } else {
+      axios
+        .get(
+          `${serverUrl}/api/auth/import/callback/${query.get(
+            "provider"
+          )}?code=${query.get("code")}&state=${query.get("state")}`
+        )
+        .then((resp) => {
+          setAccessToken(resp.data);
+          setTab("repo");
+        });
+    }
+  }, []);
   return (
     <Skeleton sidebar={false}>
       <div className="h-[calc(100vh-3.5rem)] p-7 w-[100vw] flex items-center justify-center flex-col overflow-hidden">
@@ -262,8 +318,12 @@ export default function CreateProject() {
             ) : (
               <span></span>
             )}
-            {tab === "repo" ? <Repository setTab={setTab} /> : <span></span>}
-            {tab === "details" ? <div>Repo</div> : <span></span>}
+            {tab === "repo" ? (
+              <Repository accessToken={accessToken} setTab={setTab} setGitUser={SetGitUser} setGitRepo={SetGitRepo} />
+            ) : (
+              <span></span>
+            )}
+            {tab === "details" ? <Details setGitRepo={SetGitRepo} gitRepo={GitRepo} gitUser={GitUser}  setGitUser={SetGitUser} /> : <span></span>}
           </div>
         </div>
         <div className="h-96"></div>

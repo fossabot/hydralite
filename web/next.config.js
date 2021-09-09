@@ -9,6 +9,9 @@ const nextConfig = {
       "avatars.githubusercontent.com",
     ],
   },
+  env: {
+    API_URL: process.env.API_URL
+  }
 };
 
 module.exports = withPlugins([[withImages]], nextConfig);
