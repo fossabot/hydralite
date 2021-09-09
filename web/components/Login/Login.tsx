@@ -45,9 +45,8 @@ const Button: React.FC<LoginButtonProps> = ({
   );
 };
 
-export default function Example({isopen, setIsOpen}) {
+export default function Example({ isopen, setIsOpen }) {
   const closeModal = () => setIsOpen(false);
-
 
   return (
     <Modal isOpen={isopen} setIsOpen={closeModal}>

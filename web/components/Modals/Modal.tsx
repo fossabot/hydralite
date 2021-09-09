@@ -8,7 +8,11 @@ interface ModalProps {
   width?: any;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children, isOpen, setIsOpen }) => {
+export const Modal: React.FC<ModalProps> = ({
+  children,
+  isOpen,
+  setIsOpen,
+}) => {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog

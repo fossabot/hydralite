@@ -27,7 +27,6 @@ export default function UnauthLanding() {
           </span>
         </div>
       </div>
-
     </div>
   );
 }
