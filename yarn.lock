@@ -953,14 +953,15 @@ __metadata:
     "@types/react": ^17.0.19
     autoprefixer: ^10.2.6
     axios: ^0.21.2
+    husky: ^7.0.2
     next: latest
     next-compose-plugins: ^2.2.1
     next-images: ^1.8.1
     next-themes: ^0.0.15
     postcss: ^8.3.5
+    prettier: ^2.4.0
     react: ^17.0.2
     react-dom: ^17.0.2
-    react-new-window: ^0.1.3
     react-text-loop: ^2.3.0
     tailwindcss: ^2.2.4
     typescript: ^4.4.2
@@ -5994,6 +5995,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"husky@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "husky@npm:7.0.2"
+  bin:
+    husky: lib/bin.js
+  checksum: 2ccfe6ddc51dc05ae8ea1e2fbb893344e93a813e00c595d6b5f5e704b7b998d6b0e2adda7c57f99b5e46a60dc07c7d860269a2ea91661c6bacef0eca8e0b8e96
+  languageName: node
+  linkType: hard
+
 "hydralite@workspace:.":
   version: 0.0.0-use.local
   resolution: "hydralite@workspace:."
@@ -6013,6 +6023,7 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react: ^7.21.5
     eslint-plugin-react-hooks: ^4
+    husky: ^7.0.2
     prettier: ^2.3.2
   languageName: unknown
   linkType: soft
@@ -8588,6 +8599,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "prettier@npm:2.4.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: ac1bf07566dad5f58469e6d8a954bd5c0f833935597deb00330e9f673e14e4cf81e07dee7eff5776c0edebe11358d199f332d9940be40c8b455516034e553ce0
+  languageName: node
+  linkType: hard
+
 "pretty-hrtime@npm:^1.0.3":
   version: 1.0.3
   resolution: "pretty-hrtime@npm:1.0.3"
@@ -8970,18 +8990,6 @@ __metadata:
   peerDependencies:
     react: ^0.14.9 || ^15.3.0 || ^16.0.0
   checksum: b1b2ab15d0e7492be827576fa7238c11679b52495a640b1234400771fdeac9ded8909532135b4a84be28e21e63dc97d54758d08ba280f90409b54104730b29c0
-  languageName: node
-  linkType: hard
-
-"react-new-window@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "react-new-window@npm:0.1.3"
-  dependencies:
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^16.0.0
-    react-dom: ^16.0.0
-  checksum: b109b5a4da0c05740c32c996b313354df7b1e2c46d93099af49501e59a73d67993f424bc31f12acaaf411a51d4e248bbaa12158c1ddd0e0fc802ac38144f0a39
   languageName: node
   linkType: hard
 
