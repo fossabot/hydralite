@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
+import TextLoop from "react-text-loop";
+import scrollToRef from "util/scrollToRef";
 import Button from "~/components/Button/Button";
 import styles from "~/styles/index.module.css";
-import TextLoop from "react-text-loop";
 import { projectName } from "~/constants";
 import SectionOne from "~/components/Landing/SectionOne";
 import SectionTwo from "~/components/Landing/SectionTwo";
 import Layout from "~/components/Layout";
-import scrollToRef from "util/scrollToRef";
 import ConnectCard from "~/components/ConnectCard/ConnectCard";
 import Meta from "~/components/Meta";
 

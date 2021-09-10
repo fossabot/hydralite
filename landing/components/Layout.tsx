@@ -10,14 +10,12 @@ const Layout = ({
   children?: any;
   navType: "home" | "dash";
   connectCardRef: React.MutableRefObject<any>;
-}) => {
-  return (
-    <div>
-      {navType === "home" && <Navbar connectCardRef={connectCardRef} />}
-      {children}
-      <Footer />
-    </div>
-  );
-};
+}) => (
+  <div>
+    {navType === "home" && <Navbar connectCardRef={connectCardRef} />}
+    {children}
+    <Footer />
+  </div>
+);
 
 export default Layout;

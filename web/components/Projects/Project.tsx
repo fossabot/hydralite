@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Skeleton from "../../hoc/Skeleton/Skeleton";
 
-import axios from "axios";
 import { serverUrl } from "../../utils/constants";
-import { Provider } from "./Pages/Provider";
-import { Repository } from "./Pages/Repo";
-import { Tabs } from "./Tabs";
-import { Details } from "./Pages/Details";
+import Provider from "./Pages/Provider";
+import Repository from "./Pages/Repo";
+import Tabs from "./Tabs";
+import Details from "./Pages/Details";
 
-export default function CreateProject() {
-  const [GitUser, SetGitUser] = useState("");
-  const [GitRepo, SetGitRepo] = useState("");
+const CreateProject: React.FC = () => {
+  const [GitUser, SetGitUser] = useState(null);
+  const [GitRepo, SetGitRepo] = useState(null);
   const [tab, setTab] = useState("provider");
   const [accessToken, setAccessToken] = useState("");
   useEffect(() => {
@@ -43,13 +43,9 @@ export default function CreateProject() {
           <span className="text-dark-color-accent font-extrabold">project</span>
         </h1>
         <div className="w-[80vw] h-[80vh]">
-          <Tabs tab={tab} setTab={setTab}></Tabs>
+          <Tabs tab={tab} setTab={setTab} />
           <div className="mt-11">
-            {tab === "provider" ? (
-              <Provider setTab={setTab}></Provider>
-            ) : (
-              <span></span>
-            )}
+            {tab === "provider" ? <Provider setTab={setTab} /> : <span />}
             {tab === "repo" ? (
               <Repository
                 accessToken={accessToken}
@@ -58,22 +54,24 @@ export default function CreateProject() {
                 setGitRepo={SetGitRepo}
               />
             ) : (
-              <span></span>
+              <span />
             )}
             {tab === "details" ? (
               <Details
-                setGitRepo={SetGitRepo}
+                // setGitRepo={SetGitRepo}
                 gitRepo={GitRepo}
                 gitUser={GitUser}
-                setGitUser={SetGitUser}
+                setTab={setTab}
+                // setGitUser={SetGitUser}
               />
             ) : (
-              <span></span>
+              <span />
             )}
           </div>
         </div>
-        <div className="h-96"></div>
+        <div className="h-96" />
       </div>
     </Skeleton>
   );
-}
+};
+export default CreateProject;

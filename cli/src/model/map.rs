@@ -1,5 +1,4 @@
 use super::{app::App, command::Command};
-use crate::commands::get::command::Get;
 use crate::commands::{add::command::Add, explore::command::Explore, push::command::Push};
 use crate::VERSION;
 use colored::Colorize;

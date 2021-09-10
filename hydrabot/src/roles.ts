@@ -7,10 +7,9 @@ import {
   Member,
 } from "@duxcore/interactive-discord";
 import { Message, TextChannel } from "discord.js";
+import { io } from "socket.io-client";
 import { Bot } from "./classes/bot";
 import { servers } from "./servers";
-
-import { io } from "socket.io-client";
 
 let client: Bot;
 export function init(bot: Bot) {
@@ -117,7 +116,7 @@ function getButton(type: string, title: string) {
   if (r) msg = `${r.add ? "+" : "-"} ${r.user}`;
 
   return new ButtonComponent({
-    style: style,
+    style,
     label: msg,
     custom_id: type,
   });

@@ -2,10 +2,48 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import React, { useState, useEffect, Fragment } from "react";
-import { serverUrl } from "../../../utils/constants";
 import Image from "next/image";
+import { serverUrl } from "../../../utils/constants";
 
-function classNames(...classes) {
+const GetOrganizations = (
+  SetOrgs: React.Dispatch<string>,
+  accessToken: string,
+  name: string
+) => {
+  axios
+    .post(
+      `${serverUrl}/api/auth/github/callback/project/getOrgs?name=${name}`,
+      {
+        accessToken,
+      }
+    )
+    .then((resp) => {
+      SetOrgs(resp.data);
+    })
+    .catch((e) => console.log(e));
+};
+
+const UpdateGitData = (
+  setOrgs: React.Dispatch<string>,
+  setRepos: React.Dispatch<string>,
+  accessToken: string,
+  gitUserName: string
+) => {
+  GetOrganizations(setOrgs, accessToken, gitUserName);
+  axios
+    .post(
+      `${serverUrl}/api/auth/github/callback/project/getRepo?user=${gitUserName}`,
+      {
+        accessToken,
+      }
+    )
+    .then((resp) => {
+      setRepos(resp.data);
+    })
+    .catch((e) => console.log(e));
+};
+
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 interface IRepoData {
@@ -17,13 +55,15 @@ interface IReposData {
 }
 
 function RepoDropDown(props: IReposData) {
+  const [priv_repo, setPrivateRepo] = useState(props.repo[0]);
+
   if (props.repo !== null) {
     if (props.repo.length != 0 && props.repo !== undefined) {
       return (
         <Menu as="div" className="relative inline-block text-left mt-7 ml-5">
           <div>
             <Menu.Button className="inline-flex justify-between w-full bg-[#2E374A] rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-              <div>{props.repo[0].name}</div>
+              <div>{priv_repo.name}</div>
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5"
                 aria-hidden="true"
@@ -42,50 +82,57 @@ function RepoDropDown(props: IReposData) {
           >
             <Menu.Items className="origin-top-right absolute overflow right-0 mt-2 w-full rounded-md shadow-lg bg-[#2E374A] ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
-                {props.repo.map((val) => {
-                  return (
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          onClick={() => props.setGitRepo(val.name)}
-                          href="#"
-                          className={classNames(
-                            active ? "bg-gray-100 text-black" : "text-white",
-                            "flex items-center gap-2 px-4 py-2 text-sm "
-                          )}
-                        >
-                          {val.name}
-                        </a>
-                      )}
-                    </Menu.Item>
-                  );
-                })}
+                {props.repo.map((val) => (
+                  <Menu.Item key={val.name}>
+                    {({ active }) => (
+                      <a
+                        onClick={() => {
+                          setPrivateRepo({ name: val.name });
+                          props.setGitRepo(val.name);
+                        }}
+                        href="#"
+                        className={classNames(
+                          active ? "bg-gray-100 text-black" : "text-white",
+                          "flex items-center gap-2 px-4 py-2 text-sm "
+                        )}
+                      >
+                        {val.name}
+                      </a>
+                    )}
+                  </Menu.Item>
+                ))}
               </div>
             </Menu.Items>
           </Transition>
         </Menu>
       );
-    } else {
-      return <>No repositories found</>;
     }
-  } else {
     return <>No repositories found</>;
   }
+  return <>No repositories found</>;
 }
 
-function OrgDropDown({ orgs, user, setGitUser }) {
+function OrgDropDown({
+  orgs,
+  user,
+  setGitOrg,
+  setGitUser,
+  setGitRepo,
+  accessToken,
+}) {
+  const [priv_user, setUser] = useState(user);
   return (
     <Menu as="div" className="relative inline-block text-left mt-7">
       <div>
         <Menu.Button className="inline-flex justify-between w-full bg-[#2E374A] rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
           <div className="flex gap-2 items-center">
             <Image
-              src={user.avatarUrl}
+              src={priv_user.avatarUrl}
               className="rounded-xl"
               width="25%"
               height="25%"
-            ></Image>
-            {user.name}
+            />
+            {priv_user.name}
           </div>
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
@@ -102,30 +149,37 @@ function OrgDropDown({ orgs, user, setGitUser }) {
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-[#2E374A] ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {orgs.map((val) => {
-              return (
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-black" : "text-white",
-                        "flex items-center gap-2 px-4 py-2 text-sm "
-                      )}
-                      onClick={() => setGitUser(val.name)}
-                    >
-                      <Image
-                        src={val.avatarUrl}
-                        className="rounded-xl"
-                        width="25%"
-                        height="25%"
-                      ></Image>
-                      {val.name}
-                    </a>
-                  )}
-                </Menu.Item>
-              );
-            })}
+            {orgs.map((val) => (
+              <Menu.Item key={val}>
+                {({ active }) => (
+                  <a
+                    href="#"
+                    className={classNames(
+                      active ? "bg-gray-100 text-black" : "text-white",
+                      "flex items-center gap-2 px-4 py-2 text-sm "
+                    )}
+                    onClick={() => {
+                      UpdateGitData(
+                        setGitOrg,
+                        setGitRepo,
+                        accessToken,
+                        val.name
+                      );
+                      setGitUser(val.name);
+                      setUser({ name: val.name, avatarUrl: val.avatarUrl });
+                    }}
+                  >
+                    <Image
+                      src={val.avatarUrl}
+                      className="rounded-xl"
+                      width="25%"
+                      height="25%"
+                    />
+                    {val.name}
+                  </a>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>
@@ -133,28 +187,23 @@ function OrgDropDown({ orgs, user, setGitUser }) {
   );
 }
 
-export const Repository = ({ setTab, accessToken, setGitUser, setGitRepo }) => {
+interface IRepositoryData {
+  setTab: React.Dispatch<React.SetStateAction<string>>;
+  accessToken: string;
+  setGitUser: React.Dispatch<React.SetStateAction<string>>;
+  setGitRepo: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Repository: React.FC<IRepositoryData> = ({
+  setTab,
+  accessToken,
+  setGitRepo,
+  setGitUser,
+}) => {
   const [orgs, SetOrgs] = useState(null);
   const [repo, SetRepo] = useState(null);
   useEffect(() => {
-    axios
-      .post(`${serverUrl}/api/auth/github/callback/project/getOrgs`, {
-        accessToken: accessToken,
-      })
-      .then((resp) => {
-        console.log(resp.data);
-        SetOrgs(resp.data);
-      })
-      .catch((e) => console.log(e));
-    axios
-      .post(`${serverUrl}/api/auth/github/callback/project/getRepo`, {
-        accessToken: accessToken,
-      })
-      .then((resp) => {
-        console.log(resp.data);
-        SetRepo(resp.data);
-      })
-      .catch((e) => console.log(e));
+    UpdateGitData(SetOrgs, SetRepo, accessToken, "");
   }, []);
 
   return (
@@ -175,15 +224,27 @@ export const Repository = ({ setTab, accessToken, setGitUser, setGitRepo }) => {
             </span>
           </h5>
           <div className="grid grid-cols-2">
-            {orgs != null ? (
-              <OrgDropDown user={orgs[0]} orgs={orgs} setGitUser={setGitUser} />
+            {orgs != undefined ? (
+              <OrgDropDown
+                setGitOrg={SetOrgs}
+                user={orgs[0]}
+                orgs={orgs}
+                setGitUser={setGitUser}
+                accessToken={accessToken}
+                setGitRepo={SetRepo}
+              />
             ) : (
-              <div></div>
+              <div />
             )}
-            <RepoDropDown repo={repo} setGitRepo={setGitRepo} />
+            {repo != null ? (
+              <RepoDropDown repo={repo} setGitRepo={setGitRepo} />
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
+export default Repository;

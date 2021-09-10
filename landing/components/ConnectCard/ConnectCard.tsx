@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import FirestoreManager from "~/util/firestoreManager";
 import styles from "./ConnectCard.module.css";
-import toast, { Toaster } from "react-hot-toast";
 import Icon from "~/components/Icon";
 
 const error = (msg) => toast.error(msg);

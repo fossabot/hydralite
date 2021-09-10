@@ -1,8 +1,8 @@
-require("dotenv").config();
-
 import { Bot } from "./classes/bot";
 import { init, sendRoles } from "./roles";
 import { servers } from "./servers";
+
+require("dotenv").config();
 
 const client = new Bot();
 

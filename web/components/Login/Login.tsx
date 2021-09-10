@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useRef, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import React from "react";
+import { Dialog } from "@headlessui/react";
+import axios from "axios";
 import GithubIcon from "../../icons/solid/GitHubIconSolid";
 import GitLabIcon from "../../icons/solid/GitLabIcon";
 import GoogleIcon from "../../icons/solid/GoogleIconSolid";
 import BitBucketIcon from "../../icons/solid/BitbucketIcon";
 import Modal from "../Modals/Modal";
-import axios from "axios";
 import { serverUrl } from "../../utils/constants";
 
 interface LoginButtonProps {
@@ -31,9 +31,9 @@ const Button: React.FC<LoginButtonProps> = ({
     w-full inline-flex sm:py-3 monteserrat h-full justify-center rounded-lg border  shadow-sm px-1 py-2 bg-acrylic-10 text-base font-medium text-gray-700 hover:shadow-md duration-200 hover:bg-gray-50  focus:outline-none  sm:text-sm
     "
         onClick={async () => {
-          axios
-            .get(`${serverUrl}/api/auth/${provider}`)
-            .then((e) => (window.location = e.data as any));
+          axios.get(`${serverUrl}/api/auth/${provider}`).then((e) => {
+            window.location = e.data as any;
+          });
         }}
       >
         <div
@@ -47,7 +47,10 @@ const Button: React.FC<LoginButtonProps> = ({
   );
 };
 
-export default function Example({ isopen, setIsOpen }) {
+const Login: React.FC<{ isopen: boolean; setIsOpen: any }> = ({
+  isopen,
+  setIsOpen,
+}) => {
   const closeModal = () => setIsOpen(false);
 
   return (
@@ -66,14 +69,14 @@ export default function Example({ isopen, setIsOpen }) {
         </div>
       </div>
       <div className="mt-5 sm:mt-6 sm:mx-3 sm:grid sm:grid-cols-2 sm:gap-2 sm:grid-flow-row-dense">
-        <Button provider="google" title="Google" icon={<GoogleIcon />}></Button>
-        <Button provider="github" title="Github" icon={<GithubIcon />}></Button>
+        <Button provider="google" title="Google" icon={<GoogleIcon />} />
+        <Button provider="github" title="Github" icon={<GithubIcon />} />
         <Button
           provider="bitbucket"
           title="BitBucket"
           icon={<BitBucketIcon />}
-        ></Button>
-        <Button provider="gitlab" title="GitLab" icon={<GitLabIcon />}></Button>
+        />
+        <Button provider="gitlab" title="GitLab" icon={<GitLabIcon />} />
       </div>
       <div className="mt-5 w-full ">
         <p className="text-sm text-center sm:pt-2 text-gray-700 monteserrat">
@@ -89,4 +92,6 @@ export default function Example({ isopen, setIsOpen }) {
       </div>
     </Modal>
   );
-}
+};
+
+export default Login;

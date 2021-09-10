@@ -8,18 +8,16 @@ const Icon = ({
   name: string;
   className?: string;
   style?: CSSProperties;
-}) => {
-  return (
-    <img
-      className={className}
-      src={`/icons/${name}.svg`}
-      draggable="false"
-      style={{
-        userSelect: "none",
-        ...style,
-      }}
-    />
-  );
-};
+}) => (
+  <img
+    className={className}
+    src={`/icons/${name}.svg`}
+    draggable="false"
+    style={{
+      userSelect: "none",
+      ...style,
+    }}
+  />
+);
 
 export default Icon;

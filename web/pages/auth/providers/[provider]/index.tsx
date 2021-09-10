@@ -1,14 +1,14 @@
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { serverUrl } from "../../../../utils/constants";
 
-async function get(provider: string, code: string, state: string) {
+const get = async (provider: string, code: string, state: string) => {
   const result = await fetch(
     `${serverUrl}/api/auth/callback/${provider}?code=${code}&state=${state}`
   )
     .then((v) => v.json())
     .catch((v) => ({ error: v }));
-  if (result.error) return console.log(result.error);
+  // if (result.error) return console.log(result.error);
 
   if (result.accessToken)
     localStorage.setItem("accessToken", result.accessToken);
@@ -16,7 +16,7 @@ async function get(provider: string, code: string, state: string) {
     localStorage.setItem("refreshToken", result.refreshToken);
 
   window.location.href = "/";
-}
+};
 
 const Auth: React.FC = () => {
   const loading = (

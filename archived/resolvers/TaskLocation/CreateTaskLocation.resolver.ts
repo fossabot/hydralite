@@ -1,6 +1,6 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
-import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
+import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { CreateTaskLocationArgs } from "./args/CreateTaskLocationArgs";
 import { TaskLocation } from "~/models/index";
@@ -17,7 +17,7 @@ export class CreateTaskLocationResolver {
     @Arg("args") args: CreateTaskLocationArgs
   ): Promise<TaskLocation> {
     // extract the logged in user
-    const user: User = (req as any).user;
+    const { user } = req as any;
 
     // validate that user that is assigning the role has perms
     const loggedInMember = await memberRepo.findMemberByUserAndProjectId(

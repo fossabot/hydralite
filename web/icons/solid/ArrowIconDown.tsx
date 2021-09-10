@@ -1,3 +1,5 @@
+import React from "react";
+
 const ArrowIconDown: React.FC<React.HTMLAttributes<SVGSVGElement>> = (
   props
 ) => (

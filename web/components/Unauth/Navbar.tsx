@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "../Login/Login";
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
   const [open, SetIsOpen] = useState(false);
 
   return (

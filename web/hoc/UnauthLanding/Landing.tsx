@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import TextLoop from "react-text-loop";
-import Login from "../../components/Login/Login";
 import Navbar from "../../components/Unauth/Navbar";
 
 export default function UnauthLanding() {

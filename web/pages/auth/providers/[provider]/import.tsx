@@ -1,9 +1,7 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-export default function Import() {
+const Import: React.FC = () => {
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    // console.log(window.location.host)
     window.location = `http://${window.location.host}/projects/createProject${
       window.location.search
     }&provider=${window.location.pathname.split("/")[3]}` as any;
@@ -13,4 +11,5 @@ export default function Import() {
       Loading
     </div>
   );
-}
+};
+export default Import;

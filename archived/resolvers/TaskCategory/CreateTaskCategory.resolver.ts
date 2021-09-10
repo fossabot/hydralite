@@ -1,6 +1,6 @@
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
-import ContextType from "~/types/Context.type";
 import { User } from "@prisma/client";
+import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
 import { CreateTaskCategoryArgs } from "./args/CreateTaskCategoryArgs";
 import { connectIdArray } from "~/util/connectIdArray";
@@ -18,7 +18,7 @@ export class CreateTaskCategoryResolver {
     @Arg("args") args: CreateTaskCategoryArgs
   ): Promise<TaskCategory> {
     // extract the logged in user
-    const user: User = (req as any).user;
+    const { user } = req as any;
 
     // validate that user that is assigning the role has perms
     const loggedInMember = await memberRepo.findMemberByUserAndProjectId(

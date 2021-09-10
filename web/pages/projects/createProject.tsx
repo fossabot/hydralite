@@ -1,4 +1,6 @@
+import React from "react";
 import ProjectCreator from "../../components/Projects/Project";
-export default function CreateProject() {
-  return <ProjectCreator />;
-}
+
+const CreateProject: React.FC = () => <ProjectCreator />;
+
+export default CreateProject;

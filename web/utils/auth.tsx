@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { serverUrl } from "./constants";
-// import { serverUrl } from "~/constants/global";
 
 export const AuthContext = createContext({
   user: null,
@@ -9,8 +8,8 @@ export const AuthContext = createContext({
   loggedIn: false,
   serverPresent: false,
 });
-async function getData(id: string): Promise<any> {
-  let resp;
+async function getData(id: string): Promise<string> {
+  let resp: string;
   await axios
     .get(`${serverUrl}/api/auth/getUser`, {
       headers: {
@@ -25,26 +24,23 @@ async function getData(id: string): Promise<any> {
   return resp;
 }
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [loggedIn, setLoggedIn] = useState(null);
   const [serverPresent, setserverPresent] = useState(null);
 
   useEffect(() => {
-    let id = localStorage.getItem("accessToken");
-    console.log(id);
+    const id = localStorage.getItem("accessToken");
     if (id !== null) {
       setUserId(id);
       getData(id)
         .then((resp) => {
           setUser(resp);
           setLoggedIn(true);
-          console.log(resp);
           setserverPresent(true);
         })
-        .catch((e) => {
-          console.error(e);
+        .catch(() => {
           setserverPresent(false);
         });
     } else {
@@ -56,8 +52,8 @@ export const AuthContextProvider = ({ children }) => {
       value={{
         user_id: userId,
         user,
-        loggedIn: loggedIn,
-        serverPresent: serverPresent,
+        loggedIn,
+        serverPresent,
       }}
     >
       {children}
@@ -65,4 +61,4 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth: any = () => useContext(AuthContext);

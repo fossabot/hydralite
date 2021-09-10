@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { serverUrl } from "../../../utils/constants";
 
 async function get(provider: string, code: string, state: string) {
