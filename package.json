@@ -72,6 +72,11 @@
     "concurrently": "^6.2.0",
     "husky": "^7.0.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "prettier --write . && git add -A ."
+    }
+  },
   "config": {
     "commitizen": {
       "path": "./cz-commitlint-config",
