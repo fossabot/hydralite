@@ -4,7 +4,7 @@ import { serverUrl } from "../../../../utils/constants";
 
 async function get(provider: string, code: string, state: string) {
   const result = await fetch(
-    `${serverUrl}/api/auth/callback/${provider}?code=${code}&state=${state}`,
+    `${serverUrl}/api/auth/callback/${provider}?code=${code}&state=${state}`
   )
     .then((v) => v.json())
     .catch((v) => ({ error: v }));

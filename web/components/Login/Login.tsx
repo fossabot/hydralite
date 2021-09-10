@@ -31,7 +31,9 @@ const Button: React.FC<LoginButtonProps> = ({
     w-full inline-flex sm:py-3 monteserrat h-full justify-center rounded-lg border  shadow-sm px-1 py-2 bg-acrylic-10 text-base font-medium text-gray-700 hover:shadow-md duration-200 hover:bg-gray-50  focus:outline-none  sm:text-sm
     "
         onClick={async () => {
-          axios.get(`${serverUrl}/api/auth/${provider}`).then((e) => window.location = e.data as any)
+          axios
+            .get(`${serverUrl}/api/auth/${provider}`)
+            .then((e) => (window.location = e.data as any));
         }}
       >
         <div
