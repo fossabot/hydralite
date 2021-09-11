@@ -1,9 +1,11 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import axios from "axios";
-
+import toast, { Toaster } from "react-hot-toast";
 import React, { Fragment, useState } from "react";
 import { serverUrl } from "../../../utils/constants";
+const error = (msg) => toast.error(msg);
+
 interface IDetails {
   gitUser: any;
   gitRepo: any;
@@ -81,11 +83,14 @@ const createProjectinDB = async (
   URI
 ) => {
   const id = localStorage.getItem("accessToken");
+  if (pname === "" || description === "" || isPrivate === "" || URI === "") {
+    error("Value cannot be undefined");
+  }
   await axios
     .post(
       `${serverUrl}/api/project/create`,
       {
-        name: gitUser,
+        name: pname,
         isPrivate: isPrivate,
         url: URI,
         gitProject: `https://github.com/${gitUser}/${gitRepo}`,

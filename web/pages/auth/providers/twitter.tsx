@@ -1,12 +1,13 @@
-import { useRouter } from "next/router";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { serverUrl } from "../../../utils/constants";
 
-async function get(provider: string, code: string, state: string) {
-  const result = await fetch(
-    `${serverUrl}/api/auth/callback/${provider}?code=${code}&state=${state}`
-  )
-    .then((v) => v.json())
+async function get(provider: string, token: string, verifier: string) {
+  const result = await axios
+    .get(
+      `${serverUrl}/api/auth/callback/${provider}?oauth_token=${token}&oauth_verifier=${verifier}`
+    )
+    .then((v) => v.data)
     .catch((v) => ({ error: v }));
   if (result.error) return console.log(result.error);
 
@@ -20,24 +21,22 @@ async function get(provider: string, code: string, state: string) {
 
 const Auth: React.FC = () => {
   const loading = (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="w-screen h-screen flex justify-center items-center text-black">
       Loading...
     </div>
   );
-
-  const router = useRouter();
-  const { provider } = router.query;
 
   if (typeof window === "undefined") return loading;
   const query = new URLSearchParams(window.location.search);
 
   useEffect(() => {
-    if (!query || !query.has("code") || !query.has("state")) return;
-    if (!provider) return;
-    get(provider as string, query.get("code"), query.get("state"));
-  }, [query, provider]);
+    if (!query || !query.has("oauth_token") || !query.has("oauth_verifier"))
+      return;
+    console.log(query.get("oauth_token"), " ", query.get("oauth_verifier"));
+    get("twitter", query.get("oauth_token"), query.get("oauth_verifier"));
+  }, [query]);
 
-  return loading;
+  return <div>asdouasd</div>;
 };
 
 export default Auth;

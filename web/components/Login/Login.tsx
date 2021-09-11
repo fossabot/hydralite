@@ -71,12 +71,8 @@ const Login: React.FC<{ isopen: boolean; setIsOpen: any }> = ({
       <div className="mt-5 sm:mt-6 sm:mx-3 sm:grid sm:grid-cols-2 sm:gap-2 sm:grid-flow-row-dense">
         <Button provider="google" title="Google" icon={<GoogleIcon />} />
         <Button provider="github" title="Github" icon={<GithubIcon />} />
-        <Button
-          provider="bitbucket"
-          title="BitBucket"
-          icon={<BitBucketIcon />}
-        />
-        <Button provider="gitlab" title="GitLab" icon={<GitLabIcon />} />
+        <Button provider="twitter" title="Twitter" icon={<BitBucketIcon />} />
+        <Button provider="linkedin" title="Linkedin" icon={<GitLabIcon />} />
       </div>
       <div className="mt-5 w-full ">
         <p className="text-sm text-center sm:pt-2 text-gray-700 monteserrat">

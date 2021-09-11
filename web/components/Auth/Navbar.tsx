@@ -1,6 +1,32 @@
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import ArrowIconDown from "../../icons/solid/ArrowIconDown";
+import { AuthContext } from "../../utils/auth";
+
+const ProfileWidget = () => {
+  const { user, loggedIn } = useContext(AuthContext);
+  if (loggedIn) {
+    return (
+      <div className="flex bg-iris-10 dark:bg-dark-bgMuted1 w-44 h-11 rounded-lg items-center justify-center gap-2">
+        <Image
+          src={
+            user.profile.profilepic ??
+            "https://avatars.githubusercontent.com/u/77481923?v=4"
+          }
+          height="25%"
+          width="25%"
+          className="rounded-xl"
+        />
+        <span className="text-sm">{user.profile.name ?? ""}</span>
+        <div className=" dark:text-white text-gray-900">
+          <ArrowIconDown className="fill-current" />
+        </div>
+      </div>
+    );
+  } else {
+    return <></>;
+  }
+};
 
 const Navbar: React.FC = () => (
   <div className="w-[100%] h-14 font-montserrat flex items-center justify-between gap-2 select-none mx-2">
@@ -14,18 +40,7 @@ const Navbar: React.FC = () => (
       <div>Blog</div>
       <div>Project Ideas</div>
     </div>
-    <div className="flex bg-iris-10 dark:bg-dark-bgMuted1 w-44 h-11 rounded-lg items-center justify-center gap-2">
-      <Image
-        src="https://avatars.githubusercontent.com/u/77481923?v=4"
-        height="25%"
-        width="25%"
-        className="rounded-xl"
-      />
-      <span className="text-sm">VarunPotti</span>
-      <div className=" dark:text-white text-gray-900">
-        <ArrowIconDown className="fill-current" />
-      </div>
-    </div>
+    <ProfileWidget />
   </div>
 );
 

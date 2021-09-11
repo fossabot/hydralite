@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Auth/Navbar";
+
 import Sidebar from "../../components/Auth/Sidebar/Sidebar";
 
 interface ISkeletonData {

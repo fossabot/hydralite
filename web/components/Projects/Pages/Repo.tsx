@@ -63,7 +63,7 @@ function RepoDropDown(props: IReposData) {
         <Menu as="div" className="relative inline-block text-left mt-7 ml-5">
           <div>
             <Menu.Button className="inline-flex justify-between w-full bg-[#2E374A] rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-              <div>{priv_repo.name}</div>
+              <div>{priv_repo.name ?? ""}</div>
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5"
                 aria-hidden="true"
@@ -127,7 +127,7 @@ function OrgDropDown({
         <Menu.Button className="inline-flex justify-between w-full bg-[#2E374A] rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
           <div className="flex gap-2 items-center">
             <Image
-              src={priv_user.avatarUrl}
+              src={priv_user.avatarUrl ?? ""}
               className="rounded-xl"
               width="25%"
               height="25%"
@@ -243,6 +243,12 @@ const Repository: React.FC<IRepositoryData> = ({
             )}
           </div>
         </div>
+        <button
+          className="py-2 m-3 px-5 bg-[#2E374A]"
+          onClick={() => setTab("details")}
+        >
+          Submit!
+        </button>
       </div>
     </div>
   );

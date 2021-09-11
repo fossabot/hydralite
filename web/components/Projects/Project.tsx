@@ -7,6 +7,7 @@ import Provider from "./Pages/Provider";
 import Repository from "./Pages/Repo";
 import Tabs from "./Tabs";
 import Details from "./Pages/Details";
+import { Toaster } from "react-hot-toast";
 
 const CreateProject: React.FC = () => {
   const [GitUser, SetGitUser] = useState(null);
@@ -37,6 +38,7 @@ const CreateProject: React.FC = () => {
   }, []);
   return (
     <Skeleton sidebar={false}>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="h-[calc(100vh-3.5rem)] p-7 w-[100vw] flex items-center justify-center flex-col overflow-hidden">
         <h1 className="text-3xl font-montserrat font-medium">
           Create a new{" "}
