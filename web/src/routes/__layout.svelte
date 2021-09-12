@@ -22,5 +22,4 @@ const loggedIn: Writable<boolean> = writable(false);
 setContext("LoggedIn", loggedIn);
 </script>
 
-<Toast />
 <slot />
