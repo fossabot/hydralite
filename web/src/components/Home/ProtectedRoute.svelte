@@ -10,14 +10,14 @@ import { notifications } from "../notifications";
 import Login from "../Login/Login.svelte";
 const AuthStore: Writable<User> = getContext("Auth");
 const loggedIn: Writable<boolean> = getContext("LoggedIn");
-
+let gotServerResp = false;
 onMount(() => {
 	let accessToken = localStorage.getItem("accessToken");
 	if (accessToken != null) {
-		
-		SendReq("http://localhost:8000/api/auth/getUser", "GET", {
+		SendReq("http://api.hydralite.io/api/auth/getUser", "GET", {
 			Authorization: `bearer ${accessToken}`,
 		}).then((val) => {
+			gotServerResp = true
 			if (val.error) {
 				loggedIn.set(false);
 				notifications.danger(
@@ -46,6 +46,7 @@ onMount(() => {
 				};
 				AuthStore.set(u);
 				loggedIn.set(true);
+
 			}
 		});
 	} else {
@@ -60,17 +61,20 @@ onMount(() => {
 	<title>Hydralite</title>
 	<link rel="shortcut icon" href="/logo/logo.svg" />
 </svelte:head>
-
-{#if $loggedIn == true}
-	{#if $AuthStore == null}
-		<Loading />
+{#if gotServerResp == true}
+	{#if $loggedIn == true}
+		{#if $AuthStore == null}
+			<Loading />
+		{:else}
+			<div
+				in:fly="{{ y: 50, duration: 250, delay: 300 }}"
+				out:fly="{{ y: -50, duration: 250 }}">
+				<slot />
+			</div>
+		{/if}
 	{:else}
-		<div
-			in:fly="{{ y: 50, duration: 250, delay: 300 }}"
-			out:fly="{{ y: -50, duration: 250 }}">
-			<slot />
-		</div>
+		<Login />
 	{/if}
 {:else}
-	<Login />
+	<Loading />
 {/if}

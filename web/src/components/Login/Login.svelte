@@ -1,8 +1,5 @@
 <script lang="ts">
 import Modal from "../Modal.svelte";
-import Icon from "svelte-icons-pack/Icon.svelte";
-
-import VscGithub from "svelte-icons-pack/vsc/VscGithub";
 </script>
 
 <div class="w-screen h-screen px-4">
