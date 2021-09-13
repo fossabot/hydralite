@@ -14,7 +14,7 @@ let gotServerResp = false;
 onMount(() => {
 	let accessToken = localStorage.getItem("accessToken");
 	if (accessToken != null) {
-		SendReq("http://api.hydralite.io/api/auth/getUser", "GET", {
+		SendReq("https://api.hydralite.io/api/auth/getUser", "GET", {
 			Authorization: `bearer ${accessToken}`,
 		}).then((val) => {
 			gotServerResp = true
