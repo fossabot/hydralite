@@ -33,6 +33,7 @@
 		"@fontsource/fira-mono": "^4.2.2",
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
 		"@lukeed/uuid": "^2.0.0",
+		"@sveltejs/adapter-netlify": "next",
 		"axios": "^0.21.4",
 		"cookie": "^0.4.1",
 		"svelte-fa": "^2.3.3"
