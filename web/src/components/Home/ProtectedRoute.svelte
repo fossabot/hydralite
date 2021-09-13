@@ -46,10 +46,10 @@ onMount(() => {
 				};
 				AuthStore.set(u);
 				loggedIn.set(true);
-
 			}
 		});
 	} else {
+		gotServerResp = true
 		loggedIn.set(false);
 	}
 });
