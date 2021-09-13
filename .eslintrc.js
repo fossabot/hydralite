@@ -15,7 +15,6 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "airbnb",
     "prettier",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -41,8 +40,7 @@ module.exports = {
     ],
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
-    "jsx-a11y/anchor-is-valid": "off",
-    "import/prefer-default-export": "off",
+    "import/prefer-default-export": "warn",
     "import/extensions": [
       "error",
       "ignorePackages",

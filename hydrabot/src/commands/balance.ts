@@ -1,10 +1,10 @@
 import { Client, MessageEmbed } from "discord.js";
-import { getData } from "../data";
-import { Command } from "../types";
 import {
   ApplicationCommandOptionType,
   CommandInteractionController,
 } from "@duxcore/interactive-discord";
+import { getData } from "../data";
+import { Command } from "../types";
 
 export default {
   name: "balance",
@@ -21,7 +21,7 @@ export default {
     client: Client,
     interaction: CommandInteractionController
   ) => {
-    let error = false;
+    const error = false;
 
     const username = interaction.options
       ? (await client.users.fetch(interaction.options[0].value)).username

@@ -1,10 +1,11 @@
-require("dotenv").config();
-
 import * as Discord from "discord.js";
 import { Command } from "./types";
 
 import profile from "./commands/profile";
 import balance from "./commands/balance";
+
+require("dotenv").config();
+
 const client = new Discord.Client();
 
 const commands = new Map<string, Command>();
@@ -17,7 +18,7 @@ client.on("ready", () => {
 
 (client as any).ws.on("INTERACTION_CREATE", async (interaction) => {
   if (interaction.type == 2) {
-    let name = interaction.data.name;
+    const { name } = interaction.data;
     if (!commands.has(name))
       return respondInteraction(interaction, {
         type: 4,

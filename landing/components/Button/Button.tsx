@@ -1,8 +1,8 @@
 import Link from "next/link";
-import React from "react";
-import { FC } from "react";
+import React, { FC } from "react";
 import styles from "./Button.module.css";
 import Icon from "~/components/Icon";
+
 interface Props {
   color: "accent" | "muted" | "black";
   text: string;

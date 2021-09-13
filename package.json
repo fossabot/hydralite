@@ -2,7 +2,6 @@
   "name": "hydralite",
   "version": "0.1.0",
   "workspaces": [
-    "api",
     "web",
     "landing",
     "docker",
@@ -59,17 +58,21 @@
     "commitlint": "^12.1.4",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.2.0",
-    "eslint-config-airbnb": "latest",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",
-    "eslint-plugin-import": "^2.24.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4",
     "prettier": "^2.3.2"
   },
   "dependencies": {
-    "concurrently": "^6.2.0"
+    "concurrently": "^6.2.0",
+    "husky": "^7.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "prettier --write . && git add -A ."
+    }
   },
   "config": {
     "commitizen": {

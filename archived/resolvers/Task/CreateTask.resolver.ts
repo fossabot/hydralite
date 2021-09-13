@@ -1,9 +1,9 @@
-import { Task } from "~/models/index";
 import { Resolver, Mutation, Ctx, Arg } from "type-graphql";
+import { User } from "@prisma/client";
+import { Task } from "~/models/index";
 import { IsAuthenticated } from "~/middleware/isAuthenticated.middleware";
 import ContextType from "~/types/Context.type";
 import executeOrFail from "~/util/executeOrFail";
-import { User } from "@prisma/client";
 import { connectIdArray } from "~/util/connectIdArray";
 import { CreateTaskArgs } from "./args/CreateTaskArgs";
 import { ProjectMemberRepo } from "~/db/ProjectMemberRepo";
@@ -18,7 +18,7 @@ export default class CreateTaskResolver {
     @Ctx() { req, prisma }: ContextType
   ): Promise<Task> {
     // extract the logged in user
-    const user: User = (req as any).user;
+    const { user } = req as any;
 
     // validate that user has perms
     const loggedInMember = await memberRepo.findMemberByUserAndProjectId(

@@ -1,7 +1,8 @@
 import { Client } from "discord.js";
 import InteractiveClient, { SlashCommand } from "@duxcore/interactive-discord";
-import { Command } from "../types";
 import { glob } from "glob";
+import { Command } from "../types";
+
 export class Bot extends Client {
   constructor() {
     super();
@@ -9,6 +10,7 @@ export class Bot extends Client {
   }
 
   public interactions = new InteractiveClient(this);
+
   public commands = new Map<string, Command>();
 
   public async registerCommands(guild_id: string) {

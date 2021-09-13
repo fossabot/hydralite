@@ -16,7 +16,7 @@ export default class FirestoreManager {
     return new Promise(async (res, _) => {
       this.initialize();
 
-      var collectionRef = firebase.firestore().collection("waitlist");
+      const collectionRef = firebase.firestore().collection("waitlist");
 
       await collectionRef
         .where("email", "==", email)
@@ -52,7 +52,7 @@ export default class FirestoreManager {
       .collection("waitlist")
       .doc(email)
       .set({
-        email: email,
+        email,
       })
       .then(() => {
         console.log("Document successfully written!");
