@@ -9,6 +9,6 @@
 	<meta name="description" content="Connect with like-minded developers, onboard investors and seamlessly manage your codebase."/>
 	<link rel="shortcut icon" href="/logo/logo.svg" />
 </svelte:head>
-<main>
+<main >
 	<slot />
 </main>

@@ -10,7 +10,7 @@
 	import DescriptionBoxes from '../components/DescriptionBoxes.svelte';
 </script>
 
-<div class="overflow-x-hidden">
+<div class="overflow-x-hidden font-montserrat">
 	<div class="flex items-center justify-between font-montserrat my-4 mx-16">
 		<img src="/logo/logo.svg" alt="Logo" class="w-14" />
 		<button
