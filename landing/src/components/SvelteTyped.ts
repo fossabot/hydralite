@@ -30,6 +30,6 @@ export function getRandomPun(currentPun) {
 	if (currentPun == 'Discover') pun = puns[1];
 	else if (currentPun == 'Develop') pun = puns[2];
     else if (currentPun == 'Deploy') pun = puns[0];
-	else pun = puns[0];
+	else pun = puns[1];
 	return pun;
 }

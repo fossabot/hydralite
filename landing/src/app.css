@@ -45,6 +45,7 @@
   color: #5D6BFF;
   font-size: 3rem;
   padding-right: 2px;
+  
   position: relative;
   transition: background-position 1s;
 }
@@ -60,10 +61,14 @@
   width: 5px;
 }
 .typity.highlight {
-  background-image: linear-gradient(to left, rgba(165, 134, 134, 0.2) 50%, transparent 50%);
+  background-image: linear-gradient(to left, rgba(87, 118, 255, 0.2) 50%, transparent 50%);
   background-position: 100% 100%;
   background-repeat: no-repeat;
-  background-size: 200% 3rem;
+  
+  border-radius: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  background-size: 200% 4rem;
 }
 .typity.highlight::after {
   animation: none;

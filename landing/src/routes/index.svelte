@@ -30,7 +30,7 @@ onMount(() => {
 		</button>
 	</div>
 	<div class="h-[calc(100vh-10vh)] flex items-center justify-center w-screen flex-col">
-		<span class="font-bold text-center text-5xl font-montserrat" >
+		<span class="font-bold text-center text-5xl font-montserrat leading-[1.35]" >
 			The place for Developers to<br/>
 			<span class="typity" bind:this={wrapper}></span>{" "}Software
 		</span>

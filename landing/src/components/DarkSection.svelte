@@ -4,7 +4,7 @@
 
 <div class="h-[80vh] bg-[#2A3753] flex items-center justify-between px-[10vw] relative">
 	<div>
-		<h2 class="font-bold font-montserrat text-acrylic-20">FAST, INTUITIVE, POWERFUL</h2>
+		<h2 class="font-bold font-montserrat text-acrylic-20">FAST. INTUITIVE. POWERFUL.</h2>
 		<h2 class="mt-5 font-extrabold text-3xl font-montserrat text-dark-color-accent">
 			PROJECT MANAGEMENT
 		</h2>
