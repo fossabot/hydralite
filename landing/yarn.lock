@@ -617,6 +617,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sveltejs/adapter-vercel@npm:next":
+  version: 1.0.0-next.29
+  resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.29"
+  dependencies:
+    esbuild: ^0.12.5
+  checksum: 2170bc22df8ac551ddbe552d1b3a39666cb4a7a9a69ef8ab6b4a35922a979846b55d61082050bd2373f7da18205423eb2ec72015e6720b1d77582dd30ee8fb92
+  languageName: node
+  linkType: hard
+
 "@sveltejs/kit@next":
   version: 1.0.0-next.166
   resolution: "@sveltejs/kit@npm:1.0.0-next.166"
@@ -1733,7 +1742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.12.17":
+"esbuild@npm:^0.12.17, esbuild@npm:^0.12.5":
   version: 0.12.28
   resolution: "esbuild@npm:0.12.28"
   bin:
@@ -2604,6 +2613,7 @@ fsevents@~2.3.2:
     "@firebase/app": ^0.6.27
     "@fontsource/fira-mono": ^4.2.2
     "@lukeed/uuid": ^2.0.0
+    "@sveltejs/adapter-vercel": next
     "@sveltejs/kit": next
     "@types/cookie": ^0.4.0
     "@typescript-eslint/eslint-plugin": ^4.19.0
