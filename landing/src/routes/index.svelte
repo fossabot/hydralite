@@ -10,13 +10,9 @@
 	import DescriptionBoxes from '../components/DescriptionBoxes.svelte';
 </script>
 
-<svelte:head>
-	<title>Home</title>
-</svelte:head>
-
 <div class="overflow-x-hidden">
 	<div class="flex items-center justify-between font-montserrat my-4 mx-16">
-		<img src="/logo/logo.svg" alt="Logo" class="w-20" />
+		<img src="/logo/logo.svg" alt="Logo" class="w-14" />
 		<button
 			class="font-bold text-gray-500"
 			on:click={() => {

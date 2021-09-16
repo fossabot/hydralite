@@ -1,5 +1,5 @@
-<div class="h-[25vh] bg-dark-bg mt-40 flex items-center justify-around">
-	<img src="/logo/logo.svg" alt="Logo" class="w-20" />
+<div class="h-[20vh] bg-dark-bg mt-40 flex items-center justify-around">
+	<img src="/logo/logo.svg" alt="Logo" class="w-12" />
 	<div class="flex gap-5 items-center">
 		<a href="https://twitter.com/hydraliteio" target="_blank">
 			<img src="/assets/twitter.svg" alt="" width="75%" />
