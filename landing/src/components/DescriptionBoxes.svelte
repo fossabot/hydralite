@@ -17,7 +17,7 @@
 		</h5>
 	</div>
 </div>
-<div class="h-[80vh] bg-dark-bg  flex items-center justify-between px-[10vw] mt-[5vh]">
+<div class="h-[80vh] bg-dark-bgMuted2  flex items-center justify-between px-[10vw] mt-[5vh]">
 	<div>
 		<h2 class="font-bold font-montserrat text-base text-gray-200">COLLABORATE. INNOVATE. SHIP.</h2>
 		<h2 class="mt-5 font-extrabold text-4xl font-montserrat text-dark-color-accent">COLLABORATE</h2>

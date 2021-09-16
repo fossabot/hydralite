@@ -20,13 +20,13 @@
 </script>
 <div class="flex w-screen items-center justify-center">
 <div
-	class="h-[50vh] w-[90vw] md:w-[75vw] lg:w-[75vw] bg-gray-200  mt-16 rounded-2xl grid grid-cols-3 gap-1"
+	class="h-[50vh] w-[90vw] md:w-[75vw] lg:w-[75vw] bg-gray-200  mt-16 rounded-3xl grid grid-cols-3 gap-1"
 >
 <Toast />
 	<div class="w-full h-full grid grid-rows-3 col-span-3 gap-3 p-4 sm:col-span-3 2xl:col-span-2" id="waitlist">
 		<div class="grid row-span-3 2xl:row-span-2 md:row-span-3">
 			<div
-				class="w-full h-full bg-white rounded-xl drop-shadow-2xl flex items-center flex-col bg p-7 "
+				class="w-full h-full bg-white rounded-2xl drop-shadow-2xl flex items-center flex-col bg p-7 "
 			>
 				<div class="flex items-center flex-col">
 					<h1 class="text-2xl font-bold font-montserrat">
@@ -40,7 +40,7 @@
 					</h5>
 					<br />
 					<div
-						class="grid grid-cols-4 w-full h-[3vh] bg-acrylic-20 p-1 rounded-xl h-[7vh] sm:h-[7vh] lg:h-[7vh] xl:h-[7vh]"
+						class="grid grid-cols-4 w-full h-[3vh] bg-acrylic-20 p-1 rounded-xl sm:h-[7vh] lg:h-[7vh] xl:h-[7vh]"
 					>
 						<input
 							bind:value={email}
@@ -72,7 +72,7 @@
 	<div class="w-full h-full hidden grid-rows-3 gap-3 py-4 pr-4 2xl:grid">
 		<a href="https://discord.gg/e2AP2Dmk8w" target="_blank" class="w-full h-full">
 			<div
-				class="w-full h-full bg-white rounded-xl drop-shadow-2xl flex flex-col items-center justify-around"
+				class="w-full h-full bg-white rounded-2xl drop-shadow-2xl flex flex-col items-center justify-around"
 			>
 				<h1 class="text-2xl font-montserrat font-bold">Join our discord server</h1>
 				<button
@@ -84,7 +84,7 @@
 		</a>
 		<a href="https://twitter.com/hydraliteio" target="_blank" class="w-full h-full">
 			<div
-				class="w-full h-full bg-white rounded-xl drop-shadow-2xl flex flex-col items-center justify-around"
+				class="w-full h-full bg-white rounded-2xl drop-shadow-2xl flex flex-col items-center justify-around"
 			>
 				<h1 class="text-2xl font-montserrat font-bold">Follow us on twitter</h1>
 				<button
@@ -96,9 +96,9 @@
 		</a>
 		<a href="https://github.com/hydralite">
 			<div
-				class="w-full h-full bg-white rounded-xl drop-shadow-2xl flex flex-col items-center justify-around"
+				class="w-full h-full bg-white rounded-2xl drop-shadow-2xl flex flex-col items-center justify-around"
 			>
-				<h1 class="text-2xl font-montserrat font-bold">Browse our GitHub</h1>
+				<h1 class="text-2xl font-montserrat font-bold">Checkout our GitHub</h1>
 				<button
 					class="bg-dark-color-accent text-sm py-2 rounded-xl px-9 font-montserrat text-white hover:bg-opacity-90 duration-300 flex items-center gap-3"
 					><img src="/assets/github.svg" width="20%" height="20%" alt="Discord logo" />GitHub
