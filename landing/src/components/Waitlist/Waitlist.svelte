@@ -30,24 +30,23 @@
 			>
 				<div class="flex items-center flex-col">
 					<h1 class="text-2xl font-bold font-montserrat">
-						Join the <span class="text-dark-color-accent font-extrabold"> waitlist!</span>
+						Join the <span class="text-dark-color-accent font-extrabold"> Waitlist!</span>
 					</h1>
 				</div>
 				<div class="flex w-full h-full items-center justify-center flex-col">
 					<h5 class="text-center font-bold font-montserrat hidden lg:block 2xl:block">
-						Become the first to know when Hydralite releases. <br /> Just enter your email down
-						below!<br />
+						We promise never to spam you!
 					</h5>
 					<br />
 					<div
-						class="grid grid-cols-4 w-full h-[3vh] bg-acrylic-20 p-1 rounded-xl sm:h-[7vh] lg:h-[7vh] xl:h-[7vh]"
+						class="grid grid-cols-4 w-full h-[2vh] bg-acrylic-20 p-1 rounded-xl sm:h-[7vh] lg:h-[7vh] xl:h-[7vh]"
 					>
 						<input
 							bind:value={email}
 							type="text"
-							name="Email.."
+							name="Email"
 							autocomplete="off"
-							placeholder="Email.."
+							placeholder="email"
 							class="bg-transparent col-span-3 focus:outline-none text-black ml-4 "
 						/>
 						<button
