@@ -62,6 +62,7 @@
 }
 .typity.highlight {
   background-image: linear-gradient(to left, rgba(87, 118, 255, 0.2) 50%, transparent 50%);
+  /* background-color: transparent; */
   background-position: 100% 100%;
   background-repeat: no-repeat;
   
@@ -78,6 +79,6 @@
     background-color: transparent;
  }
   50% {
-    background-color: #5D6BFF;
+    background-color: #5d6bff00;
  }
 }
