@@ -29,8 +29,8 @@
 				strings={['Discover', 'Develop', 'Deploy']}
 				loop="true"
 				smartBackspace="true"
-				typeSpeed={0.01}
-				backSpeed={5}
+				typeSpeed='10'
+				backSpeed="5"
 			>
 				The place for Developers to<br /><span class="typing text-iris-30 font-extrabold" />Software
 			</SvelteTypedJs>
