@@ -12,7 +12,7 @@
 	import DescriptionBoxes from '../components/DescriptionBoxes.svelte';
 import { onMount } from 'svelte';
 onMount(() => {
-	startType(getRandomPun("Discover"), 0, wrapper)
+	startType(getRandomPun("Deploy"), 0, wrapper)
 },)
 </script>
 
