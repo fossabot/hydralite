@@ -12,8 +12,8 @@
 			DISCOVER
 		</h2>
 		<h5 class="mt-5 font-semibold  font-montserrat text-gray-800 pr-28">
-			Connect with like-minded developers and build a <br /> followership. Find your next project idea with
-			<br/>Hydralite’s  built in project idea explorer.<br/> Discover other incredible projects , big or small!
+			Connect with like-minded developers and build a followership. Find your next project idea with
+			Hydralite’s  built in project idea explorer. Discover other incredible projects , big or small!
 		</h5>
 	</div>
 </div>

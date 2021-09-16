@@ -39,3 +39,41 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
 }
+.typity {
+  background-position: 0% 100%;
+  border-bottom: 3px solid rgb(228, 228, 228);
+  box-sizing: border-box;
+  color: #5D6BFF;
+  font-size: 3rem;
+  padding-right: 2px;
+  position: relative;
+  transition: background-position 1s;
+}
+.typity::after {
+  animation: blink-cursor 0.75s step-end infinite;
+  background-color: transparent;
+  content: "";
+  display: block;
+  height: 3rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+}
+.typity.highlight {
+  background-image: linear-gradient(to left, rgba(141, 141, 141, 0.2) 50%, transparent 50%);
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 200% 3rem;
+}
+.typity.highlight::after {
+  animation: none;
+}
+@keyframes blink-cursor {
+  0% {
+    background-color: transparent;
+ }
+  50% {
+    background-color: black;
+ }
+}

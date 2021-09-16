@@ -3,11 +3,17 @@
 </script>
 
 <script lang="ts">
-	import SvelteTypedJs from '../components/SvelteTyped.svelte';
+	import {startType,getRandomPun} from '../components/SvelteTyped';
 	import Footer from '../components/Footer.svelte';
+	let wrapper;
+
 	import * as animateScroll from "svelte-scrollto";
 	import Waitlist from '../components/Waitlist/Waitlist.svelte';
 	import DescriptionBoxes from '../components/DescriptionBoxes.svelte';
+import { onMount } from 'svelte';
+onMount(() => {
+	startType(getRandomPun, 0, wrapper)
+},)
 </script>
 
 <div class="overflow-x-hidden font-montserrat">
@@ -24,17 +30,10 @@
 		</button>
 	</div>
 	<div class="h-[calc(100vh-10vh)] flex items-center justify-center w-screen flex-col">
-		<h1 class="font-bold text-center text-5xl font-montserrat">
-			<SvelteTypedJs
-				strings={['Discover', 'Develop', 'Deploy']}
-				loop="true"
-				smartBackspace="true"
-				typeSpeed='10'
-				backSpeed="5"
-			>
-				The place for Developers to<br /><span class="typing text-iris-30 font-extrabold" />Software
-			</SvelteTypedJs>
-		</h1>
+		<span class="font-bold text-center text-5xl font-montserrat" >
+			The place for Developers to<br/>
+			<span class="typity" bind:this={wrapper}></span>{" "}Software
+		</span>
 		<h4 class="font-montserrat font-bold mt-6 text-[#656565] text-center">
 			Connect with like-minded developers, onboard investors <br /> and seamlessly manage your codebase.
 		</h4>
