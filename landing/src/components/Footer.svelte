@@ -4,7 +4,7 @@
 		<a href="https://twitter.com/hydraliteio" target="_blank">
 			<img src="/assets/twitter.svg" alt="" width="75%" />
 		</a>
-		<a href="https://discord.gg/e2AP2Dmk8w" target="_blank" class="w-full h-full">
+		<a href="https://discord.gg/xkq5RT3Mvn" target="_blank" class="w-full h-full">
 			<img src="/assets/discord.svg" alt="" width="40%" /></a
 		>
 	</div>

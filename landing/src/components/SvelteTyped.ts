@@ -1,6 +1,6 @@
 // code from https://codepen.io/Milleus/pen/YzKOjoO
 let typed = '';
-let currentPun = ''
+let currentPun = '';
 export function startType(pun, index, element) {
 	if (index < pun.length) {
 		typed += pun.charAt(index);
@@ -18,7 +18,7 @@ export function startType(pun, index, element) {
 			element.classList.remove('highlight');
 			typed = '';
 			element.innerHTML = typed;
-            currentPun = getRandomPun(currentPun);
+			currentPun = getRandomPun(currentPun);
 			startType(currentPun, 0, element);
 		}, 2500);
 	}
@@ -29,7 +29,7 @@ export function getRandomPun(currentPun) {
 	let pun = typed;
 	if (currentPun == 'Discover') pun = puns[1];
 	else if (currentPun == 'Develop') pun = puns[2];
-    else if (currentPun == 'Deploy') pun = puns[0];
+	else if (currentPun == 'Deploy') pun = puns[0];
 	else pun = puns[1];
 	return pun;
 }
