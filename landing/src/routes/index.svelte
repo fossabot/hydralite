@@ -16,8 +16,9 @@ onMount(() => {
 },)
 </script>
 
-<div class="overflow-x-hidden font-montserrat">
-	<div class="flex items-center justify-between font-montserrat my-4 mx-16">
+<div class=" font-montserrat">
+	<div class="fixed z-50 w-screen">
+	<div class="flex items-center justify-between font-montserrat py-2 px-16 bg-opacity-60 backdrop-blur-2xl">
 		<img src="/logo/logo.svg" alt="Logo" class="w-14" />
 		<button
 			class="font-bold text-gray-500"
@@ -29,6 +30,8 @@ onMount(() => {
 			Join Waitlist
 		</button>
 	</div>
+</div>
+	<div class="overflow-x-hidden">
 	<div class="h-[calc(100vh-10vh)] flex items-center justify-center w-screen flex-col">
 		<span class="font-bold text-center text-5xl font-montserrat leading-[1.35]" >
 			The place for Developers to<br/>
@@ -41,4 +44,5 @@ onMount(() => {
 	<DescriptionBoxes />
 	<Waitlist />
 	<Footer />
+</div>
 </div>
