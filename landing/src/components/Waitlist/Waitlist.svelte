@@ -73,7 +73,7 @@
 			</div>
 		</div>
 		<div class="w-full h-full hidden grid-rows-3 gap-3 py-4 pr-4 2xl:grid">
-			<a href="https://discord.gg/xkq5RT3Mvn" target="_blank" class="w-full h-full">
+			<a href="https://discord.gg/BUymqqWGus" target="_blank" class="w-full h-full">
 				<div
 					class="w-full h-full bg-white rounded-2xl drop-shadow-2xl flex flex-col items-center justify-around"
 				>
