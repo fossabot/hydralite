@@ -6731,19 +6731,18 @@ var require_writer = __commonJS({
 		VarintOp.prototype = Object.create(Op.prototype);
 		VarintOp.prototype.fn = writeVarint32;
 		Writer.prototype.uint32 = function write_uint32(value) {
-			this.len += (this.tail = this.tail.next =
-				new VarintOp(
-					(value = value >>> 0) < 128
-						? 1
-						: value < 16384
-						? 2
-						: value < 2097152
-						? 3
-						: value < 268435456
-						? 4
-						: 5,
-					value
-				)).len;
+			this.len += (this.tail = this.tail.next = new VarintOp(
+				(value = value >>> 0) < 128
+					? 1
+					: value < 16384
+					? 2
+					: value < 2097152
+					? 3
+					: value < 268435456
+					? 4
+					: 5,
+				value
+			)).len;
 			return this;
 		};
 		Writer.prototype.int32 = function write_int32(value) {
@@ -7203,8 +7202,9 @@ var require_service = __commonJS({
 						}
 						if (!(response instanceof responseCtor)) {
 							try {
-								response =
-									responseCtor[self2.responseDelimited ? 'decodeDelimited' : 'decode'](response);
+								response = responseCtor[self2.responseDelimited ? 'decodeDelimited' : 'decode'](
+									response
+								);
 							} catch (err2) {
 								self2.emit('error', err2, method);
 								return callback(err2);
@@ -7572,8 +7572,9 @@ var require_field = __commonJS({
 		Field.prototype.resolve = function resolve2() {
 			if (this.resolved) return this;
 			if ((this.typeDefault = types2.defaults[this.type]) === void 0) {
-				this.resolvedType = (
-					this.declaringField ? this.declaringField.parent : this.parent
+				this.resolvedType = (this.declaringField
+					? this.declaringField.parent
+					: this.parent
 				).lookupTypeOrEnum(this.type);
 				if (this.resolvedType instanceof Type) this.typeDefault = null;
 				else this.typeDefault = this.resolvedType.values[Object.keys(this.resolvedType.values)[0]];
@@ -7735,8 +7736,9 @@ var require_namespace = __commonJS({
 		('use strict');
 		module2.exports = Namespace;
 		var ReflectionObject = require_object();
-		((Namespace.prototype = Object.create(ReflectionObject.prototype)).constructor =
-			Namespace).className = 'Namespace';
+		((Namespace.prototype = Object.create(
+			ReflectionObject.prototype
+		)).constructor = Namespace).className = 'Namespace';
 		var Field = require_field();
 		var OneOf = require_oneof();
 		var util = require_util();
@@ -8002,8 +8004,9 @@ var require_method = __commonJS({
 		('use strict');
 		module2.exports = Method;
 		var ReflectionObject = require_object();
-		((Method.prototype = Object.create(ReflectionObject.prototype)).constructor =
-			Method).className = 'Method';
+		((Method.prototype = Object.create(
+			ReflectionObject.prototype
+		)).constructor = Method).className = 'Method';
 		var util = require_util();
 		function Method(
 			name2,
@@ -11466,10 +11469,9 @@ var require_descriptor2 = __commonJS({
 		init_shims();
 		('use strict');
 		var $protobuf = require_protobufjs();
-		module2.exports =
-			exports2 =
-			$protobuf.descriptor =
-				$protobuf.Root.fromJSON(require_descriptor()).lookup('.google.protobuf');
+		module2.exports = exports2 = $protobuf.descriptor = $protobuf.Root.fromJSON(
+			require_descriptor()
+		).lookup('.google.protobuf');
 		var Namespace = $protobuf.Namespace;
 		var Root2 = $protobuf.Root;
 		var Enum = $protobuf.Enum;
@@ -13000,12 +13002,7 @@ var require_constants = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.DEFAULT_MAX_RECEIVE_MESSAGE_LENGTH =
-			exports2.DEFAULT_MAX_SEND_MESSAGE_LENGTH =
-			exports2.Propagate =
-			exports2.LogVerbosity =
-			exports2.Status =
-				void 0;
+		exports2.DEFAULT_MAX_RECEIVE_MESSAGE_LENGTH = exports2.DEFAULT_MAX_SEND_MESSAGE_LENGTH = exports2.Propagate = exports2.LogVerbosity = exports2.Status = void 0;
 		var Status;
 		(function (Status2) {
 			Status2[(Status2['OK'] = 0)] = 'OK';
@@ -13056,12 +13053,7 @@ var require_logging = __commonJS({
 		var _c;
 		var _d;
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.trace =
-			exports2.log =
-			exports2.setLoggerVerbosity =
-			exports2.setLogger =
-			exports2.getLogger =
-				void 0;
+		exports2.trace = exports2.log = exports2.setLoggerVerbosity = exports2.setLogger = exports2.getLogger = void 0;
 		var constants_1 = require_constants();
 		var _logger = console;
 		var _logVerbosity = constants_1.LogVerbosity.ERROR;
@@ -13577,10 +13569,7 @@ var require_call_stream = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.Http2CallStream =
-			exports2.InterceptingListenerImpl =
-			exports2.isInterceptingListener =
-				void 0;
+		exports2.Http2CallStream = exports2.InterceptingListenerImpl = exports2.isInterceptingListener = void 0;
 		var http2 = require('http2');
 		var os = require('os');
 		var constants_1 = require_constants();
@@ -15062,13 +15051,7 @@ var require_resolver = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.registerAll =
-			exports2.mapUriDefaultScheme =
-			exports2.getDefaultAuthority =
-			exports2.createResolver =
-			exports2.registerDefaultScheme =
-			exports2.registerResolver =
-				void 0;
+		exports2.registerAll = exports2.mapUriDefaultScheme = exports2.getDefaultAuthority = exports2.createResolver = exports2.registerDefaultScheme = exports2.registerResolver = void 0;
 		var resolver_dns = require_resolver_dns();
 		var resolver_uds = require_resolver_uds();
 		var resolver_ip = require_resolver_ip();
@@ -15448,11 +15431,7 @@ var require_subchannel = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.Subchannel =
-			exports2.subchannelAddressToString =
-			exports2.subchannelAddressEqual =
-			exports2.isTcpSubchannelAddress =
-				void 0;
+		exports2.Subchannel = exports2.subchannelAddressToString = exports2.subchannelAddressEqual = exports2.isTcpSubchannelAddress = void 0;
 		var http2 = require('http2');
 		var tls_1 = require('tls');
 		var channel_1 = require_channel();
@@ -15971,10 +15950,7 @@ var require_load_balancer_pick_first = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.setup =
-			exports2.PickFirstLoadBalancer =
-			exports2.PickFirstLoadBalancingConfig =
-				void 0;
+		exports2.setup = exports2.PickFirstLoadBalancer = exports2.PickFirstLoadBalancingConfig = void 0;
 		var load_balancer_1 = require_load_balancer();
 		var channel_1 = require_channel();
 		var picker_1 = require_picker();
@@ -16470,13 +16446,7 @@ var require_load_balancer = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.registerAll =
-			exports2.validateLoadBalancingConfig =
-			exports2.getFirstUsableConfig =
-			exports2.isLoadBalancerNameRegistered =
-			exports2.createLoadBalancer =
-			exports2.registerLoadBalancerType =
-				void 0;
+		exports2.registerAll = exports2.validateLoadBalancingConfig = exports2.getFirstUsableConfig = exports2.isLoadBalancerNameRegistered = exports2.createLoadBalancer = exports2.registerLoadBalancerType = void 0;
 		var load_balancer_pick_first = require_load_balancer_pick_first();
 		var load_balancer_round_robin = require_load_balancer_round_robin();
 		var registeredLoadBalancerTypes = {};
@@ -17934,12 +17904,7 @@ var require_call = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.ClientDuplexStreamImpl =
-			exports2.ClientWritableStreamImpl =
-			exports2.ClientReadableStreamImpl =
-			exports2.ClientUnaryCallImpl =
-			exports2.callErrorFromStatus =
-				void 0;
+		exports2.ClientDuplexStreamImpl = exports2.ClientWritableStreamImpl = exports2.ClientReadableStreamImpl = exports2.ClientUnaryCallImpl = exports2.callErrorFromStatus = void 0;
 		var events_1 = require('events');
 		var stream_1 = require('stream');
 		var constants_1 = require_constants();
@@ -18081,12 +18046,7 @@ var require_client_interceptors = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.getInterceptingCall =
-			exports2.InterceptingCall =
-			exports2.RequesterBuilder =
-			exports2.ListenerBuilder =
-			exports2.InterceptorConfigurationError =
-				void 0;
+		exports2.getInterceptingCall = exports2.InterceptingCall = exports2.RequesterBuilder = exports2.ListenerBuilder = exports2.InterceptorConfigurationError = void 0;
 		var metadata_1 = require_metadata();
 		var call_stream_1 = require_call_stream();
 		var constants_1 = require_constants();
@@ -19016,12 +18976,7 @@ var require_server_call = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.Http2ServerCallStream =
-			exports2.ServerDuplexStreamImpl =
-			exports2.ServerWritableStreamImpl =
-			exports2.ServerReadableStreamImpl =
-			exports2.ServerUnaryCallImpl =
-				void 0;
+		exports2.Http2ServerCallStream = exports2.ServerDuplexStreamImpl = exports2.ServerWritableStreamImpl = exports2.ServerReadableStreamImpl = exports2.ServerUnaryCallImpl = void 0;
 		var events_1 = require('events');
 		var http2 = require('http2');
 		var stream_1 = require('stream');
@@ -20222,31 +20177,7 @@ var require_src3 = __commonJS({
 		init_shims();
 		('use strict');
 		Object.defineProperty(exports2, '__esModule', { value: true });
-		exports2.experimental =
-			exports2.StatusBuilder =
-			exports2.getClientChannel =
-			exports2.ServerCredentials =
-			exports2.Server =
-			exports2.setLogVerbosity =
-			exports2.setLogger =
-			exports2.load =
-			exports2.loadObject =
-			exports2.CallCredentials =
-			exports2.ChannelCredentials =
-			exports2.waitForClientReady =
-			exports2.closeClient =
-			exports2.Channel =
-			exports2.makeGenericClientConstructor =
-			exports2.makeClientConstructor =
-			exports2.loadPackageDefinition =
-			exports2.Client =
-			exports2.propagate =
-			exports2.connectivityState =
-			exports2.status =
-			exports2.logVerbosity =
-			exports2.Metadata =
-			exports2.credentials =
-				void 0;
+		exports2.experimental = exports2.StatusBuilder = exports2.getClientChannel = exports2.ServerCredentials = exports2.Server = exports2.setLogVerbosity = exports2.setLogger = exports2.load = exports2.loadObject = exports2.CallCredentials = exports2.ChannelCredentials = exports2.waitForClientReady = exports2.closeClient = exports2.Channel = exports2.makeGenericClientConstructor = exports2.makeClientConstructor = exports2.loadPackageDefinition = exports2.Client = exports2.propagate = exports2.connectivityState = exports2.status = exports2.logVerbosity = exports2.Metadata = exports2.credentials = void 0;
 		var call_credentials_1 = require_call_credentials();
 		Object.defineProperty(exports2, 'CallCredentials', {
 			enumerable: true,
@@ -30637,8 +30568,9 @@ var require_index_node_cjs3 = __commonJS({
 							}
 							return [3, 5];
 						case 5:
-							localStoreImpl.targetDataByTarget =
-								localStoreImpl.targetDataByTarget.remove(targetId);
+							localStoreImpl.targetDataByTarget = localStoreImpl.targetDataByTarget.remove(
+								targetId
+							);
 							localStoreImpl.targetIdByTarget.delete(targetData.target);
 							return [2];
 					}
@@ -33599,8 +33531,9 @@ var require_index_node_cjs3 = __commonJS({
 							return [4, applyRemoteEvent(syncEngineImpl, event_2)];
 						case 1:
 							_f.sent();
-							syncEngineImpl.activeLimboTargetsByKey =
-								syncEngineImpl.activeLimboTargetsByKey.remove(limboKey);
+							syncEngineImpl.activeLimboTargetsByKey = syncEngineImpl.activeLimboTargetsByKey.remove(
+								limboKey
+							);
 							syncEngineImpl.activeLimboResolutionsByTarget.delete(targetId);
 							pumpEnqueuedLimboResolutions(syncEngineImpl);
 							return [3, 4];
@@ -35532,8 +35465,10 @@ var require_index_node_cjs3 = __commonJS({
 								this.sharedClientState.onlineStateHandler = function (onlineState) {
 									return applyOnlineStateChange(_this.syncEngine, onlineState, 1);
 								};
-								this.remoteStore.remoteSyncer.handleCredentialChange =
-									syncEngineHandleCredentialChange.bind(null, this.syncEngine);
+								this.remoteStore.remoteSyncer.handleCredentialChange = syncEngineHandleCredentialChange.bind(
+									null,
+									this.syncEngine
+								);
 								return [
 									4,
 									remoteStoreApplyPrimaryState(this.remoteStore, this.syncEngine.isPrimaryClient)
@@ -38866,10 +38801,9 @@ var require_index_node_cjs3 = __commonJS({
 				validateGetOptions('Query.get', options2);
 				validateHasExplicitOrderByForLimitToLast(this._query);
 				var firestoreClient = this.firestore.ensureClientConfigured();
-				return (
-					options2 && options2.source === 'cache'
-						? firestoreClient.getDocumentsFromLocalCache(this._query)
-						: firestoreClient.getDocumentsViaSnapshotListener(this._query, options2)
+				return (options2 && options2.source === 'cache'
+					? firestoreClient.getDocumentsFromLocalCache(this._query)
+					: firestoreClient.getDocumentsViaSnapshotListener(this._query, options2)
 				).then(function (snap) {
 					return new QuerySnapshot(_this.firestore, _this._query, snap, _this._converter);
 				});
@@ -39479,8 +39413,7 @@ async function render_endpoint(request, route, match) {
 }
 var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$';
 var unsafeChars = /[<>\b\f\n\r\t\0\u2028\u2029]/g;
-var reserved =
-	/^(?:do|if|in|for|int|let|new|try|var|byte|case|char|else|enum|goto|long|this|void|with|await|break|catch|class|const|final|float|short|super|throw|while|yield|delete|double|export|import|native|return|switch|throws|typeof|boolean|default|extends|finally|package|private|abstract|continue|debugger|function|volatile|interface|protected|transient|implements|instanceof|synchronized)$/;
+var reserved = /^(?:do|if|in|for|int|let|new|try|var|byte|case|char|else|enum|goto|long|this|void|with|await|break|catch|class|const|final|float|short|super|throw|while|yield|delete|double|export|import|native|return|switch|throws|typeof|boolean|default|extends|finally|package|private|abstract|continue|debugger|function|volatile|interface|protected|transient|implements|instanceof|synchronized)$/;
 var escaped$1 = {
 	'<': '\\u003C',
 	'>': '\\u003E',
@@ -40862,7 +40795,8 @@ function add_attribute(name2, value, boolean) {
 }
 function afterUpdate() {}
 var css$2 = {
-	code: '#svelte-announcer.svelte-1pdgbjn{clip:rect(0 0 0 0);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;left:0;overflow:hidden;position:absolute;top:0;white-space:nowrap;width:1px}',
+	code:
+		'#svelte-announcer.svelte-1pdgbjn{clip:rect(0 0 0 0);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;left:0;overflow:hidden;position:absolute;top:0;white-space:nowrap;width:1px}',
 	map: `{"version":3,"file":"root.svelte","sources":["root.svelte"],"sourcesContent":["<!-- This file is generated by @sveltejs/kit \u2014 do not edit it! -->\\n<script>\\n\\timport { setContext, afterUpdate, onMount } from 'svelte';\\n\\n\\t// stores\\n\\texport let stores;\\n\\texport let page;\\n\\n\\texport let components;\\n\\texport let props_0 = null;\\n\\texport let props_1 = null;\\n\\texport let props_2 = null;\\n\\n\\tsetContext('__svelte__', stores);\\n\\n\\t$: stores.page.set(page);\\n\\tafterUpdate(stores.page.notify);\\n\\n\\tlet mounted = false;\\n\\tlet navigated = false;\\n\\tlet title = null;\\n\\n\\tonMount(() => {\\n\\t\\tconst unsubscribe = stores.page.subscribe(() => {\\n\\t\\t\\tif (mounted) {\\n\\t\\t\\t\\tnavigated = true;\\n\\t\\t\\t\\ttitle = document.title || 'untitled page';\\n\\t\\t\\t}\\n\\t\\t});\\n\\n\\t\\tmounted = true;\\n\\t\\treturn unsubscribe;\\n\\t});\\n<\/script>\\n\\n<svelte:component this={components[0]} {...(props_0 || {})}>\\n\\t{#if components[1]}\\n\\t\\t<svelte:component this={components[1]} {...(props_1 || {})}>\\n\\t\\t\\t{#if components[2]}\\n\\t\\t\\t\\t<svelte:component this={components[2]} {...(props_2 || {})}/>\\n\\t\\t\\t{/if}\\n\\t\\t</svelte:component>\\n\\t{/if}\\n</svelte:component>\\n\\n{#if mounted}\\n\\t<div id=\\"svelte-announcer\\" aria-live=\\"assertive\\" aria-atomic=\\"true\\">\\n\\t\\t{#if navigated}\\n\\t\\t\\t{title}\\n\\t\\t{/if}\\n\\t</div>\\n{/if}\\n\\n<style>#svelte-announcer{clip:rect(0 0 0 0);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;left:0;overflow:hidden;position:absolute;top:0;white-space:nowrap;width:1px}</style>"],"names":[],"mappings":"AAqDO,gCAAiB,CAAC,KAAK,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,kBAAkB,MAAM,GAAG,CAAC,CAAC,UAAU,MAAM,GAAG,CAAC,CAAC,OAAO,GAAG,CAAC,KAAK,CAAC,CAAC,SAAS,MAAM,CAAC,SAAS,QAAQ,CAAC,IAAI,CAAC,CAAC,YAAY,MAAM,CAAC,MAAM,GAAG,CAAC"}`
 };
 var Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -41115,7 +41049,8 @@ var error = /* @__PURE__ */ Object.freeze({
 	load
 });
 var css$1 = {
-	code: '.typed-element .typed-cursor{-webkit-animation:svelte-qb0pfd-typedjsBlink .7s infinite;animation:svelte-qb0pfd-typedjsBlink .7s infinite;color:#5d6bff;opacity:1}@-webkit-keyframes svelte-qb0pfd-typedjsBlink{50%{opacity:0}}@keyframes svelte-qb0pfd-typedjsBlink{50%{opacity:0}}',
+	code:
+		'.typed-element .typed-cursor{-webkit-animation:svelte-qb0pfd-typedjsBlink .7s infinite;animation:svelte-qb0pfd-typedjsBlink .7s infinite;color:#5d6bff;opacity:1}@-webkit-keyframes svelte-qb0pfd-typedjsBlink{50%{opacity:0}}@keyframes svelte-qb0pfd-typedjsBlink{50%{opacity:0}}',
 	map: `{"version":3,"file":"SvelteTyped.svelte","sources":["SvelteTyped.svelte"],"sourcesContent":["<!-- This code is from (could not add it because of some issue while running) -->\\r\\n<!-- https://github.com/MelihAltintas/svelte-typed-js/blob/master/src/components/SvelteTypedJs.svelte -->\\r\\n<span class=\\"typed-element \\" bind:this={typedElement}>\\r\\n    <slot></slot>\\r\\n</span>\\r\\n\\r\\n<script>\\r\\n  import Typed from 'typed.js'\\r\\n  \\r\\n  import { onMount } from 'svelte';\\r\\n  import { onDestroy } from 'svelte';\\r\\n  let typedObj = null;\\r\\n  let typedElement = null;\\r\\n  function throwError(message) {\\r\\n      throw new TypeError(message)\\r\\n  }\\r\\n  function initTypedJS() {\\r\\n      \\r\\n      const $typed = typedElement.querySelector('.typing')\\r\\n      if ($$slots.default == undefined) {\\r\\n          throwError(\`Just one child element allowed inside  component.\`)\\r\\n      } else if ($$slots.default == true) {\\r\\n          typedObj = new Typed($typed, $$props)\\r\\n      }\\r\\n  }\\r\\n  onMount(() => {initTypedJS()});\\r\\n//   onDestroy(() => {typedObj.destroy()});\\r\\n<\/script>\\r\\n\\r\\n<style>:global(.typed-element .typed-cursor){-webkit-animation:typedjsBlink .7s infinite;animation:typedjsBlink .7s infinite;color:#5d6bff;opacity:1}@-webkit-keyframes typedjsBlink{50%{opacity:0}}@keyframes typedjsBlink{50%{opacity:0}}</style>\\r\\n"],"names":[],"mappings":"AA6Be,4BAA4B,AAAC,CAAC,kBAAkB,0BAAY,CAAC,GAAG,CAAC,QAAQ,CAAC,UAAU,0BAAY,CAAC,GAAG,CAAC,QAAQ,CAAC,MAAM,OAAO,CAAC,QAAQ,CAAC,CAAC,mBAAmB,0BAAY,CAAC,GAAG,CAAC,QAAQ,CAAC,CAAC,CAAC,WAAW,0BAAY,CAAC,GAAG,CAAC,QAAQ,CAAC,CAAC,CAAC"}`
 };
 var SvelteTyped = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -41262,8 +41197,10 @@ function id() {
 }
 var notifications = createNotificationStore();
 var css = {
-	code: '.notifications.svelte-u5ypha{align-items:center;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-start;left:0;margin:0 auto;padding:0;pointer-events:none;position:fixed;right:0;top:10px;z-index:9999}.toast.svelte-u5ypha{border-radius:10px;flex:0 0 auto;margin-bottom:10px}.content.svelte-u5ypha{color:#fff;display:block;font-weight:500;padding:10px}',
-	map: '{"version":3,"file":"Toast.svelte","sources":["Toast.svelte"],"sourcesContent":["<style>.notifications{align-items:center;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-start;left:0;margin:0 auto;padding:0;pointer-events:none;position:fixed;right:0;top:10px;z-index:9999}.toast{border-radius:10px;flex:0 0 auto;margin-bottom:10px}.content{color:#fff;display:block;font-weight:500;padding:10px}</style>\\r\\n    \\r\\n    <!-- This code rightfully belongs to https://svelte.dev/repl/2254c3b9b9ba4eeda05d81d2816f6276?version=3.32.2 -->\\r\\n    <script>\\r\\n    // @ts-nocheck\\r\\n    import { flip } from \\"svelte/animate\\";\\r\\n    import { fly } from \\"svelte/transition\\";\\r\\n    import { notifications } from \\"./notifs\\";\\r\\n    export let themes = {\\r\\n        danger: \\"#E26D69\\",\\r\\n        success: \\"#84C991\\",\\r\\n        warning: \\"#f0ad4e\\",\\r\\n        info: \\"#5bc0de\\",\\r\\n        default: \\"#aaaaaa\\",\\r\\n    };\\r\\n    </script>\\r\\n    \\r\\n    <div class=\\"notifications\\">\\r\\n        {#each $notifications as notification (notification.id)}\\r\\n            <div\\r\\n                animate:flip\\r\\n                class=\\"toast\\"\\r\\n                style=\\"background: {themes[notification.type]};\\"\\r\\n                transition:fly=\\"{{ y: 30 }}\\">\\r\\n                <div class=\\"content\\">{notification.message}</div>\\r\\n                {#if notification.icon}<i class=\\"{notification.icon}\\"></i>{/if}\\r\\n            </div>\\r\\n        {/each}\\r\\n    </div>"],"names":[],"mappings":"AAAO,4BAAc,CAAC,YAAY,MAAM,CAAC,cAAc,IAAI,CAAC,QAAQ,IAAI,CAAC,eAAe,MAAM,CAAC,gBAAgB,UAAU,CAAC,KAAK,CAAC,CAAC,OAAO,CAAC,CAAC,IAAI,CAAC,QAAQ,CAAC,CAAC,eAAe,IAAI,CAAC,SAAS,KAAK,CAAC,MAAM,CAAC,CAAC,IAAI,IAAI,CAAC,QAAQ,IAAI,CAAC,oBAAM,CAAC,cAAc,IAAI,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,cAAc,IAAI,CAAC,sBAAQ,CAAC,MAAM,IAAI,CAAC,QAAQ,KAAK,CAAC,YAAY,GAAG,CAAC,QAAQ,IAAI,CAAC"}'
+	code:
+		'.notifications.svelte-u5ypha{align-items:center;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-start;left:0;margin:0 auto;padding:0;pointer-events:none;position:fixed;right:0;top:10px;z-index:9999}.toast.svelte-u5ypha{border-radius:10px;flex:0 0 auto;margin-bottom:10px}.content.svelte-u5ypha{color:#fff;display:block;font-weight:500;padding:10px}',
+	map:
+		'{"version":3,"file":"Toast.svelte","sources":["Toast.svelte"],"sourcesContent":["<style>.notifications{align-items:center;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-start;left:0;margin:0 auto;padding:0;pointer-events:none;position:fixed;right:0;top:10px;z-index:9999}.toast{border-radius:10px;flex:0 0 auto;margin-bottom:10px}.content{color:#fff;display:block;font-weight:500;padding:10px}</style>\\r\\n    \\r\\n    <!-- This code rightfully belongs to https://svelte.dev/repl/2254c3b9b9ba4eeda05d81d2816f6276?version=3.32.2 -->\\r\\n    <script>\\r\\n    // @ts-nocheck\\r\\n    import { flip } from \\"svelte/animate\\";\\r\\n    import { fly } from \\"svelte/transition\\";\\r\\n    import { notifications } from \\"./notifs\\";\\r\\n    export let themes = {\\r\\n        danger: \\"#E26D69\\",\\r\\n        success: \\"#84C991\\",\\r\\n        warning: \\"#f0ad4e\\",\\r\\n        info: \\"#5bc0de\\",\\r\\n        default: \\"#aaaaaa\\",\\r\\n    };\\r\\n    </script>\\r\\n    \\r\\n    <div class=\\"notifications\\">\\r\\n        {#each $notifications as notification (notification.id)}\\r\\n            <div\\r\\n                animate:flip\\r\\n                class=\\"toast\\"\\r\\n                style=\\"background: {themes[notification.type]};\\"\\r\\n                transition:fly=\\"{{ y: 30 }}\\">\\r\\n                <div class=\\"content\\">{notification.message}</div>\\r\\n                {#if notification.icon}<i class=\\"{notification.icon}\\"></i>{/if}\\r\\n            </div>\\r\\n        {/each}\\r\\n    </div>"],"names":[],"mappings":"AAAO,4BAAc,CAAC,YAAY,MAAM,CAAC,cAAc,IAAI,CAAC,QAAQ,IAAI,CAAC,eAAe,MAAM,CAAC,gBAAgB,UAAU,CAAC,KAAK,CAAC,CAAC,OAAO,CAAC,CAAC,IAAI,CAAC,QAAQ,CAAC,CAAC,eAAe,IAAI,CAAC,SAAS,KAAK,CAAC,MAAM,CAAC,CAAC,IAAI,IAAI,CAAC,QAAQ,IAAI,CAAC,oBAAM,CAAC,cAAc,IAAI,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,cAAc,IAAI,CAAC,sBAAQ,CAAC,MAAM,IAAI,CAAC,QAAQ,KAAK,CAAC,YAAY,GAAG,CAAC,QAAQ,IAAI,CAAC"}'
 };
 var Toast = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 	let $notifications, $$unsubscribe_notifications;
@@ -41354,8 +41291,7 @@ var DarkSection = create_ssr_component(($$result, $$props, $$bindings, slots) =>
 		{ img: '/assets/integration.svg' },
 		{},
 		{
-			default:
-				() => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800'}">Hydralite\u2019s tightly integrated with<br> your favourite providers! You can <br> do it all
+			default: () => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800'}">Hydralite\u2019s tightly integrated with<br> your favourite providers! You can <br> do it all
 					through Hydralite.
 				</h4>`
 		}
@@ -41365,8 +41301,7 @@ var DarkSection = create_ssr_component(($$result, $$props, $$bindings, slots) =>
 				{ img: '/assets/git.svg' },
 				{},
 				{
-					default:
-						() => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800'}">Integrated with Github,<br> Bitbucket and Gitlab for seamless codebase management.
+					default: () => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800'}">Integrated with Github,<br> Bitbucket and Gitlab for seamless codebase management.
 				</h4>`
 				}
 			)}
@@ -41375,8 +41310,7 @@ var DarkSection = create_ssr_component(($$result, $$props, $$bindings, slots) =>
 				{ img: '/assets/releases.svg' },
 				{},
 				{
-					default:
-						() => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800'}">Hydralite allows you<br> to handle releases<br> easily using our<br> integrations.
+					default: () => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800'}">Hydralite allows you<br> to handle releases<br> easily using our<br> integrations.
 				</h4>`
 				}
 			)}
@@ -41385,8 +41319,7 @@ var DarkSection = create_ssr_component(($$result, $$props, $$bindings, slots) =>
 				{ img: '/assets/community.svg' },
 				{},
 				{
-					default:
-						() => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800 mr-3'}">Build a community around your product.  Update them<br>  about your latest releases
+					default: () => `<h4 class="${'text-center font-bold font-montserrat md:text-xl lg:text-sm text-gray-800 mr-3'}">Build a community around your product.  Update them<br>  about your latest releases
 					<br>and features.
 				</h4>`
 				}
@@ -41431,8 +41364,7 @@ var Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 		},
 		{},
 		{
-			default:
-				() => `The place for Developers to<br><span class="${'typing text-iris-30 font-extrabold'}"></span>Software
+			default: () => `The place for Developers to<br><span class="${'typing text-iris-30 font-extrabold'}"></span>Software
 			`
 		}
 	)}</h1>

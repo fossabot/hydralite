@@ -391,28 +391,22 @@ const z = {},
 	},
 	Y = [
 		() =>
-			X(
-				() => import('./pages/__layout.svelte-f3c58152.js'),
-				[
-					'pages/__layout.svelte-f3c58152.js',
-					'assets/pages/__layout.svelte-dd9d94d3.css',
-					'chunks/vendor-c3306e91.js'
-				]
-			),
+			X(() => import('./pages/__layout.svelte-f3c58152.js'), [
+				'pages/__layout.svelte-f3c58152.js',
+				'assets/pages/__layout.svelte-dd9d94d3.css',
+				'chunks/vendor-c3306e91.js'
+			]),
 		() =>
-			X(
-				() => import('./error.svelte-7bf29900.js'),
-				['error.svelte-7bf29900.js', 'chunks/vendor-c3306e91.js']
-			),
+			X(() => import('./error.svelte-7bf29900.js'), [
+				'error.svelte-7bf29900.js',
+				'chunks/vendor-c3306e91.js'
+			]),
 		() =>
-			X(
-				() => import('./pages/index.svelte-ec2a9404.js'),
-				[
-					'pages/index.svelte-ec2a9404.js',
-					'assets/pages/index.svelte-7abb02ec.css',
-					'chunks/vendor-c3306e91.js'
-				]
-			)
+			X(() => import('./pages/index.svelte-ec2a9404.js'), [
+				'pages/index.svelte-ec2a9404.js',
+				'assets/pages/index.svelte-7abb02ec.css',
+				'chunks/vendor-c3306e91.js'
+			])
 	],
 	F = [[/^\/$/, [Y[0], Y[2]], [Y[1]]]],
 	H = [Y[0](), Y[1]()];
