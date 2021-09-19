@@ -17,8 +17,8 @@ onMount(() => {
 </script>
 
 <div class=" font-montserrat">
-	<div class="fixed z-50 w-screen">
-	<div class="flex items-center justify-between font-montserrat py-2 px-16 bg-opacity-60 backdrop-blur-2xl">
+	<div class="fixed z-[10000] w-screen">
+	<div class="flex items-center h-[10vh] justify-between font-montserrat py-2 px-16 bg-opacity-60 backdrop-blur-xl">
 		<img src="/logo/logo.svg" alt="Logo" class="w-14" />
 		<button
 			class="font-bold text-gray-500"
@@ -32,7 +32,7 @@ onMount(() => {
 	</div>
 </div>
 	<div class="overflow-x-hidden">
-	<div class="h-[calc(100vh-10vh)] flex items-center justify-center w-screen flex-col">
+	<div class="h-screen flex items-center justify-center w-screen flex-col">
 		<span class="font-bold text-center text-5xl font-montserrat leading-[1.35]" >
 			The place for Developers to<br/>
 			<span class="typity" bind:this={wrapper}></span>{" "}Software

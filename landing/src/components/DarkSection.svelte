@@ -15,8 +15,9 @@
 	</div>
 	<div class="hidden sm:hidden md:hidden lg:text-sm xl:hidden 2xl:inline-flex">
 		<div
-			class=" z-50 absolute bg-white w-[calc(100%-30%)] h-[25vh] right-[15vw]  bottom-[-15vh] drop-shadow-2xl rounded-xl flex"
+			class=" z-50 absolute  w-screen right-[0.5vw] h-[25vh] bottom-[-15vh]  flex justify-center"
 		>
+		<dir class="flex items-center justify-center w-[calc(100%-20%)] bg-white drop-shadow-2xl rounded-xl">
 			<Whitespace img="/assets/integration.svg">
 				<h4 class="text-center font-bold font-montserrat  md:text-xl lg:text-sm text-gray-800">
 					Hydralite’s tightly integrated with your favourite providers! You can  do it all

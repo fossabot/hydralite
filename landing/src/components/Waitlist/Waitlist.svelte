@@ -39,7 +39,7 @@
 					</h5>
 					<br />
 					<div
-						class="grid grid-cols-4 w-full h-[6vh] bg-acrylic-20 p-1 rounded-xl sm:h-[7vh] lg:h-[7vh] xl:h-[7vh]"
+						class="grid grid-cols-4 w-full h-[6vh] bg-acrylic-20 p-1 rounded-xl sm:h-[7vh] lg:h-[7vh] xl:h-[7vh] 2xl:h-[5vh]"
 					>
 						<input
 							bind:value={email}
