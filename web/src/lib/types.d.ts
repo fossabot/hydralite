@@ -4,3 +4,7 @@ export interface User {
 	profilePicture: string;
 	id: string;
 }
+
+export interface Projects{
+	
+}

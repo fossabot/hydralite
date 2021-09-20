@@ -6,8 +6,8 @@ export const prerender = true;
 import type { User } from "$lib/types";
 import { getContext } from "svelte";
 import type { Writable } from "svelte/store";
-import Skeleton from "../components/Skeleton/Skeleton.svelte";
-import ProtectedRoute from "../components/Home/ProtectedRoute.svelte";
+import Skeleton from "$lib/components/Skeleton/Skeleton.svelte";
+import ProtectedRoute from "$lib/components/Home/ProtectedRoute.svelte";
 const user: Writable<User> = getContext("Auth");
 </script>
 

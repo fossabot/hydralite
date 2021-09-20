@@ -2,7 +2,7 @@
     import { getContext } from "svelte";
 import type { User } from "$lib/types";
 import type { Writable } from "svelte/store";
-
+import Sidebar from "./Sidebar/Sidebar.svelte";
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Fa from 'svelte-fa'
 const user: Writable<User> = getContext("Auth");
@@ -17,7 +17,7 @@ const user: Writable<User> = getContext("Auth");
 		</h1>
 		<div class="flex gap-4 font-bold text-xl text-black dark:text-white">
 			<span>Discover</span>
-			<span>Project</span>
+			<span class="text-dark-color-accent">Project</span>
 			<span>Project Ideas</span>
 		</div>
 		<div
@@ -33,9 +33,11 @@ const user: Writable<User> = getContext("Auth");
             </div>
 		</div>
 	</div>
+	<slot></slot>
+
 	<div
 		class="w-[50px] h-[calc(100vh-100px)] mt-[20px] flex items-center flex-col">
-		<h1>asd</h1>
-		<h1>asd</h1>
+		<Sidebar />
 	</div>
+	
 </div>
