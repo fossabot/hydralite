@@ -5,6 +5,4 @@ export interface User {
 	id: string;
 }
 
-export interface Projects{
-	
-}
+export interface Projects {}
