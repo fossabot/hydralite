@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { getContext } from "svelte";
+import { getContext } from "svelte";
 import type { User } from "$lib/types";
 import type { Writable } from "svelte/store";
 import Sidebar from "./Sidebar/Sidebar.svelte";
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import Fa from 'svelte-fa'
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Fa from "svelte-fa";
 const user: Writable<User> = getContext("Auth");
 </script>
 
@@ -27,17 +27,17 @@ const user: Writable<User> = getContext("Auth");
 				width="20%"
 				class="rounded-xl"
 				alt="Profile pic" />
-			<span class="text-sm text-black dark:text-white">{$user.name ?? ""}</span>
+			<span class="text-sm text-black dark:text-white"
+				>{$user.name ?? ""}</span>
 			<div class="  ">
-                <Fa icon={faChevronDown} class="text-black dark:text-white"/>
-            </div>
+				<Fa icon="{faChevronDown}" class="text-black dark:text-white" />
+			</div>
 		</div>
 	</div>
-	<slot></slot>
+	<slot />
 
 	<div
 		class="w-[50px] h-[calc(100vh-100px)] mt-[20px] flex items-center flex-col">
 		<Sidebar />
 	</div>
-	
 </div>

@@ -15,12 +15,12 @@ onMount(() => {
 	if ($AuthStore === null) {
 		let accessToken = localStorage.getItem("accessToken");
 		if (accessToken != null) {
-			SendReq("http://localhost:8000/api/auth/getProjects", "GET", {
-				Authorization: `bearer ${accessToken}`,
-			}).then((val) => {
-				console.log(val);
-			});
-			SendReq("http://localhost:8000/api/auth/getUser", "GET", {
+			// SendReq("http://127.0.0.1:8000/api/auth/getProjects", "GET", {
+			// 	Authorization: `bearer ${accessToken}`,
+			// }).then((val) => {
+			// 	console.log(val);
+			// });
+			SendReq("http://127.0.0.1:8000/api/auth/getUser", "GET", {
 				Authorization: `bearer ${accessToken}`,
 			}).then((val) => {
 				gotServerResp = true;
@@ -42,13 +42,13 @@ onMount(() => {
 					}
 					let {
 						_id: { $oid },
-						profile: { name, email, profilepic },
+						Profile: { Name, Email, ProfilePic },
 					} = val;
 					let u: User = {
-						email: email,
+						email: Email,
 						id: $oid,
-						name: name,
-						profilePicture: profilepic,
+						name: Name,
+						profilePicture: ProfilePic,
 					};
 					AuthStore.set(u);
 					loggedIn.set(true);

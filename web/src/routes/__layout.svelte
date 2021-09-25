@@ -1,5 +1,4 @@
 <style>
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,7 +22,6 @@ setContext("Auth", AuthStore);
 const Project: Writable<User | null> = writable(user);
 
 setContext("Auth", Project);
-
 
 const loggedIn: Writable<boolean> = writable(false);
 setContext("LoggedIn", loggedIn);
