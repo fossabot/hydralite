@@ -1,5 +1,5 @@
 <style>
-.footer {
+/* .footer {
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -9,7 +9,7 @@
 	color: white;
 	text-align: center;
 	margin: 20px;
-}
+} */
 .shim-blue {
 	position: relative;
 	overflow: hidden;

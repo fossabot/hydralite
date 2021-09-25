@@ -31,8 +31,6 @@
 
 <!-- This code rightfully belongs to https://svelte.dev/repl/2254c3b9b9ba4eeda05d81d2816f6276?version=3.32.2 -->
 <script>
-// @ts-nocheck
-
 import { flip } from "svelte/animate";
 import { fly } from "svelte/transition";
 import { notifications } from "./notifications";
