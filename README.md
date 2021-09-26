@@ -4,6 +4,7 @@
 ![LOC](https://img.shields.io/tokei/lines/github/hydralite/hydralite?color=white&label=lines%20of%20code)
 ![Top Language](https://img.shields.io/github/languages/top/hydralite/hydralite?color=%230xfffff)
 ![Repo Size](https://img.shields.io/github/repo-size/hydralite/hydralite?color=orange)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhydralite%2Fhydralite.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhydralite%2Fhydralite?ref=badge_shield)
 
 ## What Is Hydralite?
 
@@ -43,3 +44,7 @@ To start both the frontend webapp and the GraphQL API backend servers:
 ## Sponsors
 
 <a href="https://yomo.run">![YoMo.run](https://github.com/hydralite/hydralite/blob/dev/assets/sponsors/yomo.png?raw=true)</a>
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhydralite%2Fhydralite.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhydralite%2Fhydralite?ref=badge_large)
